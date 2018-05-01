@@ -3,8 +3,8 @@ from django.db import models
 from config.constants import SEX_CHOICES, INCOME_CHOICES
 
 
-class Answer( models.Model):
-    customer=models.ForeignKey('customer.Customer', null=False, blank=False)
+class Answer(models.Model):
+    customer = models.ForeignKey('customer.Customer', null=False, blank=False)
 
     # replica of customer basic info
     name = models.CharField(_(u'姓名'), max_length=50, null=False, blank=False)
@@ -61,3 +61,7 @@ class Answer( models.Model):
     question38 = models.PositiveIntegerField(blank=True, null=True)
 
     # manual input content
+
+
+class Report(models.Model):
+    answer = models.ForeignKey('survey.Answer', null=False, blank=False)

@@ -69,6 +69,7 @@ INSTALLED_APPS = (
     'apps.premium_product',
     'apps.brand',
     'apps.dashboard',
+    'apps.survey',
     'apps.weixin',
     'utils',
 

@@ -1,0 +1,192 @@
+{% extends "adminlte/base.html" %}
+{% comment %}
+    Multi-tabs list page for single model
+{% endcomment %}
+
+{% load static %}
+{% block content_title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block content %}
+    <div class="row" id="commonDataTableRow">
+        <div class="col-xs-12 full-width">
+            <div class="box box-info">
+                <div class="box-header">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            {% block common_list_buttons %}
+                                {% if page_model_perms.add %}
+                                <a class="btn btn-primary" id="create">
+                                    <i class="fa fa-plus"></i>
+                                    <b>新建</b>
+                                </a>
+                                {% endif %}
+                                {% if page_model_perms.delete %}
+                                <button class="btn btn-danger" v-on:click="removeSelected">
+                                    <i class="fa fa-trash-o"></i>
+                                    删除
+                                </button>
+                                {% endif %}
+                            {% endblock %}
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="input-group">
+                                <input type="text" name="search" id="tableSearch" placeholder="关键字" v-on:keypress.13="search" class="form-control input-sm pull-right">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-default" v-on:click="resetSearch">
+                                        <i class="fa fa-times-circle"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-default" v-on:click="search">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% block tab_nav %}
+                <ul class="nav nav-tabs">
+                  <li data-status="ALL" class="active">
+                    <a data-toggle="tab" href="#pane-ALL"> ALL</a>
+                  </li>
+                  <li data-status="RADIO">
+                    <a data-toggle="tab" href="#pane-RADIO"> RADIO</a>
+                  </li>
+                </ul>
+            {% endblock %}
+
+            {% block tab_content %}
+            <div class="tab-content">
+                <div class="tab-pane active" id="pane-ALL">
+                    <table class="table table-hover" data-status="ALL">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width:60px;">
+                                    <input type="checkbox" name="checkboxAllRow" class="checkboxAllRow" v-on:click="toggleAllBox" />
+                                </th>
+                                {% for title in table_titles %}
+                                    {% if title == 'ID' %}
+                                        <th></th>
+                                    {% else %}
+                                        <th>
+                                            {{ title }}
+                                        </th>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                </tr>
+                            </tfoot>
+                            <tbody v-for="item in items">
+                                <tr v-if="item.id">
+                                    <td class="text-center">
+                                        <input type="checkbox" class="minimal" name="checkboxRow" value="#[item.id]" />
+                                    </td>
+                                    {% for field in table_fields %}
+                                        {% if field == 'id' %}
+                                            <td class="text-right">
+{#                                                {% if page_model_perms.view %}#}
+{#                                                <a data-toggle="tooltip" data-placement="bottom" data-original-title="View" href="#[item.detail_url]" class="btn btn-info btn-sm">#}
+{#                                                   <i class="fa fa-lg fa-bars fa-inverse"></i>#}
+{#                                                </a>#}
+{#                                                {% endif %}#}
+                                                {% if page_model_perms.change %}
+                                                <a data-toggle="tooltip" data-placement="bottom" data-original-title="Edit" href="#[item.edit_url]" class="btn btn-warning btn-sm">
+                                                    <i class="fa fa-lg fa-pencil fa-inverse"></i>
+                                                </a>
+                                                {% endif %}
+                                                {% if page_model_perms.delete %}
+                                                <a data-toggle="tooltip" data-placement="bottom" data-original-title="Delete" data-pk="#[item.id]" v-on:click="removeOne" href="javascript:void(0);" class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-lg fa-trash-o fa-inverse"></i>
+                                                </a>
+                                                {% endif %}
+                                            </td>
+                                        {% else %}
+                                            <td>
+                                                {!! item.{{ field }} !!}
+                                            </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-pane" id="pane-RADIO">
+                    <table class="table table-hover" data-status="RADIO">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width:60px;">
+                                    <input type="checkbox" name="checkboxAllRow" class="checkboxAllRow" v-on:click="toggleAllBox"/>
+                                </th>
+                                {% for title in table_titles %}
+                                    {% if title == 'ID' %}
+                                        <th></th>
+                                    {% else %}
+                                        <th>
+                                            {{ title }}
+                                        </th>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                </tr>
+                            </tfoot>
+                            <tbody v-for="item in items">
+                                <tr v-if="item.id">
+                                    <td class="text-center">
+                                        <input type="checkbox" class="minimal" name="checkboxRow" value="#[item.id]"/>
+                                    </td>
+                                    {% for field in table_fields %}
+                                        {% if field == 'id' %}
+                                          {% block item_buttons %}
+                                            <td class="text-right hidden-sm hidden-xs">
+{#                                                {% if page_model_perms.view %}#}
+{#                                                <a data-toggle="tooltip" data-placement="bottom" data-original-title="View" href="#[item.detail_url]" class="btn btn-info btn-sm">#}
+{#                                                   <i class="fa fa-lg fa-bars fa-inverse"></i>#}
+{#                                                </a>#}
+{#                                                {% endif %}#}
+                                                {% if page_model_perms.change %}
+                                                <a data-toggle="tooltip" data-placement="bottom" data-original-title="Edit" href="#[item.edit_url]" class="btn btn-warning btn-sm">
+                                                    <i class="fa fa-lg fa-pencil fa-inverse"></i>
+                                                </a>
+                                                {% endif %}
+                                                {% if page_model_perms.delete %}
+                                                <a data-toggle="tooltip" data-placement="bottom" data-original-title="Delete" data-pk="#[item.id]" v-on:click="removeOne" href="javascript:void(0);" class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-lg fa-trash-o fa-inverse"></i>
+                                                </a>
+                                                {% endif %}
+                                            </td>
+                                          {% endblock %}
+                                        {% else %}
+                                            <td>
+                                                {!! item.{{ field }} !!}
+                                            </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endblock %}
+
+            {% block common_list_pagination %}{% endblock %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_page_script %}
+    <script type="text/javascript" src="{% static 'adminlte/js/common-list-page-base.js' %}"></script>
+    {% block common_list_footer_page_script %}
+        <script type="text/javascript" src="{% static 'adminlte/js/common-list-page.js' %}"></script>
+    {% endblock %}
+{% endblock %}

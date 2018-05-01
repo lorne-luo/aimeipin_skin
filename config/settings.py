@@ -118,10 +118,9 @@ LANGUAGE_CODE = 'zh-hans'
 
 LANGUAGES = [
     ('cn', _('Simplified Chinese')),
-    ('en', _('English')),
 ]
 
-TIME_ZONE = 'Australia/Melbourne'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

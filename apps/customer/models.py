@@ -7,8 +7,8 @@ from config.constants import INCOME_CHOICES, SEX_CHOICES
 from apps.product.models import Product
 
 
-class Customer( models.Model):
-    wx_user=models.ForeignKey('weixin.WxUser', null=True, blank=True)
+class Customer(models.Model):
+    wx_user = models.ForeignKey('weixin.WxUser', null=True, blank=True)
     name = models.CharField(_(u'姓名'), max_length=50, null=False, blank=False)
     name_py = models.CharField(_(u'姓名'), max_length=50, null=True, blank=True)
     sex = models.CharField(_(u'性别'), choices=SEX_CHOICES, max_length=30, null=False, blank=False)
@@ -23,6 +23,7 @@ class Customer( models.Model):
     weixin_id = models.CharField(_(u'微信号'), max_length=128, blank=True)
     address = models.CharField(_(u'地址'), max_length=255, blank=True)
     remark = models.CharField(_(u'备注'), max_length=255, blank=True)
+    created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     class Meta:
         verbose_name_plural = _('Customer')

@@ -7,35 +7,7 @@ from django.views.generic import ListView, CreateView, UpdateView
 from core.django.permission import SellerOwnerOrSuperuserRequiredMixin
 from core.django.views import CommonContextMixin
 from . import forms
-from .models import Address, Customer
-
-
-# views for Address
-
-class AddressListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
-    model = Address
-    template_name_suffix = '_list'  # customer/address_list.html
-
-
-class AddressAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
-    model = Address
-    form_class = forms.AddressAddForm
-    template_name = 'adminlte/common_form.html'
-    permissions = {
-        "all": ("address.add_address",)
-    }
-
-
-class AddressUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
-    model = Address
-    form_class = forms.AddressUpdateForm
-    template_name = 'adminlte/common_form.html'
-
-
-class AddressDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
-    model = Address
-    form_class = forms.AddressDetailForm
-    template_name = 'adminlte/common_detail_new.html'
+from .models import Customer
 
 
 # views for Customer

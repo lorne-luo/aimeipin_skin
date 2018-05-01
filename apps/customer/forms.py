@@ -4,23 +4,25 @@ from django.contrib import admin
 from django.forms.models import modelformset_factory, inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
 
-from core.django.forms import NoManytoManyHintModelForm
 from .models import Customer
 
 
-class CustomerAddForm(NoManytoManyHintModelForm):
+class CustomerAddForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ['name', 'remark', 'email', 'mobile']
+        fields = ['name', 'sex', 'age', 'height', 'weight', 'job', 'monthly_income', 'address', 'weixin_id', 'remark',
+                  'email', 'mobile']
 
 
-class CustomerDetailForm(NoManytoManyHintModelForm):
+class CustomerDetailForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ['name', 'remark', 'email', 'mobile', 'primary_address']
+        fields = ['name', 'sex', 'age', 'height', 'weight', 'job', 'monthly_income', 'address', 'weixin_id', 'remark',
+                  'email', 'mobile']
 
 
-class CustomerUpdateForm(NoManytoManyHintModelForm):
+class CustomerUpdateForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ['name', 'remark', 'email', 'mobile', 'primary_address']
+        fields = ['name', 'sex', 'age', 'height', 'weight', 'job', 'monthly_income', 'address', 'weixin_id', 'remark',
+                  'email', 'mobile']

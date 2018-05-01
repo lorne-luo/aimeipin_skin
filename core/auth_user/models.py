@@ -7,7 +7,7 @@ from core.auth_user.constant import ADMIN_GROUP
 
 
 class AuthUserManager(UserManager):
-    def _create_user(self, password, is_staff, is_superuser, email,  **extra_fields):
+    def _create_user(self, password, is_staff, is_superuser, email, **extra_fields):
         """
         Creates and saves a User with the given username, email and password.
         """
@@ -24,12 +24,6 @@ class AuthUserManager(UserManager):
 
     def create_superuser(self, email, password, **extra_fields):
         return self._create_user(password, True, True, email, **extra_fields)
-
-    def identify(self, mobile_or_email):
-        if '@' in mobile_or_email:
-            return super(AuthUserManager, self).get(email=mobile_or_email)
-        else:
-            return super(AuthUserManager, self).get(mobile=mobile_or_email)
 
 
 class AuthUser(AbstractUser):

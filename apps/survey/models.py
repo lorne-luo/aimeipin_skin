@@ -5,6 +5,7 @@ from config.constants import SEX_CHOICES, INCOME_CHOICES
 
 
 class Answer(models.Model):
+    """试卷答案"""
     customer = models.ForeignKey('customer.Customer', null=False, blank=False)
 
     # replica of customer basic info

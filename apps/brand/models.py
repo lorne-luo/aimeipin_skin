@@ -29,6 +29,7 @@ def get_brand_logo_path(instance, filename):
 
 
 class Brand(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
+    """品牌"""
     country = CountryField(verbose_name=_('country'))
     name_en = models.CharField(_('name_en'), max_length=128, blank=True)
     name_cn = models.CharField(_('name_cn'), max_length=128, blank=True)

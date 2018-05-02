@@ -42,6 +42,7 @@ class ProductManager(models.Manager):
 
 
 class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
+    """普通产品库，由爬虫导入，客户输入现用产品时使用，不会推荐给客人"""
     # sku = models.CharField(max_length=36, unique=True, null=True, blank=True)
     brand = models.ForeignKey(Brand, blank=True, null=True)
     name_en = models.CharField(_(u'name_en'), max_length=255, blank=True)
@@ -95,6 +96,7 @@ def product_deleted(sender, **kwargs):
 
 
 class ProductIngredient(models.Model):
+    """产品成分"""
     product = models.ForeignKey('product.Product', blank=True, null=True)
     name = models.CharField(_(u'name'), max_length=128, blank=True)
     is_safe = models.CharField(_(u'name'), max_length=128, blank=True)  # 是否安全
@@ -105,6 +107,7 @@ class ProductIngredient(models.Model):
 
 
 class ProductSkinAnalysis(models.Model):
+    """产品的肤质阐述"""
     product = models.ForeignKey('product.Product', blank=True, null=True)
     oil_or_dry = models.CharField(max_length=64, choices=SKIN_OIL_OR_DRY_CHOICES, null=True, blank=True)
     sensitivity = models.CharField(max_length=64, choices=SKIN_SENSITIVITY_CHOICES, null=True, blank=True)

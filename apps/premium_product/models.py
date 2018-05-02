@@ -43,7 +43,7 @@ class PremiumProductManager(models.Manager):
 
 
 class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
-    sku = models.CharField(max_length=36, unique=True, null=True, blank=True)
+    """优选产品，将会推荐给客人"""
     brand = models.ForeignKey(Brand, blank=True, null=True, verbose_name=_('brand'))
     name_en = models.CharField(_(u'name_en'), max_length=128, blank=True)
     name_cn = models.CharField(_(u'name_cn'), max_length=128, blank=True)
@@ -53,11 +53,7 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
                             'medium': (800, 800, True),
                             'thumbnail': (400, 400, True)
                         })
-    skin_type = models.CharField(max_length=64, choices=SKIN_TYPE_CHOICES, null=True, blank=True)
-    sold_count = models.IntegerField(_(u'Sold Count'), default=0, null=False, blank=False)
     description = models.TextField(_(u'description'), null=True, blank=True)
-    category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, null=True, blank=True)
-    purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES, null=True, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
     aliases = TaggableManager(verbose_name='aliases')
 
@@ -99,3 +95,10 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
 def product_deleted(sender, **kwargs):
     instance = kwargs['instance']
     PremiumProduct.objects.clean_cache()
+
+class ProductFit(models.Model):
+    """优选产品适合的肤质组合"""
+    product = models.ForeignKey('premium_product.PremiumProduct', blank=True, null=True)
+    skin_type = models.CharField(max_length=64, choices=SKIN_TYPE_CHOICES, null=True, blank=True)
+    purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES, null=True, blank=True)
+    category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, null=True, blank=True)

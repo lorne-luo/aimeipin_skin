@@ -1,10 +1,7 @@
 # coding:utf-8
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
-from core.auth_user.models import AuthUser, UserProfileMixin
 from config.constants import INCOME_CHOICES, SEX_CHOICES
-from apps.product.models import Product
 
 
 class Customer(models.Model):

@@ -32,7 +32,7 @@ class Brand(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
     country = CountryField(verbose_name=_('country'))
     name_en = models.CharField(_('name_en'), max_length=128, blank=True)
     name_cn = models.CharField(_('name_cn'), max_length=128, blank=True)
-    name_py = models.CharField(_('name_cn'), max_length=128, blank=True)
+    name_py = models.CharField(_('name_py'), max_length=128, blank=True)
     first_letter_en = models.CharField(_('first_letter_en'), max_length=128, blank=True)
     first_letter_cn = models.CharField(_('first_letter_cn'), max_length=128, blank=True)
     pinyin = models.TextField(_('pinyin'), max_length=512, blank=True)
@@ -41,6 +41,7 @@ class Brand(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
                              'medium': (800, 800, True),
                              'thumbnail': (400, 400, True)
                          })
+    created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
     aliases = TaggableManager(verbose_name='aliases')
 
     pinyin_fields_conf = [
@@ -58,7 +59,7 @@ class Brand(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
         return self.name_cn or self.name_en
 
     def save(self, *args, **kwargs):
-        self.resize_image('pic')  # resize images when first uploaded
+        self.resize_image('logo')  # resize images when first uploaded
 
         super(Brand, self).save(*args, **kwargs)
 

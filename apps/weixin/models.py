@@ -209,3 +209,4 @@ class WxUser(UserProfileMixin, models.Model):
     subscribe_time = models.DateField(blank=True, null=True)
     # remark = models.CharField(_('Remark'), max_length=128, blank=True)  # 公众号运营者对粉丝的备注
     groupid = models.CharField(max_length=256, blank=True)  # 用户所在的分组ID
+    created_at = models.DateTimeField(u"创建时间", auto_now_add=True)

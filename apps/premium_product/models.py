@@ -41,36 +41,6 @@ class PremiumProductManager(models.Manager):
         cache.delete(self.DEFAULT_CACHE_KEY)
 
 
-'''
-| fuzhi        |
-+--------------+
-| 油性肌肤     |
-| 干性肌肤
-
-+-----------+
-| mubiao    |
-+-----------+
-| 急镇定    |
-| 抗轻衰    |
-| 收毛孔    |
-| 清痘痘    |
-| 祛暗沉    |
-| 调水油    |
-+-----------+
-+---------------+
-| leibie        |
-+---------------+
-| 乳液/面霜     |
-| 卸妆          |
-| 去角质        |
-| 化妆水        |
-| 洁面          |
-| 精华          |
-| 防晒          |
-| 面膜          |
-+---------------+
-'''
-
 
 class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
     sku = models.CharField(max_length=36, unique=True, null=True, blank=True)
@@ -88,6 +58,7 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
     description = models.TextField(_(u'description'), null=True, blank=True)
     category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, null=True, blank=True)
     purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES, null=True, blank=True)
+    created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
     aliases = TaggableManager(verbose_name='aliases')
 
     pinyin_fields_conf = [

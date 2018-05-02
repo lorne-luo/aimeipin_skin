@@ -10,8 +10,8 @@ from pypinyin import Style
 from stdimage import StdImageField
 from taggit.managers import TaggableManager
 
-from config.constants import PRODUCT_CATEGORY_CHOICES
-from core.auth_user.models import AuthUser
+from config.constants import PRODUCT_CATEGORY_CHOICES, SKIN_OIL_OR_DRY_CHOICES, SKIN_SENSITIVITY_CHOICES, \
+    SKIN_PIGMENT_CHOICES, SKIN_LOOSE_CHOICES
 from core.django.models import PinYinFieldModelMixin, ResizeUploadedImageModelMixin
 from config.settings import PRODUCT_PHOTO_FOLDER, MEDIA_ROOT
 from ..brand.models import Brand
@@ -42,21 +42,21 @@ class ProductManager(models.Manager):
 
 
 class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
-    sku = models.CharField(max_length=36, unique=True, null=True, blank=True)
-    brand = models.ForeignKey(Brand, blank=True, null=True, verbose_name=_('brand'))
-    name_en = models.CharField(_(u'name_en'), max_length=128, blank=True)
-    name_cn = models.CharField(_(u'name_cn'), max_length=128, blank=True)
+    # sku = models.CharField(max_length=36, unique=True, null=True, blank=True)
+    brand = models.ForeignKey(Brand, blank=True, null=True)
+    name_en = models.CharField(_(u'name_en'), max_length=255, blank=True)
+    name_cn = models.CharField(_(u'name_cn'), max_length=255, blank=True)
+    name_py = models.CharField(_(u'name_py'), max_length=255, blank=True)
     pinyin = models.TextField(_('pinyin'), max_length=512, blank=True)
     pic = StdImageField(upload_to=get_product_pic_path, blank=True, null=True, verbose_name=_('picture'),
                         variations={
                             'medium': (800, 800, True),
                             'thumbnail': (400, 400, True)
                         })
-    sold_count = models.IntegerField(_(u'Sold Count'), default=0, null=False, blank=False)
     description = models.TextField(_(u'description'), null=True, blank=True)
     aliases = TaggableManager(verbose_name='aliases')
     category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, null=True, blank=True)
-    ingredients = models.ManyToManyField('product.ProductIngredient')
+    created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     pinyin_fields_conf = [
         ('name_cn', Style.NORMAL, False),
@@ -65,10 +65,6 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
         ('brand.name_cn', Style.FIRST_LETTER, False),
     ]
     objects = ProductManager()
-
-    class Meta:
-        verbose_name_plural = _('Product')
-        verbose_name = _('Product')
 
     def __str__(self):
         if self.brand and self.brand.name_en.lower() != 'none':
@@ -99,9 +95,19 @@ def product_deleted(sender, **kwargs):
 
 
 class ProductIngredient(models.Model):
+    product = models.ForeignKey('product.Product', blank=True, null=True)
     name = models.CharField(_(u'name'), max_length=128, blank=True)
     is_safe = models.CharField(_(u'name'), max_length=128, blank=True)  # 是否安全
     is_live = models.CharField(_(u'name'), max_length=128, blank=True)  # 活性因子
     is_pox = models.CharField(_(u'name'), max_length=128, blank=True)  # 导致起痘
     description = models.CharField(_(u'description'), max_length=128, blank=True)
     effect = models.CharField(_(u'effect'), max_length=128, blank=True)
+
+
+class ProductSkinAnalysis(models.Model):
+    product = models.ForeignKey('product.Product', blank=True, null=True)
+    oil_or_dry = models.CharField(max_length=64, choices=SKIN_OIL_OR_DRY_CHOICES, null=True, blank=True)
+    sensitivity = models.CharField(max_length=64, choices=SKIN_SENSITIVITY_CHOICES, null=True, blank=True)
+    pigment = models.CharField(max_length=64, choices=SKIN_PIGMENT_CHOICES, null=True, blank=True)
+    loose = models.CharField(max_length=64, choices=SKIN_LOOSE_CHOICES, null=True, blank=True)
+    analysis = models.TextField(_(u'analysis'), max_length=255, blank=True)

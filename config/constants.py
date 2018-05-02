@@ -44,3 +44,24 @@ SKIN_TYPE_CHOICES = (
     (u'干性肌肤', u'干性肌肤'),
     (u'油性肌肤', u'油性肌肤'),
 )
+
+SKIN_OIL_OR_DRY_CHOICES = (
+    (u'1', u'重度油性'),
+    (u'2', u'轻度油性'),
+    (u'3', u'轻度干性'),
+    (u'4', u'重度干性'),
+)
+SKIN_SENSITIVITY_CHOICES = (
+    (u'5', u'重度敏感性'),
+    (u'6', u'轻度敏感性'),
+    (u'7', u'轻度耐受性'),
+    (u'8', u'耐受性'),
+)
+SKIN_PIGMENT_CHOICES = (
+    (u'9', u'色素性皮肤'),
+    (u'10', u'非色素性皮肤'),
+)
+SKIN_LOOSE_CHOICES = (
+    (u'11', u'非紧致性皮肤'),
+    (u'12', u'紧致性皮肤'),
+)

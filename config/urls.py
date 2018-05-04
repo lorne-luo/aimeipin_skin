@@ -7,8 +7,8 @@ from django.contrib.auth import views as auth_views
 # from wagtail.wagtailcore import urls as wagtail_urls
 # from wagtail.wagtaildocs import urls as wagtaildocs_urls
 # from wagtail.wagtailimages import urls as wagtailimages_urls
-
 # from apps.wagtail.search.views import search as wagtail_search
+
 from core.auth_user.views import ChangePasswordView
 from core import auth_user
 from core.auth_user.forms import CustomPasswordResetForm, CustomSetPasswordForm
@@ -34,18 +34,13 @@ apps_urlpatterns = [
     url(r'^customer/', include('apps.customer.urls', namespace='customer')),
     url(r'^users/', include('core.auth_user.urls', namespace='users')),
     url(r'^product/', include('apps.product.urls', namespace='product')),
-    url(r'^wx/', include('apps.weixin.urls', namespace='weixin')),
-    # url(r'^messageset/', include('core.messageset.urls', namespace='messageset')),
-    # url(r'^payments/', include('core.payments.stripe.urls', namespace='payments')),
+    url(r'^weixin/', include('apps.weixin.urls', namespace='weixin')),
 ]
 
 # REST API
 api_urlpatterns = [
     url(r'^customer/', include('apps.customer.api.urls')),
-    # url(r'^member/', include('apps.member.api.urls')),
     url(r'^product/', include('apps.product.api.urls')),
-    # url(r'^messageset/', include('core.messageset.api.urls')),
-    # url(r'^sms/', include('core.sms.urls')),
 ]
 
 urlpatterns = wagtail_urlpatterns + apps_urlpatterns + [

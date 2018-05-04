@@ -53,27 +53,27 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
-    'django_extensions',
-    'djcelery',
 
     # common app
-    'core.commands',  # customized django commands
     'core.auth_user',
+    'core.commands',  # customized django commands
     'core.adminlte',
-    # 'core.messageset',
     'core.autocode',
 
-    'apps.celery',  # celery tasks
+    'apps.weixin',
     'apps.customer',
     'apps.product',
     'apps.premium_product',
     'apps.brand',
     'apps.dashboard',
     'apps.survey',
-    'apps.weixin',
+    'apps.analysis',
+    'apps.celery',  # celery tasks
     'utils',
 
     # third_app
+    'django_extensions',
+    'djcelery',
     'django_js_reverse',
     'rest_framework',
     'modelcluster',

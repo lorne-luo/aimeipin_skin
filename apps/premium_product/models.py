@@ -41,9 +41,8 @@ class PremiumProductManager(models.Manager):
         cache.delete(self.DEFAULT_CACHE_KEY)
 
 
-
 class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
-    """优选产品，将会推荐给客人"""
+    """优选产品, 会推荐销售给客户, skin_you_product"""
     brand = models.ForeignKey(Brand, blank=True, null=True, verbose_name=_('brand'))
     name_en = models.CharField(_(u'name_en'), max_length=128, blank=True)
     name_cn = models.CharField(_(u'name_cn'), max_length=128, blank=True)

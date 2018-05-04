@@ -5,6 +5,7 @@ from config.constants import INCOME_CHOICES, SEX_CHOICES
 
 
 class Customer(models.Model):
+    """顾客信息，user_data"""
     wx_user = models.ForeignKey('weixin.WxUser', null=True, blank=True)
     name = models.CharField(_(u'姓名'), max_length=50, null=False, blank=False)
     name_py = models.CharField(_(u'姓名'), max_length=50, null=True, blank=True)

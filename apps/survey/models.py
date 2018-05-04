@@ -5,7 +5,7 @@ from config.constants import SEX_CHOICES, INCOME_CHOICES
 
 
 class Answer(models.Model):
-    """试卷答案"""
+    """问卷报告回答, user_content_word"""
     customer = models.ForeignKey('customer.Customer', null=False, blank=False)
 
     # replica of customer basic info
@@ -62,8 +62,12 @@ class Answer(models.Model):
     question37 = models.PositiveIntegerField(blank=True, null=True)
     question38 = models.PositiveIntegerField(blank=True, null=True)
 
+    created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
+
     # manual input content
 
 
 class Report(models.Model):
+    """问卷报告结果, user_content_word"""
     answer = models.ForeignKey('survey.Answer', null=False, blank=False)
+    created_at = models.DateTimeField(u"创建时间", auto_now_add=True)

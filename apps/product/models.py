@@ -43,7 +43,7 @@ class ProductManager(models.Manager):
 
 class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
     """普通产品库，由爬虫导入，客户输入现用产品时使用，不会推荐给客人, skin_product"""
-    # sku = models.CharField(max_length=36, unique=True, null=True, blank=True)
+    # sku = models.CharField(max_length=36, unique=True, blank=True)
     brand = models.ForeignKey(Brand, blank=True, null=True)
     name_en = models.CharField(_(u'name_en'), max_length=255, blank=True)
     name_cn = models.CharField(_(u'name_cn'), max_length=255, blank=True)
@@ -54,9 +54,9 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
                             'medium': (800, 800, True),
                             'thumbnail': (400, 400, True)
                         })
-    description = models.TextField(_(u'description'), null=True, blank=True)
+    description = models.TextField(_(u'description'), blank=True)
     aliases = TaggableManager(verbose_name='aliases')
-    category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, null=True, blank=True)
+    category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     pinyin_fields_conf = [
@@ -106,11 +106,11 @@ class ProductIngredient(models.Model):
     effect = models.CharField(_(u'effect'), max_length=128, blank=True)
 
 
-class ProductSkinAnalysis(models.Model):
+class ProductAnalysis(models.Model):
     """产品的肤质阐述 skin_p_t"""
     product = models.ForeignKey('product.Product', blank=True, null=True)
-    oil_or_dry = models.CharField(max_length=64, choices=SKIN_OIL_OR_DRY_CHOICES, null=True, blank=True)
-    sensitivity = models.CharField(max_length=64, choices=SKIN_SENSITIVITY_CHOICES, null=True, blank=True)
-    pigment = models.CharField(max_length=64, choices=SKIN_PIGMENT_CHOICES, null=True, blank=True)
-    loose = models.CharField(max_length=64, choices=SKIN_LOOSE_CHOICES, null=True, blank=True)
+    oil_or_dry = models.CharField(max_length=64, choices=SKIN_OIL_OR_DRY_CHOICES, blank=True)
+    sensitivity = models.CharField(max_length=64, choices=SKIN_SENSITIVITY_CHOICES, blank=True)
+    pigment = models.CharField(max_length=64, choices=SKIN_PIGMENT_CHOICES, blank=True)
+    loose = models.CharField(max_length=64, choices=SKIN_LOOSE_CHOICES, blank=True)
     analysis = models.TextField(_(u'analysis'), max_length=255, blank=True)

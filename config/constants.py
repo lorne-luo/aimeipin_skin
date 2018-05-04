@@ -65,3 +65,14 @@ SKIN_LOOSE_CHOICES = (
     (u'11', u'非紧致性皮肤'),
     (u'12', u'紧致性皮肤'),
 )
+
+PREMIUM_PRODUCT_ADVICE_TYPE_CHOICES=(
+    (u'日间', u'日间'),
+    (u'夜间', u'夜间'),
+    (u'面膜', u'面膜'),
+)
+
+SURVEY_LEVEL_CHOICES=(
+    (u'9.9', u'9.9'),
+    (u'98', u'98'),
+)

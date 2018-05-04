@@ -7,17 +7,16 @@ from config.constants import INCOME_CHOICES, SEX_CHOICES
 class Customer(models.Model):
     """顾客信息，user_data"""
     wx_user = models.ForeignKey('weixin.WxUser', null=True, blank=True)
-    name = models.CharField(_(u'姓名'), max_length=50, null=False, blank=False)
-    name_py = models.CharField(_(u'姓名'), max_length=50, null=True, blank=True)
-    sex = models.CharField(_(u'性别'), choices=SEX_CHOICES, max_length=30, null=False, blank=False)
+    name = models.CharField(_(u'姓名'), max_length=64, blank=False)
+    name_py = models.CharField(_(u'姓名'), max_length=50, blank=True)
+    sex = models.CharField(_(u'性别'), choices=SEX_CHOICES, max_length=30, blank=False)
     age = models.PositiveIntegerField(_(u'年龄'), null=True, blank=True)
     email = models.EmailField(_('Email'), max_length=255, blank=True)
     mobile = models.CharField(_(u'手机'), max_length=15, blank=True)
     height = models.PositiveIntegerField(_(u'身高'), null=True, blank=True)
     weight = models.PositiveIntegerField(_(u'体重'), null=True, blank=True)
-    job = models.CharField(_(u'职业'), max_length=50, null=True, blank=True)
-    monthly_income = models.CharField(_(u'收入'), choices=INCOME_CHOICES, max_length=50, null=True,
-                                      blank=True)  # todo choice
+    job = models.CharField(_(u'职业'), max_length=64, blank=True)
+    monthly_income = models.CharField(_(u'收入'), choices=INCOME_CHOICES, max_length=50, blank=True)
     weixin_id = models.CharField(_(u'微信号'), max_length=128, blank=True)
     address = models.CharField(_(u'地址'), max_length=255, blank=True)
     remark = models.CharField(_(u'备注'), max_length=255, blank=True)

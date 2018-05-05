@@ -2,18 +2,18 @@
 
 from django.db import models
 
-from config.constants import (SKIN_OIL_OR_DRY_CHOICES, SKIN_SENSITIVITY_CHOICES, SKIN_PIGMENT_CHOICES,
-                              SKIN_LOOSE_CHOICES, PURPOSE_CHOICES)
+from config.constants import (SKIN_OILY_TYPE_CHOICES, SKIN_SENSITIVE_TYPE_CHOICES, SKIN_PIGMENT_TYPE_CHOICES,
+                              SKIN_LOOSE_TYPE_CHOICES, PURPOSE_CHOICES)
 
 
 class Word(models.Model):
     """肤质对应话术, skin_word"""
     purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
 
-    oil_or_dry = models.CharField(max_length=64, choices=SKIN_OIL_OR_DRY_CHOICES, blank=True)
-    sensitivity = models.CharField(max_length=64, choices=SKIN_SENSITIVITY_CHOICES, blank=True)
-    pigment = models.CharField(max_length=64, choices=SKIN_PIGMENT_CHOICES, blank=True)
-    loose = models.CharField(max_length=64, choices=SKIN_LOOSE_CHOICES, blank=True)
+    oily_type = models.CharField(max_length=64, choices=SKIN_OILY_TYPE_CHOICES, blank=True)
+    sensitive_type = models.CharField(max_length=64, choices=SKIN_SENSITIVE_TYPE_CHOICES, blank=True)
+    pigment_type = models.CharField(max_length=64, choices=SKIN_PIGMENT_TYPE_CHOICES, blank=True)
+    loose_type = models.CharField(max_length=64, choices=SKIN_LOOSE_TYPE_CHOICES, blank=True)
 
     report = models.TextField(max_length=512, blank=True)  # 总结报告，填充值问卷报告的总结
     avoid_component = models.TextField(max_length=128, blank=True)  # 避免使用的成分

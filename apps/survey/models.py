@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SKIN_OIL_OR_DRY_CHOICES, \
-    SKIN_SENSITIVITY_CHOICES, SKIN_PIGMENT_CHOICES, SKIN_LOOSE_CHOICES, PREMIUM_PRODUCT_ADVICE_TYPE_CHOICES, \
+from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SKIN_OILY_TYPE_CHOICES, \
+    SKIN_SENSITIVE_TYPE_CHOICES, SKIN_PIGMENT_TYPE_CHOICES, SKIN_LOOSE_TYPE_CHOICES, PREMIUM_PRODUCT_ADVICE_TYPE_CHOICES, \
     SURVEY_LEVEL_CHOICES
 
 
@@ -10,7 +10,7 @@ class Answer(models.Model):
     """问卷报告回答,answer"""
     customer = models.ForeignKey('customer.Customer', null=False, blank=False)
     purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
-    level = models.CharField(max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 问卷目标
+    level = models.CharField(max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 9.9 or 98
 
     # replica of customer basic info
     name = models.CharField(_(u'姓名'), max_length=64, null=False, blank=False)
@@ -78,16 +78,16 @@ class Report(models.Model):
     level = models.CharField(max_length=64, choices=SURVEY_LEVEL_CHOICES,  blank=True)  # 问卷目标
 
     # 肤质4个维度种类
-    oil_or_dry = models.CharField(max_length=64, choices=SKIN_OIL_OR_DRY_CHOICES, blank=True)
-    sensitivity = models.CharField(max_length=64, choices=SKIN_SENSITIVITY_CHOICES, blank=True)
-    pigment = models.CharField(max_length=64, choices=SKIN_PIGMENT_CHOICES, blank=True)
-    loose = models.CharField(max_length=64, choices=SKIN_LOOSE_CHOICES, blank=True)
+    oily_type = models.CharField(max_length=64, choices=SKIN_OILY_TYPE_CHOICES, blank=True)
+    sensitive_type = models.CharField(max_length=64, choices=SKIN_SENSITIVE_TYPE_CHOICES, blank=True)
+    pigment_type = models.CharField(max_length=64, choices=SKIN_PIGMENT_TYPE_CHOICES, blank=True)
+    loose_type = models.CharField(max_length=64, choices=SKIN_LOOSE_TYPE_CHOICES, blank=True)
     # 肤质4个维度的测试评分
     oily_score = models.PositiveIntegerField(blank=True, null=True)
     sensitivity_score = models.PositiveIntegerField(blank=True, null=True)
     pigment_score = models.PositiveIntegerField(blank=True, null=True)
     loose_score = models.PositiveIntegerField(blank=True, null=True)
-
+    
     summary = models.TextField(max_length=128, blank=True)  # 报告总结
     problem = models.TextField(max_length=128, blank=True)  # 存在的问题
     # allergy = models.TextField(max_length=128, blank=True)  # 过敏，copy from answer

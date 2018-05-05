@@ -98,6 +98,6 @@ def product_deleted(sender, **kwargs):
 class ProductFit(models.Model):
     """优选产品适合的肤质组合"""
     product = models.ForeignKey('premium_product.PremiumProduct', blank=True, null=True)
-    skin_type = models.CharField(max_length=64, choices=SKIN_TYPE_CHOICES,  blank=True)
     purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES,  blank=True)
+    skin_type = models.CharField(max_length=64, choices=SKIN_TYPE_CHOICES,  blank=True)
     category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES,  blank=True)

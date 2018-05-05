@@ -10,8 +10,8 @@ from pypinyin import Style
 from stdimage import StdImageField
 from taggit.managers import TaggableManager
 
-from config.constants import PRODUCT_CATEGORY_CHOICES, SKIN_OIL_OR_DRY_CHOICES, SKIN_SENSITIVITY_CHOICES, \
-    SKIN_PIGMENT_CHOICES, SKIN_LOOSE_CHOICES
+from config.constants import PRODUCT_CATEGORY_CHOICES, SKIN_OILY_TYPE_CHOICES, SKIN_SENSITIVE_TYPE_CHOICES, \
+    SKIN_PIGMENT_TYPE_CHOICES, SKIN_LOOSE_TYPE_CHOICES
 from core.django.models import PinYinFieldModelMixin, ResizeUploadedImageModelMixin
 from config.settings import PRODUCT_PHOTO_FOLDER, MEDIA_ROOT
 from ..brand.models import Brand
@@ -109,8 +109,8 @@ class ProductIngredient(models.Model):
 class ProductAnalysis(models.Model):
     """产品的肤质阐述 skin_p_t"""
     product = models.ForeignKey('product.Product', blank=True, null=True)
-    oil_or_dry = models.CharField(max_length=64, choices=SKIN_OIL_OR_DRY_CHOICES, blank=True)
-    sensitivity = models.CharField(max_length=64, choices=SKIN_SENSITIVITY_CHOICES, blank=True)
-    pigment = models.CharField(max_length=64, choices=SKIN_PIGMENT_CHOICES, blank=True)
-    loose = models.CharField(max_length=64, choices=SKIN_LOOSE_CHOICES, blank=True)
+    oily_type = models.CharField(max_length=64, choices=SKIN_OILY_TYPE_CHOICES, blank=True)
+    sensitive_type = models.CharField(max_length=64, choices=SKIN_SENSITIVE_TYPE_CHOICES, blank=True)
+    pigment_type = models.CharField(max_length=64, choices=SKIN_PIGMENT_TYPE_CHOICES, blank=True)
+    loose_type = models.CharField(max_length=64, choices=SKIN_LOOSE_TYPE_CHOICES, blank=True)
     analysis = models.TextField(_(u'analysis'), max_length=255, blank=True)

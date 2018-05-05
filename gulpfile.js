@@ -95,7 +95,7 @@ coreScripts.push('core/adminlte/static/plugins/jQuery/jQuery-2.1.4.min.js');
 coreScripts.push('core/adminlte/static/plugins/bootstrap/js/bootstrap.min.js');
 coreScripts.push('core/adminlte/static/plugins/underscore/underscore-min.js');
 coreScripts.push('core/adminlte/static/plugins/underscore/underscore.string.min.js');
-coreScripts.push('core/adminlte/static/adminlte/js/app.min.js');
+coreScripts.push('core/adminlte/static/adminlte/js/app.js');
 coreScripts.push('core/adminlte/static/plugins/vue/dist/vue.min.js');
 coreScripts.push('core/adminlte/static/plugins/jquery-chosen/chosen.jquery.min.js');
 coreScripts.push('core/adminlte/static/plugins/sweetalert/1.1.3/sweetalert.min.js');

@@ -32,7 +32,7 @@ class CommonContextMixin(object):
         default_dashboard_title = constants.DEFAULT_DASHBOARD_TITLE
 
         if getattr(self, 'object', None):
-            page_title = unicode(self.object)
+            page_title = self.object
         elif getattr(self, 'model', None):
             page_title = self.model._meta.verbose_name
         else:
@@ -52,7 +52,6 @@ class CommonContextMixin(object):
             'page_app_name': self.app_name,
             'page_model_name': self.model_name,
             'page_model_verbose_name': getattr(self, 'model')._meta.verbose_name.title(),
-            'page_system_name': settings.SITE_NAME,
             'page_system_subhead': '',
             'page_model_perms': page_model_perms
         }

@@ -88,13 +88,14 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'core.django.middleware.ProfileAuthenticationMiddleware',
-    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'core.libs.middleware.ApiPermissionCheck',
-    # 'core.libs.middleware.MenuMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+
+    'core.django.middleware.TemplateContextMiddleware'
+    # 'core.django.middleware.ProfileAuthenticationMiddleware',
+
 )
 
 ROOT_URLCONF = 'config.urls'
@@ -279,7 +280,7 @@ REST_FRAMEWORK = {
 
 # CONSTANTS SETTINGS
 # ------------------------------------------------------------------------------
-SITE_NAME = env('SITE_NAME', default='YouDan')
+SITE_NAME = env('SITE_NAME', default='Aimeipin Skin')
 # Others
 ID_PHOTO_FOLDER = 'id'
 PRODUCT_PHOTO_FOLDER = 'product'

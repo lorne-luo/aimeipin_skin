@@ -1,25 +1,24 @@
-{% load product_tags %}
+{% load premium_product_tags %}
 
 <li class="treeview active">
-    <a href="{% url 'product:product-list' %}">
+    <a href="{% url 'premium_product:premiumproduct-list' %}">
         <i class='fa fa-shopping-bag'></i>
-        <b>Product</b>
-
+        <b>Premium Product</b>
         <span class="pull-right-container">
-            <small class="label pull-right bg-blue">{% product_counter %}</small>
+            <small class="label pull-right bg-blue">{% premium_product_counter %}</small>
         </span>
     </a>
 
     {% if user.is_superuser %}
         <ul class="treeview-menu menu-open" style="display: block;">
-            {% if perms.product.view_product %}
+            {% if perms.premium_product.view_premiumproduct %}
                 <li>
-                    {% if perms.product.add_product %}
-                        <a href="{% url 'product:product-add' %}" class="pull-right">
+                    {% if perms.premium_product.add_premiumproduct %}
+                        <a href="{% url 'premium_product:premiumproduct-add' %}" class="pull-right">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </a>
                     {% endif %}
-                    <a href="{% url 'product:product-list' %}" class="main">
+                    <a href="{% url 'premium_product:premiumproduct-list' %}" class="main">
                         <i class="fa fa-circle-o"></i>
                         Product
                     </a>

@@ -87,7 +87,7 @@ class Report(models.Model):
     sensitivity_score = models.PositiveIntegerField(blank=True, null=True)
     pigment_score = models.PositiveIntegerField(blank=True, null=True)
     loose_score = models.PositiveIntegerField(blank=True, null=True)
-    
+
     summary = models.TextField(max_length=128, blank=True)  # 报告总结
     problem = models.TextField(max_length=128, blank=True)  # 存在的问题
     # allergy = models.TextField(max_length=128, blank=True)  # 过敏，copy from answer

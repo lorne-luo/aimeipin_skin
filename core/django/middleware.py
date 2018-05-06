@@ -19,5 +19,6 @@ class TemplateContextMiddleware(MiddlewareMixin):
     """ common template context """
 
     def process_template_response(self, request, response):
-        response.context_data['page_system_name'] = settings.SITE_NAME
+        if response.context_data:
+            response.context_data['page_system_name'] = settings.SITE_NAME
         return response

@@ -65,8 +65,8 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
     objects = PremiumProductManager()
 
     class Meta:
-        verbose_name_plural = _('Product')
-        verbose_name = _('Product')
+        verbose_name_plural = _('PremiumProducts')
+        verbose_name = _('PremiumProduct')
 
     def __str__(self):
         if self.brand and self.brand.name_en.lower() != 'none':

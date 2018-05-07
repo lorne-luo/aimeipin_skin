@@ -12,29 +12,22 @@ from .models import Customer
 
 # views for Customer
 
-class CustomerListView(MultiplePermissionsRequiredMixin, CommonContextMixin, ListView):
+class CustomerListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
     model = Customer
     template_name_suffix = '_list'  # customer/customer_list.html
-    permissions = {
-        "all": ("customer.view_customer",)
-    }
 
 
-class CustomerAddView(MultiplePermissionsRequiredMixin, CommonContextMixin, CreateView):
+class CustomerAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
     model = Customer
     form_class = forms.CustomerAddForm
     template_name = 'customer/customer_add.html'
-    permissions = {
-        "all": ("customer.add_customer",)
-    }
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.seller = self.request.profile
         return super(CustomerAddView, self).form_valid(form)
 
 
-class CustomerUpdateView(SellerOwnerOrSuperuserRequiredMixin, CommonContextMixin, UpdateView):
+class CustomerUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     model = Customer
     form_class = forms.CustomerUpdateForm
     template_name = 'customer/customer_edit.html'
@@ -42,8 +35,8 @@ class CustomerUpdateView(SellerOwnerOrSuperuserRequiredMixin, CommonContextMixin
     def get_context_data(self, **kwargs):
         context = super(CustomerUpdateView, self).get_context_data(**kwargs)
 
-        context['new_address_forms'] = forms.AddressInlineForm(prefix='address_set')
-        address_forms = forms.AddressFormSet(queryset=self.object.address_set.all(), prefix='address_set')
+        context['new_address_forms'] = forms.AnswerInlineForm(prefix='address_set')
+        address_forms = forms.AnswerFormSet(queryset=self.object.answer_set.all(), prefix='address_set')
         context['address_forms'] = address_forms
 
         return context
@@ -53,7 +46,7 @@ class CustomerUpdateView(SellerOwnerOrSuperuserRequiredMixin, CommonContextMixin
         self.object = self.get_object()
 
         # customer address
-        address_formset = forms.AddressFormSet(request.POST, request.FILES, prefix='address_set')
+        address_formset = forms.AnswerFormSet(request.POST, request.FILES, prefix='address_set')
         for form in address_formset:
             form.is_valid()
             if form.instance.address or form.instance.name:
@@ -73,7 +66,7 @@ class CustomerUpdateView(SellerOwnerOrSuperuserRequiredMixin, CommonContextMixin
         return super(CustomerUpdateView, self).post(request, *args, **kwargs)
 
 
-class CustomerDetailView(SellerOwnerOrSuperuserRequiredMixin, CommonContextMixin, UpdateView):
+class CustomerDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     model = Customer
     form_class = forms.CustomerDetailForm
     template_name = 'adminlte/common_detail_new.html'

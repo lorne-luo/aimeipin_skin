@@ -1,7 +1,9 @@
 # coding:utf-8
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from pypinyin import pinyin, lazy_pinyin, Style
 from config.constants import INCOME_CHOICES, SEX_CHOICES
+from core.django.models import PinYinFieldModelMixin
 
 
 class Customer(models.Model):
@@ -35,5 +37,11 @@ class Customer(models.Model):
             pass
 
     def send_sms(self, content, app_name=None):
-        # todo send sms for china mobile number
-        pass
+        if self.mobile:
+            # todo send sms for china mobile number
+            pass
+
+    def save(self, *args, **kwargs):
+        pinyin_list = PinYinFieldModelMixin.get_combinations(pinyin(self.name, heteronym=True))
+        self.name_py = ' '.join(pinyin_list)
+        super(Customer, self).save(*args, **kwargs)

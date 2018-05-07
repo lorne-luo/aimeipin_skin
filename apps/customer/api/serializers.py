@@ -5,9 +5,8 @@ from ..models import Customer
 
 # Serializer for customer
 class CustomerSerializer(BaseSerializer):
-
     class Meta:
         model = Customer
         fields = ['id', 'edit_url', 'detail_url'] + \
-                 ['name', 'email', 'mobile', 'order_count', 'primary_address', 'remark']
+                 ['name', 'sex', 'age', 'mobile', 'weixin_id', 'remark']
         read_only_fields = ['id']

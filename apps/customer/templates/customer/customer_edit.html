@@ -14,28 +14,19 @@
 <div id="inline_formset">
     <div class="box box-info">
     <div class="box-header with-border">
-      <h3 class="box-title">地址信息</h3>
+      <h3 class="box-title">问卷回答</h3>
     </div>
 
     <div id="{{ address_forms.prefix }}_table" class="box-body form-horizontal">
         <div class="form-group hidden-xs hidden-sm">
             <div class="col-xs-1">
-                <b>姓名</b>
+                <b>日期</b>
             </div>
             <div class="col-xs-1">
-                <b>手机</b>
+                <b>状态</b>
             </div>
             <div class="col-xs-3">
-                <b>地址</b>
-            </div>
-            <div class="col-xs-2">
-                <b>身份证</b>
-            </div>
-            <div class="col-xs-2">
-                <b>正面</b>
-            </div>
-            <div class="col-xs-3">
-                <b>反面</b>
+                <b>查看</b>
             </div>
         </div>
 
@@ -47,34 +38,17 @@
              id="{{ address_forms.prefix }}-{{ forloop.counter0 }}"{% if address.instance.pk %} data-pk="{{ address.instance.pk }}"{% endif %}>
             {{ address.id }}
             {{ address.customer }}
-            <div class="visible-xs visible-sm col-xs-2 ln34">姓名</div>
+            <div class="visible-xs visible-sm col-xs-2 ln34">日期</div>
             <div class="col-lg-1 col-md-1 col-xs-3">
                 {{ address.name }}
             </div>
-            <div class="visible-xs visible-sm col-xs-2 ln34">手机</div>
+            <div class="visible-xs visible-sm col-xs-2 ln34">状态</div>
             <div class="col-lg-1 col-md-1 col-xs-5">
                 {{ address.mobile }}
             </div>
-            <div class="visible-xs visible-sm col-xs-2 ln34">地址</div>
+            <div class="visible-xs visible-sm col-xs-2 ln34">查看</div>
             <div class="col-lg-3 col-md-3 col-xs-10">
                 {{ address.address }}
-            </div>
-            <div class="visible-xs visible-sm col-xs-2 ln34">身份证</div>
-            <div class="col-lg-2 col-md-2 col-xs-10">
-                {{ address.id_number }}
-            </div>
-            <div class="visible-xs visible-sm col-xs-2 ln34">正面</div>
-            <div class="col-lg-2 col-md-2 col-xs-10">
-                {{ address.id_photo_front }}
-            </div>
-            <div class="visible-xs visible-sm col-xs-2 ln34">
-                反面
-                <a href="javascript:void(0)" class="ln34 delete_express" v-on:click="delete_address">
-                    <i style="color:#dd4b39;" class="fa fa-lg fa-times-circle"></i>
-                </a>
-            </div>
-            <div class="col-lg-2 col-md-2 col-xs-10">
-                {{ address.id_photo_back }}
             </div>
             <div class="col-lg-1 col-md-1 hidden-xs hidden-sm">
                 <a href="javascript:void(0)" class="ln34 delete_express" v-on:click="delete_address">
@@ -83,11 +57,6 @@
             </div>
         </div>
         {% endfor %}
-    </div>
-    <div class="box-footer">
-        <button type="button" style="width:108px" class="btn btn-success" v-on:click="add_address">增加一项</button>
-        <button type="submit" style="width:108px" class="btn btn-primary" v-on:click="submit">保 存</button>
-        <button type="submit" style="width:108px" class="btn btn-primary" v-on:click="submit" name="_continue">保存 & 编辑</button>
     </div>
 
     </div><!-- //expressorders -->
@@ -112,23 +81,6 @@
             <div class="visible-xs visible-sm col-xs-2 ln34">地址</div>
             <div class="col-lg-3 col-md-3 col-xs-10">
                 {{ new_address_forms.address }}
-            </div>
-            <div class="visible-xs visible-sm col-xs-2 ln34">身份证</div>
-            <div class="col-lg-2 col-md-2 col-xs-10">
-                {{ new_address_forms.id_number }}
-            </div>
-            <div class="visible-xs visible-sm col-xs-2 ln34">正面</div>
-            <div class="col-lg-2 col-md-2 col-xs-4">
-                {{ new_address_forms.id_photo_front }}
-            </div>
-            <div class="visible-xs visible-sm col-xs-2 ln34">
-                反面
-                <a href="javascript:void(0)" class="ln34 delete_express" v-on:click="delete_address">
-                    <i style="color:#dd4b39;" class="fa fa-lg fa-times-circle"></i>
-                </a>
-            </div>
-            <div class="col-lg-2 col-md-2 col-xs-4">
-                {{ new_address_forms.id_photo_back }}
             </div>
             <div class="col-lg-1 col-md-1 hidden-xs hidden-sm">
                 <a href="javascript:void(0)" class="ln34 delete_express" v-on:click="delete_address">

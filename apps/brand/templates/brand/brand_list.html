@@ -5,10 +5,11 @@
   <th class="text-center hidden-sm hidden-xs" style="width:60px;">
     <input type="checkbox" name="checkboxAllRow" class="checkboxAllRow" v-on:click="toggleAllBox"/>
   </th>
-  <th>Name_En</th>
-  <th>Name_Cn</th>
-  <th>Abbr</th>
-  <th>Category</th>
+  <th>Logo</th>
+  <th>英文名称</th>
+  <th>英文首字母</th>
+  <th>中文名称</th>
+  <th>中文首字母</th>
 
   <th class="hidden-sm hidden-xs"></th>
 {% endblock %}
@@ -20,10 +21,13 @@
       ##[$index+1]
       <input type="checkbox" class="minimal" name="checkboxRow" value="#[item.id]"/>
     </td>
+    <td>
+      <img v-if="item.logo" style="height:75px" src="{!! item.logo !!}"/>
+    </td>
     <td><a href="{!! item.edit_url !!}">{!! item.name_en !!}</a></td>
+    <td>{!! item.first_letter_en !!}</td>
     <td><a href="{!! item.edit_url !!}">{!! item.name_cn !!}</a></td>
-    <td>{!! item.short_name !!}</td>
-    <td>{!! item.category !!}</td>
+    <td>{!! item.first_letter_cn !!}</td>
 
     {% block item_buttons %}
       {{ block.super }}

@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function, unicode_literals
 from datetime import datetime
+from functools import reduce
+
 import django
 import django.db.models.fields.related as related
 from django import template
@@ -67,7 +69,7 @@ def render_field_value(obj, a):
                 pass
             elif hasattr(value, 'through'):
                 objects = value.all()
-                ret = ', '.join([unicode(o) for o in objects])
+                ret = ', '.join([str(o) for o in objects])
                 return ret
 
     return value

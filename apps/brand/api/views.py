@@ -14,16 +14,18 @@ from . import serializers
 
 log = logging.getLogger(__name__)
 
+
 class BrandViewSet(CommonViewSet):
     """ API views for Brand """
     queryset = Brand.objects.all()
     serializer_class = serializers.BrandSerializer
     filter_fields = ['name_en', 'name_cn']
     search_fields = ['name_cn']
-    pinyin_search_fields = ['name_en']  # search only input are all ascii chars
+    pinyin_search_fields = ['name_en', 'name_py']  # search only input are all ascii chars
     filter_backends = (DjangoFilterBackend,
                        PinyinSearchFilter,
                        filters.OrderingFilter)
+
 
 class BrandAutocompleteAPIView(SellerRequiredMixin, HansSelect2ViewMixin, autocomplete.Select2QuerySetView):
     model = Brand
@@ -37,7 +39,7 @@ class BrandAutocompleteAPIView(SellerRequiredMixin, HansSelect2ViewMixin, autoco
             return self.get_queryset().create(**{'name_en': text})
 
     def get_queryset(self):
-        qs = Brand.objects.all_for_seller(self.request.user).order_by('name_py')
+        qs = self.get_queryset()
 
         if include_non_asc(self.q):
             qs = qs.filter(name_cn__icontains=self.q)
@@ -45,5 +47,5 @@ class BrandAutocompleteAPIView(SellerRequiredMixin, HansSelect2ViewMixin, autoco
             # all ascii, number and letter
             key = self.q.lower()
             qs = qs.filter(
-                Q(name_py__contains=key) | Q(name_en__icontains=key))
+                Q(name_py__icontains=key) | Q(name_en__icontains=key))
         return qs

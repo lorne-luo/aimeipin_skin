@@ -31,8 +31,9 @@ wagtail_urlpatterns = [
 apps_urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^dashboard/', include('apps.dashboard.urls', namespace='dashboard')),
-    url(r'^customer/', include('apps.customer.urls', namespace='customer')),
     url(r'^users/', include('core.auth_user.urls', namespace='users')),
+    url(r'^customer/', include('apps.customer.urls', namespace='customer')),
+    url(r'^brand/', include('apps.brand.urls', namespace='brand')),
     url(r'^product/', include('apps.product.urls', namespace='product')),
     url(r'^premium_product/', include('apps.premium_product.urls', namespace='premium_product')),
     url(r'^weixin/', include('apps.weixin.urls', namespace='weixin')),
@@ -41,6 +42,7 @@ apps_urlpatterns = [
 # REST API
 api_urlpatterns = [
     url(r'^customer/', include('apps.customer.api.urls')),
+    url(r'^brand/', include('apps.brand.api.urls')),
     url(r'^product/', include('apps.product.api.urls')),
     url(r'^premium_product/', include('apps.premium_product.api.urls')),
 ]

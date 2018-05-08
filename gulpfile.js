@@ -101,6 +101,7 @@ coreScripts.push('core/adminlte/static/plugins/jquery-chosen/chosen.jquery.min.j
 coreScripts.push('core/adminlte/static/plugins/sweetalert/1.1.3/sweetalert.min.js');
 coreScripts.push('core/adminlte/static/adminlte/js/config.js');
 coreScripts.push('core/adminlte/static/adminlte/js/ajax.js');
+coreScripts.push('core/adminlte/static/plugins/iCheck/icheck.min.js');
 coreScripts.push('static/django_js_reverse/js/reverse.js');
 gulp.task('scripts:core', () => {
     // Exclude .min file in this glob, to avoid double compress

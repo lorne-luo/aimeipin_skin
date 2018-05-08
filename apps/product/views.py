@@ -25,16 +25,11 @@ class ProductListView(CommonContextMixin, ListView):
 
 class ProductAddView(MultiplePermissionsRequiredMixin, CommonContextMixin, CreateView):
     model = Product
+    form_class = forms.ProductAddForm
     template_name = 'adminlte/common_form.html'
     permissions = {
         "all": ("product.add_product",)
     }
-
-    def get_form_class(self):
-        if self.request.user.is_superuser:
-            return forms.ProductAdminForm
-        else:
-            return forms.ProductAddForm
 
     def get_context_data(self, **kwargs):
         context = super(ProductAddView, self).get_context_data(**kwargs)
@@ -51,13 +46,8 @@ class ProductAddView(MultiplePermissionsRequiredMixin, CommonContextMixin, Creat
 
 class ProductUpdateView(SellerOwnerOrSuperuserRequiredMixin, CommonContextMixin, UpdateView):
     model = Product
+    forms = forms.ProductAddForm
     template_name = 'adminlte/common_form.html'
-
-    def get_form_class(self):
-        if self.request.user.is_superuser:
-            return forms.ProductAdminForm
-        else:
-            return forms.ProductAddForm
 
 
 class ProductDetailView(CommonContextMixin, UpdateView):

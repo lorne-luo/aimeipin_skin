@@ -29,7 +29,6 @@ class CustomerUpdateForm(forms.ModelForm):
                   'email', 'mobile']
 
 
-
 class AnswerInlineForm(forms.ModelForm):
     class Meta:
         model = Answer

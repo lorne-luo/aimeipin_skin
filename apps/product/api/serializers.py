@@ -10,8 +10,7 @@ class ProductSerializer(SellerOwnerSerializerMixin, BaseSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'edit_url', 'detail_url', 'name_en', 'name_cn', 'pic',
-                  'brand_display', 'thumbnail']
+        fields = ['id', 'edit_url', 'detail_url', 'name_en', 'name_cn', 'pic', 'category', 'brand_display', 'thumbnail']
         read_only_fields = ['id']
 
     def get_thumbnail(self, obj):

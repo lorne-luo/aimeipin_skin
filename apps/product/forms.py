@@ -1,8 +1,9 @@
 from django import forms
+from django.forms import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
 
 from core.django.widgets import ThumbnailImageInput
-from .models import Product, Brand
+from .models import Product, Brand, ProductIngredient
 
 
 class ProductAddForm(forms.ModelForm):
@@ -11,20 +12,15 @@ class ProductAddForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand']
+        fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand', 'brand', 'category', 'description']
 
     def __init__(self, *args, **kwargs):
         super(ProductAddForm, self).__init__(*args, **kwargs)
         self.fields['brand'].queryset = Brand.objects.all().order_by('name_en')
 
 
-class ProductAdminForm(ProductAddForm):
-    class Meta:
-        model = Product
-        fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand', ]
-
-
 class ProductDetailForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name_en', 'name_cn', 'alias', 'pic']
+        fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand', 'category', 'description']
+

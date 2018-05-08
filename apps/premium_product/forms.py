@@ -18,12 +18,6 @@ class PremiumProductAddForm(forms.ModelForm):
         self.fields['brand'].queryset = Brand.objects.all().order_by('name_en')
 
 
-class PremiumProductAdminForm(PremiumProductAddForm):
-    class Meta:
-        model = PremiumProduct
-        fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand', ]
-
-
 class PremiumProductDetailForm(forms.ModelForm):
     class Meta:
         model = PremiumProduct

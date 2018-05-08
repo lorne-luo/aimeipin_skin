@@ -42,7 +42,6 @@ class Brand(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
                              'thumbnail': (400, 400, True)
                          })
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
-    aliases = TaggableManager(verbose_name='aliases')
 
     pinyin_fields_conf = [
         ('name_cn', Style.NORMAL, True),

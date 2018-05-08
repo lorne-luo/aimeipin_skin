@@ -94,12 +94,12 @@ def product_deleted(sender, **kwargs):
 class ProductIngredient(models.Model):
     """产品成分, skin_component"""
     product = models.ForeignKey('product.Product', blank=True, null=True)
-    name = models.CharField(_(u'name'), max_length=128, blank=True)
-    is_safe = models.CharField(_(u'name'), max_length=128, blank=True)  # 是否安全
-    is_live = models.CharField(_(u'name'), max_length=128, blank=True)  # 活性因子
-    is_pox = models.CharField(_(u'name'), max_length=128, blank=True)  # 导致起痘
-    description = models.CharField(_(u'description'), max_length=128, blank=True)
-    effect = models.CharField(_(u'effect'), max_length=128, blank=True)
+    name = models.CharField(_(u'name'), max_length=255, blank=True)
+    is_safe = models.BooleanField(_(u'安全风险'), blank=True)  # 是否安全
+    is_live = models.BooleanField(_(u'活性成分'), blank=True)  # 活性因子
+    is_pox = models.BooleanField(_(u'致痘风险'), blank=True)  # 导致起痘
+    effect = models.CharField(_(u'使用目的'), max_length=255, blank=True)
+    description = models.TextField(_(u'描述'), max_length=512, blank=True)
 
 
 class ProductAnalysis(models.Model):

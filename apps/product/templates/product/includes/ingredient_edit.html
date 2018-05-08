@@ -1,0 +1,72 @@
+<div id="inline_formset">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">产品成分</h3>
+        </div>
+
+        <div id="{{ productingredient_formset.prefix }}_table" class="box-body form-horizontal">
+            <div class="form-group hidden-xs hidden-sm">
+                <div class="col-xs-3">
+                    <b>名称</b>
+                </div>
+                <div class="col-xs-1">
+                    <b>安全风险</b>
+                </div>
+                <div class="col-xs-1">
+                    <b>活性成分</b>
+                </div>
+                <div class="col-xs-1">
+                    <b>致痘风险</b>
+                </div>
+                <div class="col-xs-5">
+                    <b>使用目的</b>
+                </div>
+                <div class="col-xs-1">
+                </div>
+            </div>
+
+            {{ productingredient_formset.management_form }}
+
+            {% for productingredient in productingredient_formset %}
+                <div class="form-group formset_row {% if forloop.counter0|divisibleby:2 %}even{% else %}odd{% endif %}"
+                     id="{{ productingredient_formset.prefix }}-{{ forloop.counter0 }}"
+                        {% if productingredient.instance.pk %}
+                     data-pk="{{ productingredient.instance.pk }}"{% endif %}>
+
+                    {{ productingredient.id }}
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}123
+                    {% endfor %}
+                    <div class="visible-xs visible-sm col-xs-2 ln34">名称</div>
+                    <div class="col-lg-3 col-md-3 col-xs-10">
+                        {{ productingredient.name }}
+                    </div>
+                    <div class="visible-xs visible-sm col-xs-2 ln34">安全风险</div>
+                    <div class="col-sm-1 col-xs-2 ln34">
+                        {{ productingredient.is_safe }}
+                    </div>
+                    <div class="visible-xs visible-sm col-xs-2 ln34">活性成分</div>
+                    <div class="col-sm-1 col-xs-2 ln34">
+                        {{ productingredient.is_live }}
+                    </div>
+                    <div class="visible-xs visible-sm col-xs-2 ln34">致痘风险</div>
+                    <div class="col-sm-1 col-xs-2 ln34">
+                        {{ productingredient.is_pox }}
+                    </div>
+                        <div class="visible-xs visible-sm col-xs-2 ln34">使用目的</div>
+                        <div class="col-sm-5 col-xs-9">
+                            {{ productingredient.effect }}
+                        </div>
+                        <div class="col-xs-1">
+                            {{ productingredient.DELETE }}
+                        </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="box-footer">
+            <button type="submit" style="width:108px" class="btn btn-primary">保 存</button>
+            <button type="submit" style="width:108px" class="btn btn-primary" name="_continue">保存 & 编辑</button>
+        </div>
+    </div><!-- //expressorders -->
+</div>

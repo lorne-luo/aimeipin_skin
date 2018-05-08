@@ -36,8 +36,8 @@
 {% block content %}
     <div class="row">
     <div class="col-xs-12 full-width">
-    <div class="box box-info">
         <form method="post" action="" enctype="multipart/form-data" class="form-horizontal" role="form" id="commonForm">
+    <div class="box box-info">
         {% csrf_token %}
 
         <div class="box-header with-border">
@@ -66,7 +66,7 @@
         </div>
         <div class="box-footer">
         {% block form_footer %}
-          <button type="submit" style="width:108px" class="btn btn-primary col-sm-offset-2">保 存</button>
+          <button type="submit" style="width:108px" class="btn btn-primary">保 存</button>
           <button type="submit" style="width:108px" class="btn btn-primary" name="_continue">保存 & 编辑</button>
 {#          {% if object.id %}#}
 {#          <button type="button" style="width:108px" class="btn btn-danger"#}
@@ -75,14 +75,15 @@
 {#          {% endif %}#}
         {% endblock %}
         </div>
+    </div>
         {% block inline_formset %}{% endblock %}
     </form>
-    </div>
     </div>
     </div>
 {% endblock %}
 
 {% block footer_base_script %}
+    {{ block.super }}
     <script type="text/javascript" src="{% static 'adminlte/js/common-form.js' %}"></script>
 
     <script type="text/javascript">

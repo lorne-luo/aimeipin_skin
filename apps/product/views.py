@@ -1,13 +1,14 @@
 from django.views.generic import ListView, CreateView, UpdateView
-from braces.views import MultiplePermissionsRequiredMixin
+from braces.views import SuperuserRequiredMixin
+from django.views.generic.edit import ProcessFormView
 
-from core.django.permission import SellerOwnerOrSuperuserRequiredMixin
+from apps.product.forms import ProductIngredientFormSet
 from core.django.views import CommonContextMixin
 from .models import Product, Brand
 from . import forms
 
 
-class ProductListView(CommonContextMixin, ListView):
+class ProductListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
     model = Product
     template_name_suffix = '_list'
 
@@ -23,31 +24,45 @@ class ProductListView(CommonContextMixin, ListView):
         return context
 
 
-class ProductAddView(MultiplePermissionsRequiredMixin, CommonContextMixin, CreateView):
+class ProductAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
     model = Product
     form_class = forms.ProductAddForm
-    template_name = 'adminlte/common_form.html'
-    permissions = {
-        "all": ("product.add_product",)
-    }
+    template_name = 'product/product_form.html'
+    component_edit_querystring = 'component_edit'
 
     def get_context_data(self, **kwargs):
+
         context = super(ProductAddView, self).get_context_data(**kwargs)
         context['table_titles'] = ['Pic', 'Name', 'Brand', '']
         context['table_fields'] = ['pic', 'link', 'brand', 'id']
+        params = self.request.GET or self.request.POST
+        context['component_edit'] = self.component_edit_querystring in params
+        if self.request.POST:
+            context['productingredient_formset'] = ProductIngredientFormSet(self.request.POST,
+                                                                            self.request.FILES,
+                                                                            instance=self.object)
+        else:
+            context['productingredient_formset'] = ProductIngredientFormSet(instance=self.object)
         return context
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        if not self.request.user.is_superuser:
-            self.object.seller = self.request.profile
+        context = self.get_context_data()
+        productingredient_formset = context['productingredient_formset']
+        productingredient_formset.instance = form.instance
+        if productingredient_formset.is_valid():
+            productingredient_formset.save()
         return super(ProductAddView, self).form_valid(form)
 
 
-class ProductUpdateView(SellerOwnerOrSuperuserRequiredMixin, CommonContextMixin, UpdateView):
-    model = Product
-    forms = forms.ProductAddForm
-    template_name = 'adminlte/common_form.html'
+class ProductUpdateView(ProductAddView):
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return ProcessFormView.get(self, request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return ProcessFormView.post(self, request, *args, **kwargs)
 
 
 class ProductDetailView(CommonContextMixin, UpdateView):

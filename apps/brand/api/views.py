@@ -21,7 +21,7 @@ class BrandViewSet(CommonViewSet):
     serializer_class = serializers.BrandSerializer
     filter_fields = ['name_en', 'name_cn']
     search_fields = ['name_cn']
-    pinyin_search_fields = ['name_en', 'name_py']  # search only input are all ascii chars
+    pinyin_search_fields = ['name_en', 'pinyin']  # search only input are all ascii chars
     filter_backends = (DjangoFilterBackend,
                        PinyinSearchFilter,
                        filters.OrderingFilter)
@@ -47,5 +47,5 @@ class BrandAutocompleteAPIView(SellerRequiredMixin, HansSelect2ViewMixin, autoco
             # all ascii, number and letter
             key = self.q.lower()
             qs = qs.filter(
-                Q(name_py__icontains=key) | Q(name_en__icontains=key))
+                Q(pinyin__icontains=key) | Q(name_en__icontains=key))
         return qs

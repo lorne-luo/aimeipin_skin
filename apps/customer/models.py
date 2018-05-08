@@ -1,16 +1,16 @@
 # coding:utf-8
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from pypinyin import pinyin, lazy_pinyin, Style
+from pypinyin import Style
 from config.constants import INCOME_CHOICES, SEX_CHOICES
 from core.django.models import PinYinFieldModelMixin
 
 
-class Customer(models.Model):
+class Customer(PinYinFieldModelMixin, models.Model):
     """顾客信息，user_data"""
     wx_user = models.ForeignKey('weixin.WxUser', null=True, blank=True)
     name = models.CharField(_(u'姓名'), max_length=64, blank=False)
-    name_py = models.CharField(_(u'姓名'), max_length=50, blank=True)
+    pinyin = models.CharField(_(u'pinyin'), max_length=512, blank=True)
     sex = models.CharField(_(u'性别'), choices=SEX_CHOICES, max_length=30, blank=False)
     age = models.PositiveIntegerField(_(u'年龄'), null=True, blank=True)
     email = models.EmailField(_('Email'), max_length=255, blank=True)
@@ -23,6 +23,10 @@ class Customer(models.Model):
     address = models.CharField(_(u'地址'), max_length=255, blank=True)
     remark = models.CharField(_(u'备注'), max_length=255, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
+
+    pinyin_fields_conf = [
+        ('name', Style.NORMAL, True),
+    ]
 
     class Meta:
         verbose_name_plural = _('Customer')
@@ -40,8 +44,3 @@ class Customer(models.Model):
         if self.mobile:
             # todo send sms for china mobile number
             pass
-
-    def save(self, *args, **kwargs):
-        pinyin_list = PinYinFieldModelMixin.get_combinations(pinyin(self.name, heteronym=True))
-        self.name_py = ' '.join(pinyin_list)
-        super(Customer, self).save(*args, **kwargs)

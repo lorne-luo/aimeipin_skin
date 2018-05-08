@@ -6,12 +6,12 @@ from .models import Product, Brand
 
 
 class ProductAddForm(forms.ModelForm):
-    pic = forms.ImageField(label=_("picture"), required=False,
+    pic = forms.ImageField(label=_("Picture"), required=False,
                            widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
 
     class Meta:
         model = Product
-        fields = ['name_en', 'name_cn', 'aliases', 'pic', 'brand']
+        fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand']
 
     def __init__(self, *args, **kwargs):
         super(ProductAddForm, self).__init__(*args, **kwargs)
@@ -21,10 +21,10 @@ class ProductAddForm(forms.ModelForm):
 class ProductAdminForm(ProductAddForm):
     class Meta:
         model = Product
-        fields = ['name_en', 'name_cn', 'aliases', 'pic', 'brand', ]
+        fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand', ]
 
 
 class ProductDetailForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name_en', 'name_cn', 'aliases', 'pic']
+        fields = ['name_en', 'name_cn', 'alias', 'pic']

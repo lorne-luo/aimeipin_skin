@@ -28,12 +28,12 @@ def get_brand_logo_path(instance, filename):
     return file_path
 
 
-class Brand(ResizeUploadedImageModelMixin, models.Model):
+class Brand(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
     """品牌，skin_brand"""
     country = CountryField(verbose_name=_('country'))
     name_en = models.CharField(_('name_en'), max_length=128, blank=True)
     name_cn = models.CharField(_('name_cn'), max_length=128, blank=True)
-    name_py = models.CharField(_('name_py'), max_length=128, blank=True)
+    pinyin = models.CharField(_('pinyin'), max_length=512, blank=True)
     first_letter_en = models.CharField(_('first_letter_en'), max_length=128, blank=True)
     first_letter_cn = models.CharField(_('first_letter_cn'), max_length=128, blank=True)
     logo = StdImageField(upload_to=get_brand_logo_path, blank=True, null=True, verbose_name=_('Logo'),
@@ -43,6 +43,10 @@ class Brand(ResizeUploadedImageModelMixin, models.Model):
                          })
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
     aliases = TaggableManager(verbose_name='aliases')
+
+    pinyin_fields_conf = [
+        ('name_cn', Style.NORMAL, True),
+    ]
 
     class Meta:
         verbose_name_plural = _('Brands')
@@ -56,11 +60,8 @@ class Brand(ResizeUploadedImageModelMixin, models.Model):
     def save(self, *args, **kwargs):
         self.resize_image('logo')  # resize images when first uploaded
 
-        pinyin_list = PinYinFieldModelMixin.get_combinations(pinyin(self.name_cn, heteronym=True))
-        self.name_py = ' '.join(pinyin_list)
-
         if self.name_en:
             self.first_letter_en = self.name_en.upper()[:1]
-        if self.name_cn:
+        if self.name_cn and not self.first_letter_cn:
             self.first_letter_cn = ''.join(lazy_pinyin(self.name_cn)).upper()[:1]
         super(Brand, self).save(*args, **kwargs)

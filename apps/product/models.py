@@ -6,7 +6,7 @@ from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
-from pypinyin import Style
+from pypinyin import Style, pinyin
 from stdimage import StdImageField
 from taggit.managers import TaggableManager
 
@@ -47,23 +47,20 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
     brand = models.ForeignKey(Brand, blank=True, null=True)
     name_en = models.CharField(_(u'name_en'), max_length=255, blank=True)
     name_cn = models.CharField(_(u'name_cn'), max_length=255, blank=True)
-    name_py = models.CharField(_(u'name_py'), max_length=255, blank=True)
-    pinyin = models.TextField(_('pinyin'), max_length=512, blank=True)
+    pinyin = models.CharField(_(u'pinyin'), max_length=255, blank=True)
     pic = StdImageField(upload_to=get_product_pic_path, blank=True, null=True, verbose_name=_('picture'),
                         variations={
                             'medium': (800, 800, True),
                             'thumbnail': (400, 400, True)
                         })
     description = models.TextField(_(u'description'), blank=True)
-    aliases = TaggableManager(verbose_name='aliases')
+    alias = models.CharField(_(u'alias'), max_length=255, blank=True)
     category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     pinyin_fields_conf = [
-        ('name_cn', Style.NORMAL, False),
-        ('name_cn', Style.FIRST_LETTER, False),
-        ('brand.name_cn', Style.NORMAL, False),
-        ('brand.name_cn', Style.FIRST_LETTER, False),
+        ('name_cn', Style.NORMAL, True),
+        ('alias', Style.NORMAL, True),
     ]
     objects = ProductManager()
 
@@ -82,8 +79,7 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
 
     def save(self, *args, **kwargs):
         self.resize_image('pic')  # resize images when first uploaded
-
-        update_cache = kwargs.pop('update_cache', True)  # default to update cache
+        update_cache = kwargs.pop('update_cache', True) or not self.id  # default to update cache
         super(Product, self).save(*args, **kwargs)
         if update_cache:
             Product.objects.clean_cache()

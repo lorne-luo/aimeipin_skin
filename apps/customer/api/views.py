@@ -25,7 +25,7 @@ class CustomerViewSet(CommonViewSet):
     filter_fields = ['name', 'email', 'mobile', 'remark']
     search_fields = ['name', 'remark']
     permission_classes = (AdminOnlyPermissions,)
-    pinyin_search_fields = ['name_py', 'mobile', 'weixin_id', 'remark']  # search only input are all ascii chars
+    pinyin_search_fields = ['pinyin', 'mobile', 'weixin_id', 'remark']  # search only input are all ascii chars
     filter_backends = (DjangoFilterBackend,
                        PinyinSearchFilter,
                        filters.OrderingFilter)
@@ -51,5 +51,5 @@ class CustomerAutocomplete(SuperuserRequiredMixin, HansSelect2ViewMixin, autocom
             if self.q.isdigit():
                 qs = qs.filter(mobile__icontains=self.q)
             else:
-                qs = qs.filter(name_py__icontains=self.q.lower())
+                qs = qs.filter(pinyin__icontains=self.q.lower())
         return qs

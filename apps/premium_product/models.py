@@ -6,7 +6,7 @@ from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
-from pypinyin import Style
+from pypinyin import Style, pinyin
 from stdimage import StdImageField
 from taggit.managers import TaggableManager
 
@@ -53,14 +53,12 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
                             'thumbnail': (400, 400, True)
                         })
     description = models.TextField(_(u'description'),  blank=True)
+    alias = models.CharField(_(u'alias'), max_length=255, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
-    aliases = TaggableManager(verbose_name='aliases')
 
     pinyin_fields_conf = [
-        ('name_cn', Style.NORMAL, False),
-        ('name_cn', Style.FIRST_LETTER, False),
-        ('brand.name_cn', Style.NORMAL, False),
-        ('brand.name_cn', Style.FIRST_LETTER, False),
+        ('name_cn', Style.NORMAL, True),
+        ('alias', Style.NORMAL, True),
     ]
     objects = PremiumProductManager()
 
@@ -83,8 +81,7 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
 
     def save(self, *args, **kwargs):
         self.resize_image('pic')  # resize images when first uploaded
-
-        update_cache = kwargs.pop('update_cache', True)  # default to update cache
+        update_cache = kwargs.pop('update_cache', True) or not self.id  # default to update cache
         super(PremiumProduct, self).save(*args, **kwargs)
         if update_cache:
             PremiumProduct.objects.clean_cache()

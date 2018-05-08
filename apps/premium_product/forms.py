@@ -11,7 +11,7 @@ class PremiumProductAddForm(forms.ModelForm):
 
     class Meta:
         model = PremiumProduct
-        fields = ['name_en', 'name_cn', 'aliases', 'pic', 'brand']
+        fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand']
 
     def __init__(self, *args, **kwargs):
         super(PremiumProductAddForm, self).__init__(*args, **kwargs)
@@ -21,10 +21,10 @@ class PremiumProductAddForm(forms.ModelForm):
 class PremiumProductAdminForm(PremiumProductAddForm):
     class Meta:
         model = PremiumProduct
-        fields = ['name_en', 'name_cn', 'aliases', 'pic', 'brand', ]
+        fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand', ]
 
 
 class PremiumProductDetailForm(forms.ModelForm):
     class Meta:
         model = PremiumProduct
-        fields = ['name_en', 'name_cn', 'aliases', 'pic']
+        fields = ['name_en', 'name_cn', 'alias', 'pic']

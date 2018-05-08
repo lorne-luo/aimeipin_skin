@@ -25,17 +25,18 @@ class PinYinFieldModelMixin(object):
             self._original_fields_value.update({field_name: current_value})
 
     def save(self, *args, **kwargs):
-        if self.check_update():
+        if self.need_update():
             self.update_pinyin_fields()
         super(PinYinFieldModelMixin, self).save(*args, **kwargs)
 
-    def check_update(self):
+    def need_update(self):
         if not getattr(self, self.pinyin_field, None):
             return True
         for field_name, style, heteronym in self.pinyin_fields_conf:
             current_value = self.get_attr_by_str(field_name)
             if current_value != self._original_fields_value.get(field_name) != None:
                 return True
+        return False
 
     def update_pinyin_fields(self):
         # only update pinyin field when fields updated

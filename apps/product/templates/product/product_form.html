@@ -3,8 +3,8 @@
 
 {% block inline_formset %}
     {% if component_edit %}
-        {% include 'product/includes/ingredient_edit.html' with productingredient_formset=productingredient_formset %}
+        {% include 'product/includes/ingredient_inline_edit.html' with productingredient_formset=productingredient_formset %}
     {% else %}
-        {% include 'product/includes/ingredient_readonly.html' with productingredient_formset=productingredient_formset %}
+        {% include 'product/includes/ingredient_inline_readonly.html' with productingredient_formset=productingredient_formset %}
     {% endif %}
 {% endblock %}

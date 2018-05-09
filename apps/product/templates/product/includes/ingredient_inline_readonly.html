@@ -1,33 +1,33 @@
-{% if productingredient_formset|length > 1 %}
-    <div id="inline_formset">
-        <div class="box box-info">
-            <div class="box-header with-border">
-                <h3 class="box-title">产品成分</h3>
+<div id="inline_formset">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">产品成分</h3>
+        </div>
+
+        <div id="{{ productingredient_formset.prefix }}_table" class="box-body form-horizontal">
+            <div class="form-group hidden-xs hidden-sm">
+                <div class="col-xs-3">
+                    <b>名称</b>
+                </div>
+                <div class="col-xs-1">
+                    <b>安全风险</b>
+                </div>
+                <div class="col-xs-1">
+                    <b>活性成分</b>
+                </div>
+                <div class="col-xs-1">
+                    <b>致痘风险</b>
+                </div>
+                <div class="col-xs-5">
+                    <b>使用目的</b>
+                </div>
+                <div class="col-xs-1">
+                </div>
             </div>
 
-            <div id="{{ productingredient_formset.prefix }}_table" class="box-body form-horizontal">
-                <div class="form-group hidden-xs hidden-sm">
-                    <div class="col-xs-3">
-                        <b>名称</b>
-                    </div>
-                    <div class="col-xs-1">
-                        <b>安全风险</b>
-                    </div>
-                    <div class="col-xs-1">
-                        <b>活性成分</b>
-                    </div>
-                    <div class="col-xs-1">
-                        <b>致痘风险</b>
-                    </div>
-                    <div class="col-xs-5">
-                        <b>使用目的</b>
-                    </div>
-                    <div class="col-xs-1">
-                    </div>
-                </div>
-
-                {{ productingredient_formset.management_form }}
-
+            {% if productingredient_formset|length == 0 %}
+                <span>目前没有成分信息.</span>
+            {% else %}
                 {% for productingredient in productingredient_formset %}
                     {% if productingredient.id.value %}
                         <div class="form-group formset_row {% if forloop.counter0|divisibleby:2 %}even{% else %}odd{% endif %}"
@@ -58,11 +58,11 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-            </div>
+            {% endif %}
+        </div>
 
-            <div class="box-footer">
-                <a href="?component_edit" style="width:108px" class="btn btn-primary">编辑成分</a>
-            </div>
-        </div><!-- //expressorders -->
-    </div>
-{% endif %}
+        <div class="box-footer">
+            <a href="?component_edit" style="width:108px" class="btn btn-primary">编辑成分</a>
+        </div>
+    </div><!-- //expressorders -->
+</div>

@@ -46,16 +46,16 @@
 
 <script type="text/javascript">
     function initChosen() {
-        jQuery(document).ready(function($) {
-            $("#{{ productanalysis_formset.prefix }}_table select").chosen({
-                search_contains: true,
-                disable_search_threshold: 10,
-                width: "90%"
-            });
+        $("#{{ productanalysis_formset.prefix }}_table select").chosen({
+            search_contains: true,
+            disable_search_threshold: 10,
+            width: "90%"
         });
     }
 
-    initChosen();
+    jQuery(document).ready(function ($) {
+        initChosen();
+    });
 
     $('#{{ productanalysis_formset.prefix }}_table .formset_row').formset({
         addText: '添加新成分',

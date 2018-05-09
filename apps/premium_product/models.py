@@ -52,7 +52,7 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
                             'medium': (800, 800, True),
                             'thumbnail': (400, 400, True)
                         })
-    description = models.TextField(_(u'description'),  blank=True)
+    description = models.TextField(_(u'description'), blank=True)
     alias = models.CharField(_(u'alias'), max_length=255, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
@@ -92,9 +92,10 @@ def product_deleted(sender, **kwargs):
     instance = kwargs['instance']
     PremiumProduct.objects.clean_cache()
 
-class ProductFit(models.Model):
+
+class PremiumProductFit(models.Model):
     """优选产品适合的肤质组合"""
     product = models.ForeignKey('premium_product.PremiumProduct', blank=True, null=True)
-    purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES,  blank=True)
-    skin_type = models.CharField(max_length=64, choices=SKIN_TYPE_CHOICES,  blank=True)
-    category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES,  blank=True)
+    purpose = models.CharField(_(u'目标'), max_length=64, choices=PURPOSE_CHOICES, blank=True)
+    skin_type = models.CharField(_(u'肤质'), max_length=64, choices=SKIN_TYPE_CHOICES, blank=True)
+    category = models.CharField(_(u'分类'), max_length=64, choices=PRODUCT_CATEGORY_CHOICES, blank=True)

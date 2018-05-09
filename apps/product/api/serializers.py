@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from core.api.serializers import BaseSerializer, SellerOwnerSerializerMixin
+from core.api.serializers import BaseSerializer
 from ..models import Product
 
 
-class ProductSerializer(SellerOwnerSerializerMixin, BaseSerializer):
+class ProductSerializer(BaseSerializer):
     """Serializer for product"""
     brand_display = serializers.SerializerMethodField()
     thumbnail = serializers.SerializerMethodField()

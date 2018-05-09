@@ -8,7 +8,7 @@ from .models import Product, Brand, ProductIngredient, ProductAnalysis
 
 class ProductAddForm(forms.ModelForm):
     pic = forms.ImageField(label=_("Picture"), required=False,
-                           widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
+                           widget=ThumbnailImageInput({'width': '210px', 'size': 'thumbnail'}))
 
     class Meta:
         model = Product

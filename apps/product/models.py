@@ -65,8 +65,8 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
     objects = ProductManager()
 
     def __str__(self):
-        if self.brand and self.brand.name_en.lower() != 'none':
-            return '%s %s' % (self.brand.name_en, self.name_cn)
+        if self.brand and self.brand.name_cn:
+            return '%s %s' % (self.brand.name_cn, self.name_cn)
         else:
             return self.name_cn
 

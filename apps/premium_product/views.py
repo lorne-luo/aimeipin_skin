@@ -1,14 +1,13 @@
 from django.views.generic import ListView, CreateView, UpdateView
-from braces.views import MultiplePermissionsRequiredMixin
+from braces.views import SuperuserRequiredMixin
 
-from core.django.permission import SellerOwnerOrSuperuserRequiredMixin
 from core.django.views import CommonContextMixin
 from .models import PremiumProduct
 from ..brand.models import Brand
 from . import forms
 
 
-class PremiumProductListView(CommonContextMixin, ListView):
+class PremiumProductListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
     model = PremiumProduct
     template_name_suffix = '_list'
 
@@ -20,13 +19,10 @@ class PremiumProductListView(CommonContextMixin, ListView):
         return context
 
 
-class PremiumProductAddView(MultiplePermissionsRequiredMixin, CommonContextMixin, CreateView):
+class PremiumProductAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
     model = PremiumProduct
     form_class = forms.PremiumProductAddForm
     template_name = 'adminlte/common_form.html'
-    permissions = {
-        "all": ("premium_product.add_premium_product",)
-    }
 
     def get_context_data(self, **kwargs):
         context = super(PremiumProductAddView, self).get_context_data(**kwargs)
@@ -41,13 +37,13 @@ class PremiumProductAddView(MultiplePermissionsRequiredMixin, CommonContextMixin
         return super(PremiumProductAddView, self).form_valid(form)
 
 
-class PremiumProductUpdateView(SellerOwnerOrSuperuserRequiredMixin, CommonContextMixin, UpdateView):
+class PremiumProductUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     model = PremiumProduct
     form_class = forms.PremiumProductAddForm
     template_name = 'adminlte/common_form.html'
 
 
-class PremiumProductDetailView(CommonContextMixin, UpdateView):
+class PremiumProductDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     model = PremiumProduct
     # template_name_suffix = '_form'
     fields = ['name_en', 'name_cn', 'pic', 'brand']

@@ -6,10 +6,10 @@ router = PostHackedRouter()
 router.include_root_view = False
 
 # reverse('api:brand-list'), reverse('api:brand-detail', kwargs={'pk': 1})
-router.register(r'premium_product', views.PremiumProductViewSet, base_name='premium_product')
+router.register(r'premium_product', views.PremiumProductViewSet, base_name='premiumproduct')
 
 urlpatterns = [
-    url(r'^premium_product/premium_product/autocomplete/$', views.PremiumProductAutocompleteAPIView.as_view(), name='premium_product-autocomplete'),
+    url(r'^premium_product/premium_product/autocomplete/$', views.PremiumProductAutocompleteAPIView.as_view(), name='premiumproduct-autocomplete'),
 ]
 
 urlpatterns += router.urls

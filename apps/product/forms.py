@@ -12,7 +12,7 @@ class ProductAddForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand', 'brand', 'category', 'description']
+        fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand', 'brand', 'category']
 
     def __init__(self, *args, **kwargs):
         super(ProductAddForm, self).__init__(*args, **kwargs)
@@ -22,7 +22,7 @@ class ProductAddForm(forms.ModelForm):
 class ProductDetailForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand', 'category', 'description']
+        fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand', 'category']
 
 
 class ProductIngredientInlineForm(forms.ModelForm):

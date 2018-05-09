@@ -53,9 +53,9 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
                             'medium': (800, 800, True),
                             'thumbnail': (400, 400, True)
                         })
-    description = models.TextField(_(u'description'), blank=True)
     alias = models.CharField(_(u'alias'), max_length=255, blank=True)
     category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, blank=True)
+    description = models.TextField(_(u'description'), blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     pinyin_fields_conf = [

@@ -58,8 +58,9 @@ class ProductAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
 
         productingredient_formset = context['productingredient_formset']
         productingredient_formset.instance = form.instance
-        if productingredient_formset.is_valid():
-            productingredient_formset.save()
+        if self.component_edit_querystring in self.request.POST:
+            if productingredient_formset.is_valid():
+                productingredient_formset.save()
 
         productanalysis_formset = context['productanalysis_formset']
         productanalysis_formset.instance = form.instance

@@ -38,11 +38,13 @@ class ProductAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
         params = self.request.GET or self.request.POST
         context['component_edit'] = self.component_edit_querystring in params
         if self.request.POST:
-            context['productingredient_formset'] = ProductIngredientFormSet(self.request.POST,
-                                                                            self.request.FILES,
+            context['productingredient_formset'] = ProductIngredientFormSet(self.request.POST, self.request.FILES,
+                                                                            prefix='productingredient_formset',
                                                                             instance=self.object)
         else:
-            context['productingredient_formset'] = ProductIngredientFormSet(instance=self.object)
+            context['productingredient_formset'] = ProductIngredientFormSet(prefix='productingredient_formset',
+                                                                            instance=self.object)
+
         return context
 
     def form_valid(self, form):

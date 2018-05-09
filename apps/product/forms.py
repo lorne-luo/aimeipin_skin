@@ -3,7 +3,7 @@ from django.forms import modelformset_factory, inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
 
 from core.django.widgets import ThumbnailImageInput
-from .models import Product, Brand, ProductIngredient
+from .models import Product, Brand, ProductIngredient, ProductAnalysis
 
 
 class ProductAddForm(forms.ModelForm):
@@ -41,3 +41,24 @@ class ProductIngredientInlineForm(forms.ModelForm):
 
 ProductIngredientFormSet = inlineformset_factory(Product, ProductIngredient, form=ProductIngredientInlineForm,
                                                  can_order=False, can_delete=True, extra=0)
+
+
+class ProductAnalysisInlineForm(forms.ModelForm):
+    class Meta:
+        model = ProductAnalysis
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(ProductAnalysisInlineForm, self).__init__(*args, **kwargs)
+        for field_name in self.fields:
+            field = self.fields.get(field_name)
+            field.widget.attrs['class'] = 'form-control'
+
+        self.fields['product'].widget = forms.HiddenInput()
+
+        self.fields['analysis'].widget.attrs['rows'] = 2
+        self.fields['analysis'].widget.attrs['cols'] = 40
+
+
+ProductAnalysisFormSet = inlineformset_factory(Product, ProductAnalysis, form=ProductAnalysisInlineForm,
+                                               can_order=False, can_delete=True, extra=1)

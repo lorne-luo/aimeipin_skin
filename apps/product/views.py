@@ -2,7 +2,7 @@ from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
 from django.views.generic.edit import ProcessFormView
 
-from apps.product.forms import ProductIngredientFormSet
+from apps.product.forms import ProductIngredientFormSet, ProductAnalysisFormSet
 from core.django.views import CommonContextMixin
 from .models import Product, Brand
 from . import forms
@@ -41,19 +41,31 @@ class ProductAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
             context['productingredient_formset'] = ProductIngredientFormSet(self.request.POST, self.request.FILES,
                                                                             prefix='productingredient_formset',
                                                                             instance=self.object)
+            context['productanalysis_formset'] = ProductAnalysisFormSet(self.request.POST, self.request.FILES,
+                                                                        prefix='productanalysis_formset',
+                                                                        instance=self.object)
         else:
             context['productingredient_formset'] = ProductIngredientFormSet(prefix='productingredient_formset',
                                                                             instance=self.object)
+            context['productanalysis_formset'] = ProductAnalysisFormSet(prefix='productanalysis_formset',
+                                                                        instance=self.object)
 
         return context
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
         context = self.get_context_data()
+
         productingredient_formset = context['productingredient_formset']
         productingredient_formset.instance = form.instance
         if productingredient_formset.is_valid():
             productingredient_formset.save()
+
+        productanalysis_formset = context['productanalysis_formset']
+        productanalysis_formset.instance = form.instance
+        if productanalysis_formset.is_valid():
+            productanalysis_formset.save()
+
         return super(ProductAddView, self).form_valid(form)
 
 

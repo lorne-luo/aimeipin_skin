@@ -105,8 +105,8 @@ class ProductIngredient(models.Model):
 class ProductAnalysis(models.Model):
     """产品的肤质阐述 skin_p_t"""
     product = models.ForeignKey('product.Product', blank=True, null=True)
-    oily_type = models.CharField(max_length=64, choices=SKIN_OILY_TYPE_CHOICES, blank=True)
-    sensitive_type = models.CharField(max_length=64, choices=SKIN_SENSITIVE_TYPE_CHOICES, blank=True)
-    pigment_type = models.CharField(max_length=64, choices=SKIN_PIGMENT_TYPE_CHOICES, blank=True)
-    loose_type = models.CharField(max_length=64, choices=SKIN_LOOSE_TYPE_CHOICES, blank=True)
-    analysis = models.TextField(_(u'analysis'), max_length=255, blank=True)
+    oily_type = models.CharField(_(u'油性or干性'), max_length=64, choices=SKIN_OILY_TYPE_CHOICES, blank=True)
+    sensitive_type = models.CharField(_(u'敏感or耐受'), max_length=64, choices=SKIN_SENSITIVE_TYPE_CHOICES, blank=True)
+    pigment_type = models.CharField(_(u'色素or非色素'), max_length=64, choices=SKIN_PIGMENT_TYPE_CHOICES, blank=True)
+    loose_type = models.CharField(_(u'易皱or紧致'), max_length=64, choices=SKIN_LOOSE_TYPE_CHOICES, blank=True)
+    analysis = models.TextField(_(u'对应阐述'), max_length=64, blank=True)

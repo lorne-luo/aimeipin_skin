@@ -11,19 +11,26 @@ class BrandListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
     model = Brand
     template_name_suffix = '_list'  # brand/brand_list.html
 
+    def get_context_data(self, **kwargs):
+        context = super(BrandListView, self).get_context_data(**kwargs)
+        context.update({
+            'all_brand': Brand.objects.all()
+        })
+        return context
+
 
 class BrandAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
     """ Add views for Brand """
     model = Brand
     form_class = forms.BrandAddForm
-    template_name = 'adminlte/common_form.html'
+    template_name = 'brand/brand_form.html'
 
 
 class BrandUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     """ Update views for Brand """
     model = Brand
     form_class = forms.BrandUpdateForm
-    template_name = 'adminlte/common_form.html'
+    template_name = 'brand/brand_form.html'
 
 
 class BrandDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):

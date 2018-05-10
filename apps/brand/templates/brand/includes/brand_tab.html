@@ -1,0 +1,11 @@
+{% for brand in all_brand %}
+    {% if brand.first_letter_en >= start and brand.first_letter_en <= end %}
+            <a href="{% url 'brand:brand-update' pk=brand.id %}">{{ brand.name_en }}</a>
+    {% endif %}
+{% endfor %}
+<hr />
+{% for brand in all_brand %}
+    {% if brand.first_letter_cn >= start and brand.first_letter_cn <= end %}
+            <a href="{% url 'brand:brand-update' pk=brand.id %}">{{ brand.name_cn }}</a>
+    {% endif %}
+{% endfor %}

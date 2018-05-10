@@ -1,41 +1,61 @@
 {% extends "adminlte/common_list.html" %}
 {% load static %}
 
-{% block table_head %}
-  <th class="text-center hidden-sm hidden-xs" style="width:60px;">
-    <input type="checkbox" name="checkboxAllRow" class="checkboxAllRow" v-on:click="toggleAllBox"/>
-  </th>
-  <th>Logo</th>
-  <th>英文名称</th>
-  <th>英文首字母</th>
-  <th>中文名称</th>
-  <th>中文首字母</th>
+{#{% block table_head %}#}
+{#    <th class="text-center hidden-sm hidden-xs" style="width:60px;">#}
+{#        <input type="checkbox" name="checkboxAllRow" class="checkboxAllRow" v-on:click="toggleAllBox"/>#}
+{#    </th>#}
+{#    <th>Logo</th>#}
+{#    <th>英文名称</th>#}
+{#    <th>英文首字母</th>#}
+{#    <th>中文名称</th>#}
+{#    <th>中文首字母</th>#}
+{##}
+{#    <th class="hidden-sm hidden-xs"></th>#}
+{#{% endblock %}#}
 
-  <th class="hidden-sm hidden-xs"></th>
+{% block tab_content %}
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#a-c" data-toggle="tab">A-Z</a></li>
+                <li class=""><a href="#d-g" data-toggle="tab">D-G</a></li>
+                <li class=""><a href="#h-k" data-toggle="tab">H-K</a></li>
+                <li class=""><a href="#l-o" data-toggle="tab">L-O</a></li>
+                <li class=""><a href="#p-s" data-toggle="tab">P-S</a></li>
+                <li class=""><a href="#t-w" data-toggle="tab">T-W</a></li>
+                <li class=""><a href="#x-z" data-toggle="tab">X-Z</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="a-c">
+                    {% include 'brand/includes/brand_tab.html' with start='A' end='C' %}
+                </div>
+                <div class="tab-pane" id="d-g">
+                    {% include 'brand/includes/brand_tab.html' with start='D' end='G' %}
+                </div>
+                <div class="tab-pane" id="h-k">
+                    {% include 'brand/includes/brand_tab.html' with start='H' end='K' %}
+                </div>
+                <div class="tab-pane" id="l-o">
+                    {% include 'brand/includes/brand_tab.html' with start='L' end='O' %}
+                </div>
+                <div class="tab-pane" id="p-s">
+                    {% include 'brand/includes/brand_tab.html' with start='P' end='S' %}
+                </div>
+                <div class="tab-pane" id="t-w">
+                    {% include 'brand/includes/brand_tab.html' with start='T' end='W' %}
+                </div>
+                <div class="tab-pane" id="x-z">
+                    {% include 'brand/includes/brand_tab.html' with start='X' end='Z' %}
+                </div>
+            </div>
+            <!-- /.tab-content -->
+        </div>
 {% endblock %}
 
-{% block table_row %}
-  <tbody v-for="item in items">
-  <tr>
-    <td class="text-center hidden-sm hidden-xs">
-      ##[$index+1]
-      <input type="checkbox" class="minimal" name="checkboxRow" value="#[item.id]"/>
-    </td>
-    <td>
-      <img v-if="item.logo" style="height:75px" src="{!! item.logo !!}"/>
-    </td>
-    <td><a href="{!! item.edit_url !!}">{!! item.name_en !!}</a></td>
-    <td>{!! item.first_letter_en !!}</td>
-    <td><a href="{!! item.edit_url !!}">{!! item.name_cn !!}</a></td>
-    <td>{!! item.first_letter_cn !!}</td>
-
-    {% block item_buttons %}
-      {{ block.super }}
-    {% endblock %}
-  </tr>
-  </tbody>
+{% block common_list_pagination %}
 {% endblock %}
 
 {% block common_list_footer_page_script %}
-  <script type="text/javascript" src="{% static 'js/brand/brand_list.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/brand/brand_list.min.js' %}"></script>
 {% endblock %}

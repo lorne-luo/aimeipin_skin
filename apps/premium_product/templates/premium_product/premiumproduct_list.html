@@ -22,8 +22,8 @@
       <input type="checkbox" class="minimal" name="checkboxRow" value="#[item.id]"/>
     </td>
     <td>
-      <a v-if="item.thumbnail" href="{!! item.thumbnail !!}" target="_blank"><img style="height:75px" src="{!! item.thumbnail !!}"/></a>
-      <img v-else style="height:75px" src="/static/img/no_image.jpg"/>
+      <a v-if="item.thumbnail" href="{!! item.edit_url !!}"><img style="height:75px" src="{!! item.thumbnail !!}"/></a>
+      <a v-else href="{!! item.edit_url !!}"><img style="height:75px" src="/static/img/no_image.jpg"/></a>
     </td>
     <td class="hidden-sm hidden-xs">
       <a href="{!! item.edit_url !!}">{!! item.name_cn !!}</a><br/>{!! item.name_en !!}

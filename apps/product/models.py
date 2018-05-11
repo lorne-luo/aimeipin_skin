@@ -27,9 +27,9 @@ def get_product_pic_path(instance, filename):
     filename = '%s.%s' % (filename, ext)
     file_path = os.path.join(PRODUCT_PHOTO_FOLDER, filename)
 
-    # from apps.celery.tasks import guetzli_compress_image
-    # full_path = os.path.join(MEDIA_ROOT, file_path)
-    # guetzli_compress_image.apply_async(args=[full_path], countdown=30)
+    from apps.celery.tasks import guetzli_compress_image
+    full_path = os.path.join(MEDIA_ROOT, file_path)
+    guetzli_compress_image.apply_async(args=[full_path], countdown=30)
     return file_path
 
 
@@ -38,7 +38,7 @@ class ProductManager(models.Manager):
 
     def clean_cache(self):
         log.info('[QUERYSET_CACHE] clean carriers.')
-        cache.delete(self.DEFAULT_CACHE_KEY)
+        # cache.delete(self.DEFAULT_CACHE_KEY)
 
 
 class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):

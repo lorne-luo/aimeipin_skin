@@ -38,7 +38,7 @@ class PremiumProductManager(models.Manager):
 
     def clean_cache(self):
         log.info('[QUERYSET_CACHE] clean carriers.')
-        cache.delete(self.DEFAULT_CACHE_KEY)
+        # cache.delete(self.DEFAULT_CACHE_KEY)
 
 
 class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):

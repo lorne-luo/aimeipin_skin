@@ -58,7 +58,7 @@ class ProductAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
 
         productingredient_formset = context['productingredient_formset']
         productingredient_formset.instance = form.instance
-        if self.component_edit_querystring in self.request.POST:
+        if self.component_edit_querystring in self.request.META['HTTP_REFERER']:
             if productingredient_formset.is_valid():
                 productingredient_formset.save()
 

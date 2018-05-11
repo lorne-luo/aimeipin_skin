@@ -32,8 +32,7 @@
             {% for productingredient in productingredient_formset %}
                 <div class="form-group formset_row {% if forloop.counter0|divisibleby:2 %}even{% else %}odd{% endif %}"
                      id="{{ productingredient_formset.prefix }}-{{ forloop.counter0 }}"
-                        {% if productingredient.instance.pk %}
-                     data-pk="{{ productingredient.instance.pk }}"{% endif %}>
+                        {% if productingredient.instance.pk %} data-pk="{{ productingredient.instance.pk }}"{% endif %}>
 
                     {{ productingredient.id }}
                     {% for hidden in form.hidden_fields %}

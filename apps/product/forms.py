@@ -40,7 +40,7 @@ class ProductIngredientInlineForm(forms.ModelForm):
 
 
 ProductIngredientFormSet = inlineformset_factory(Product, ProductIngredient, form=ProductIngredientInlineForm,
-                                                 can_order=False, can_delete=True, extra=0)
+                                                 can_order=False, can_delete=True, extra=1)
 
 
 class ProductAnalysisInlineForm(forms.ModelForm):

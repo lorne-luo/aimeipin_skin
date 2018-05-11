@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        {% if productingredient_formset|length == 0 %}
+        {% if productingredient_formset.management_form.initial.INITIAL_FORMS == 0 %}
             <span>目前没有成分信息.</span>
         {% else %}
             {% for productingredient in productingredient_formset %}

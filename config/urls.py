@@ -36,6 +36,7 @@ apps_urlpatterns = [
     url(r'^brand/', include('apps.brand.urls', namespace='brand')),
     url(r'^product/', include('apps.product.urls', namespace='product')),
     url(r'^premium_product/', include('apps.premium_product.urls', namespace='premium_product')),
+    url(r'^analysis/', include('apps.analysis.urls', namespace='analysis')),
     url(r'^weixin/', include('apps.weixin.urls', namespace='weixin')),
 ]
 
@@ -45,6 +46,7 @@ api_urlpatterns = [
     url(r'^brand/', include('apps.brand.api.urls')),
     url(r'^product/', include('apps.product.api.urls')),
     url(r'^premium_product/', include('apps.premium_product.api.urls')),
+    url(r'^analysis/', include('apps.analysis.api.urls')),
 ]
 
 urlpatterns = wagtail_urlpatterns + apps_urlpatterns + [

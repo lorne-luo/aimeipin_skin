@@ -50,6 +50,7 @@ registerApp('apps/brand');
 registerApp('apps/product');
 registerApp('apps/dashboard');
 registerApp('apps/premium_product');
+registerApp('apps/analysis');
 registerApp('apps/survey');
 registerApp('apps/weixin');
 

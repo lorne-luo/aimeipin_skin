@@ -1,0 +1,23 @@
+<li class="treeview active">
+    <a href="{% url 'analysis:word-list' %}">
+        <i class='fa fa-shopping-bag'></i>
+        <b>话术</b>
+    </a>
+{##}
+{#    {% if user.is_superuser %}#}
+{#        <ul class="treeview-menu menu-open" style="display: block;">#}
+{#            <li>#}
+{#                {% if perms.word.add_word %}#}
+{#                    <a href="{% url 'analysis:word-add' %}" class="pull-right">#}
+{#                        <i class="fa fa-plus" aria-hidden="true"></i>#}
+{#                    </a>#}
+{#                {% endif %}#}
+{#                <a href="{% url 'analysis:word-list' %}" class="main">#}
+{#                    <i class="fa fa-circle-o"></i>#}
+{#                    话术#}
+{#                </a>#}
+{#            </li>#}
+{##}
+{#        </ul>#}
+{#    {% endif %}#}
+</li>

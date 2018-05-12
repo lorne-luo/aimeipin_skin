@@ -1,12 +1,13 @@
 # coding=utf-8
-
 from django.db import models
-
+from django.utils.translation import ugettext_lazy as _
+from pypinyin import Style
 from config.constants import (SKIN_OILY_TYPE_CHOICES, SKIN_SENSITIVE_TYPE_CHOICES, SKIN_PIGMENT_TYPE_CHOICES,
                               SKIN_LOOSE_TYPE_CHOICES, PURPOSE_CHOICES)
+from core.django.models import PinYinFieldModelMixin
 
 
-class Word(models.Model):
+class Word(PinYinFieldModelMixin, models.Model):
     """肤质对应话术, skin_word"""
     purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
 
@@ -25,3 +26,12 @@ class Word(models.Model):
     night_instruct = models.CharField(max_length=512, blank=True)  # 夜间指导
     mask_instruct = models.CharField(max_length=512, blank=True)  # 面膜指导
     problem = models.TextField(max_length=128, blank=True)  # 存在的问题
+
+    pinyin = models.CharField(_(u'pinyin'), max_length=512, blank=True)
+    pinyin_fields_conf = [
+        ('purpose', Style.NORMAL, False),
+        ('oily_type', Style.NORMAL, False),
+        ('sensitive_type', Style.NORMAL, False),
+        ('pigment_type', Style.NORMAL, False),
+        ('loose_type', Style.NORMAL, False),
+    ]

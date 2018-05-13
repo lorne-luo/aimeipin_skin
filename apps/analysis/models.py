@@ -9,23 +9,23 @@ from core.django.models import PinYinFieldModelMixin
 
 class Word(PinYinFieldModelMixin, models.Model):
     """肤质对应话术, skin_word"""
-    purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
+    purpose = models.CharField(_('目标'), max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
 
-    oily_type = models.CharField(max_length=64, choices=SKIN_OILY_TYPE_CHOICES, blank=True)
-    sensitive_type = models.CharField(max_length=64, choices=SKIN_SENSITIVE_TYPE_CHOICES, blank=True)
-    pigment_type = models.CharField(max_length=64, choices=SKIN_PIGMENT_TYPE_CHOICES, blank=True)
-    loose_type = models.CharField(max_length=64, choices=SKIN_LOOSE_TYPE_CHOICES, blank=True)
+    oily_type = models.CharField(_('油性or干性'), max_length=64, choices=SKIN_OILY_TYPE_CHOICES, blank=True)
+    sensitive_type = models.CharField(_('敏感or耐受'), max_length=64, choices=SKIN_SENSITIVE_TYPE_CHOICES, blank=True)
+    pigment_type = models.CharField(_('色素or非色素'), max_length=64, choices=SKIN_PIGMENT_TYPE_CHOICES, blank=True)
+    loose_type = models.CharField(_('易皱纹or紧致'), max_length=64, choices=SKIN_LOOSE_TYPE_CHOICES, blank=True)
 
-    report = models.TextField(max_length=512, blank=True)  # 总结报告，填充值问卷报告的总结
-    avoid_component = models.TextField(max_length=128, blank=True)  # 避免使用的成分
-    doctor_advice = models.TextField(max_length=128, blank=True)  # 医生建议
-    emergency_solution = models.TextField(max_length=128, blank=True)  # 应急方案
-    maintain_solution = models.TextField(max_length=128, blank=True)  # 维稳方案
+    report = models.TextField(_('皮肤检测报告总结'), max_length=512, blank=True)  # 总结报告，填充值问卷报告的总结
+    problem = models.TextField(_('我们认为您存在的问题'), max_length=128, blank=True)  # 存在的问题
+    avoid_component = models.TextField(_('需要避免使用的皮肤护理成分'), max_length=128, blank=True)  # 避免使用的成分
+    doctor_advice = models.TextField(_('听听皮肤科医生怎么说'), max_length=128, blank=True)  # 医生建议
+    emergency_solution = models.TextField(_('应急方案'), max_length=128, blank=True)  # 应急方案
+    maintain_solution = models.TextField(_('日常维稳方案'), max_length=128, blank=True)  # 维稳方案
 
-    day_instruct = models.CharField(max_length=512, blank=True)  # 日间指导
-    night_instruct = models.CharField(max_length=512, blank=True)  # 夜间指导
-    mask_instruct = models.CharField(max_length=512, blank=True)  # 面膜指导
-    problem = models.TextField(max_length=128, blank=True)  # 存在的问题
+    day_instruct = models.CharField(_('日间'), max_length=512, blank=True)  # 日间指导
+    night_instruct = models.CharField(_('夜间'), max_length=512, blank=True)  # 夜间指导
+    mask_instruct = models.CharField(_('面膜'), max_length=512, blank=True)  # 面膜指导
 
     pinyin = models.CharField(_(u'pinyin'), max_length=512, blank=True)
     pinyin_fields_conf = [
@@ -35,3 +35,7 @@ class Word(PinYinFieldModelMixin, models.Model):
         ('pigment_type', Style.NORMAL, False),
         ('loose_type', Style.NORMAL, False),
     ]
+
+    class Meta:
+        verbose_name_plural = _('话术')
+        verbose_name = _('话术')

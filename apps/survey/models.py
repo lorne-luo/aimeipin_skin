@@ -25,45 +25,67 @@ class Answer(models.Model):
     weixin_id = models.CharField(_(u'微信号'), max_length=128, blank=True)
     address = models.CharField(_(u'地址'), max_length=255, blank=True)
 
-    # selection answer
-    question1 = models.PositiveIntegerField(blank=True, null=True)
-    question2 = models.PositiveIntegerField(blank=True, null=True)
-    question3 = models.PositiveIntegerField(blank=True, null=True)
-    question4 = models.PositiveIntegerField(blank=True, null=True)
-    question5 = models.PositiveIntegerField(blank=True, null=True)
-    question6 = models.PositiveIntegerField(blank=True, null=True)
-    question7 = models.PositiveIntegerField(blank=True, null=True)
-    question8 = models.PositiveIntegerField(blank=True, null=True)
-    question9 = models.PositiveIntegerField(blank=True, null=True)
-    question10 = models.PositiveIntegerField(blank=True, null=True)
-    question11 = models.PositiveIntegerField(blank=True, null=True)
-    question12 = models.PositiveIntegerField(blank=True, null=True)
-    question13 = models.PositiveIntegerField(blank=True, null=True)
-    question14 = models.PositiveIntegerField(blank=True, null=True)
-    question15 = models.PositiveIntegerField(blank=True, null=True)
-    question16 = models.PositiveIntegerField(blank=True, null=True)
-    question17 = models.PositiveIntegerField(blank=True, null=True)
-    question18 = models.PositiveIntegerField(blank=True, null=True)
-    question19 = models.PositiveIntegerField(blank=True, null=True)
-    question20 = models.PositiveIntegerField(blank=True, null=True)
-    question21 = models.PositiveIntegerField(blank=True, null=True)
-    question22 = models.PositiveIntegerField(blank=True, null=True)
-    question23 = models.PositiveIntegerField(blank=True, null=True)
-    question24 = models.PositiveIntegerField(blank=True, null=True)
-    question25 = models.PositiveIntegerField(blank=True, null=True)
-    question26 = models.PositiveIntegerField(blank=True, null=True)
-    question27 = models.PositiveIntegerField(blank=True, null=True)
-    question28 = models.PositiveIntegerField(blank=True, null=True)
-    question29 = models.PositiveIntegerField(blank=True, null=True)
-    question30 = models.PositiveIntegerField(blank=True, null=True)
-    question31 = models.PositiveIntegerField(blank=True, null=True)
-    question32 = models.PositiveIntegerField(blank=True, null=True)
-    question33 = models.PositiveIntegerField(blank=True, null=True)
-    question34 = models.PositiveIntegerField(blank=True, null=True)
-    question35 = models.PositiveIntegerField(blank=True, null=True)
-    question36 = models.PositiveIntegerField(blank=True, null=True)
-    question37 = models.PositiveIntegerField(blank=True, null=True)
-    question38 = models.PositiveIntegerField(blank=True, null=True)
+    # 记分选择题
+    # 12-21 是干油
+    question1 = models.PositiveIntegerField(blank=True, null=True) # No. 12
+    question2 = models.PositiveIntegerField(blank=True, null=True)  # No. 13
+    question3 = models.PositiveIntegerField(blank=True, null=True) # No. 14
+    question4 = models.PositiveIntegerField(blank=True, null=True) # No. 15
+    question5 = models.PositiveIntegerField(blank=True, null=True) # No. 16
+    question6 = models.PositiveIntegerField(blank=True, null=True) # No. 17
+    question7 = models.PositiveIntegerField(blank=True, null=True) # No. 18
+    question8 = models.PositiveIntegerField(blank=True, null=True) # No. 19
+    question9 = models.PositiveIntegerField(blank=True, null=True) # No. 20
+    question10 = models.PositiveIntegerField(blank=True, null=True) # No. 21
+    # 22-32 是敏感
+    question11 = models.PositiveIntegerField(blank=True, null=True) # No. 22
+    question12 = models.PositiveIntegerField(blank=True, null=True) # No. 23
+    question13 = models.PositiveIntegerField(blank=True, null=True) # No. 24
+    question14 = models.PositiveIntegerField(blank=True, null=True) # No. 25
+    question15 = models.PositiveIntegerField(blank=True, null=True) # No. 26
+    question16 = models.PositiveIntegerField(blank=True, null=True) # No. 27
+    question17 = models.PositiveIntegerField(blank=True, null=True) # No. 28
+    question18 = models.PositiveIntegerField(blank=True, null=True) # No. 29
+    question19 = models.PositiveIntegerField(blank=True, null=True) # No. 30
+    question20 = models.PositiveIntegerField(blank=True, null=True) # No. 31
+    question21 = models.PositiveIntegerField(blank=True, null=True) # No. 32
+    # 33-41 是色素
+    question22 = models.PositiveIntegerField(blank=True, null=True) # No. 33
+    question23 = models.PositiveIntegerField(blank=True, null=True) # No. 34
+    question24 = models.PositiveIntegerField(blank=True, null=True) # No. 35
+    question25 = models.PositiveIntegerField(blank=True, null=True) # No. 36
+    question26 = models.PositiveIntegerField(blank=True, null=True) # No. 37
+    question27 = models.PositiveIntegerField(blank=True, null=True) # No. 38
+    question28 = models.PositiveIntegerField(blank=True, null=True) # No. 39
+    question29 = models.PositiveIntegerField(blank=True, null=True) # No. 40
+    question30 = models.PositiveIntegerField(blank=True, null=True) # No. 41
+    # 42-49 是皱纹
+    question31 = models.PositiveIntegerField(blank=True, null=True) # No. 42
+    question32 = models.PositiveIntegerField(blank=True, null=True) # No. 43
+    question33 = models.PositiveIntegerField(blank=True, null=True) # No. 44
+    question34 = models.PositiveIntegerField(blank=True, null=True) # No. 45
+    question35 = models.PositiveIntegerField(blank=True, null=True) # No. 46
+    question36 = models.PositiveIntegerField(blank=True, null=True) # No. 47
+    question37 = models.PositiveIntegerField(blank=True, null=True) # No. 48
+    question38 = models.PositiveIntegerField(blank=True, null=True) # No. 49
+
+    # 不记分选择题 50-64
+    non_score_question1 = models.PositiveIntegerField(blank=True, null=True)  # No. 50
+    non_score_question2 = models.PositiveIntegerField(blank=True, null=True)  # No. 51
+    non_score_question3 = models.PositiveIntegerField(blank=True, null=True)  # No. 52
+    non_score_question4 = models.PositiveIntegerField(blank=True, null=True)  # No. 53
+    non_score_question5 = models.PositiveIntegerField(blank=True, null=True)  # No. 54
+    non_score_question6 = models.PositiveIntegerField(blank=True, null=True)  # No. 55
+    non_score_question7 = models.PositiveIntegerField(blank=True, null=True)  # No. 56
+    non_score_question8 = models.PositiveIntegerField(blank=True, null=True)  # No. 57
+    non_score_question9 = models.PositiveIntegerField(blank=True, null=True)  # No. 58
+    non_score_question10 = models.PositiveIntegerField(blank=True, null=True)  # No. 59
+    non_score_question11 = models.PositiveIntegerField(blank=True, null=True)  # No. 60
+    non_score_question12 = models.PositiveIntegerField(blank=True, null=True)  # No. 61
+    non_score_question13 = models.PositiveIntegerField(blank=True, null=True)  # No. 62
+    non_score_question14 = models.PositiveIntegerField(blank=True, null=True)  # No. 63
+    non_score_question15 = models.PositiveIntegerField(blank=True, null=True)  # No. 64
+
 
     # 非选项问题
     allergy = models.TextField(max_length=128, blank=True)  # 过敏

@@ -286,6 +286,7 @@ ID_PHOTO_FOLDER = 'id'
 PRODUCT_PHOTO_FOLDER = 'product'
 BRAND_LOGO_PHOTO_FOLDER = 'brand'
 PREMIUM_PRODUCT_PHOTO_FOLDER = 'premium_product'
+ANSWER_PHOTO_FOLDER = 'answer'
 # for django-guardian
 ANONYMOUS_USER_ID = -1
 SITE_ID = 1

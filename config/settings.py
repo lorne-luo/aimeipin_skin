@@ -67,6 +67,7 @@ INSTALLED_APPS = (
     'apps.brand',
     'apps.dashboard',
     'apps.survey',
+    'apps.report',
     'apps.analysis',
     'apps.celery',  # celery tasks
     'utils',

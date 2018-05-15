@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <!-- 设置缩放 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" />
+    <!-- 可隐藏地址栏，仅针对IOS的Safari（注：IOS7.0版本以后，safari上已看不到效果） -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 仅针对IOS的Safari顶端状态条的样式（可选default/black/black-translucent ） -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- IOS中禁用将数字识别为电话号码/忽略Android平台中对邮箱地址的识别 -->
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>Action28肌肤测试问卷</title>
+    <link rel="stylesheet" href="../css/index.css"/>
+    <style>
+        #question{
+            width: 7.5rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #ccc;
+            height: 10rem;
+        }
+        #question div#question1{
+            width: 6.9rem;
+            position: relative;
+            top: 0.2rem;
+            left: 0.28rem;
+            background: #f6f6f6;
+            height: 8.7rem;
+        }
+        #question div h3{
+            color: #F53D05;
+            font-size: 0.26rem;
+            padding: 0.2rem;
+            text-align: center;
+        }
+        #question div b{
+            width: 9.6rem;
+            display:block;
+            color: #3E6FB4;
+            font-size: 0.2rem;
+            margin-left: 0.2rem;
+            text-align:left;
+        }
+        table{
+            width: 6.8rem;
+            border-collapse: collapse;
+            margin: 0.3rem auto;
+        }
+        table th{
+            height:0.4rem;
+            background:#D9E5ED;
+            font-size: 0.3rem;
+        }
+        table td{
+            text-align:center;
+            height:0.4rem;
+            font-size: 0.3rem;
+        }
+        table tbody tr:nth-child(2n){
+            background:#EFF6FB;
+        }
+        #question p{
+            padding-left:0.2rem;
+        }
+        #question #main{
+            border:1px solid #8CC3E6;
+            margin-left: 0.4rem;
+        }
+        #question #main div{
+            position:relative;
+            top:0;
+            left:0;
+        }
+    </style>
+</head>
+<body>
+<div id="question">
+    <p>Action28肌肤测试问卷  测评报告</p>
+    <div id=question1>
+        <!--<div>-->
+            <h3>测评用户：<span id="username">XXX</span></h3>
+            <b>测评结果分析</b>
+            <table>
+                <thead>
+                <tr>
+                    <th>皮肤类型</th>
+                    <th>得分</th>
+                    <th>测评结果与建议</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                <!--<tr>-->
+                    <!--<td></td>-->
+                    <!--<td></td>-->
+                    <!--<td></td>-->
+                <!--</tr>-->
+                </tbody>
+            </table>
+        <!--</div>-->
+
+        <div id="main" style="width: 6rem;height:4rem;"></div>
+
+    </div>
+</div>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="js/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+<script src="../js/echarts.common.min.js"></script>
+<script src="js/rem.js"></script>
+<script>
+
+        $.ajax({
+            url:"/index.php/index/answer",
+            type:"POST",
+            dataType:"JSON",
+            data:{
+               user_id:window.localStorage.getItem('id'),
+//                user_id:2,
+                time:window.localStorage.getItem('time'),
+//                time:"2017-11-30 10:18:02",
+            },
+            success:function(res){
+                var xAxis = [];
+                var series = [];
+                if(res.code == 10000){
+                    for(var i=0;i<res.msg.type.length;i++){
+                        var tr =  '<tr>'+
+                        '<td>'+res.msg.type[i].t_name+'</td>'+
+                        '<td>'+res.msg.type[i].score+'</td>'+
+                        '<td>'+res.msg.type[i].prompt+'</td>'+
+                        '</tr>';
+                        $('#tbody').append(tr);
+                        xAxis.push(res.msg.type[i].t_name);
+                        series.push(res.msg.type[i].score);
+                    }
+                }
+                console.log(xAxis)
+                $('#username').html(res.msg.name);
+
+
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('main'));
+
+                // 指定图表的配置项和数据
+                var option = {
+                    title: {
+//                text: 'ECharts 入门示例'
+                    },
+                    tooltip: {},
+                    legend: {
+//                data:['销量']
+//                        height: worldMapContainer.style.height,
+//                        width: worldMapContainer.style.width
+                    },
+                    xAxis: {
+                        data: xAxis,
+                        axisLabel :{
+                            interval:0,
+                            textStyle:{
+//                                fontSize:1 // 让字体变大
+                            }
+                        }
+                    },
+                    yAxis: {
+                        type : 'value',
+                        axisLabel :{
+                            textStyle:{
+                                fontSize:9 // 让字体变大
+                            }
+                        }
+                    },
+                    series: [{
+//                        name: '销量',
+                        type: 'bar',
+                        itemStyle: {
+                            normal: {color: '#33A3DC',border:'1px solid red'}
+                        },
+                        data: series,
+                        barWidth : 40,
+                    }],
+                    grid:{
+                        x:25,
+                        y:45,
+                    },
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+
+
+//用于使chart自适应高度和宽度
+//                window.onresize = function () {
+//                    //重置容器高宽
+//                    resizeWorldMapContainer();
+//                    myChart.resize();
+//                };
+
+
+            },
+            error:function(){}
+        });
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Action28肌肤测试问卷</title>
+    <link rel="stylesheet" href="../css/index.css"/>
+    <style>
+        #question{
+            width: 1000px;
+            /*position: absolute;*/
+            /*top: 200px;*/
+            /*left: 450px;*/
+            background: #ccc;
+            height: 1000px;
+            margin:200px auto;
+            margin-bottom:30px;
+        }
+        #question div#question1{
+            width: 960px;
+            position: relative;
+            top: 20px;
+            left: 20px;
+            background: #f6f6f6;
+            height: 870px;
+        }
+        #question div h3{
+            color: #F53D05;
+            font-size: 24px;
+            padding: 20px;
+            text-align: center;
+        }
+        #question div b{
+            width: 960px;
+            display:block;
+            color: #3E6FB4;
+            font-size: 20px;
+            margin-left: 20px;
+            text-align:left;
+        }
+        table{
+            width: 800px;
+            border-collapse: collapse;
+            margin: 30px auto;
+        }
+        table th{
+            height:40px;
+            background:#D9E5ED;
+        }
+        table td{
+            text-align:center;
+            height:40px;
+        }
+        table tbody tr:nth-child(2n){
+            background:#EFF6FB;
+        }
+        #question p{
+            padding-left:20px;
+        }
+        #question #main{
+            border:1px solid #8CC3E6;
+            margin-left: 170px;
+            width: 600px;
+        }
+        #question #main div{
+            position:relative;
+            top:0;
+            left:0;
+        }
+        #buttondiv{
+            width:200px;
+            margin:20px auto;
+        }
+        #btnsavescore{
+            display:inline-block;
+            text-decoration: none;
+            /*position: absolute;*/
+            /*top: 1220px;*/
+            /*left: 500px;*/
+            background: #f17819;
+            border: none;
+            color: #fff;
+            width: 200px;
+            height: 28px;;
+            text-align:center;
+            line-height:25px;
+        }
+    </style>
+</head>
+<body>
+<div id="question">
+    <p>Action28肌肤测试问卷  测评报告</p>
+    <div id=question1>
+        <!--<div id="question2">-->
+            <h3>测评用户：<span id="username">XXX</span></h3>
+            <b>测评结果分析</b>
+            <table id="questiontable">
+                <thead>
+                <tr>
+                    <th>皮肤类型</th>
+                    <th>得分</th>
+                    <th>测评结果与建议</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                <!--<tr>-->
+                    <!--<td></td>-->
+                    <!--<td></td>-->
+                    <!--<td></td>-->
+                <!--</tr>-->
+                </tbody>
+            </table>
+        <!--</div>-->
+
+        <div id="main" style="width: 600px;height:400px;"></div>
+        <!--<div id="main"><img src="" alt=""/></div>-->
+
+    </div>
+</div>
+<!--<div id="buttondiv"><input type="button" value="保存报告"  id="btnsavescore"/></div>-->
+<div id="buttondiv"><a download="" id="btnsavescore">保存报告</a></div>
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/index.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>-->
+<script src="js/echarts.common.min.js"></script>
+<script src="../js/html2canvas.js"></script>
+<!--<script src="js/jspdf.debug.js"></script>-->
+<!--<script src="js/renderPDF.js"></script>-->
+<!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>-->
+<!--<script type="text/javascript" src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>-->
+<script>
+
+        $.ajax({
+            url:"/index.php/index/answer",
+            type:"POST",
+            dataType:"JSON",
+            data:{
+               user_id:window.localStorage.getItem('id'),
+//                user_id:2,
+                time:window.localStorage.getItem('time'),
+//                time:"2017-11-30 10:18:02",
+            },
+            success:function(res){
+                var xAxis = [];
+                var series = [];
+                if(res.code == 10000){
+                    for(var i=0;i<res.msg.type.length;i++){
+                        var tr =  '<tr>'+
+                        '<td>'+res.msg.type[i].t_name+'</td>'+
+                        '<td>'+res.msg.type[i].score+'</td>'+
+                        '<td>'+res.msg.type[i].prompt+'</td>'+
+                        '</tr>';
+                        $('#tbody').append(tr);
+                        xAxis.push(res.msg.type[i].t_name);
+                        series.push(res.msg.type[i].score);
+                    }
+//                    $('#main img').attr('src','http://servers.jianghujoy.cn:8084/index.php/index/creat-img');
+                    $('#username').html(res.msg.name);
+
+
+                    $('#btnsavescore').click(function(){
+                        savescore();
+                    })
+
+
+
+                }
+
+
+
+
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('main'));
+
+//                 指定图表的配置项和数据
+                var option = {
+                    title: {
+//                text: 'ECharts 入门示例'
+                    },
+                    tooltip: {},
+                    legend: {
+//                data:['销量']
+                    },
+                    xAxis: {
+                        data: xAxis
+                    },
+                    yAxis: {},
+                    series: [{
+//                        name: '销量',
+                        type: 'bar',
+                        itemStyle: {
+                            normal: {color: '#33A3DC',border:'1px solid red'}
+                        },
+                        data: series
+                    }]
+                };
+
+//                 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+
+
+
+
+            },
+            error:function(){}
+        });
+
+
+
+        var sss = true;
+        function savescore(){
+//            html2canvas($("#question")).then(function(canvas) {
+//                var imgUri = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); // 获取生成的图片的url
+//
+//                var saveFile = function(data, filename){
+//                    var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+//                    save_link.href = data;
+//                    save_link.download = filename;
+//
+//                    var event = document.createEvent('MouseEvents');
+//                    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+//                    save_link.dispatchEvent(event);
+//                };
+//                var filename = shopname + '.' + type;
+//                saveFile(imgData,filename);
+//
+//
+//
+//
+//
+//
+//                window.location.href= imgUri; // 下载图片
+//
+//            });
+
+
+            html2canvas([document.getElementById('question')], {
+                onrendered: function (canvas) {
+                    var imagedata = canvas.toDataURL('image/png');
+                    var imgdata = imagedata.replace(/^data:image\/(png|jpg);base64,/, "");
+                    //ajax call to save image inside folder
+                    $.ajax({
+                        url: 'http://servers.jianghujoy.cn:8084/index/get-img',
+                        data: {
+                            imgdata:imgdata
+                        },
+                        type: 'post',
+                        success: function (response) {
+//                            $('#image_id img').attr('src', response);
+//                            window.location.href= response;
+                            $('#btnsavescore').attr('href',response)
+                            $('#btnsavescore').attr('download','Action28肌肤测试问卷 测评报告')
+                            if(sss){document.getElementById('btnsavescore').click();  sss=false;}
+//
+                        },
+                        error:function(xhr,status,error){
+
+                        }
+                    });
+                }
+
+            })
+
+
+
+//        var shopname = "糖猫猫的店铺";
+//        var c = document.getElementById("question");
+//        document.getElementById("btnsavescore").addEventListener("click",function() {
+//            if (c == null) {
+//                alert("获取数据失败，请刷新页面！");
+//                return false;
+//            }
+//
+//
+//            html2canvas($("#question")).then(function (canvas) {
+//                var type = 'png';
+//                var imgData = c.toDataURL(type);
+//                var _fixType = function(type) {
+//                    type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+//                    var r = type.match(/png|jpeg|bmp|gif/)[0];
+//                    return 'image/' + r;
+//                };
+//                imgData = imgData.replace(_fixType(type),'image/octet-stream');
+//                var saveFile = function(data, filename){
+//                    var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+//                    save_link.href = data;
+//                    save_link.download = filename;
+//
+//                    var event = document.createEvent('MouseEvents');
+//                    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+//                    save_link.dispatchEvent(event);
+//                };
+//                var filename = shopname + '.' + type;
+//                saveFile(imgData,filename);
+//            });
+//
+//            });
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //            $.ajax({
+        //                url:"http://servers.jianghujoy.cn:8084/index.php/index/creat-img-save",
+        //                type:"POST",
+        //                dataType:"JSON",
+        //                data:{
+        //                    user_id:window.localStorage.getItem('id'),
+        ////                user_id:2,
+        //                    time:window.localStorage.getItem('time'),
+        ////                time:"2017-11-30 10:18:02",
+        //                },
+        //                success:function(){},
+        //                error:function(){}
+        //            })
+        //
+        //            $.ajax({
+        //                url:"http://servers.jianghujoy.cn:8084/index.php/index/creat-html",
+        //                type:"POST",
+        //                dataType:"JSON",
+        //                data:{
+        //                    user_id:window.localStorage.getItem('id'),
+        ////                user_id:2,
+        //                    time:window.localStorage.getItem('time'),
+        ////                time:"2017-11-30 10:18:02",
+        //                },
+        //                success:function(){},
+        //                error:function(){}
+        //            })
+        //
+        //            window.location.href = "http://servers.jianghujoy.cn:8084/index/down-file?user_id="+window.localStorage.getItem('id')+"&time="+window.localStorage.getItem('time')
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Action28肌肤测试问卷</title>
+    <link rel="stylesheet" href="../css/index.css"/>
+    <style>
+        #button{
+            background: #13A5EC;
+            color: #fff;
+            border: none;
+            width: 100px;
+            height: 30px;
+            border-radius: 5px;
+            margin-left: 300px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .hufupin2{
+            display:none;
+        }
+        .hufupin2 li{
+            height:28px;
+            line-height:28px;
+        }
+        .span1{
+            cursor:pointer;
+        }
+        img{
+            width:28px;
+            border: 1px solid #ddd;
+        }
+        .hufupin select{
+            width:160px;
+            height:28px;
+            margin-right:16px;
+            margin-left:16px;
+        }
+        #section li.hufupin input{
+            width: 160px;
+            height: 24px;
+            border: 1px solid #AAA;
+            PADDING-LEFT: 10PX;
+        }
+        #question .hufupin ul.pin{
+            position: absolute;
+            left: 244px;
+            border-bottom: none;
+            background: #fff;
+            z-index: 10000;
+            border: 1px solid #ddd;
+            padding: 0;
+            margin: 0;
+            /* width: 170px; */
+            height: 100px;
+            overflow-y: scroll;
+            display: none;
+            min-width: 170px;
+            top: 27px;
+        }
+        #question .hufupin ul.pin.active{
+            display:block;
+        }
+        #section .hufupin ul li{
+            cursor:pointer;
+        }
+        #section .hufupin .pin li span{
+            display: inline-block;
+            font-size: 14px;
+            color: #000;
+            position: relative;
+            left: 5px;
+            top: -10px;
+            width: 228px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .add{
+            color: #fff;
+            background: #13A5EC;
+            width: 50px;
+            display: inline-block;
+            height: 26px;
+            text-align: center;
+            line-height: 26px;
+            border-radius: 3px;
+            position: absolute;
+            top: 24px;
+            right: 100px;
+            cursor:pointer;
+        }
+        .hufupin{
+            position:relative;
+        }
+        #question ul.ulcontainer{
+            border-bottom: none;
+            position: relative;
+            top: 30px;
+            left: 35px;
+            z-index:0;
+        }
+        #question .hufupin ul.ulcontainer span{
+            display:inline-block;
+            margin-left:30px;
+            color:red;
+            position: relative;
+            left: 5px;
+            top: 2px;
+        }
+        #section li input.fileinput{
+            position: relative;
+            right: 300px;
+            z-index: 0;
+            width: 260px;
+            cursor: pointer;
+        }
+        #section li input.inputopa{
+            position:relative;
+            z-index:100;
+            opacity:0;
+            width:300px;
+            cursor:pointer;
+        }
+        #section li input.handInp{
+            margin-top: 10px;
+            margin-left: 33px;
+            width: 376px;
+        }
+        .hufupin>span{
+            width:160px;
+        }
+        .hufupin>span>i{
+            background: url(image/path.png) no-repeat;
+            width: 18px;
+            height: 18px;
+            display: inline-block;
+            position: relative;
+            right: 46px;
+            background-size: contain;
+        }
+        ul.hufupin1,
+        ul.hufupin11,
+        ul.hufupin12,
+        ul.hufupin13,
+        ul.hufupin14,
+        ul.hufupin15,
+        ul.hufupin16
+        {
+            position: absolute;
+            background: #fff;
+            left: 34px;
+            top: 30px;
+            border: 1px solid #ddd;
+            width: 170px;
+            height: 160px;
+            overflow-y: auto;
+            display:none;
+            z-index: 100;
+        }
+        ul.hufupin1.active,
+        ul.hufupin11.active,
+        ul.hufupin12.active,
+        ul.hufupin13.active,
+        ul.hufupin14.active,
+        ul.hufupin15.active,
+        ul.hufupin16.active{
+            display:block;
+        }
+
+
+        ul.hufupin1 li,
+        ul.hufupin11 li,
+        ul.hufupin12 li,
+        ul.hufupin13 li,
+        ul.hufupin14 li,
+        ul.hufupin15 li,
+        ul.hufupin16 li
+        {
+            padding-left:10px;
+        }
+    </style>
+</head>
+<body>
+ <div id="question">
+<div id="header">
+    <p>Action28肌肤测试问卷</p>
+    <!--<img src=".././assets/logo.png">-->
+</div>
+     <div id="section">
+         <form id="form">
+             <ul>
+                 <li><p>1、您的姓名？</p><span>*</span></li>
+                 <li><input type="text" value="" name="name" id="username"/></li>
+                 <li><i>提示：请填写您下单时登记的姓名</i></li>
+             </ul>
+             <ul>
+                 <li><p>2、您的性别？</p><span class="req">&nbsp;*</span></li>
+                 <li><label><input type="radio" name="sex" value="1"/>男</label></li>
+                 <li><label><input type="radio" name="sex" value="0"/>女</label></li>
+             </ul>
+             <ul>
+                 <li><p>3、无ps、无滤镜、清晰纯素颜照片一张</p><span>*</span></li>
+                 <li><input type="file" value="选择文件，不超过4M" name="file1" id="file1" class="inputopa"/><input type="text" value="上传文件，不超过4M" readonly class="fileinput"/></li>
+                 <li></li>
+             </ul>
+             <ul>
+                 <li><p>4、如需重点关注部位可在此上传无ps、无滤镜、清晰的纯素颜照片</p></li>
+                 <li><input type="file" value="选择文件，不超过4M"  name="file2" id="file2" class="inputopa"/><input type="text" value="上传文件，不超过4M" readonly class="fileinput"/></li>
+                 <li></li>
+             </ul>
+             <ul>
+                 <li><p>5、现阶段使用护肤品合集</p></li>
+                 <li><input type="file" value="选择文件，不超过4M" name="file3" id="file3" class="inputopa"/><input type="text" value="上传文件，不超过4M" readonly class="fileinput"/></li>
+                 <li></li>
+             </ul>
+             <ul>
+                 <li><p>6、您的出生日期？</p><span>*</span></li>
+                 <!--<li><input type="file" value="选择文件，不超过4M"/></li>-->
+                 <li><input type="text" value="" name="age" id="age" placeholder="格式：2017-01-01"/></li>
+                 <li></li>
+             </ul>
+             <ul id="weight">
+                 <li></li>
+                 <li>7、您的身高<input type="text" value="" name="height" class="formSub"/>CM，体重<input type="text" value="" name="weight">KG？<span>*</span></li>
+                 <li></li>
+             </ul>
+             <ul>
+                 <li><p>8、您目前从事的职业？</p><span>*</span></li>
+                 <li><input type="text" value="" name="work"/></li>
+                 <li></li>
+             </ul>
+             <ul>
+                 <li><p>9、月收入水平？</p><span>*</span></li>
+                 <li><label><input type="radio" name="pay" value="0-5000"/>a 0-5000</label></li>
+                 <li><label><input type="radio" name="pay" value="5001-10000"/>b 5001-10000</label></li>
+                 <li><label><input type="radio" name="pay" value="10001-20000"/>c 10001-20000</label></li>
+                 <li><label><input type="radio" name="pay" value="20000以上"/>d 20000以上</label></li>
+                 <li><label><input type="radio" name="pay" value="全职太太"/>e 全职太太</label></li>
+             </ul>
+             <ul>
+                 <li><p>10、您的微信号？</p><span>*</span></li>
+                 <li><input type="text" value="" name="weixin"/></li>
+                 <li><i>提示：微信号不是昵称哦~</i></li>
+             </ul>
+             <ul>
+                 <li><p>11、您的手机号？</p><span>*</span></li>
+                 <li><input type="text" value="" name="phone" id="phone"/></li>
+                 <li><i>提示：请填写您下单时填写的手机号</i></li>
+             </ul>
+             <ul>
+                 <li><p>12、在照片上，你的皮肤看起来油光发亮？（无PS情况下）</p><span>*</span></li>
+                 <li><label><input type="radio" name="question1" value="10"/>a 从来不会</label></li>
+                 <li><label><input type="radio" name="question1" value="20"/>b 偶尔</label></li>
+                 <li><label><input type="radio" name="question1" value="30"/>c 经常</label></li>
+                 <li><label><input type="radio" name="question1" value="40"/>d 一直如此</label></li>
+             </ul>
+             <ul>
+                 <li><p>13、在干燥的环境中，如果不使用保湿霜或者防晒霜，你的面部皮肤会？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question2" value="10"/>a 感觉很干或很裂</label></li>
+                 <li><label><input type="radio" name="question2" value="20"/>b 感觉很紧绷</label></li>
+                 <li><label><input type="radio" name="question2" value="30"/>c 感觉很正常</label></li>
+                 <li><label><input type="radio" name="question2" value="40"/>d 看上去很光亮，或我从来没有感觉到我需要保湿霜</label></li>
+                 <li><label><input type="radio" name="question2" value="25"/>e 我不知道</label></li>
+             </ul>
+             <ul>
+                 <li><p>14、使用保湿霜后2-3小时你的面部会？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question3" value="10"/>a 非常粗糙，起屑</label></li>
+                 <li><label><input type="radio" name="question3" value="20"/>b 平滑</label></li>
+                 <li><label><input type="radio" name="question3" value="30"/>c 轻度油光发亮</label></li>
+                 <li><label><input type="radio" name="question3" value="40"/>d光滑油亮，或我根据不需要用保湿霜</label></li>
+             </ul>
+             <ul>
+                 <li><p>15、早上正常护肤后，中午到下午会油光满面？<span>*</span></p></li>
+                 <li><label><input type="radio" name="question4" value="10"/>a 从来不会</label></li>
+                 <li><label><input type="radio" name="question4" value="20"/>b 只在夏天会</label></li>
+                 <li><label><input type="radio" name="question4" value="30"/>c 在春夏秋会</label></li>
+                 <li><label><input type="radio" name="question4" value="40"/>d 四季都是如此</label></li>
+             </ul>
+             <ul>
+                 <li><p>16、在使用粉底液、BB霜或者隔离霜，但不涂粉饼或散粉的情况下，2~3小时后，你的妆容会？<span>*</span></p></li>
+                 <li><label><input type="radio" name="question5" value="10"/>a 花妆泛油</label></li>
+                 <li><label><input type="radio" name="question5" value="20"/>b 微微泛油</label></li>
+                 <li><label><input type="radio" name="question5" value="30"/>c 保持良好妆容</label></li>
+                 <li><label><input type="radio" name="question5" value="40"/>d 卡粉起屑</label></li>
+                 <li><label><input type="radio" name="question5" value="50"/>e 我不用粉底</label></li>
+             </ul>
+             <ul>
+                 <li><p>17、你的脸部哪些部位有毛孔粗大问题？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question6" value="10"/>a 几乎没有</label></li>
+                 <li><label><input type="radio" name="question6" value="20"/>b 只有你鼻头一些</label></li>
+                 <li><label><input type="radio" name="question6" value="30"/>c T区和鼻子周围</label></li>
+                 <li><label><input type="radio" name="question6" value="40"/>d 全脸都有</label></li>
+             </ul>
+             <ul>
+                 <li><p>18、你会怎样描述你的脸部肌肤的干油性？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question7" value="10"/>a 干性</label></li>
+                 <li><label><input type="radio" name="question7" value="20"/>b 不油不干</label></li>
+                 <li><label><input type="radio" name="question7" value="30"/>c T区油，其他部位干</label></li>
+                 <li><label><input type="radio" name="question7" value="40"/>d 油性</label></li>
+             </ul>
+             <ul>
+                 <li><p>19、当你使用肥皂泡沫、泡沫乳、泡沫丰富的洁面乳洁面时，你的面部皮肤会？ </p><span>*</span></li>
+                 <li><label><input type="radio" name="question8" value="10"/>a 感觉很干或很裂</label></li>
+                 <li><label><input type="radio" name="question8" value="20"/>b 感觉轻微的干，但是没有很裂</label></li>
+                 <li><label><input type="radio" name="question8" value="30"/>c 感觉正常</label></li>
+                 <li><label><input type="radio" name="question8" value="40"/>d 感觉很油</label></li>
+                 <li><label><input type="radio" name="question8" value="25"/>e 我不用肥皂或其他的泡沫洁面乳（如果是因为在使用时觉得脸很干，选a）</label></li>
+             </ul>
+             <ul>
+                 <li><p>20、在当前季节里，如果不使用保湿面霜，你的脸部会？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question9" value="10"/>a 经常感觉紧绷</label></li>
+                 <li><label><input type="radio" name="question9" value="20"/>b 有时感觉紧绷</label></li>
+                 <li><label><input type="radio" name="question9" value="30"/>c 很少感觉紧绷</label></li>
+                 <li><label><input type="radio" name="question9" value="40"/>d 从来不会感觉紧绷</label></li>
+             </ul>
+             <ul>
+                 <li><p>21、你会长粉刺吗？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question10" value="10"/>a 从来没有</label></li>
+                 <li><label><input type="radio" name="question10" value="20"/>b 很少长</label></li>
+                 <li><label><input type="radio" name="question10" value="30"/>c 有时会长</label></li>
+                 <li><label><input type="radio" name="question10" value="40"/>d 总是长</label></li>
+                 <!--<li><label><input type="radio" name="question10" value="25"/>e 我不用粉底</label></li>-->
+             </ul>
+             <ul>
+                 <li><p>22、你的面部会出现泛红的情况（点状或片状）：</p><span>*</span></li>
+                 <li><label><input type="radio" name="question11" value="10"/>a 从来没有</label></li>
+                 <li><label><input type="radio" name="question11" value="20"/>b 很少</label></li>
+                 <li><label><input type="radio" name="question11" value="30"/>c 每月至少会有一次</label></li>
+                 <li><label><input type="radio" name="question11" value="40"/>d 每周至少会有一次</label></li>
+                 <li><label>提示： 不是痘印</label></li>
+             </ul>
+             <ul>
+                 <li><p>23、护肤产品（包括洁面乳、柔肤水、保湿乳/霜、化妆品）会使您的脸部出现发红、发痒、刺痛、灼热的感觉么？<span>*</span></p></li>
+                 <li><label><input type="radio" name="question12" value="10"/>a 从来没有</label></li>
+                 <li><label><input type="radio" name="question12" value="20"/>b 很少</label></li>
+                 <li><label><input type="radio" name="question12" value="30"/>c 经常</label></li>
+                 <li><label><input type="radio" name="question12" value="40"/>d 总会有</label></li>
+                 <li><label><input type="radio" name="question12" value="50"/>e 我不用护肤品</label></li>
+             </ul>
+             <ul>
+                 <li><p>24、你曾经被诊断过有痤疮、玫瑰痤疮、遗传性皮炎、湿疹、接触性皮炎吗？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question13" value="10"/>a 没有</label></li>
+                 <li><label><input type="radio" name="question13" value="20"/>b 没去看过，但是朋友或熟人说我有</label></li>
+                 <li><label><input type="radio" name="question13" value="30"/>c 是，不过不严重</label></li>
+                 <li><label><input type="radio" name="question13" value="40"/>d 是，而且很严重</label></li>
+                 <li><label><input type="radio" name="question13" value="25"/>e 不确定</label></li>
+             </ul>
+
+             <ul>
+                 <li><p>25、你会对金属首饰过敏？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question14" value="10"/>a 从来没有</label></li>
+                 <li><label><input type="radio" name="question14" value="20"/>b 很少</label></li>
+                 <li><label><input type="radio" name="question14" value="30"/>c 经常</label></li>
+                 <li><label><input type="radio" name="question14" value="40"/>d 一带就过敏</label></li>
+                 <li><label><input type="radio" name="question14" value="25"/>e 不确定</label></li>
+             </ul>
+             <ul>
+                 <li><p>26、你喝酒后经常脸红吗？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question15" value="10"/>a 从来没有</label></li>
+                 <li><label><input type="radio" name="question15" value="20"/>b 有时会</label></li>
+                 <li><label><input type="radio" name="question15" value="30"/>c 很频繁</label></li>
+                 <li><label><input type="radio" name="question15" value="40"/>d 总会有，或因为这个原因我不喝酒</label></li>
+                 <li><label><input type="radio" name="question15" value="25"/>e 我从不喝酒</label></li>
+             </ul>
+             <ul>
+                 <li><p>27、防晒产品会使你的皮肤过敏（发红、发痒、刺痛、灼热、丘疹的感觉么？） </p><span>*</span></li>
+                 <li><label><input type="radio" name="question16" value="10"/>a 从来没有</label></li>
+                 <li><label><input type="radio" name="question16" value="20"/>b 很少</label></li>
+                 <li><label><input type="radio" name="question16" value="30"/>c 经常</label></li>
+                 <li><label><input type="radio" name="question16" value="40"/>d 总是有</label></li>
+                 <li><label><input type="radio" name="question16" value="25"/>e 我从不使用防晒霜</label></li>
+             </ul>
+             <ul>
+                 <li><p>28、你的直系亲属中有几位被诊断为过敏体质（如：遗传过敏性皮炎、湿疹、哮喘、过敏症？)</p><span>*</span></li>
+                 <li><label><input type="radio" name="question17" value="10"/>a 没有</label></li>
+                 <li><label><input type="radio" name="question17" value="20"/>b 我知道的有一位</label></li>
+                 <li><label><input type="radio" name="question17" value="30"/>c 有几位</label></li>
+                 <li><label><input type="radio" name="question17" value="40"/>d 很多家人都有皮炎、湿疹、哮喘和过敏症</label></li>
+                 <li><label><input type="radio" name="question17" value="25"/>e 不确定</label></li>
+             </ul>
+             <ul>
+                 <li><p>29、如果皮肤接触含香味的洗衣剂或柔顺剂，你会出现什么反应？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question18" value="10"/>a 没有特殊的反应</label></li>
+                 <li><label><input type="radio" name="question18" value="20"/>b 感觉皮肤有点干</label></li>
+                 <li><label><input type="radio" name="question18" value="30"/>c 皮肤会痒</label></li>
+                 <li><label><input type="radio" name="question18" value="40"/>d 皮肤会发红发痒</label></li>
+                 <li><label><input type="radio" name="question18" value="25"/>e 不确定，或我从没使用过</label></li>
+             </ul>
+             <ul>
+                 <li><p>30、在长时间运动后，或情绪波动较大的情况下，你的脸部或颈部会变红吗？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question19" value="10"/>a 从来没有</label></li>
+                 <li><label><input type="radio" name="question19" value="20"/>b 有时会</label></li>
+                 <li><label><input type="radio" name="question19" value="30"/>c 很频繁</label></li>
+                 <li><label><input type="radio" name="question19" value="40"/>d 总会有</label></li>
+             </ul>
+             <ul>
+                 <li><p>31、你在吃完辣的或是烫的食物后皮肤会发红吗？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question20" value="10"/>a 从来没有</label></li>
+                 <li><label><input type="radio" name="question20" value="20"/>b 有时会</label></li>
+                 <li><label><input type="radio" name="question20" value="30"/>c 很频繁</label></li>
+                 <li><label><input type="radio" name="question20" value="40"/>d 总会有</label></li>
+                 <li><label><input type="radio" name="question20" value="25"/>e 我从来不吃辣的食物（如果由于吃完辣的或者烫的食物后会出现上述皮肤症状而不吃，选d）</label></li>
+             </ul>
+             <ul>
+                 <li><p>32、你脸上哪些部位有红血丝？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question21" value="10"/>a 没有</label></li>
+                 <li><label><input type="radio" name="question21" value="20"/>b 鼻翼两侧</label></li>
+                 <li><label><input type="radio" name="question21" value="30"/>c 鼻翼和脸颊有</label></li>
+                 <li><label><input type="radio" name="question21" value="40"/>d 全脸都有</label></li>
+                 <li><label>提示：成片的红血丝或根根分明的红血丝</label></li>
+             </ul>
+             <ul>
+                 <li><p>33、在你起粉刺痤疮之后，愈合处会出现棕色或黑色的印吗？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question22" value="10"/>a 从来没有或我没注意</label></li>
+                 <li><label><input type="radio" name="question22" value="20"/>b 有时</label></li>
+                 <li><label><input type="radio" name="question22" value="30"/>c 经常</label></li>
+                 <li><label><input type="radio" name="question22" value="40"/>d 总是有</label></li>
+                 <li><label><input type="radio" name="question22" value="25"/>e 我从没起过粉刺痤疮或内发痘痘</label></li>
+             </ul>
+             <ul>
+                 <li><p>34、皮肤划伤后，愈合后的深色（不是粉色）痕迹会保持多久？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question23" value="10"/>a 没有留下深色的痕迹或没注意到过</label></li>
+                 <li><label><input type="radio" name="question23" value="20"/>b 一周</label></li>
+                 <li><label><input type="radio" name="question23" value="30"/>c 几周</label></li>
+                 <li><label><input type="radio" name="question23" value="40"/>d 几个月</label></li>
+             </ul>
+             <ul>
+                 <li><p>35、如果几个月没被暴晒过，当你第一次被暴晒时，你的皮肤会变黑变暗吗？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question24" value="10"/>a 只有灼热感</label></li>
+                 <li><label><input type="radio" name="question24" value="20"/>b 疼痛后肤色变暗</label></li>
+                 <li><label><input type="radio" name="question24" value="30"/>c 肤色变暗</label></li>
+                 <li><label><input type="radio" name="question24" value="40"/>d 我的皮肤已经很黑了，所以很难看出来（不能说自己没有从来没有被暴晒过，想想你的童年经历）</label></li>
+             </ul>
+             <ul>
+                 <li><p>36、你是否被诊断过脸上有黄褐斑（表现为浅褐色、深褐色或灰色斑片）？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question25" value="10"/>a 没有</label></li>
+                 <li><label><input type="radio" name="question25" value="20"/>b 有过，但是现在没有了</label></li>
+                 <li><label><input type="radio" name="question25" value="30"/>c 是的</label></li>
+                 <li><label><input type="radio" name="question25" value="40"/>d 是的，而且情况很严重</label></li>
+                 <li><label><input type="radio" name="question25" value="25"/>e 不确定</label></li>
+             </ul>
+             <ul>
+                 <li><p>37、当你在太阳下晒一会后，你脸上的斑点会变得更明显吗？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question26" value="10"/>a 我没有斑</label></li>
+                 <li><label><input type="radio" name="question26" value="20"/>b 不确定</label></li>
+                 <li><label><input type="radio" name="question26" value="30"/>c 有轻微的变深</label></li>
+                 <li><label><input type="radio" name="question26" value="40"/>d 变得很严重</label></li>
+                 <li><label><input type="radio" name="question26" value="25"/>e 我每天都涂防晒霜，我几乎不在太阳下（注意：如果您一直在用防晒霜是因为怕有晒斑或者雀斑，请选d）</label></li>
+             </ul>
+
+             <ul>
+                 <li><p>38、你的脸上、胸上、背部或胳膊上，是否有或者曾经有过小的斑点？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question27" value="10"/>a 没有</label></li>
+                 <li><label><input type="radio" name="question27" value="20"/>b 是的，有几个（1-5个）</label></li>
+                 <li><label><input type="radio" name="question27" value="30"/>c 是的，很多（6-15个）</label></li>
+                 <li><label><input type="radio" name="question27" value="40"/>d 是的，非常多（16个以上）</label></li>
+             </ul>
+             <ul>
+                 <li><p>39、连续暴晒几天后，你的皮肤会出现下列哪种情况？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question28" value="10"/>a 会晒伤，但是皮肤不会改颜色</label></li>
+                 <li><label><input type="radio" name="question28" value="20"/>b 我的皮肤会黑一些</label></li>
+                 <li><label><input type="radio" name="question28" value="30"/>c 我的皮肤会变得很黑</label></li>
+                 <li><label><input type="radio" name="question28" value="40"/>d 我的皮肤已经很黑了，所以看不出来有没有更黑</label></li>
+                 <li><label><input type="radio" name="question28" value="25"/>e 不确定（不能说自己没有从来没有被暴晒过，想想你的童年经历）</label></li>
+             </ul>
+             <ul>
+                 <li><p>40、在你的上唇或脸颊处有黑色的斑点或斑片吗？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question29" value="10"/>a 没有</label></li>
+                 <li><label><input type="radio" name="question29" value="20"/>b 不知道</label></li>
+                 <li><label><input type="radio" name="question29" value="30"/>c 有一点，不太明显</label></li>
+                 <li><label><input type="radio" name="question29" value="40"/>d 是的，很明显</label></li>
+             </ul>
+             <ul>
+                 <li><p>41、你头发的自然色是？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question30" value="10"/>a 特黑</label></li>
+                 <li><label><input type="radio" name="question30" value="20"/>b 黑</label></li>
+                 <li><label><input type="radio" name="question30" value="30"/>c 偏棕色</label></li>
+                 <li><label><input type="radio" name="question30" value="40"/>d 偏黄色</label></li>
+             </ul>
+             <ul>
+                 <li><p>42、你的脸上有皱纹吗？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question31" value="10"/>a 没有，即使笑、皱眉抬眉也都没有</label></li>
+                 <li><label><input type="radio" name="question31" value="20"/>b 只有当我笑、皱眉或抬眉时才出现</label></li>
+                 <li><label><input type="radio" name="question31" value="30"/>c 做表情时有，不做表情的时候也有一些</label></li>
+                 <li><label><input type="radio" name="question31" value="40"/>d 即使面无表情，也有很多细小皱纹</label></li>
+             </ul>
+             <ul>
+                 <li><p>43、日常生活中，您曾经在每年或不到一年中经历过多于两周的季节性暴晒吗？（包括暑假在内）如果是，多长时间一次？<span>*</span></p></li>
+                 <li><label><input type="radio" name="question32" value="10"/>a 从来没有过</label></li>
+                 <li><label><input type="radio" name="question32" value="20"/>b 一到五年</label></li>
+                 <li><label><input type="radio" name="question32" value="30"/>c 五到十年</label></li>
+                 <li><label><input type="radio" name="question32" value="40"/>d 多于十年</label></li>
+             </ul>
+             <ul>
+                 <li><p>44、你认为你自己看上去有多大年龄？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question33" value="10"/>a 比你的年龄要年轻五到十岁</label></li>
+                 <li><label><input type="radio" name="question33" value="20"/>b 实际年龄</label></li>
+                 <li><label><input type="radio" name="question33" value="30"/>c 比你的年龄大五岁</label></li>
+                 <li><label><input type="radio" name="question33" value="40"/>d 比你的年龄要多于五岁</label></li>
+             </ul>
+             <ul>
+                 <li><p>45、过去五年里，你有意或者无意通过户外活动或者其他方式晒黑，大概多久一次？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question34" value="10"/>a 从来没有</label></li>
+                 <li><label><input type="radio" name="question34" value="20"/>b 一个月一次</label></li>
+                 <li><label><input type="radio" name="question34" value="30"/>c 一周一次</label></li>
+                 <li><label><input type="radio" name="question34" value="40"/>d 每天</label></li>
+             </ul>
+             <ul>
+                 <li><p>46、根据你所居住的地方，你每天受日照的时间是多少？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question35" value="10"/>a 很少，我大多居住在灰色和阴暗的地方</label></li>
+                 <li><label><input type="radio" name="question35" value="20"/>b 有一些，我住在比较阴暗的地方，但是有时候也会住在有正常阳光的地方</label></li>
+                 <li><label><input type="radio" name="question35" value="30"/>c 比较适中，我住在阳光比较适中的地方</label></li>
+                 <li><label><input type="radio" name="question35" value="40"/>d 很多，我住在热带、南方、阳光很充足的地方</label></li>
+             </ul>
+             <ul>
+                 <li><p>47、在你的生活中，你共抽过多少烟（或者你曾经接触过吸烟者）？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question36" value="10"/>a 没有</label></li>
+                 <li><label><input type="radio" name="question36" value="20"/>b 几包</label></li>
+                 <li><label><input type="radio" name="question36" value="30"/>c几包到很多包</label></li>
+                 <li><label><input type="radio" name="question36" value="40"/>d 我每天都吸很多烟</label></li>
+                 <li><label><input type="radio" name="question36" value="25"/>e 我从不吸烟，但是我居住、生活和工作的周围都有经常吸烟的人</label></li>
+             </ul>
+             <ul>
+                 <li><p>48、请描述你居住地的空气污染状况：</p><span>*</span></li>
+                 <li><label><input type="radio" name="question37" value="10"/>a 空气清新</label></li>
+                 <li><label><input type="radio" name="question37" value="20"/>b 一年中有一段时间，但不是全能空气清洁</label></li>
+                 <li><label><input type="radio" name="question37" value="30"/>c 空气轻度污染</label></li>
+                 <li><label><input type="radio" name="question37" value="40"/>d 空气污染严重</label></li>
+             </ul>
+             <ul>
+                 <li><p>49、你的母亲面部皮肤年龄看上去多大？</p><span>*</span></li>
+                 <li><label><input type="radio" name="question38" value="10"/>a 比实际年龄小</label></li>
+                 <li><label><input type="radio" name="question38" value="20"/>b 与实际年龄相符</label></li>
+                 <li><label><input type="radio" name="question38" value="30"/>c 比实际年龄大</label></li>
+                 <li><label><input type="radio" name="question38" value="40"/>d 我不记得了</label></li>
+             </ul>
+             <ul>
+                 <li><p>50、排便是否正常</p><span>*</span></li>
+                 <li><label><input type="radio" name="toilet" value="10"/>a 长期便秘</label></li>
+                 <li><label><input type="radio" name="toilet" value="20"/>b 一周1-2次</label></li>
+                 <li><label><input type="radio" name="toilet" value="30"/>c 大概2天1次</label></li>
+                 <li><label><input type="radio" name="toilet" value="40"/>d 每天都去，排便正常</label></li>
+                 <li><label><input type="radio" name="toilet" value="40"/>e 不一定，有时候会有一点便秘</label></li>
+             </ul>
+             <ul>
+                 <li><p>日间</p><span>*</span></li>
+             </ul>
+             <ul>
+                 <li><p>51、洁面</p></li>
+                 <li><label><input type="radio" name="day1" value="洗面奶洁面1次"/>a.洗面奶洁面1次</label></li>
+                 <li><label><input type="radio" name="day1" value="清水洗脸"/>b.清水洗脸</label></li>
+                 <li><label><input type="radio" name="day1" value="不洁面"/>c.不洁面</label></li>
+                 <li><label><input type="radio" name="day1" value="其他"/>d.其他</label></li>
+             </ul>
+             <ul>
+                 <li><p>52、化妆水</p></li>
+                 <li><label><input type="radio" name="day2" value="使用"/>a.使用</label></li>
+                 <li><label><input type="radio" name="day2" value="不使用"/>b.不使用</label></li>
+                 <li><label><input type="radio" name="day2" value="喷雾代替"/>c.喷雾代替</label></li>
+                 <li><label><input type="radio" name="day2" value="先用肌底液再用化妆水"/>d.先用肌底液再用化妆水</label></li>
+             </ul>
+             <ul>
+                 <li><p>53、精华</p></li>
+                 <li><label><input type="radio" name="day3" value="使用"/>a.使用</label></li>
+                 <li><label><input type="radio" name="day3" value="不使用"/>b.不使用</label></li>
+                 <li><label><input type="radio" name="day3" value="其他产品代替"/>c.其他产品代替</label></li>
+             </ul>
+             <ul>
+                 <li><p>54、乳液或面霜</p></li>
+                 <li><label><input type="radio" name="day4" value="使用"/>a.使用</label></li>
+                 <li><label><input type="radio" name="day4" value="不使用"/>b.不使用</label></li>
+                 <li><label><input type="radio" name="day4" value="两个都用"/>c.两个都用</label></li>
+                 <li><label><input type="radio" name="day4" value="其他产品代替"/>d.其他产品代替</label></li>
+             </ul>
+             <ul>
+                 <li><p>55、防晒</p></li>
+                 <li><label><input type="radio" name="day5" value="四季每日使用，不管阴天晴天"/>a.四季每日使用，不管阴天晴天</label></li>
+                 <li><label><input type="radio" name="day5" value="仅仅夏季使用"/>b.仅仅夏季使用</label></li>
+                 <li><label><input type="radio" name="day5" value="不固定，想起来就用"/>c.不固定，想起来就用</label></li>
+                 <li><label><input type="radio" name="day5" value="用底妆产品代替"/>d.用底妆产品代替</label></li>
+                 <li><label><input type="radio" name="day5" value="从来不用"/>e.从来不用</label></li>
+             </ul>
+             <ul>
+                 <li><p>夜间</p><span>*</span></li>
+             </ul>
+             <ul>
+                 <li><p>56、卸妆</p></li>
+                 <li><label><input type="radio" name="night1" value="使用卸妆产品"/>a.使用卸妆产品</label></li>
+                 <li><label><input type="radio" name="night1" value="不使用卸妆产品，直接洗脸"/>b.不使用卸妆产品，直接洗脸</label></li>
+                 <li><label><input type="radio" name="night1" value="偶尔使用卸妆产品，不固定"/>c.偶尔使用卸妆产品，不固定</label></li>
+             </ul>
+             <ul>
+                 <li><p>57、洁面</p></li>
+                 <li><label><input type="radio" name="night2" value="洗面奶洁面1次"/>a.洗面奶洁面1次</label></li>
+                 <li><label><input type="radio" name="night2" value="清水洗脸"/>b.清水洗脸</label></li>
+                 <li><label><input type="radio" name="night2" value="不洁面"/>c.不洁面</label></li>
+                 <li><label><input type="radio" name="night2" value="其他"/>d.其他</label></li>
+             </ul>
+             <ul>
+                 <li><p>58、化妆水</p></li>
+                 <li><label><input type="radio" name="night3" value="使用"/>a.使用</label></li>
+                 <li><label><input type="radio" name="night3" value="不使用"/>b.不使用</label></li>
+                 <li><label><input type="radio" name="night3" value="喷雾代替"/>c.喷雾代替</label></li>
+                 <li><label><input type="radio" name="night3" value="先用肌底液再用化妆水"/>d.先用肌底液再用化妆水</label></li>
+             </ul>
+             <ul>
+                 <li><p>59、精华</p></li>
+                 <li><label><input type="radio" name="night4" value="使用"/>a.使用</label></li>
+                 <li><label><input type="radio" name="night4" value="不使用"/>b.不使用</label></li>
+                 <li><label><input type="radio" name="night4" value="其他产品代替"/>c.其他产品代替</label></li>
+             </ul>
+             <ul>
+                 <li><p>60、乳液或面霜</p></li>
+                 <li><label><input type="radio" name="night5" value="使用"/>a.使用</label></li>
+                 <li><label><input type="radio" name="night5" value="不使用"/>b.不使用</label></li>
+                 <li><label><input type="radio" name="night5" value="两个都用"/>c.两个都用</label></li>
+                 <li><label><input type="radio" name="night5" value="其他产品代替"/>d.其他产品代替</label></li>
+             </ul>
+             <ul>
+                 <li><p>61、面膜</p></li>
+                 <li><label><input type="radio" name="night6" value="从不使用"/>a.从不使用</label></li>
+                 <li><label><input type="radio" name="night6" value="1周1次"/>b.1周1次</label></li>
+                 <li><label><input type="radio" name="night6" value="1周2-3次"/>c.1周2-3次</label></li>
+                 <li><label><input type="radio" name="night6" value="1周3-5次或以上"/>d.1周3-5次或以上</label></li>
+                 <li><label><input type="radio" name="night6" value="想起来就用，不固定"/>e.想起来就用，不固定</label></li>
+             </ul>
+             <ul>
+                 <li><p>62、去角质清洁面膜（去角质啫喱，泥面膜或其他清洁面膜）的频次：</p></li>
+                 <li><label><input type="radio" name="night7" value="从不使用"/>a.从不使用</label></li>
+                 <li><label><input type="radio" name="night7" value="1周1次"/>b. 1周1次</label></li>
+                 <li><label><input type="radio" name="night7" value="1周2-3次"/>c.2-3周1次</label></li>
+                 <li><label><input type="radio" name="night7" value="1周3-5次或以上"/>d.1月1次</label></li>
+                 <li><label><input type="radio" name="night7" value="想起来就用，不固定"/>e.想起来就用，不固定</label></li>
+             </ul>
+             <ul>
+                 <li><p>63、您是否有定期去美容院做皮肤护理的习惯？</p></li>
+                 <li><label><input type="radio" name="mr" value="0"/>a.有</label></li>
+                 <li><label><input type="radio" name="mr" value="1"/>b. 没有</label></li>
+             </ul>
+             <ul>
+                 <li><p>64、近半年内您是否有出现过严重的皮肤问题(例如：大面积的痤疮、湿疹、皮肤过敏、)：</p></li>
+                 <li><label><input type="radio" name="illness" value="0"/>a.有</label></li>
+                 <li><label><input type="radio" name="illness" value="1"/>b. 没有</label></li>
+             </ul>
+             <ul>
+                 <li><p>65、现阶段所使用卸妆类护肤品名称</p></li>
+                 <li class="hufupin">
+                     <!--<select class="hufupin1" onchange="selChange(this)" cate="12">-->
+                     <!--</select>-->
+                     <span><input type="text" placeholder="请选择品牌" class="onkeyDownSearch"/><i></i></span>
+                     <ul class="hufupin1" cate="12">
+                     </ul>
+                     <input class="span1" onclick="spanClick(this)" value="请选择产品" readonly>
+                     <input type="text" placeholder="手动输入产品名称" class="handInp"/>
+                     <ul class="hufupin2 pin">
+                     </ul>
+                     <a class="add" onclick="add(this)">添加</a>
+                     <ul class="ulcontainer" id="re_name">
+                     </ul>
+                     <input type="hidden" name="re_name" value="" class="re_name"/>
+                 </li>
+             </ul>
+             <ul>
+                 <li><p>66、现阶段所使用洁面乳／洁面霜／洁面油护肤品名称</p></li>
+                 <li class="hufupin">
+                     <!--<select class="hufupin11" onchange="selChange(this)" cate="6">-->
+                     <!--</select>-->
+                     <span><input type="text" placeholder="请选择品牌" class="onkeyDownSearch"/><i></i></span>
+                     <ul class="hufupin11" cate="6">
+                     </ul>
+                     <input class="span1" onclick="spanClick(this)" value="请选择产品" readonly>
+                     <input type="text" placeholder="手动输入产品名称" class="handInp"/>
+                     <ul class="hufupin21 pin">
+
+                     </ul>
+                     <a class="add" onclick="add(this)">添加</a>
+                     <ul class="ulcontainer" id="skin_name">
+                     </ul>
+                     <input type="hidden" name="skin_name" value="" class="skin_name"/>
+                 </li>
+             </ul>
+             <ul>
+                 <li><p>67、现阶段所使用化妆水类护肤品名称</p></li>
+                 <li class="hufupin">
+                     <!--<select class="hufupin12" onchange="selChange(this)" cate="7">-->
+                     <!--</select>-->
+                     <span><input type="text" placeholder="请选择品牌" class="onkeyDownSearch"/><i></i></span>
+                     <ul class="hufupin12" cate="7">
+                     </ul>
+                     <input class="span1" onclick="spanClick(this)" value="请选择产品" readonly>
+                     <input type="text" placeholder="手动输入产品名称" class="handInp"/>
+                     <ul class="hufupin22 pin"></ul>
+                     <a class="add" onclick="add(this)">添加</a>
+                     <ul class="ulcontainer"  id="skin_w_name">
+                     </ul>
+                     <input type="hidden" name="skin_w_name" value="" class="skin_w_name"/>
+                 </li>
+                 </li>
+             </ul>
+             <ul>
+                 <li><p>68、现阶段所使用乳液／面霜类护肤品名称</p></li>
+                 <li class="hufupin">
+                     <!--<select class="hufupin13" onchange="selChange(this)" cate="8">-->
+                     <!--</select>-->
+                     <span><input type="text" placeholder="请选择品牌" class="onkeyDownSearch"/><i></i></span>
+                     <ul class="hufupin13" cate="8">
+                     </ul>
+                     <input class="span1" onclick="spanClick(this)" value="请选择产品" readonly>
+                     <input type="text" placeholder="手动输入产品名称" class="handInp"/>
+                     <ul class="hufupin23 pin">
+
+                     </ul>
+                     <a class="add" onclick="add(this)">添加</a>
+                     <ul class="ulcontainer" id="skin_m_name" >
+                     </ul>
+                     <input type="hidden" name="skin_m_name" value="" class="skin_m_name"/>
+                 </li>
+             </ul>
+             <ul>
+                 <li><p>69、现阶段所使用的精华类护肤品名称？</p></li>
+                 <li class="hufupin">
+                     <!--<select class="hufupin14" onchange="selChange(this)" cate="9">-->
+                     <!--</select>-->
+                     <span><input type="text" placeholder="请选择品牌" class="onkeyDownSearch"/><i></i></span>
+                     <ul class="hufupin14" cate="9">
+                     </ul>
+                     <input class="span1" onclick="spanClick(this)" value="请选择产品" readonly>
+                     <input type="text" placeholder="手动输入产品名称" class="handInp"/>
+                     <ul class="hufupin24 pin">
+
+                     </ul>
+                     <a class="add" onclick="add(this)">添加</a>
+                     <ul class="ulcontainer" id="elite_name">
+                     </ul>
+                     <input type="hidden" name="elite_name" value="" class="elite_name"/>
+                 </li>
+             </ul>
+             <ul>
+                 <li><p>70、您现阶段使用的去角质类护肤品名称？</p></li>
+                 <li class="hufupin">
+                     <!--<select class="hufupin15" onchange="selChange(this)" cate="15">-->
+                     <!--</select>-->
+                     <span><input type="text" placeholder="请选择品牌" class="onkeyDownSearch"/><i></i></span>
+                     <ul class="hufupin15" cate="15">
+                     </ul>
+                     <input class="span1" onclick="spanClick(this)" value="请选择产品" readonly>
+                     <input type="text" placeholder="手动输入产品名称" class="handInp"/>
+                     <ul class="hufupin25 pin">
+
+                     </ul>
+                     <a class="add" onclick="add(this)">添加</a>
+                     <ul class="ulcontainer" id="facial_name">
+                     </ul>
+                     <input type="hidden" name="facial_name" value="" class="facial_name"/>
+                 </li>
+             </ul>
+             <ul>
+                 <li><p>71、您现阶段使用的防晒类护肤品名称？</p></li>
+                 <li class="hufupin">
+                     <!--<select class="hufupin16" onchange="selChange(this)" cate="13">-->
+                     <!--</select>-->
+                     <span><input type="text" placeholder="请选择品牌" class="onkeyDownSearch"/><i></i></span>
+                     <ul class="hufupin16" cate="13">
+                     </ul>
+                     <input class="span1" onclick="spanClick(this)" value="请选择产品" readonly>
+                     <input type="text" placeholder="手动输入产品名称" class="handInp"/>
+                     <ul class="hufupin26 pin">
+
+                     </ul>
+                     <a class="add" onclick="add(this)">添加</a>
+                     <ul class="ulcontainer" id="s_name">
+                     </ul>
+                     <input type="hidden" name="s_name" value="" class="s_name"/>
+                 </li>
+             </ul>
+             <ul>
+                 <li><p>72、您是否每天（一年四季，不管晴天、阴天、雨天）涂抹防晒产品？</p><span>*</span></li>
+                 <li><textarea name="is_s" id="textarea1" cols="90" rows="3"></textarea></li>
+             </ul>
+             <ul>
+                 <li><p>73、您使用哪些成分会过敏？以及过敏的现象</p><span>*</span></li>
+                 <li><textarea name="allergy" id="textarea2" cols="90" rows="3"></textarea></li>
+                 <li>提示：如没有，请填写无</li>
+             </ul>
+             <input type="button" value="提交" id="button" onclick="bthClick()"/>
+         </form>
+     </div>
+ </div>
+ <div id="mask">
+     <div>
+         <p>温馨提示</p>
+         <textarea readonly>您有3、5、26题没有填写，请填写完成</textarea>
+         <input type="button" value="继续" id="goon"/>
+     </div>
+ </div>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/index.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+ <script>
+
+//     $.ajax({
+//         url:"http://servers.jianghujoy.cn:8084/index.php/product/brand",
+//         type:"POST",
+//         dataType:"JSON",
+//         success:function(data){
+//             if(data.code == 10000){
+//                 var opt1 = '';
+//                 var opts = '<option>请选择品牌</option>';
+//                 for(var i=0;i<data.msg.length;i++){
+//                     opt1 += '<option data-id="'+data.msg[i].id+'">'+data.msg[i].b_name+'</option>';
+//                 }
+//                 $('.hufupin .hufupin1').html(opts+opt1);
+//                 $('.hufupin .hufupin11').html(opts+opt1);
+//                 $('.hufupin .hufupin12').html(opts+opt1);
+//                 $('.hufupin .hufupin13').html(opts+opt1);
+//                 $('.hufupin .hufupin14').html(opts+opt1);
+//                 $('.hufupin .hufupin15').html(opts+opt1);
+//                 $('.hufupin .hufupin16').html(opts+opt1);
+//             }
+//         },
+//         error:function(){}
+//     });
+
+
+function ullistSearch(search){
+    $.ajax({
+        url:"http://servers.jianghujoy.cn:8084/index.php/product/brand",
+        type:"POST",
+        data:{'search':search},
+        dataType:"JSON",
+        success:function(data){
+            if(data.code == 10000){
+                var opt1 = '';
+//            var opts = '<li><input type="text" placeholder="请选择品牌"/><i></i></li>';
+                for(var i=0;i<data.msg.length;i++){
+                    opt1 += '<li data-id="'+data.msg[i].id+'" onclick="selChange(this)">'+data.msg[i].b_name+'</li>';
+                }
+                $('.hufupin .hufupin1').html(opt1);
+                $('.hufupin .hufupin11').html(opt1);
+                $('.hufupin .hufupin12').html(opt1);
+                $('.hufupin .hufupin13').html(opt1);
+                $('.hufupin .hufupin14').html(opt1);
+                $('.hufupin .hufupin15').html(opt1);
+                $('.hufupin .hufupin16').html(opt1);
+            }
+        },
+        error:function(){}
+    });
+}
+
+
+$('.onkeyDownSearch').keyup(function(e){
+    var search = $(this).val();
+    if(e.keyCode==37|| e.keyCode==38|| e.keyCode==39|| e.keyCode==40){
+        return;
+    }else{
+        ullistSearch(search);
+    }
+    $(this).parent().next().addClass('active')
+})
+
+
+
+
+     document.getElementById("file1").addEventListener("change",function () {
+         $(this).css('opacity','1')
+         $(this).next().css('opacity','0')
+     });
+     document.getElementById("file2").addEventListener("change",function () {
+         $(this).css('opacity','1')
+         $(this).next().css('opacity','0')
+     });
+     document.getElementById("file3").addEventListener("change",function () {
+         $(this).css('opacity','1')
+         $(this).next().css('opacity','0')
+     });
+
+function selChange(tsel){
+    var opt2 = '';
+    $(tsel).parent().next().val("请选择产品")
+    var id = {'id':$(tsel).attr('data-id'),'cate':$(tsel).parent().attr('cate')};
+    $(tsel).parent().prev().find('input').val($(tsel).html())
+    $(tsel).parent().prev().find('input').attr('data-id',$(tsel).attr('data-id'))
+    $(tsel).parent().removeClass('active')
+    $.ajax({
+        url:"http://servers.jianghujoy.cn:8084/index.php/product/brand_product",
+        type:"POST",
+        dataType:"JSON",
+        data:id,
+        success:function(data){
+            if(data.code == 10000){
+                for(var i=0;i<data.msg.length;i++){
+                    opt2 +='<li data-id="'+data.msg[i].id+'" onclick="liClick(this)">'+
+                            '<img src="'+data.msg[i].image+'">'+
+                            '<span>'+data.msg[i].name+'</span>'+
+                            '</li>';
+                }
+                $(tsel).parent().next().next().next().html(opt2)
+            }else{
+                $(tsel).parent().next().next().next().html("")
+            }
+        },
+        error:function(){}
+    });
+}
+
+$(' .hufupin>span>i').click(function(){
+    var search = "";
+    ullistSearch(search);
+    $(this).parent().next().toggleClass('active');
+})
+
+//     function selChange(tsel){
+//         var opt2 = '';
+//         var id = {'id':$(tsel).find('option:selected').attr('data-id'),'cate':$(tsel).attr('cate')};
+//         console.log(id)
+//         $.ajax({
+//             url:"/index.php/product/brand_product",
+//             type:"POST",
+//             dataType:"JSON",
+//             data:id,
+//             success:function(data){
+//                 if(data.code == 10000){
+//                     for(var i=0;i<data.msg.length;i++){
+//                         opt2 +='<li data-id="'+data.msg[i].id+'">'+
+//                                 '<img src="'+data.msg[i].image+'">'+
+//                                 '<span>'+data.msg[i].name+'</span>'+
+//                                 '</li>';
+//                     }
+//
+//                     $(tsel).next().next().html(opt2)
+//                 }
+//             },
+//             error:function(){}
+//         });
+//     }
+     function spanClick(span){
+         if($(span).next().next().children().length == 0){
+//             alert("此品牌无产品！");
+             var bodyHeight = parseFloat($('body').css('height'))+60;
+             $('#mask').css('height',bodyHeight+"px");
+             $('#mask').show();
+             $('#mask>div>textarea').html("此品牌无产品!");
+             $('#goon').on('click',function(){
+                 $('#mask').hide();
+             })
+             return;
+
+         }
+         $(span).next().next().toggleClass('active');
+     }
+     function liClick(li){
+         $(li).parent().prev().prev().val($(li).find('span').html());
+         $(li).parent().prev().prev().attr('data-id',$(li).attr('data-id'));
+         $(li).parent().removeClass('active')
+     }
+//     function add(aaa){
+//         var sel = $(aaa).prev().prev().prev().find('option:selected').html();
+//         var id = $(aaa).prev().prev().attr('data-id');
+//         if(id == undefined){
+//             alert("请选择产品！")
+//             return;
+//         }
+//         var spa = $(aaa).prev().prev().val();
+//         var lilist = '<li data-id="'+id+'">'+sel+spa+'<span onclick="del(this)">删除</span></li>';
+//         $(aaa).next().append(lilist);
+//     }
+function add(aaa){
+//    var lilist = " ";
+//    $(aaa).parent().html("");
+    var sel = $(aaa).prev().prev().prev().prev().prev().find('input').val();
+    var id = $(aaa).prev().prev().prev().attr('data-id');
+    var spa = $(aaa).prev().prev().prev().val();
+    var inputSear = $(aaa).prev().prev().val();
+    var reg = /^[0-9]{1,1000}$/;
+    var ssspa = sel+spa;
+    if(id == undefined &&inputSear.length==0){
+//        alert("请选择产品！")
+        var bodyHeight = parseFloat($('body').css('height'))+60;
+        $('#mask').css('height',bodyHeight+"px");
+        $('#mask').show();
+        $('#mask>div>textarea').html("请选择产品!");
+        $('#goon').on('click',function(){
+            $('#mask').hide();
+        })
+        return;
+    }else if(reg.test(inputSear)){
+//        alert("产品输入不能为数字！")
+        var bodyHeight = parseFloat($('body').css('height'))+60;
+        $('#mask').css('height',bodyHeight+"px");
+        $('#mask').show();
+        $('#mask>div>textarea').html("产品输入不能为数字!");
+        $('#goon').on('click',function(){
+            $('#mask').hide();
+        })
+        return;
+    }else if(id !=undefined &&inputSear.length==0){
+        var ppp = 0;
+        $(aaa).next().find('b').each(function(i,val){
+            if(ssspa ==$(aaa).next().find('b')[i].innerHTML){
+//                alert('请不要添加重复产品！')
+                $('#mask').css('height',bodyHeight+"px");
+                $('#mask').show();
+                $('#mask>div>textarea').html("请不要添加重复产品!");
+                $('#goon').on('click',function(){
+                    $('#mask').hide();
+                })
+                ppp = 1
+                return;
+            }
+        })
+        if(ppp==0){
+             var lilist = '<li data-id="'+id+'"><b>'+ssspa+'</b><span onclick="del(this)">删除</span></li>';
+        }
+    }else if(id ==undefined &&inputSear.length!=0){
+        var ppp1 = 0;
+        $(aaa).next().find('b').each(function(i,val){
+            if(inputSear ==$(aaa).next().find('b')[i].innerHTML){
+//                alert('请不要添加重复产品！')
+                $('#mask').css('height',bodyHeight+"px");
+                $('#mask').show();
+                $('#mask>div>textarea').html("请不要添加重复产品!");
+                $('#goon').on('click',function(){
+                    $('#mask').hide();
+                })
+                ppp1 = 1
+                return;
+            }
+        })
+        if(ppp1==0){
+             var lilist = '<li data-id="'+inputSear+'"><b>'+inputSear+'</b><span onclick="del(this)">删除</span></li>';
+        }
+    }else if(id !=undefined &&inputSear.length!=0){
+        var ppp2 = 0;
+        $(aaa).next().find('b').each(function(i,val){
+            if(ssspa ==$(aaa).next().find('b')[i].innerHTML||inputSear ==$(aaa).next().find('b')[i].innerHTML){
+//                alert('请不要添加重复产品！')
+                $('#mask').css('height',bodyHeight+"px");
+                $('#mask').show();
+                $('#mask>div>textarea').html("请不要添加重复产品!");
+                $('#goon').on('click',function(){
+                    $('#mask').hide();
+                })
+                ppp2 = 1
+                return;
+            }
+        })
+        if(ppp2 == 0){
+         var lilist = '<li data-id="'+id+'"><b>'+ssspa+'</b><span onclick="del(this)">删除</span></li>'+
+                      '<li data-id="'+inputSear+'"><b>'+inputSear+'</b><span onclick="del(this)">删除</span></li>';
+        }
+    }
+    $(aaa).prev().prev().val('');
+    $(aaa).prev().prev().prev().val('请选择产品');
+    $(aaa).prev().prev().prev().removeAttr('data-id');
+    $(aaa).prev().prev().prev().prev().prev().find('input').val('');
+    $(aaa).prev().prev().prev().prev().prev().find('input').removeAttr('data-id');
+    $(aaa).next().append(lilist);
+    $(aaa).prev().html("");
+}
+     function del(ddd){
+         $(ddd).parent().remove();
+     }
+
+
+          function bthClick(){
+              var re_name = "";
+              var skin_name = "";
+              var skin_w_name = "";
+              var skin_m_name = "";
+              var elite_name = "";
+              var facial_name = "";
+              var s_name = "";
+              $("#re_name li").each(function(){
+                  re_name += $(this).attr('data-id')+',';
+              });
+              re_name =re_name.substring(0,re_name.length-1);
+              $('.re_name').val(re_name)
+              $("#skin_name li").each(function(){
+                  skin_name += $(this).attr('data-id')+',';
+              });
+              skin_name =skin_name.substring(0,skin_name.length-1);
+              $('.skin_name').val(skin_name)
+              $("#skin_w_name li").each(function(){
+                  skin_w_name += $(this).attr('data-id')+',';
+              });
+              skin_w_name =skin_w_name.substring(0,skin_w_name.length-1);
+              $('.skin_w_name').val(skin_w_name)
+              $("#skin_m_name li").each(function(){
+                  skin_m_name += $(this).attr('data-id')+',';
+              });
+              skin_m_name =skin_m_name.substring(0,skin_m_name.length-1);
+              $('.skin_m_name').val(skin_m_name)
+              $("#elite_name li").each(function(){
+                  elite_name += $(this).attr('data-id')+',';
+              });
+              elite_name =elite_name.substring(0,elite_name.length-1);
+              $('.elite_name').val(elite_name)
+              $("#facial_name li").each(function(){
+                  facial_name += $(this).attr('data-id')+',';
+              });
+              facial_name =facial_name.substring(0,facial_name.length-1);
+              $('.facial_name').val(facial_name)
+              $("#s_name li").each(function(){
+                  s_name += $(this).attr('data-id')+',';
+              });
+              s_name =s_name.substring(0,s_name.length-1);
+              $('.s_name').val(s_name)
+
+              var quesArray = [];
+              quesArray[0] = $("input[name='name']").val()
+              quesArray[1] = $("input[name='sex']:checked").val()
+              quesArray[2] = $("#file1").val()
+              quesArray[3] = "第4题"
+              quesArray[4] = "第5题"
+              quesArray[5] = $("input[name='age']").val()
+              if($("input[name='height']").val()==""||$("input[name='weight']").val()==""){
+                  quesArray[6]=""
+              }else{
+                  quesArray[6] = $("input[name='height']").val()+$("input[name='weight']").val();
+              }
+              quesArray[7] = $("input[name='work']").val()
+              quesArray[8]= $("input[name='pay']:checked").val()
+              quesArray[9]= $("input[name='weixin']").val()
+              quesArray[10]= $("input[name='phone']").val()
+              quesArray[11]= $("input[name='question1']:checked").val()
+              quesArray[12]= $("input[name='question2']:checked").val()
+              quesArray[13]= $("input[name='question3']:checked").val()
+              quesArray[14]= $("input[name='question4']:checked").val()
+              quesArray[15]= $("input[name='question5']:checked").val()
+              quesArray[16]= $("input[name='question6']:checked").val()
+              quesArray[17]= $("input[name='question7']:checked").val()
+              quesArray[18]= $("input[name='question8']:checked").val()
+              quesArray[19]= $("input[name='question9']:checked").val()
+              quesArray[20]= $("input[name='question10']:checked").val()
+              quesArray[21]= $("input[name='question11']:checked").val()
+              quesArray[22]= $("input[name='question12']:checked").val()
+              quesArray[23]= $("input[name='question13']:checked").val()
+              quesArray[24]= $("input[name='question14']:checked").val()
+              quesArray[25]= $("input[name='question15']:checked").val()
+              quesArray[26]= $("input[name='question16']:checked").val()
+              quesArray[27]= $("input[name='question17']:checked").val()
+              quesArray[28]= $("input[name='question18']:checked").val()
+              quesArray[29]= $("input[name='question19']:checked").val()
+              quesArray[30]= $("input[name='question20']:checked").val()
+              quesArray[31]= $("input[name='question21']:checked").val()
+              quesArray[32]= $("input[name='question22']:checked").val()
+              quesArray[33]= $("input[name='question23']:checked").val()
+              quesArray[34]= $("input[name='question24']:checked").val()
+              quesArray[35]= $("input[name='question25']:checked").val()
+              quesArray[36]= $("input[name='question26']:checked").val()
+              quesArray[37]= $("input[name='question27']:checked").val()
+              quesArray[38]= $("input[name='question28']:checked").val()
+              quesArray[39]= $("input[name='question29']:checked").val()
+              quesArray[40]= $("input[name='question30']:checked").val()
+              quesArray[41]= $("input[name='question31']:checked").val()
+              quesArray[42]= $("input[name='question32']:checked").val()
+              quesArray[43]= $("input[name='question33']:checked").val()
+              quesArray[44]= $("input[name='question34']:checked").val()
+              quesArray[45]= $("input[name='question35']:checked").val()
+              quesArray[46]= $("input[name='question36']:checked").val()
+              quesArray[47]= $("input[name='question37']:checked").val()
+              quesArray[48]= $("input[name='question38']:checked").val()
+              quesArray[49]= $("input[name='toilet']:checked").val()
+              quesArray[50]= $("input[name='day1']:checked").val()
+              quesArray[51]= $("input[name='day2']:checked").val()
+              quesArray[52]= $("input[name='day3']:checked").val()
+              quesArray[53]= $("input[name='day4']:checked").val()
+              quesArray[54]= $("input[name='day5']:checked").val()
+              quesArray[55]= $("input[name='night1']:checked").val()
+              quesArray[56]= $("input[name='night2']:checked").val()
+              quesArray[57]= $("input[name='night3']:checked").val()
+              quesArray[58]= $("input[name='night4']:checked").val()
+              quesArray[59]= $("input[name='night5']:checked").val()
+              quesArray[60]= $("input[name='night6']:checked").val()
+              quesArray[61]= $("input[name='night7']:checked").val()
+              quesArray[62]= $("input[name='mr']:checked").val()
+              quesArray[63]= $("input[name='illness']:checked").val()
+              quesArray[64]= re_name
+              quesArray[65]= skin_name
+              quesArray[66]= skin_w_name
+              quesArray[67]= skin_m_name
+              quesArray[68]= elite_name
+              quesArray[69]= facial_name
+              quesArray[70]= s_name
+              quesArray[71]= $("#textarea1").val()
+              quesArray[72]= $("#textarea2").val()
+
+
+
+              var str = "";
+              for(var i=0;i<quesArray.length;i++){
+                  if(quesArray[i]==""||quesArray[i]==undefined){
+                      str += (i+1)+',';
+                  }
+              }
+              if(str != ""){
+                  str = str.slice(0,str.length-1)
+                  var bodyHeight = parseFloat($('body').css('height'))+60;
+                  $('#mask').css('height',bodyHeight+"px");
+//                  $('#mask>div').css('marginTop',(bodyHeight-500)+"px");
+                  $('#mask').show();
+                  $('#mask>div>textarea').html("第"+str+"题没有填写，请填写完成");
+                  $('#goon').on('click',function(){
+                      $('#mask').hide();
+                  })
+              }else{
+
+//              var regPhone = /^1[3|4|5|7|8][0-9]{9}$/;
+//              if($('#phone').val()==""||!regPhone.test($('#phone').val())){
+//                  $('#mask').show();
+//                  $('#mask>div>textarea').html("请输入正确格式电话号码！");
+//                  $('#goon').on('click',function(){
+//                      $('#mask').hide();
+//                  })
+//              }
+
+              var formData = new FormData($('#form')[0]);
+              var status = location.search.split("=")[1];
+              $.ajax({
+                  url:"/index.php/index/judge?status="+status,
+                  type:"POST",
+                  dataType:"JSON",
+                  data:formData,
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+                  success:function(data){
+                      if(data.code == 10000){
+                          var id = data.msg.user_id;
+                          var time = data.msg.time;
+                          window.localStorage.setItem('id',id);
+                          window.localStorage.setItem('time',time);
+                          window.location.href = 'score.html';
+                      }else{
+                          alert(data.msg)
+                      }
+                  },
+                  error:function(){}
+              });
+              }
+          }
+
+ </script>
+</body>
+</html>

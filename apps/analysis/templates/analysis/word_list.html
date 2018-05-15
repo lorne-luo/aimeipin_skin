@@ -1,39 +1,5 @@
 {% extends "adminlte/common_list.html" %}
 {% load static %}
-{##}
-{#{% block table_head %}#}
-{#  <th class="text-center hidden-sm hidden-xs" style="width:60px;">#}
-{#    <input type="checkbox" name="checkboxAllRow" class="checkboxAllRow" v-on:click="toggleAllBox"/>#}
-{#  </th>#}
-{#  <th>姓名</th>#}
-{#  <th>性别</th>#}
-{#  <th>年龄</th>#}
-{#  <th>手机</th>#}
-{#  <th>微信</th>#}
-{#  <th>备注</th>#}
-{#  <th class="hidden-sm hidden-xs"></th>#}
-{#{% endblock %}#}
-{##}
-{#{% block table_row %}#}
-{#  <tbody v-for="item in items">#}
-{#  <tr>#}
-{#    <td class="text-center hidden-sm hidden-xs">#}
-{#      ##[$index+1]#}
-{#      <input type="checkbox" class="minimal" name="checkboxRow" value="#[item.id]"/>#}
-{#    </td>#}
-{#    <td><a href="{!! item.edit_url !!}">{!! item.name !!}</a></td>#}
-{#    <td>{!! item.sex !!}</td>#}
-{#    <td>{!! item.age !!}</td>#}
-{#    <td>{!! item.mobile !!}</td>#}
-{#    <td>{!! item.weixin_id !!}</td>#}
-{#    <td>{!! item.remark !!}</td>#}
-{##}
-{#    {% block item_buttons %}#}
-{#      {{ block.super }}#}
-{#    {% endblock %}#}
-{#  </tr>#}
-{#  </tbody>#}
-{#{% endblock %}#}
 
 {% block common_list_footer_page_script %}
     <script type="text/javascript" src="{% static 'js/analysis/word_list.min.js' %}"></script>

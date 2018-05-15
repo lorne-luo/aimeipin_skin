@@ -36,3 +36,9 @@ class AnswerDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     model = Answer
     form_class = forms.AnswerDetailForm
     template_name = 'adminlte/common_detail_new.html'
+
+
+class SurveyView(CommonContextMixin, CreateView):
+    model = Answer
+    form_class = forms.SurveyForm
+    template_name = 'survey/pc/index.html'

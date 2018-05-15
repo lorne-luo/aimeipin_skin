@@ -7,4 +7,6 @@ urlpatterns = [
     url(r'^answer/list/$', views.AnswerListView.as_view(), name='answer-list'),
     url(r'^answer/(?P<pk>\d+)/$', views.AnswerDetailView.as_view(), name='answer-detail'),
     url(r'^answer/(?P<pk>\d+)/edit/$', views.AnswerUpdateView.as_view(), name='answer-update'),
+    url(r'^pc/$', views.SurveyView.as_view(), name='survey-pc'),
+    url(r'^wx/$', views.SurveyView.as_view(), name='survey-wx'),
 ]

@@ -21,3 +21,9 @@ class AnswerDetailForm(AnswerAddForm):
     class Meta:
         model = Answer
         fields = '__all__'
+
+
+class SurveyForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = '__all__'

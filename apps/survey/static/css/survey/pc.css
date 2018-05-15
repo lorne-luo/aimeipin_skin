@@ -1,0 +1,300 @@
+body{
+    background:url(../../image/background.png) no-repeat;
+    background-size:cover;
+}
+html{
+    margin:0;
+    pading:0;
+}
+ul,li{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+input,textarea{
+    border:1px solid #ddd;
+    outline:none;
+}
+p{
+    font-size:16px;
+}
+#header>p{
+    font-size:30px;
+    margin:0;
+    color:#fff;
+}
+li{
+    font-size:16px;
+    margin:10px 0;
+}
+#question{
+    width: 820px;
+    /*background: #fff;*/
+    margin: 60px auto;
+    margin-bottom:0;
+}
+#section{
+    margin-top: 200px;
+    background: #fff;
+    padding: 60px;
+}
+#section p{
+    font-szie:16px;
+    color:#4d4d4d;
+    display:inline-block;
+    font-weight:bold;
+    margin:0;
+}
+#section li input[type=text]{
+    width: 400px;
+    padding-left: 10px;
+    height: 26px;
+    margin-left:30px;
+}
+#section li i{
+    font-style:normal;
+    margin-left:20px;
+}
+#question ul{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 50px;
+}
+#section li span{
+    color:red;
+    position:relative;
+    top:2px;
+    left:4px;
+}
+#section li label{
+    margin-left:10px;
+}
+#weight li input[type=text]{
+    width:60px;
+}
+#mask{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    /*height: 100%;*/
+    background: rgba(000,000,000,0.3);
+    display:none;
+}
+#mask>div{
+    width: 500px;
+    height: 270px;
+    background: #fff;
+    border-radius: 20px;
+    margin: 0 auto;
+    position: fixed;
+    top: 60px;
+    left: 700px;
+
+}
+#mask>div p{
+    background: #13A5EC;
+    color: #fff;
+    height: 45px;
+    line-height: 45px;
+    padding-left: 20px;
+    border-radius: 20px 20px 0 0;
+    position: relative;
+    bottom: 20px;
+}
+#mask>div textarea{
+    width: 360px;
+    margin-top: 20px;
+    height: 120px;
+    margin-left: 70px;
+    border: none;
+    text-align: center;
+}
+#mask>div input{
+    width: 60px;
+    height: 30px;
+    background: #13A5EC;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    margin-left: 220px;
+    cursor:pointer;
+}
+b{
+    font-weight:normal;
+}
+
+/* from page */
+#button{
+    background: #13A5EC;
+    color: #fff;
+    border: none;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    margin-left: 300px;
+    cursor: pointer;
+    font-size: 18px;
+}
+.hufupin2{
+    display:none;
+}
+.hufupin2 li{
+    height:28px;
+    line-height:28px;
+}
+.span1{
+    cursor:pointer;
+}
+img{
+    width:28px;
+    border: 1px solid #ddd;
+}
+.hufupin select{
+    width:160px;
+    height:28px;
+    margin-right:16px;
+    margin-left:16px;
+}
+#section li.hufupin input{
+    width: 160px;
+    height: 24px;
+    border: 1px solid #AAA;
+    PADDING-LEFT: 10PX;
+}
+#question .hufupin ul.pin{
+    position: absolute;
+    left: 244px;
+    border-bottom: none;
+    background: #fff;
+    z-index: 10000;
+    border: 1px solid #ddd;
+    padding: 0;
+    margin: 0;
+    /* width: 170px; */
+    height: 100px;
+    overflow-y: scroll;
+    display: none;
+    min-width: 170px;
+    top: 27px;
+}
+#question .hufupin ul.pin.active{
+    display:block;
+}
+#section .hufupin ul li{
+    cursor:pointer;
+}
+#section .hufupin .pin li span{
+    display: inline-block;
+    font-size: 14px;
+    color: #000;
+    position: relative;
+    left: 5px;
+    top: -10px;
+    width: 228px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.add{
+    color: #fff;
+    background: #13A5EC;
+    width: 50px;
+    display: inline-block;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    border-radius: 3px;
+    position: absolute;
+    top: 24px;
+    right: 100px;
+    cursor:pointer;
+}
+.hufupin{
+    position:relative;
+}
+#question ul.ulcontainer{
+    border-bottom: none;
+    position: relative;
+    top: 30px;
+    left: 35px;
+    z-index:0;
+}
+#question .hufupin ul.ulcontainer span{
+    display:inline-block;
+    margin-left:30px;
+    color:red;
+    position: relative;
+    left: 5px;
+    top: 2px;
+}
+#section li input.fileinput{
+    position: relative;
+    left: -310px;
+    z-index: 0;
+    width: 260px;
+    cursor: pointer;
+}
+#section li input.inputopa{
+    position:relative;
+    z-index:100;
+    opacity:0;
+    width:300px;
+    cursor:pointer;
+}
+#section li input.handInp{
+    margin-top: 10px;
+    margin-left: 33px;
+    width: 376px;
+}
+.hufupin>span{
+    width:160px;
+}
+.hufupin>span>i{
+    background: url(../../image/path.png) no-repeat;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    position: relative;
+    right: 46px;
+    background-size: contain;
+}
+ul.hufupin1,
+ul.hufupin11,
+ul.hufupin12,
+ul.hufupin13,
+ul.hufupin14,
+ul.hufupin15,
+ul.hufupin16
+{
+    position: absolute;
+    background: #fff;
+    left: 34px;
+    top: 30px;
+    border: 1px solid #ddd;
+    width: 170px;
+    height: 160px;
+    overflow-y: auto;
+    display:none;
+    z-index: 100;
+}
+ul.hufupin1.active,
+ul.hufupin11.active,
+ul.hufupin12.active,
+ul.hufupin13.active,
+ul.hufupin14.active,
+ul.hufupin15.active,
+ul.hufupin16.active{
+    display:block;
+}
+
+
+ul.hufupin1 li,
+ul.hufupin11 li,
+ul.hufupin12 li,
+ul.hufupin13 li,
+ul.hufupin14 li,
+ul.hufupin15 li,
+ul.hufupin16 li
+{
+    padding-left:10px;
+}

@@ -9,7 +9,7 @@ router.include_root_view = False
 router.register(r'brand', views.BrandViewSet, base_name='brand')
 
 urlpatterns = [
-    url(r'^brand/brand/autocomplete/$', views.BrandAutocompleteAPIView.as_view(), name='brand-autocomplete'),
+    url(r'^brand/autocomplete/$', views.BrandAutocompleteAPIView.as_view(), name='brand-autocomplete'),
 ]
 
 urlpatterns += router.urls

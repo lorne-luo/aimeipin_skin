@@ -1,4 +1,6 @@
 import logging
+
+import sys
 from django.db.models import Q
 from dal import autocomplete
 from django_filters.rest_framework import DjangoFilterBackend
@@ -7,7 +9,6 @@ from rest_framework import permissions, filters
 from core.api.filters import PinyinSearchFilter
 from core.utils.string import include_non_asc
 from core.django.autocomplete import HansSelect2ViewMixin
-from core.django.permission import SellerRequiredMixin
 from core.api.views import CommonViewSet
 from ..models import Brand
 from . import serializers
@@ -27,19 +28,20 @@ class BrandViewSet(CommonViewSet):
                        filters.OrderingFilter)
 
 
-class BrandAutocompleteAPIView(SellerRequiredMixin, HansSelect2ViewMixin, autocomplete.Select2QuerySetView):
+class BrandAutocompleteAPIView(HansSelect2ViewMixin, autocomplete.Select2QuerySetView):
     model = Brand
-    paginate_by = 20
-    create_field = 'name_cn'
+    paginate_by = sys.maxsize  # no pagination
 
-    def create_object(self, text):
-        if include_non_asc(text):
-            return self.get_queryset().create(**{self.create_field: text})
-        else:
-            return self.get_queryset().create(**{'name_en': text})
+    # create_field = 'name_cn'
+    #
+    # def create_object(self, text):
+    #     if include_non_asc(text):
+    #         return self.get_queryset().create(**{'name_cn': text})
+    #     else:
+    #         return self.get_queryset().create(**{'name_en': text})
 
     def get_queryset(self):
-        qs = self.get_queryset()
+        qs = Brand.objects.all()
 
         if include_non_asc(self.q):
             qs = qs.filter(name_cn__icontains=self.q)
@@ -49,3 +51,12 @@ class BrandAutocompleteAPIView(SellerRequiredMixin, HansSelect2ViewMixin, autoco
             qs = qs.filter(
                 Q(pinyin__icontains=key) | Q(name_en__icontains=key))
         return qs
+
+    def get_results(self, context):
+        return [
+            {
+                'id': self.get_result_value(result),
+                'text': self.get_result_label(result),
+                'image': result.logo.url if result.logo else None,
+            } for result in context['object_list']
+        ]

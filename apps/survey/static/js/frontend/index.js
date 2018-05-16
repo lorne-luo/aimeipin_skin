@@ -53,16 +53,14 @@ $(document).ready(function () {
 
 function ullistSearch(search) {
     $.ajax({
-        url: "http://servers.jianghujoy.cn:8084/index.php/product/brand",
-        type: "POST",
-        data: {'search': search},
+        url: "/api/brand/brand/autocomplete/",
+        type: "GET",
+        data: {'q': search},
         dataType: "JSON",
         success: function (data) {
-            if (data.code == 10000) {
                 var opt1 = '';
-//            var opts = '<li><input type="text" placeholder="请选择品牌"/><i></i></li>';
-                for (var i = 0; i < data.msg.length; i++) {
-                    opt1 += '<li data-id="' + data.msg[i].id + '" onclick="selChange(this)">' + data.msg[i].b_name + '</li>';
+                for (var i = 0; i < data.results.length; i++) {
+                    opt1 += '<li data-id="' + data.results[i].id + '" onclick="selChange(this)">' + data.results[i].text + '</li>';
                 }
                 $('.hufupin .hufupin1').html(opt1);
                 $('.hufupin .hufupin11').html(opt1);
@@ -71,7 +69,6 @@ function ullistSearch(search) {
                 $('.hufupin .hufupin14').html(opt1);
                 $('.hufupin .hufupin15').html(opt1);
                 $('.hufupin .hufupin16').html(opt1);
-            }
         },
         error: function () {
         }

@@ -1,27 +1,3 @@
-//     $.ajax({
-//         url:"http://servers.jianghujoy.cn:8084/index.php/product/brand",
-//         type:"POST",
-//         dataType:"JSON",
-//         success:function(data){
-//             if(data.code == 10000){
-//                 var opt1 = '';
-//                 var opts = '<option>请选择品牌</option>';
-//                 for(var i=0;i<data.msg.length;i++){
-//                     opt1 += '<option data-id="'+data.msg[i].id+'">'+data.msg[i].b_name+'</option>';
-//                 }
-//                 $('.hufupin .hufupin1').html(opts+opt1);
-//                 $('.hufupin .hufupin11').html(opts+opt1);
-//                 $('.hufupin .hufupin12').html(opts+opt1);
-//                 $('.hufupin .hufupin13').html(opts+opt1);
-//                 $('.hufupin .hufupin14').html(opts+opt1);
-//                 $('.hufupin .hufupin15').html(opts+opt1);
-//                 $('.hufupin .hufupin16').html(opts+opt1);
-//             }
-//         },
-//         error:function(){}
-//     });
-
-
 $(document).ready(function () {
     document.getElementById("file1").addEventListener("change", function () {
         $(this).css('opacity', '1');
@@ -53,9 +29,9 @@ $(document).ready(function () {
         var self = this;
         console.log('input.blur');
         console.log(event);
-        setTimeout(function(){
+        setTimeout(function () {
             $(self).parent().next().removeClass('active');
-        },500);
+        }, 500);
     });
 
     // $("*").not("[cate]").click(function (e) {
@@ -133,30 +109,6 @@ function selChange(tsel) {
     });
 }
 
-//     function selChange(tsel){
-//         var opt2 = '';
-//         var id = {'id':$(tsel).find('option:selected').attr('data-id'),'cate':$(tsel).attr('cate')};
-//         console.log(id)
-//         $.ajax({
-//             url:"/index.php/product/brand_product",
-//             type:"POST",
-//             dataType:"JSON",
-//             data:id,
-//             success:function(data){
-//                 if(data.code == 10000){
-//                     for(var i=0;i<data.msg.length;i++){
-//                         opt2 +='<li data-id="'+data.msg[i].id+'">'+
-//                                 '<img src="'+data.msg[i].image+'">'+
-//                                 '<span>'+data.msg[i].name+'</span>'+
-//                                 '</li>';
-//                     }
-//
-//                     $(tsel).next().next().html(opt2)
-//                 }
-//             },
-//             error:function(){}
-//         });
-//     }
 function spanClick(span) {
     if ($(span).next().next().children().length == 0) {
 //             alert("此品牌无产品！");
@@ -179,17 +131,6 @@ function liClick(li) {
     $(li).parent().removeClass('active')
 }
 
-//     function add(aaa){
-//         var sel = $(aaa).prev().prev().prev().find('option:selected').html();
-//         var id = $(aaa).prev().prev().attr('data-id');
-//         if(id == undefined){
-//             alert("请选择产品！")
-//             return;
-//         }
-//         var spa = $(aaa).prev().prev().val();
-//         var lilist = '<li data-id="'+id+'">'+sel+spa+'<span onclick="del(this)">删除</span></li>';
-//         $(aaa).next().append(lilist);
-//     }
 function add(aaa) {
 //    var lilist = " ";
 //    $(aaa).parent().html("");

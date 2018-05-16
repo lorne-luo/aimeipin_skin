@@ -95,9 +95,10 @@ class ProductIngredient(models.Model):
     """产品成分, skin_component"""
     product = models.ForeignKey('product.Product', blank=True, null=True)
     name = models.CharField(_(u'name'), max_length=255, blank=True)
-    is_safe = models.BooleanField(_(u'安全风险'), blank=True)  # 是否安全
-    is_live = models.BooleanField(_(u'活性成分'), blank=True)  # 活性因子
-    is_pox = models.BooleanField(_(u'致痘风险'), blank=True)  # 导致起痘
+    is_safe = models.BooleanField(_(u'安全风险'), default=False, blank=True)  # 是否安全
+    safe = models.CharField(_(u'safe'), max_length=255, blank=True)
+    is_live = models.BooleanField(_(u'活性成分'), default=False, blank=True)  # 活性因子
+    is_pox = models.BooleanField(_(u'致痘风险'), default=False, blank=True)  # 导致起痘
     effect = models.CharField(_(u'使用目的'), max_length=255, blank=True)
     description = models.TextField(_(u'描述'), max_length=512, blank=True)
 

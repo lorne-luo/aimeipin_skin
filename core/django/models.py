@@ -16,6 +16,7 @@ class PinYinFieldModelMixin(object):
     pinyin_fields_conf = []
     _original_fields_value = {}
     SPLITER = '|'
+    MAX_LENGTH = 512
 
     def __init__(self, *args, **kwargs):
         super(PinYinFieldModelMixin, self).__init__(*args, **kwargs)
@@ -44,7 +45,7 @@ class PinYinFieldModelMixin(object):
         for field_name, style, heteronym in self.pinyin_fields_conf:
             current_value = self.get_attr_by_str(field_name)
             new_pinyin += self.get_pinyin(current_value, style, heteronym)
-            setattr(self, self.pinyin_field, new_pinyin.lower())
+            setattr(self, self.pinyin_field, new_pinyin.lower()[:self.MAX_LENGTH])
 
     @classmethod
     def get_pinyin(cls, value, style=Style.NORMAL, heteronym=False):

@@ -47,7 +47,7 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
     brand = models.ForeignKey(Brand, blank=True, null=True)
     name_en = models.CharField(_(u'name_en'), max_length=255, blank=True)
     name_cn = models.CharField(_(u'name_cn'), max_length=255, blank=True)
-    pinyin = models.CharField(_(u'pinyin'), max_length=255, blank=True)
+    pinyin = models.CharField(_(u'pinyin'), max_length=512, blank=True)
     pic = StdImageField(upload_to=get_product_pic_path, blank=True, null=True, verbose_name=_('picture'),
                         variations={
                             'medium': (800, 800, True),
@@ -59,8 +59,8 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     pinyin_fields_conf = [
-        ('name_cn', Style.NORMAL, True),
-        ('alias', Style.NORMAL, True),
+        ('name_cn', Style.NORMAL, False),
+        ('alias', Style.NORMAL, False),
     ]
     objects = ProductManager()
 

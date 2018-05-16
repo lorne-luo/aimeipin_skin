@@ -58,12 +58,12 @@ SKIN_SENSITIVE_TYPE_CHOICES = (
     (u'耐受性', u'耐受性'),
 )
 SKIN_PIGMENT_TYPE_CHOICES = (
-    (u'色素性皮肤', u'色素性皮肤'),
-    (u'非色素性皮肤', u'非色素性皮肤'),
+    (u'色素性', u'色素性'),
+    (u'非色素性', u'非色素性'),
 )
 SKIN_LOOSE_TYPE_CHOICES = (
-    (u'非紧致性皮肤', u'非紧致性皮肤'),
-    (u'紧致性皮肤', u'紧致性皮肤'),
+    (u'非紧致性', u'非紧致性'),
+    (u'紧致性', u'紧致性'),
 )
 
 PREMIUM_PRODUCT_ADVICE_TYPE_CHOICES=(

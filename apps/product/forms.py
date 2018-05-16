@@ -25,22 +25,22 @@ class ProductDetailForm(forms.ModelForm):
         fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand', 'category']
 
 
-class ProductIngredientInlineForm(forms.ModelForm):
-    class Meta:
-        model = ProductIngredient
-        fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super(ProductIngredientInlineForm, self).__init__(*args, **kwargs)
-        for field_name in self.fields:
-            field = self.fields.get(field_name)
-            field.widget.attrs['class'] = 'form-control'
-
-        self.fields['product'].widget = forms.HiddenInput()
-
-
-ProductIngredientFormSet = inlineformset_factory(Product, ProductIngredient, form=ProductIngredientInlineForm,
-                                                 can_order=False, can_delete=True, extra=1)
+# class ProductIngredientInlineForm(forms.ModelForm):
+#     class Meta:
+#         model = ProductIngredient
+#         fields = '__all__'
+#
+#     def __init__(self, *args, **kwargs):
+#         super(ProductIngredientInlineForm, self).__init__(*args, **kwargs)
+#         for field_name in self.fields:
+#             field = self.fields.get(field_name)
+#             field.widget.attrs['class'] = 'form-control'
+#
+#         self.fields['product'].widget = forms.HiddenInput()
+#
+#
+# ProductIngredientFormSet = inlineformset_factory(Product, ProductIngredient, form=ProductIngredientInlineForm,
+#                                                  can_order=False, can_delete=True, extra=1)
 
 
 class ProductAnalysisInlineForm(forms.ModelForm):

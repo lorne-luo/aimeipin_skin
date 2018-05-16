@@ -57,6 +57,9 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
     category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, blank=True)
     description = models.TextField(_(u'description'), blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
+    ingredients = models.ManyToManyField(
+        'product.ProductIngredient', blank=True, verbose_name=u'成分组成',
+    )
 
     pinyin_fields_conf = [
         ('name_cn', Style.NORMAL, False),
@@ -93,7 +96,6 @@ def product_deleted(sender, **kwargs):
 
 class ProductIngredient(models.Model):
     """产品成分, skin_component"""
-    product = models.ForeignKey('product.Product', blank=True, null=True)
     name = models.CharField(_(u'name'), max_length=255, blank=True)
     is_safe = models.BooleanField(_(u'安全风险'), default=False, blank=True)  # 是否安全
     safe = models.CharField(_(u'safe'), max_length=255, blank=True)
@@ -102,6 +104,8 @@ class ProductIngredient(models.Model):
     effect = models.CharField(_(u'使用目的'), max_length=255, blank=True)
     description = models.TextField(_(u'描述'), max_length=512, blank=True)
 
+    def __str__(self):
+        return self.name
 
 class ProductAnalysis(models.Model):
     """产品的肤质阐述 skin_p_t"""

@@ -34,10 +34,6 @@ $(document).ready(function () {
         }, 500);
     });
 
-    // $("*").not("[cate]").click(function (e) {
-    //     $("ul[cate]").removeClass('active');
-    // });
-
     $('.onkeyDownSearch').keyup(function (e) {
         if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
             return;
@@ -47,6 +43,48 @@ $(document).ready(function () {
             ullistSearch(search);
         }
         $(this).parent().next().addClass('active')
+    });
+
+    $('.hufupin input.span1').focus(function (event) {
+        console.log('input.focus');
+        if($(this).attr('data-brand_id')){
+            $(this).next().next().addClass('active');
+        }
+    }).blur(function (event) {
+        var self = this;
+        setTimeout(function () {
+            $(self).next().next().removeClass('active');
+        }, 200);
+    }).keyup(function (e) {
+        if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
+            return;
+        } else {
+            var search = $(this).val();
+            var self=this;
+            console.log('search:' + search);
+            var brand_id = $(this).attr('data-brand_id');
+            console.log('brand_id:' + brand_id);
+
+            $.ajax({
+            url: "/api/product/product/autocomplete/",
+            type: "GET",
+            data: {'q': search, 'brand_id': brand_id},
+            dataType: "JSON",
+            success: function (data) {
+                var opt2='';
+                for (var i = 0; i < data.results.length; i++) {
+                    opt2 += '<li data-id="' + data.results[i].id + '" onclick="liClick(this)">' +
+                        '<img src="' + data.results[i].image + '">' +
+                        '<span>' + data.results[i].text + '</span>' +
+                        '</li>';
+                }
+                $(self).next().next().html(opt2)
+            },
+            error: function () {
+            }
+        });
+        }
+        $(this).next().next().addClass('active');
     });
 
 });
@@ -81,11 +119,12 @@ function ullistSearch(search) {
 function selChange(tsel) {
     // console.log('selChange');
     var opt2 = '';
-    $(tsel).parent().next().val("请选择产品");
+    // $(tsel).parent().next().val("请选择产品");
     var id = {'id': $(tsel).attr('data-id'), 'cate': $(tsel).parent().attr('cate')};
-    var brand_id=$(tsel).attr('data-id');
+    var brand_id = $(tsel).attr('data-id');
     $(tsel).parent().prev().find('input').val($(tsel).html());
-    $(tsel).parent().prev().find('input').attr('data-id', $(tsel).attr('data-id'));
+    $(tsel).parent().prev().find('input').attr('data-id', brand_id);
+    $(tsel).parent().next().attr('data-brand_id', brand_id);
     $(tsel).parent().removeClass('active');
     var search = '';
 
@@ -110,6 +149,7 @@ function selChange(tsel) {
 }
 
 function spanClick(span) {
+    return;
     if ($(span).next().next().children().length == 0) {
 //             alert("此品牌无产品！");
         var bodyHeight = parseFloat($('body').css('height')) + 60;
@@ -126,9 +166,13 @@ function spanClick(span) {
 }
 
 function liClick(li) {
-    $(li).parent().prev().prev().val($(li).find('span').html());
-    $(li).parent().prev().prev().attr('data-id', $(li).attr('data-id'));
-    $(li).parent().removeClass('active')
+    $(li).parent().prev().prev().val('');
+    // $(li).parent().prev().prev().attr('data-id', $(li).attr('data-id'));
+    $(li).parent().removeClass('active');
+    var name = $(li).text();
+    var id = $(li).attr('data-id');
+    var lilist = '<li data-id="' + id + '"><b>' + name + '</b><span onclick="del(this)">删除</span></li>';
+    $(li).parent().next().next().append(lilist);
 }
 
 function add(aaa) {
@@ -217,7 +261,7 @@ function add(aaa) {
         }
     }
     $(aaa).prev().prev().val('');
-    $(aaa).prev().prev().prev().val('请选择产品');
+    // $(aaa).prev().prev().prev().val('请选择产品');
     $(aaa).prev().prev().prev().removeAttr('data-id');
     $(aaa).prev().prev().prev().prev().prev().find('input').val('');
     $(aaa).prev().prev().prev().prev().prev().find('input').removeAttr('data-id');

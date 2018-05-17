@@ -14,21 +14,21 @@ $(document).ready(function () {
 
 
     $('.hufupin>span>i').click(function () {
-        console.log('.hufupin>span>i');
+        // console.log('.hufupin>span>i');
         var search = "";
         ullistSearch(search);
         $(this).parent().next().toggleClass('active');
     });
 
     $('.hufupin span input.onkeyDownSearch').focus(function () {
-        console.log('input.focus');
+        // console.log('input.focus');
         var search = "";
         ullistSearch(search);
         $(this).parent().next().addClass('active');
     }).blur(function (event) {
         var self = this;
-        console.log('input.blur');
-        console.log(event);
+        // console.log('input.blur');
+        // console.log(event);
         setTimeout(function () {
             $(self).parent().next().removeClass('active');
         }, 500);
@@ -58,50 +58,53 @@ function ullistSearch(search) {
         data: {'q': search},
         dataType: "JSON",
         success: function (data) {
-                var opt1 = '';
-                for (var i = 0; i < data.results.length; i++) {
-                    opt1 += '<li data-id="' + data.results[i].id + '" onclick="selChange(this)">' + data.results[i].text + '</li>';
-                }
-                $('.hufupin .hufupin1').html(opt1);
-                $('.hufupin .hufupin11').html(opt1);
-                $('.hufupin .hufupin12').html(opt1);
-                $('.hufupin .hufupin13').html(opt1);
-                $('.hufupin .hufupin14').html(opt1);
-                $('.hufupin .hufupin15').html(opt1);
-                $('.hufupin .hufupin16').html(opt1);
+            var brandOptions = '';
+            for (var i = 0; i < data.results.length; i++) {
+                brandOptions += '<li data-id="' + data.results[i].id + '" onclick="selChange(this)">' + data.results[i].text + '</li>';
+            }
+            $('.hufupin .hufupin1').html(brandOptions);
+            $('.hufupin .hufupin11').html(brandOptions);
+            $('.hufupin .hufupin12').html(brandOptions);
+            $('.hufupin .hufupin13').html(brandOptions);
+            $('.hufupin .hufupin14').html(brandOptions);
+            $('.hufupin .hufupin15').html(brandOptions);
+            $('.hufupin .hufupin16').html(brandOptions);
         },
         error: function () {
+            brandOptions = '';
         }
     });
+
 }
 
 
 function selChange(tsel) {
+    // console.log('selChange');
     var opt2 = '';
-    $(tsel).parent().next().val("请选择产品")
+    $(tsel).parent().next().val("请选择产品");
     var id = {'id': $(tsel).attr('data-id'), 'cate': $(tsel).parent().attr('cate')};
-    $(tsel).parent().prev().find('input').val($(tsel).html())
-    $(tsel).parent().prev().find('input').attr('data-id', $(tsel).attr('data-id'))
-    $(tsel).parent().removeClass('active')
+    var brand_id=$(tsel).attr('data-id');
+    $(tsel).parent().prev().find('input').val($(tsel).html());
+    $(tsel).parent().prev().find('input').attr('data-id', $(tsel).attr('data-id'));
+    $(tsel).parent().removeClass('active');
+    var search = '';
+
     $.ajax({
-        url: "http://servers.jianghujoy.cn:8084/index.php/product/brand_product",
-        type: "POST",
+        url: "/api/product/product/autocomplete/",
+        type: "GET",
+        data: {'q': search, 'brand_id': brand_id},
         dataType: "JSON",
-        data: id,
         success: function (data) {
-            if (data.code == 10000) {
-                for (var i = 0; i < data.msg.length; i++) {
-                    opt2 += '<li data-id="' + data.msg[i].id + '" onclick="liClick(this)">' +
-                        '<img src="' + data.msg[i].image + '">' +
-                        '<span>' + data.msg[i].name + '</span>' +
-                        '</li>';
-                }
-                $(tsel).parent().next().next().next().html(opt2)
-            } else {
-                $(tsel).parent().next().next().next().html("")
+            for (var i = 0; i < data.results.length; i++) {
+                opt2 += '<li data-id="' + data.results[i].id + '" onclick="liClick(this)">' +
+                    '<img src="' + data.results[i].image + '">' +
+                    '<span>' + data.results[i].text + '</span>' +
+                    '</li>';
             }
+            $(tsel).parent().next().next().next().html(opt2)
         },
         error: function () {
+            $(tsel).parent().next().next().next().html("")
         }
     });
 }
@@ -115,7 +118,7 @@ function spanClick(span) {
         $('#mask>div>textarea').html("此品牌无产品!");
         $('#goon').on('click', function () {
             $('#mask').hide();
-        })
+        });
         return;
 
     }

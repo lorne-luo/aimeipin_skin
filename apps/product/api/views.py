@@ -7,7 +7,6 @@ from rest_framework import permissions, filters
 from core.api.filters import PinyinSearchFilter
 from core.utils.string import include_non_asc
 from core.django.autocomplete import HansSelect2ViewMixin
-from core.django.permission import SellerRequiredMixin
 from core.api.views import CommonViewSet
 from ..models import Product
 from . import serializers
@@ -28,22 +27,39 @@ class ProductViewSet(CommonViewSet):
                        filters.OrderingFilter)
 
 
-class ProductAutocompleteAPIView(SellerRequiredMixin, HansSelect2ViewMixin, autocomplete.Select2QuerySetView):
+class ProductAutocompleteAPIView(HansSelect2ViewMixin, autocomplete.Select2QuerySetView):
     model = Product
-    paginate_by = 20
-    create_field = 'name_cn'
+    paginate_by = None
 
-    def create_object(self, text):
-        return self.get_queryset().create(**{self.create_field: text, 'seller': self.request.profile})
+    # create_field = 'name_cn'
+    #
+    # def create_object(self, text):
+    #     return self.get_queryset().create(**{self.create_field: text, 'seller': self.request.profile})
+
+    def has_more(self, context):
+        return False
 
     def get_queryset(self):
-        qs = Product.objects.all_for_seller(self.request.user).order_by('brand__name_en', 'name_cn')
+        qs = Product.objects.all()
+        brand_id = self.request.GET.get('brand_id', '')
+        if brand_id:
+            qs = qs.filter(brand__id=brand_id)
 
         if include_non_asc(self.q):
-            qs = qs.filter(Q(name_cn__icontains=self.q) | Q(brand__name_cn__icontains=self.q))
+            qs = qs.filter(Q(name_cn__icontains=self.q))
         else:
             # all ascii, number and letter
             key = self.q.lower()
-            qs = qs.filter(
-                Q(pinyin__contains=key) | Q(name_en__icontains=key) | Q(brand__name_en__icontains=key))
+            if key:
+                qs = qs.filter(
+                    Q(pinyin__contains=key) | Q(name_en__icontains=key))
         return qs
+
+    def get_results(self, context):
+        return [
+            {
+                'id': self.get_result_value(result),
+                'text': self.get_result_label(result),
+                'image': result.pic.url if result.pic else None,
+            } for result in context['object_list']
+        ]

@@ -27,14 +27,9 @@
 {% endblock %}
 
 {% block inline_formset %}
-    {% if component_edit %}
-        {% include 'product/includes/ingredient_inline_edit.html' with productingredient_formset=productingredient_formset %}
-    {% else %}
-        {% include 'product/includes/ingredient_inline_readonly.html' with productingredient_formset=productingredient_formset %}
-    {% endif %}
+    {% include 'product/includes/ingredient_inline_readonly.html' with object=object %}
 
     {% include 'product/includes/analysis_inline.html' with productanalysis_formset=productanalysis_formset %}
-
 {% endblock %}
 
 {% block header_page_script %}

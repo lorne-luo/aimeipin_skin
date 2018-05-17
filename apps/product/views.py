@@ -28,25 +28,17 @@ class ProductAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
     model = Product
     form_class = forms.ProductAddForm
     template_name = 'product/product_form.html'
-    component_edit_querystring = 'component_edit'
 
     def get_context_data(self, **kwargs):
-
         context = super(ProductAddView, self).get_context_data(**kwargs)
         context['table_titles'] = ['Pic', 'Name', 'Brand', '']
         context['table_fields'] = ['pic', 'link', 'brand', 'id']
-        params = self.request.GET or self.request.POST
-        context['component_edit'] = self.component_edit_querystring in params
+
         if self.request.POST:
-            # context['productingredient_formset'] = ProductIngredientFormSet(self.request.POST, self.request.FILES,
-            #                                                                 prefix='productingredient_formset',
-            #                                                                 instance=self.object)
             context['productanalysis_formset'] = ProductAnalysisFormSet(self.request.POST, self.request.FILES,
                                                                         prefix='productanalysis_formset',
                                                                         instance=self.object)
         else:
-            # context['productingredient_formset'] = ProductIngredientFormSet(prefix='productingredient_formset',
-            #                                                                 instance=self.object)
             context['productanalysis_formset'] = ProductAnalysisFormSet(prefix='productanalysis_formset',
                                                                         instance=self.object)
 
@@ -55,12 +47,6 @@ class ProductAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
     def form_valid(self, form):
         self.object = form.save(commit=False)
         context = self.get_context_data()
-
-        # productingredient_formset = context['productingredient_formset']
-        # productingredient_formset.instance = form.instance
-        # if self.component_edit_querystring in self.request.META['HTTP_REFERER']:
-        #     if productingredient_formset.is_valid():
-        #         productingredient_formset.save()
 
         productanalysis_formset = context['productanalysis_formset']
         productanalysis_formset.instance = form.instance

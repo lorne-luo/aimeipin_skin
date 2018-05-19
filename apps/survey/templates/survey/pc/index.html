@@ -475,8 +475,7 @@
              </ul>
              <ul>
                  <li><p>64、近半年内您是否有出现过严重的皮肤问题(例如：大面积的痤疮、湿疹、皮肤过敏、)：</p></li>
-                 <li><label><input type="radio" name="illness" value="0"/>a.有</label></li>
-                 <li><label><input type="radio" name="illness" value="1"/>b. 没有</label></li>
+                  <li><textarea name="illness" placeholder="若无请留空" e cols="90" rows="3"></textarea></li>
              </ul>
              <ul>
                  <li><p>65、现阶段所使用卸妆类护肤品名称</p></li>
@@ -593,7 +592,26 @@
                  </li>
              </ul>
              <ul>
-                 <li><p>71、您现阶段使用的防晒类护肤品名称？</p></li>
+                 <li><p>71、您现阶段使用的的面膜类的护肤品名称？</p></li>
+                 <li class="hufupin">
+                     <!--<select class="hufupin16" onchange="selChange(this)" cate="13">-->
+                     <!--</select>-->
+                     <span><input type="text" placeholder="请选择品牌" class="onkeyDownSearch"/><i></i></span>
+                     <ul class="hufupin16" cate="11">
+                     </ul>
+                     <input class="span1" onclick="spanClick(this)" placeholder="请选择产品">
+                     <input type="text" placeholder="手动输入产品名称" class="handInp"/>
+                     <ul class="hufupin26 pin">
+
+                     </ul>
+                     <a class="add" onclick="add(this)">添加</a>
+                     <ul class="ulcontainer" id="cosmetic_question6">
+                     </ul>
+                     <input type="hidden" name="cosmetic_question6" value="" class="cosmetic_question6"/>
+                 </li>
+             </ul>
+             <ul>
+                 <li><p>72、您现阶段使用的防晒类护肤品名称？</p></li>
                  <li class="hufupin">
                      <!--<select class="hufupin16" onchange="selChange(this)" cate="13">-->
                      <!--</select>-->
@@ -612,11 +630,11 @@
                  </li>
              </ul>
              <ul>
-                 <li><p>72、您是否每天（一年四季，不管晴天、阴天、雨天）涂抹防晒产品？</p><span>*</span></li>
+                 <li><p>73、您是否每天（一年四季，不管晴天、阴天、雨天）涂抹防晒产品？</p><span>*</span></li>
                  <li><textarea name="is_s" id="textarea1" cols="90" rows="3"></textarea></li>
              </ul>
              <ul>
-                 <li><p>73、您使用哪些成分会过敏？以及过敏的现象</p><span>*</span></li>
+                 <li><p>74、您使用哪些成分会过敏？以及过敏的现象</p><span>*</span></li>
                  <li><textarea name="allergy" id="textarea2" cols="90" rows="3"></textarea></li>
                  <li>提示：如没有，请填写无</li>
              </ul>

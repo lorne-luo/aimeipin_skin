@@ -22,6 +22,7 @@ def get_answer_photo_path(instance, filename):
 class Answer(models.Model):
     """问卷报告回答,answer"""
     customer = models.ForeignKey('customer.Customer', null=True, blank=True)
+    uuid = models.CharField('uuid', max_length=255, blank=True)
     # purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
     # level = models.CharField(max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 9.9 or 98
     city = models.CharField(_(u'城市'), max_length=255, blank=True)  # 自动抓取地址
@@ -59,26 +60,20 @@ class Answer(models.Model):
     question2 = models.PositiveIntegerField('13. 在干燥的环境中，如果不使用面霜. 乳液或者防晒霜，你的面部皮肤会？', blank=True, null=True)  # No. 13
     question3 = models.PositiveIntegerField('14. 使用面霜或乳液后2-3小时你的面部会？', blank=True, null=True)  # No. 14
     question4 = models.PositiveIntegerField('15. 早上正常护肤后，中午到下午会大量出油？', blank=True, null=True)  # No. 15
-    question5 = models.PositiveIntegerField('16. 在使用粉底液. BB霜或者隔离霜，但不涂粉饼或散粉的情况下，2~3小时后，你的妆容会？', blank=True,
-                                            null=True)  # No. 16
+    question5 = models.PositiveIntegerField('16. 在使用粉底液. BB霜或者隔离霜，但不涂粉饼或散粉的情况下，2~3小时后，你的妆容会？', blank=True,  null=True)  # No. 16
     question6 = models.PositiveIntegerField('17. 你的脸部哪些部位有毛孔粗大问题？ ', blank=True, null=True)  # No. 17
     question7 = models.PositiveIntegerField('18. 你会怎样描述你的脸部肌肤的干油性？', blank=True, null=True)  # No. 18
-    question8 = models.PositiveIntegerField('19. 当你使用肥皂泡沫. 泡沫乳. 泡沫丰富的洁面产品洁面时，你的面部皮肤会？', blank=True,
-                                            null=True)  # No. 19
+    question8 = models.PositiveIntegerField('19. 当你使用肥皂泡沫. 泡沫乳. 泡沫丰富的洁面产品洁面时，你的面部皮肤会？', blank=True, null=True)  # No. 19
     question9 = models.PositiveIntegerField('20. 在当前季节里，如果不使用面霜或乳液，你的脸部会？', blank=True, null=True)  # No. 20
     question10 = models.PositiveIntegerField('21. 你会长粉刺. 闭口或痘痘等吗？', blank=True, null=True)  # No. 21
     # 22-32 是敏感
     question11 = models.PositiveIntegerField('22. 你的面部会出现泛红的情况（点状或片状）吗？', blank=True, null=True)  # No. 22
-    question12 = models.PositiveIntegerField('23. 护肤产品（包括洁面产品. 水. 精华. 乳液/面霜等）会使你的面部出现发红. 发痒. 刺痛. 灼热的感觉吗？', blank=True,
-                                             null=True)  # No. 23
-    question13 = models.PositiveIntegerField('24. 你曾经被诊断过有痤疮. 玫瑰痤疮. 遗传性皮炎. 湿疹. 接触性皮炎吗？', blank=True,
-                                             null=True)  # No. 24
+    question12 = models.PositiveIntegerField('23. 护肤产品（包括洁面产品. 水. 精华. 乳液/面霜等）会使你的面部出现发红. 发痒. 刺痛. 灼热的感觉吗？', blank=True, null=True)  # No. 23
+    question13 = models.PositiveIntegerField('24. 你曾经被诊断过有痤疮. 玫瑰痤疮. 遗传性皮炎. 湿疹. 接触性皮炎吗？', blank=True, null=True)  # No. 24
     question14 = models.PositiveIntegerField('25. 你会对金属首饰过敏吗？', blank=True, null=True)  # No. 25
     question15 = models.PositiveIntegerField('26. 你喝酒后经常脸红吗？', blank=True, null=True)  # No. 26
-    question16 = models.PositiveIntegerField('27. 防晒产品会使你的皮肤过敏（发红. 发痒. 刺痛. 灼热. 起疹子的感觉）吗？', blank=True,
-                                             null=True)  # No. 27
-    question17 = models.PositiveIntegerField('28. 你的直系亲属中有几位被诊断为过敏体质（如：遗传过敏性皮炎. 湿疹. 哮喘. 过敏症）？', blank=True,
-                                             null=True)  # No. 28
+    question16 = models.PositiveIntegerField('27. 防晒产品会使你的皮肤过敏（发红. 发痒. 刺痛. 灼热. 起疹子的感觉）吗？', blank=True, null=True)  # No. 27
+    question17 = models.PositiveIntegerField('28. 你的直系亲属中有几位被诊断为过敏体质（如：遗传过敏性皮炎. 湿疹. 哮喘. 过敏症）？', blank=True, null=True)  # No. 28
     question18 = models.PositiveIntegerField('29. 如果皮肤接触含香味的洗衣剂或柔顺剂，你会出现什么反应？', blank=True, null=True)  # No. 29
     question19 = models.PositiveIntegerField('30. 在长时间运动后，或情绪波动较大的情况下，你的脸部或颈部会变红吗？', blank=True, null=True)  # No. 30
     question20 = models.PositiveIntegerField('31. 你在吃完辣的或是烫的食物后皮肤会发红吗？', blank=True, null=True)  # No. 31
@@ -86,22 +81,18 @@ class Answer(models.Model):
     # 33-41 是色素
     question22 = models.PositiveIntegerField('33. 在你长粉刺. 闭口. 痘痘之后，愈合处会出现棕色或黑色的印吗？', blank=True, null=True)  # No. 33
     question23 = models.PositiveIntegerField('34. 皮肤划伤后，愈合后的深色（不是粉色）痕迹会保持多久？', blank=True, null=True)  # No. 34
-    question24 = models.PositiveIntegerField('35. 如果几个月没被长时间（2小时以上）日晒过，当你第一次被长时间日晒时，你的皮肤会变黑变暗吗？', blank=True,
-                                             null=True)  # No. 35
+    question24 = models.PositiveIntegerField('35. 如果几个月没被长时间（2小时以上）日晒过，当你第一次被长时间日晒时，你的皮肤会变黑变暗吗？', blank=True, null=True)  # No. 35
     question25 = models.PositiveIntegerField('36. 你是否被诊断过脸上有斑（表现为浅褐色. 深褐色或灰色斑）？', blank=True, null=True)  # No. 36
-    question26 = models.PositiveIntegerField('37. 当你在太阳下长时间日晒（2小时以上）后，你脸上的斑点会变得更明显吗？', blank=True,
-                                             null=True)  # No. 37
+    question26 = models.PositiveIntegerField('37. 当你在太阳下长时间日晒（2小时以上）后，你脸上的斑点会变得更明显吗？', blank=True, null=True)  # No. 37
     question27 = models.PositiveIntegerField('38. 你的脸上. 胸上. 背部或胳膊上，是否有或者曾经有过斑点？', blank=True, null=True)  # No. 38
     question28 = models.PositiveIntegerField('39. 连续长时间日晒（2小时以上）几天后，你的皮肤会出现下列哪种情况？', blank=True, null=True)  # No. 39
     question29 = models.PositiveIntegerField('40. 在你的面部有斑（点状或片状都算）吗？', blank=True, null=True)  # No. 40
     question30 = models.PositiveIntegerField('41. 你头发的自然色是？', blank=True, null=True)  # No. 41
     # 42-49 是皱纹
     question31 = models.PositiveIntegerField('42. 你的脸上有皱纹吗？', blank=True, null=True)  # No. 42
-    question32 = models.PositiveIntegerField('43. 日常生活中，你曾经在每年或不到一年中经历过多于两周的长时间日晒（2小时以上）吗？（包括暑假在内）如果是，多长时间一次？',
-                                             blank=True, null=True)  # No. 43
+    question32 = models.PositiveIntegerField('43. 日常生活中，你曾经在每年或不到一年中经历过多于两周的长时间日晒（2小时以上）吗？（包括暑假在内）如果是，多长时间一次？', blank=True, null=True)  # No. 43
     question33 = models.PositiveIntegerField('44. 你认为自己看上去有多大年龄？', blank=True, null=True)  # No. 44
-    question34 = models.PositiveIntegerField('45. 过去五年里，你有意或者无意通过户外活动或者其他方式晒黑，大概多久一次？', blank=True,
-                                             null=True)  # No. 45
+    question34 = models.PositiveIntegerField('45. 过去五年里，你有意或者无意通过户外活动或者其他方式晒黑，大概多久一次？', blank=True, null=True)  # No. 45
     question35 = models.PositiveIntegerField('46. 根据你所居住的地方，你每天受日照的时间是多少？', blank=True, null=True)  # No. 46
     question36 = models.PositiveIntegerField('47. 在你的生活中，你共抽过多少烟（或者二手烟）？', blank=True, null=True)  # No. 47
     question37 = models.PositiveIntegerField('48. 请描述你居住地的空气污染状况：', blank=True, null=True)  # No. 48
@@ -122,20 +113,19 @@ class Answer(models.Model):
     non_score_question12 = models.CharField('61. 面膜（非清洁类面膜）', blank=True, max_length=255)  # No. 61
     non_score_question13 = models.CharField('62. 去角质清洁面膜（去角质啫喱，泥面膜或其它清洁面膜）的频次', blank=True, max_length=255)  # No. 62
     non_score_question14 = models.CharField('63. 您是否去有定期去美容院或医美机构做皮肤护理的习惯？', blank=True, max_length=255)  # No. 63
-    non_score_question15 = models.CharField('64. 近半年内您是否有出现过严重的皮肤问题(例如：大面积的痤疮. 湿疹. 皮肤过敏)：', blank=True,
-                                            max_length=255)  # No. 64
+    non_score_question15 = models.CharField('64. 近半年内您是否有出现过严重的皮肤问题(例如：大面积的痤疮. 湿疹. 皮肤过敏),请详细描述具体情况：', blank=True, max_length=255)  # No. 64
 
     # 非选项问题
-    fill_blank_question1 = models.TextField('65. 如果有出现严重的皮肤问题，请详细描述具体情况)：', blank=True, max_length=255)  # No. 65
-    fill_blank_question2 = models.TextField('66、目前正在使用的卸妆类的护肤品名称', blank=True, max_length=255)  # No. 66
-    fill_blank_question3 = models.TextField('67、目前正在使用的洁面乳/洁面霜/洁面油类的护肤品名称', blank=True, max_length=255)  # No. 67
-    fill_blank_question4 = models.TextField('68、目前正在使用的化妆水类的护肤品名称', blank=True, max_length=255)  # No. 68
-    fill_blank_question5 = models.TextField('69、目前正在使用的精华类的护肤品名称', blank=True, max_length=255)  # No. 69
-    fill_blank_question6 = models.TextField('70、目前正在使用的乳液/面霜类的护肤品名称', blank=True, max_length=255)  # No. 70
-    fill_blank_question7 = models.TextField('71、目前正在使用的去角质类的护肤品名称', blank=True, max_length=255)  # No. 71
-    fill_blank_question8 = models.TextField('72、目前正在使用的面膜类的护肤品名称', blank=True, max_length=255)  # No. 72
-    fill_blank_question9 = models.TextField('73、目前正在使用的防晒类的护肤品名称', blank=True, max_length=255)  # No. 73
-    fill_blank_question10 = models.TextField('74、您使用哪些成分或护肤品会过敏？如果有请描述过敏的现象。', blank=True, max_length=255,
-                                             help_text='提示：如没有，请填写无')  # No. 74
+    cosmetic_question1 = models.TextField('65. 目前正在使用的卸妆类的护肤品名)：', blank=True, max_length=255)  # No. 65
+    cosmetic_question2 = models.TextField('66、目前正在使用的洁面乳/洁面霜/洁面油类的护肤品名称', blank=True, max_length=255)  # No. 66
+    cosmetic_question3 = models.TextField('67、目前正在所使用化妆水类护肤品名称', blank=True, max_length=255)  # No. 67
+    cosmetic_question4 = models.TextField('68、目前正在所使用乳液／面霜类护肤品名称', blank=True, max_length=255)  # No. 68
+    cosmetic_question5 = models.TextField('69、目前正在使用的精华类的护肤品名称', blank=True, max_length=255)  # No. 69
+    cosmetic_question6 = models.TextField('70、目前正在使用的去角质类的护肤品名称', blank=True, max_length=255)  # No. 70
+    cosmetic_question7 = models.TextField('71、目前正在使用的的面膜类的护肤品名称', blank=True, max_length=255)  # No. 71
+    cosmetic_question8 = models.TextField('72、目前正在使用的防晒类的护肤品名称', blank=True, max_length=255)  # No. 72
 
+    other_question1 = models.TextField('73、您是否每天（一年四季，不管晴天、阴天、雨天，室内室外）涂抹足量（面部一元硬币大小）专门的防晒产品（不包括隔离霜，底妆）？', blank=True, max_length=255)  # No. 73
+    other_question2 = models.TextField('74、您使用哪些成分或护肤品会过敏？如果有请描述过敏的现象。', blank=True, max_length=255, help_text='提示：如没有，请填写无')  # No. 74
+    is_changeable = models.BooleanField('是否可修改', default=False, blank=False)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)

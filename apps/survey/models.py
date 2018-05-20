@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from stdimage import StdImageField
 
-from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SURVEY_LEVEL_CHOICES
+from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SURVEY_LEVEL_CHOICES, SURVEY_STATUS_CHOICES
 from config.settings import ANSWER_PHOTO_FOLDER
 
 
@@ -19,6 +19,13 @@ def get_answer_photo_path(instance, filename):
     return file_path
 
 
+class AnswerManager(models.Manager):
+    def filled(self):
+        return self.exclude(status='CREATED')
+
+    def created(self):
+        return self.filter(status='CREATED')
+
 class Answer(models.Model):
     """问卷报告回答,answer"""
     customer = models.ForeignKey('customer.Customer', null=True, blank=True)
@@ -28,25 +35,25 @@ class Answer(models.Model):
     city = models.CharField(_(u'城市'), max_length=255, blank=True)  # 自动抓取地址
 
     # replica of customer basic info
-    name = models.CharField(_(u'1. 您的姓名？'), max_length=64, null=True, blank=True, help_text='')
+    name = models.CharField(_(u'1. 您的姓名？'), max_length=64, null=True, blank=True, help_text='提示：请填写您下单时登记的姓名')
     sex = models.CharField(_(u'2. 您的性别？'), choices=SEX_CHOICES, max_length=30, null=True, blank=True, help_text='')
     portrait = StdImageField(_('3. 无PS、无滤镜、清晰纯素颜照片一张'), upload_to=get_answer_photo_path, blank=True, null=True,
                              variations={
                                  'medium': (1000, 1000, True),
                                  'thumbnail': (400, 400, True)
-                             })
+                             }, help_text='提示：上传文件不超过4M')
     portrait_part = StdImageField(_('4. 如需重点关注部位可在此上传无PS、无滤镜、清晰的纯素颜照片'), upload_to=get_answer_photo_path, blank=True,
                                   null=True,
                                   variations={
                                       'medium': (1000, 1000, True),
                                       'thumbnail': (400, 400, True)
-                                  })
+                                  }, help_text='提示：上传文件不超过4M')
     cosmetics = StdImageField(_('5. 现阶段使用护肤品合集'), upload_to=get_answer_photo_path, blank=True, null=True,
                               variations={
                                   'medium': (1000, 1000, True),
                                   'thumbnail': (400, 400, True)
-                              })
-    birth = models.DateTimeField(_(u'6. 您的出生日期？'), null=True, blank=True, help_text='')
+                              }, help_text='提示：上传文件不超过4M')
+    birth = models.DateTimeField(_(u'6. 您的出生日期？'), null=True, blank=True, help_text='提示：格式：2017-01-01')
     height = models.PositiveIntegerField(_(u'7. 您的身高'), null=True, blank=True)
     weight = models.PositiveIntegerField(_(u'体重'), null=True, blank=True)
     job = models.CharField(_(u'8. 您目前从事的职业?'), max_length=64, blank=True)
@@ -67,7 +74,7 @@ class Answer(models.Model):
     question9 = models.PositiveIntegerField('20. 在当前季节里，如果不使用面霜或乳液，你的脸部会？', blank=True, null=True)  # No. 20
     question10 = models.PositiveIntegerField('21. 你会长粉刺. 闭口或痘痘等吗？', blank=True, null=True)  # No. 21
     # 22-32 是敏感
-    question11 = models.PositiveIntegerField('22. 你的面部会出现泛红的情况（点状或片状）吗？', blank=True, null=True)  # No. 22
+    question11 = models.PositiveIntegerField('22. 你的面部会出现泛红的情况（点状或片状）吗？', blank=True, null=True, help_text='提示：不是痘印')  # No. 22
     question12 = models.PositiveIntegerField('23. 护肤产品（包括洁面产品. 水. 精华. 乳液/面霜等）会使你的面部出现发红. 发痒. 刺痛. 灼热的感觉吗？', blank=True, null=True)  # No. 23
     question13 = models.PositiveIntegerField('24. 你曾经被诊断过有痤疮. 玫瑰痤疮. 遗传性皮炎. 湿疹. 接触性皮炎吗？', blank=True, null=True)  # No. 24
     question14 = models.PositiveIntegerField('25. 你会对金属首饰过敏吗？', blank=True, null=True)  # No. 25
@@ -77,7 +84,7 @@ class Answer(models.Model):
     question18 = models.PositiveIntegerField('29. 如果皮肤接触含香味的洗衣剂或柔顺剂，你会出现什么反应？', blank=True, null=True)  # No. 29
     question19 = models.PositiveIntegerField('30. 在长时间运动后，或情绪波动较大的情况下，你的脸部或颈部会变红吗？', blank=True, null=True)  # No. 30
     question20 = models.PositiveIntegerField('31. 你在吃完辣的或是烫的食物后皮肤会发红吗？', blank=True, null=True)  # No. 31
-    question21 = models.PositiveIntegerField('32. 你脸上哪些部位有红血丝？', blank=True, null=True)  # No. 32
+    question21 = models.PositiveIntegerField('32. 你脸上哪些部位有红血丝？', blank=True, null=True,help_text='提示：成片的红血丝或根根分明的红血丝')  # No. 32
     # 33-41 是色素
     question22 = models.PositiveIntegerField('33. 在你长粉刺. 闭口. 痘痘之后，愈合处会出现棕色或黑色的印吗？', blank=True, null=True)  # No. 33
     question23 = models.PositiveIntegerField('34. 皮肤划伤后，愈合后的深色（不是粉色）痕迹会保持多久？', blank=True, null=True)  # No. 34
@@ -115,7 +122,7 @@ class Answer(models.Model):
     non_score_question14 = models.CharField('63. 您是否去有定期去美容院或医美机构做皮肤护理的习惯？', blank=True, max_length=255)  # No. 63
     non_score_question15 = models.CharField('64. 近半年内您是否有出现过严重的皮肤问题(例如：大面积的痤疮. 湿疹. 皮肤过敏),请详细描述具体情况：', blank=True, max_length=255)  # No. 64
 
-    # 非选项问题
+    # 非选项问题 65-72
     cosmetic_question1 = models.TextField('65. 目前正在使用的卸妆类的护肤品名)：', blank=True, max_length=255)  # No. 65
     cosmetic_question2 = models.TextField('66、目前正在使用的洁面乳/洁面霜/洁面油类的护肤品名称', blank=True, max_length=255)  # No. 66
     cosmetic_question3 = models.TextField('67、目前正在所使用化妆水类护肤品名称', blank=True, max_length=255)  # No. 67
@@ -127,5 +134,9 @@ class Answer(models.Model):
 
     other_question1 = models.TextField('73、您是否每天（一年四季，不管晴天、阴天、雨天，室内室外）涂抹足量（面部一元硬币大小）专门的防晒产品（不包括隔离霜，底妆）？', blank=True, max_length=255)  # No. 73
     other_question2 = models.TextField('74、您使用哪些成分或护肤品会过敏？如果有请描述过敏的现象。', blank=True, max_length=255, help_text='提示：如没有，请填写无')  # No. 74
-    is_changeable = models.BooleanField('是否可修改', default=False, blank=False)
+
+    status = models.CharField(u'状态', choices=SURVEY_STATUS_CHOICES, blank=False, max_length=32, default='CREATED')
+    is_changeable = models.BooleanField(u'是否可修改', default=True, blank=False)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
+
+    objects = AnswerManager()

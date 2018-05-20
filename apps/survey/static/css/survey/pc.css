@@ -55,7 +55,7 @@ li{
     font-style:normal;
     margin-left:20px;
 }
-#question ul{
+#question form>ul{
     padding-bottom: 10px;
     border-bottom: 1px solid #ddd;
     margin-bottom: 50px;
@@ -69,8 +69,9 @@ li{
 #section li label{
     margin-left:10px;
 }
-#weight li input[type=text]{
+#weight li input{
     width:60px;
+    height: 26px;
 }
 #mask{
     position: absolute;

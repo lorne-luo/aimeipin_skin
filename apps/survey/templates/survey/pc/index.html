@@ -20,69 +20,102 @@
 </div>
      <div id="section">
          <form id="form">
-             <ul>
-                 <li><p>1、您的姓名？</p><span>*</span></li>
-                 <li><input type="text" value="" name="name" id="username"/></li>
-                 <li><i>提示：请填写您下单时登记的姓名</i></li>
-             </ul>
-             <ul>
-                 <li><p>2、您的性别？</p><span class="req">&nbsp;*</span></li>
-                 <li><label><input type="radio" name="sex" value="1"/>男</label></li>
-                 <li><label><input type="radio" name="sex" value="0"/>女</label></li>
-             </ul>
-             <ul>
-                 <li><p>3、无ps、无滤镜、清晰纯素颜照片一张</p><span>*</span></li>
-                 <li>
-                     <input type="file" value="选择文件，不超过4M" name="file1" id="file1" class="inputopa"/>
-                     <input type="text" value="上传文件，不超过4M" readonly class="fileinput"/>
-                 </li>
-             </ul>
-             <ul>
-                 <li><p>4、如需重点关注部位可在此上传无ps、无滤镜、清晰的纯素颜照片</p></li>
-                 <li>
-                     <input type="file" value="选择文件，不超过4M"  name="file2" id="file2" class="inputopa"/>
-                     <input type="text" value="上传文件，不超过4M" readonly class="fileinput"/></li>
-             </ul>
-             <ul>
-                 <li><p>5、现阶段使用护肤品合集</p></li>
-                 <li><input type="file" value="选择文件，不超过4M" name="file3" id="file3" class="inputopa"/>
-                     <input type="text" value="上传文件，不超过4M" readonly class="fileinput"/>
-                 </li>
-             </ul>
-             <ul>
-                 <li><p>6、您的出生日期？</p><span>*</span></li>
-                 <!--<li><input type="file" value="选择文件，不超过4M"/></li>-->
-                 <li><input type="text" value="" name="age" id="age" placeholder="格式：2017-01-01"/></li>
-                 <li></li>
-             </ul>
-             <ul id="weight">
-                 <li></li>
-                 <li>7、您的身高<input type="text" value="" name="height" class="formSub"/>CM，体重<input type="text" value="" name="weight">KG？<span>*</span></li>
-                 <li></li>
-             </ul>
-             <ul>
-                 <li><p>8、您目前从事的职业？</p><span>*</span></li>
-                 <li><input type="text" value="" name="work"/></li>
-                 <li></li>
-             </ul>
-             <ul>
-                 <li><p>9、月收入水平？</p><span>*</span></li>
-                 <li><label><input type="radio" name="pay" value="0-5000"/>a 0-5000</label></li>
-                 <li><label><input type="radio" name="pay" value="5001-10000"/>b 5001-10000</label></li>
-                 <li><label><input type="radio" name="pay" value="10001-20000"/>c 10001-20000</label></li>
-                 <li><label><input type="radio" name="pay" value="20000以上"/>d 20000以上</label></li>
-                 <li><label><input type="radio" name="pay" value="全职太太"/>e 全职太太</label></li>
-             </ul>
-             <ul>
-                 <li><p>10、您的微信号？</p><span>*</span></li>
-                 <li><input type="text" value="" name="weixin"/></li>
-                 <li><i>提示：微信号不是昵称哦~</i></li>
-             </ul>
-             <ul>
-                 <li><p>11、您的手机号？</p><span>*</span></li>
-                 <li><input type="text" value="" name="phone" id="phone"/></li>
-                 <li><i>提示：请填写您下单时填写的手机号</i></li>
-             </ul>
+{% include 'survey/includes/question.html' with field=form.name number=1 %}
+{% include 'survey/includes/question.html' with field=form.sex  number=2 %}
+{% include 'survey/includes/question.html' with field=form.portrait number=3 %}
+{% include 'survey/includes/question.html' with field=form.portrait_part number=4 %}
+{% include 'survey/includes/question.html' with field=form.cosmetics number=5 %}
+{% include 'survey/includes/question.html' with field=form.birth number=6 %}
+
+ <ul id="weight">
+     <li></li>
+     <li>7、您的身高{{ form.height }} CM，体重{{ form.weight }} KG？<span>*</span></li>
+     <li></li>
+ </ul>
+
+{% include 'survey/includes/question.html' with field=form.job number=8 %}
+{% include 'survey/includes/question.html' with field=form.monthly_income number=9 %}
+{% include 'survey/includes/question.html' with field=form.weixin_id number=10 %}
+{% include 'survey/includes/question.html' with field=form.mobile number=11 %}
+
+
+ <!-- # 12-21 干油 -->
+{% include 'survey/includes/question.html' with field=form.question1 number=12 %}
+{% include 'survey/includes/question.html' with field=form.question2 number=13 %}
+{% include 'survey/includes/question.html' with field=form.question3 number=14 %}
+{% include 'survey/includes/question.html' with field=form.question4 number=15 %}
+{% include 'survey/includes/question.html' with field=form.question5 number=16 %}
+{% include 'survey/includes/question.html' with field=form.question6 number=17 %}
+{% include 'survey/includes/question.html' with field=form.question7 number=18 %}
+{% include 'survey/includes/question.html' with field=form.question8 number=19 %}
+{% include 'survey/includes/question.html' with field=form.question9 number=20 %}
+{% include 'survey/includes/question.html' with field=form.question10 number=21 %}
+
+ <!-- # 22-32 是敏感 -->
+{% include 'survey/includes/question.html' with field=form.question11 number=22 %}
+{% include 'survey/includes/question.html' with field=form.question12 number=23 %}
+{% include 'survey/includes/question.html' with field=form.question13 number=24 %}
+{% include 'survey/includes/question.html' with field=form.question14 number=25 %}
+{% include 'survey/includes/question.html' with field=form.question15 number=26 %}
+{% include 'survey/includes/question.html' with field=form.question16 number=27 %}
+{% include 'survey/includes/question.html' with field=form.question17 number=28 %}
+{% include 'survey/includes/question.html' with field=form.question18 number=29 %}
+{% include 'survey/includes/question.html' with field=form.question19 number=30 %}
+{% include 'survey/includes/question.html' with field=form.question20 number=31 %}
+{% include 'survey/includes/question.html' with field=form.question21 number=32 %}
+
+<!-- # 33-41 是色素 -->
+{% include 'survey/includes/question.html' with field=form.question22 number=33 %}
+{% include 'survey/includes/question.html' with field=form.question23 number=34 %}
+{% include 'survey/includes/question.html' with field=form.question24 number=35 %}
+{% include 'survey/includes/question.html' with field=form.question25 number=36 %}
+{% include 'survey/includes/question.html' with field=form.question26 number=37 %}
+{% include 'survey/includes/question.html' with field=form.question27 number=38 %}
+{% include 'survey/includes/question.html' with field=form.question28 number=39 %}
+{% include 'survey/includes/question.html' with field=form.question29 number=40 %}
+{% include 'survey/includes/question.html' with field=form.question30 number=41 %}
+
+ <!-- # 42-49 是皱纹 -->
+{% include 'survey/includes/question.html' with field=form.question31 number=42 %}
+{% include 'survey/includes/question.html' with field=form.question32 number=43 %}
+{% include 'survey/includes/question.html' with field=form.question33 number=44 %}
+{% include 'survey/includes/question.html' with field=form.question34 number=45 %}
+{% include 'survey/includes/question.html' with field=form.question35 number=46 %}
+{% include 'survey/includes/question.html' with field=form.question36 number=47 %}
+{% include 'survey/includes/question.html' with field=form.question37 number=48 %}
+{% include 'survey/includes/question.html' with field=form.question38 number=49 %}
+
+ <!-- # 不记分选择题 50-64 -->
+{% include 'survey/includes/question.html' with field=form.non_score_question1 number=50 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question2 number=51 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question3 number=52 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question4 number=53 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question5 number=54 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question6 number=55 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question7 number=56 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question8 number=57 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question9 number=58 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question10 number=59 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question11 number=60 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question12 number=61 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question13 number=62 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question14 number=63 %}
+{% include 'survey/includes/question.html' with field=form.non_score_question15 number=64 %}
+
+ <!-- # 非选项问题 65-72 -->
+{% include 'survey/includes/question.html' with field=form.cosmetic_question1 number=65 %}
+{% include 'survey/includes/question.html' with field=form.cosmetic_question2 number=66 %}
+{% include 'survey/includes/question.html' with field=form.cosmetic_question3 number=67 %}
+{% include 'survey/includes/question.html' with field=form.cosmetic_question4 number=68 %}
+{% include 'survey/includes/question.html' with field=form.cosmetic_question5 number=69 %}
+{% include 'survey/includes/question.html' with field=form.cosmetic_question6 number=70 %}
+{% include 'survey/includes/question.html' with field=form.cosmetic_question7 number=71 %}
+{% include 'survey/includes/question.html' with field=form.cosmetic_question8 number=72 %}
+
+ <!-- # 73-74 其他问题 -->
+{% include 'survey/includes/question.html' with field=form.other_question1 number=73 %}
+{% include 'survey/includes/question.html' with field=form.other_question2 number=74 %}
+
              <ul>
                  <li><p>12、在照片上，你的皮肤看起来油光发亮？（无PS情况下）</p><span>*</span></li>
                  <li><label><input type="radio" name="question1" value="10"/>a 从来不会</label></li>

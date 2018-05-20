@@ -40,5 +40,5 @@ class AnswerDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
 
 class SurveyView(CommonContextMixin, CreateView):
     model = Answer
-    form_class = forms.SurveyForm
+    form_class = forms.SurveyFillForm
     template_name = 'survey/pc/index.html'

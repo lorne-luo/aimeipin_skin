@@ -1,0 +1,11 @@
+<ul id="{{ field.name }}">
+    <li><p>{{ field.label }}</p>{% if field.field.required %}<span>*</span>{% endif %}</li>
+    <li>{{ field }}</li>
+    {% if field.help_text %}
+        <li><i>{{ field.help_text }}</i></li>
+    {% endif %}
+    {% if field.errors %}
+        <li><i>{{ field.errors }}</i></li>
+	{% endif %}
+</ul>
+

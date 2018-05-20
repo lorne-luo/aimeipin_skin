@@ -654,11 +654,8 @@
     </div>
     <div id="section">
         <form id="form">
-            <ul>
-                <li><p>1、您的姓名？<span>*</span></p></li>
-                <li><input type="text" value="" name="name" id="username"/></li>
-                <li><i>提示：请填写您下单时登记的姓名</i></li>
-            </ul>
+            {% include 'survey/includes/fill_question.html' with field=form.name %}
+
             <ul>
                 <li><p>2、您的性别？<span class="req">&nbsp;*</span></p></li>
                 <li><label><input type="radio" name="sex" value="1"/>男</label></li>

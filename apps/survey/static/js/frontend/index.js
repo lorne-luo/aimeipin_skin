@@ -1,16 +1,16 @@
 $(document).ready(function () {
-    document.getElementById("file1").addEventListener("change", function () {
-        $(this).css('opacity', '1');
-        $(this).next().css('opacity', '0');
-    });
-    document.getElementById("file2").addEventListener("change", function () {
-        $(this).css('opacity', '1');
-        $(this).next().css('opacity', '0');
-    });
-    document.getElementById("file3").addEventListener("change", function () {
-        $(this).css('opacity', '1');
-        $(this).next().css('opacity', '0');
-    });
+    // document.getElementById("file1").addEventListener("change", function () {
+    //     $(this).css('opacity', '1');
+    //     $(this).next().css('opacity', '0');
+    // });
+    // document.getElementById("file2").addEventListener("change", function () {
+    //     $(this).css('opacity', '1');
+    //     $(this).next().css('opacity', '0');
+    // });
+    // document.getElementById("file3").addEventListener("change", function () {
+    //     $(this).css('opacity', '1');
+    //     $(this).next().css('opacity', '0');
+    // });
 
 
     $('.hufupin>span>i').click(function () {

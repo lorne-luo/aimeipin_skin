@@ -91,7 +91,7 @@
     <p>Action28肌肤测试问卷  测评报告</p>
     <div id=question1>
         <!--<div id="question2">-->
-            <h3>测评用户：<span id="username">XXX</span></h3>
+            <h3>测评用户：<span id="id_name">XXX</span></h3>
             <b>测评结果分析</b>
             <table id="questiontable">
                 <thead>
@@ -156,7 +156,7 @@
                         series.push(res.msg.type[i].score);
                     }
 //                    $('#main img').attr('src','http://servers.jianghujoy.cn:8084/index.php/index/creat-img');
-                    $('#username').html(res.msg.name);
+                    $('#id_name').html(res.msg.name);
 
 
                     $('#btnsavescore').click(function(){

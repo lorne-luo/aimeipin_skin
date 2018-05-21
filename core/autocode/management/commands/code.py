@@ -144,7 +144,7 @@ class Command(BaseCommand):
             else:
                 result = item
         result = '[%s]' % result
-        return result.decode('gbk')
+        return result
 
     def import_model(self, mod):
         for name, obj in inspect.getmembers(mod, inspect.isclass):

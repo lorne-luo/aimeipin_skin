@@ -3,4 +3,10 @@
         <i class='fa fa-shopping-bag'></i>
         <b>调查问卷</b>
     </a>
+    <ul class="treeview-menu menu-open" style="display: block;">
+        <li>
+            <a href="{% url 'survey:invitecode-add' %}" class="pull-right"><i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a href="{% url 'survey:invitecode-list' %}" class="main"><i class="fa fa-circle-o"></i>邀请码</a>
+        </li>
+    </ul>
 </li>

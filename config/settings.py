@@ -291,6 +291,7 @@ ANSWER_PHOTO_FOLDER = 'answer'
 # for django-guardian
 ANONYMOUS_USER_ID = -1
 SITE_ID = 1
+INVITE_CODE_EXPIRY = 30  # days
 
 # CACHES
 # ------------------------------------------------------------------------------

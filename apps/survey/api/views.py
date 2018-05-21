@@ -1,6 +1,6 @@
 import logging
 from core.api.views import CommonViewSet
-from ..models import Answer
+from ..models import Answer, InviteCode
 from . import serializers
 
 log = logging.getLogger(__name__)
@@ -12,3 +12,12 @@ class AnswerViewSet(CommonViewSet):
     serializer_class = serializers.AnswerSerializer
     filter_fields = ['name', 'sex']
     search_fields = ['name']
+
+
+class InviteCodeViewSet(CommonViewSet):
+    """ API views for InviteCode """
+    queryset = InviteCode.objects.all()
+    serializer_class = serializers.InviteCodeSerializer
+    filter_fields = ['id'] + ['code', 'name']
+    search_fields = ['code', 'name']
+    ordering_fields = ['id'] + ['code', 'name']

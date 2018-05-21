@@ -41,7 +41,9 @@
         {% csrf_token %}
 
         <div class="box-header with-border">
-          <h3 class="box-title">{{ object }}</h3>
+            {% block form_title %}
+                <h3 class="box-title">{{ object }}</h3>
+            {% endblock %}
         </div>
 
         <div class="box-body">

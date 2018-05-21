@@ -1,8 +1,9 @@
 from django.http import Http404
+from django.utils import timezone
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
 from core.django.views import CommonContextMixin
-from .models import Answer
+from .models import Answer, InviteCode
 from . import forms
 
 
@@ -45,12 +46,41 @@ class SurveyFillView(CommonContextMixin, CreateView):
     template_name = 'survey/pc/index.html'
 
     def get_initial(self):
-        uuid = self.request.GET.get('uuid', None)
-        if not uuid:
+        uuid = self.request.GET.get('code', None)
+        code = InviteCode.objects.filter(code=uuid, expiry_at__gt=timezone.now()).first()
+        if not code:
             raise Http404
         initial = super(SurveyFillView, self).get_initial()
-        initial.update({'uuid': uuid})
+        initial.update({'code': code})
         return initial
 
     def get_success_url(self):
+        # todo submission success page
         return '/'
+
+
+class InviteCodeListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
+    """ List views for InviteCode """
+    model = InviteCode
+    template_name_suffix = '_list'  # survey/invitecode_list.html
+
+
+class InviteCodeAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
+    """ Add views for InviteCode """
+    model = InviteCode
+    form_class = forms.InviteCodeAddForm
+    template_name = 'survey/invitecode_add.html'
+
+
+class InviteCodeUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
+    """ Update views for InviteCode """
+    model = InviteCode
+    form_class = forms.InviteCodeUpdateForm
+    template_name = 'adminlte/common_form.html'
+
+
+class InviteCodeDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
+    """ Detail views for InviteCode """
+    model = InviteCode
+    form_class = forms.InviteCodeDetailForm
+    template_name = 'adminlte/common_detail_new.html'

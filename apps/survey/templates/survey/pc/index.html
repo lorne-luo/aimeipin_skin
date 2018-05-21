@@ -21,7 +21,7 @@
      <div id="section">
          <form id="form" method="post" action="">
              {% csrf_token %}
-             {{ form.uuid }}
+             {{ form.code }}
 
 {% include 'survey/includes/question.html' with field=form.name number=1 %}
 {% include 'survey/includes/question.html' with field=form.sex  number=2 %}

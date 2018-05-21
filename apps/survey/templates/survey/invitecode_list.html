@@ -1,0 +1,34 @@
+{% extends "adminlte/common_list.html" %}
+{% load static %}
+
+{% block table_head %}
+    <th class="text-center hidden-sm hidden-xs" style="width:60px;">
+        <input type="checkbox" name="checkboxAllRow" class="checkboxAllRow" v-on:click="toggleAllBox"/>
+    </th>
+    <th>姓名</th>
+    <th>邀请码</th>
+    <th>过期</th>
+    <th class="hidden-sm hidden-xs"></th>
+{% endblock %}
+
+{% block table_row %}
+    <tbody v-for="item in items">
+    <tr>
+        <td class="text-center hidden-sm hidden-xs">
+            ##[$index+1]
+            <input type="checkbox" class="minimal" name="checkboxRow" value="#[item.id]"/>
+        </td>
+        <td>{!! item.name !!}</td>
+        <td>{!! item.code !!}</td>
+        <td>{!! item.expiry_at !!}</td>
+
+        {% block item_buttons %}
+            {{ block.super }}
+        {% endblock %}
+    </tr>
+    </tbody>
+{% endblock %}
+
+{% block common_list_footer_page_script %}
+    <script type="text/javascript" src="{% static 'js/survey/invitecode_list.js' %}"></script>
+{% endblock %}

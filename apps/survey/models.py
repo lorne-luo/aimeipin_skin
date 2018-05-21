@@ -1,7 +1,9 @@
 import os
 import uuid
-
+from dateutil.relativedelta import relativedelta
+from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from stdimage import StdImageField
 
@@ -31,6 +33,7 @@ class AnswerManager(models.Manager):
 class Answer(models.Model):
     """问卷报告回答,answer"""
     customer = models.ForeignKey('customer.Customer', null=True, blank=True)
+    code = models.ForeignKey('InviteCode', null=True, blank=True)
     uuid = models.CharField('uuid', max_length=255, blank=True, unique=True)
     # purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
     # level = models.CharField(max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 9.9 or 98
@@ -152,6 +155,7 @@ class Answer(models.Model):
     status = models.CharField(u'状态', choices=SURVEY_STATUS_CHOICES, blank=False, max_length=32, default='CREATED')
     is_changeable = models.BooleanField(u'是否可修改', default=True, blank=False)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
+    remark = models.TextField(u'备注', blank=False, max_length=255)
 
     objects = AnswerManager()
 
@@ -177,3 +181,21 @@ class Answer(models.Model):
     def get_loose_score(self):
         return sum([self.question31, self.question32, self.question33, self.question34, self.question35,
                     self.question36, self.question37, self.question38])
+
+
+class InviteCode(models.Model):
+    code = models.CharField(u'邀请码', blank=False, max_length=32, unique=True)
+    name = models.CharField(u'姓名', blank=True, max_length=32)
+    is_used = models.BooleanField(u'已使用', default=False, blank=False)
+    expiry_at = models.DateTimeField(u"创建时间", auto_now_add=False, editable=True)
+    created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
+
+    def __str__(self):
+        return self.code
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.code = uuid.uuid4().hex
+            self.created_at = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)  # midnight
+            self.expiry_at = self.created_at + relativedelta(days=settings.INVITE_CODE_EXPIRY)
+        super(InviteCode, self).save(*args, **kwargs)

@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from config.constants import SEX_CHOICES, INCOME_CHOICES
 from core.django.widgets import ThumbnailImageInput
-from .models import Answer
+from .models import Answer, InviteCode
 
 
 class AnswerAddForm(forms.ModelForm):
@@ -332,3 +332,25 @@ class SurveyFillForm(forms.ModelForm):
                 field.required = True
             if field_name in self.hidden_fields:
                 field.widget = forms.HiddenInput()
+
+
+
+class InviteCodeAddForm(forms.ModelForm):
+    """ Add form for InviteCode """
+
+    class Meta:
+        model = InviteCode
+        fields = ['name']
+
+
+class InviteCodeUpdateForm(InviteCodeAddForm):
+    """ Update form for InviteCode """
+    pass
+
+
+class InviteCodeDetailForm(forms.ModelForm):
+    """ Detail form for InviteCode """
+
+    class Meta:
+        model = InviteCode
+        fields = ['code', 'name']

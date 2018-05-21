@@ -60,6 +60,10 @@ li{
     border-bottom: 1px solid #ddd;
     margin-bottom: 50px;
 }
+#question ul li textarea{
+    width: 100%;
+    height: 90px;
+}
 #section li span{
     color:red;
     position:relative;

@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
 from core.django.views import CommonContextMixin
@@ -38,7 +39,18 @@ class AnswerDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     template_name = 'adminlte/common_detail_new.html'
 
 
-class SurveyView(CommonContextMixin, CreateView):
+class SurveyFillView(CommonContextMixin, CreateView):
     model = Answer
     form_class = forms.SurveyFillForm
     template_name = 'survey/pc/index.html'
+
+    def get_initial(self):
+        uuid = self.request.GET.get('uuid', None)
+        if not uuid:
+            raise Http404
+        initial = super(SurveyFillView, self).get_initial()
+        initial.update({'uuid': uuid})
+        return initial
+
+    def get_success_url(self):
+        return '/'

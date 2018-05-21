@@ -317,11 +317,12 @@ class SurveyFillForm(forms.ModelForm):
                                              choices=(('有', 'A. 有'),
                                                       ('没有', 'B. 没有')))
 
-    optional_fields = ['']
+    optional_fields = ['other_question2', 'non_score_question15', 'portrait_part', 'portrait', 'cosmetics','uuid']
+    hidden_fields = ['uuid']
 
     class Meta:
         model = Answer
-        fields = '__all__'
+        exclude = ['customer', 'created_at', 'status', 'is_changeable', 'city']
 
     def __init__(self, *args, **kwargs):
         super(SurveyFillForm, self).__init__(*args, **kwargs)
@@ -329,3 +330,5 @@ class SurveyFillForm(forms.ModelForm):
             field = self.fields[field_name]
             if field_name not in self.optional_fields:
                 field.required = True
+            if field_name in self.hidden_fields:
+                field.widget = forms.HiddenInput()

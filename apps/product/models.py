@@ -57,9 +57,7 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
     category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, blank=True)
     description = models.TextField(_(u'description'), blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
-    ingredients = models.ManyToManyField(
-        'product.ProductIngredient', blank=True, verbose_name=u'成分组成',
-    )
+    ingredients = models.ManyToManyField('product.ProductIngredient', blank=True, verbose_name=u'成分组成')
 
     pinyin_fields_conf = [
         ('name_cn', Style.NORMAL, False),

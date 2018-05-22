@@ -38,6 +38,7 @@ class Report(models.Model):
 
 
 class ReportProductAnalysis(models.Model):
+    '''用户使用产品的分析 user_product_txt'''
     report = models.ForeignKey(Report, null=False, blank=False)
     product = models.ForeignKey('product.Product', null=False, blank=False)  # 产品外键或名称
     name = models.CharField(max_length=255, blank=True)

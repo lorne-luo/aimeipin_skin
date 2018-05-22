@@ -34,7 +34,6 @@ class Answer(models.Model):
     """问卷报告回答,answer"""
     customer = models.ForeignKey('customer.Customer', null=True, blank=True)
     code = models.ForeignKey('InviteCode', null=True, blank=True)
-    uuid = models.CharField('uuid', max_length=255, blank=True, unique=True)
     # purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
     # level = models.CharField(max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 9.9 or 98
     city = models.CharField(_(u'城市'), max_length=255, blank=True)  # 自动抓取地址
@@ -137,15 +136,15 @@ class Answer(models.Model):
     non_score_question15 = models.TextField('64. 近半年内您是否有出现过严重的皮肤问题(例如：大面积的痤疮. 湿疹. 皮肤过敏),请详细描述具体情况：', blank=True,
                                             max_length=255, help_text='提示：如没有，请留空')  # No. 64
 
-    # 非选项问题 65-72
-    cosmetic_question1 = models.TextField('65. 目前正在使用的卸妆类的护肤品名)：', blank=True, max_length=255)  # No. 65
-    cosmetic_question2 = models.TextField('66、目前正在使用的洁面乳/洁面霜/洁面油类的护肤品名称', blank=True, max_length=255)  # No. 66
-    cosmetic_question3 = models.TextField('67、目前正在所使用化妆水类护肤品名称', blank=True, max_length=255)  # No. 67
-    cosmetic_question4 = models.TextField('68、目前正在所使用乳液／面霜类护肤品名称', blank=True, max_length=255)  # No. 68
-    cosmetic_question5 = models.TextField('69、目前正在使用的精华类的护肤品名称', blank=True, max_length=255)  # No. 69
-    cosmetic_question6 = models.TextField('70、目前正在使用的去角质类的护肤品名称', blank=True, max_length=255)  # No. 70
-    cosmetic_question7 = models.TextField('71、目前正在使用的的面膜类的护肤品名称', blank=True, max_length=255)  # No. 71
-    cosmetic_question8 = models.TextField('72、目前正在使用的防晒类的护肤品名称', blank=True, max_length=255)  # No. 72
+    # 非选项问题 产品选择题 65-72
+    cosmetic_products1 = models.ManyToManyField('AnswerProduct',related_name='cosmetic_products1', blank=True, verbose_name=u'65. 目前正在使用的卸妆类的护肤品名')
+    cosmetic_products2 = models.ManyToManyField('AnswerProduct',related_name='cosmetic_products2', blank=True, verbose_name=u'66、目前正在使用的洁面乳/洁面霜/洁面油类的护肤品名称')
+    cosmetic_products3 = models.ManyToManyField('AnswerProduct',related_name='cosmetic_products3', blank=True, verbose_name=u'67、目前正在所使用化妆水类护肤品名称')
+    cosmetic_products4 = models.ManyToManyField('AnswerProduct',related_name='cosmetic_products4', blank=True, verbose_name=u'68、目前正在所使用乳液／面霜类护肤品名称')
+    cosmetic_products5 = models.ManyToManyField('AnswerProduct',related_name='cosmetic_products5', blank=True, verbose_name=u'69、目前正在使用的精华类的护肤品名称')
+    cosmetic_products6 = models.ManyToManyField('AnswerProduct',related_name='cosmetic_products6', blank=True, verbose_name=u'70、目前正在使用的去角质类的护肤品名称')
+    cosmetic_products7 = models.ManyToManyField('AnswerProduct',related_name='cosmetic_products7', blank=True, verbose_name=u'71、目前正在使用的的面膜类的护肤品名称')
+    cosmetic_products8 = models.ManyToManyField('AnswerProduct',related_name='cosmetic_products8', blank=True, verbose_name=u'72、目前正在使用的防晒类的护肤品名称')
 
     other_question1 = models.TextField('73、您是否每天（一年四季，不管晴天、阴天、雨天，室内室外）涂抹足量（面部一元硬币大小）专门的防晒产品（不包括隔离霜，底妆）？', blank=True,
                                        max_length=255)  # No. 73
@@ -199,3 +198,15 @@ class InviteCode(models.Model):
             self.created_at = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)  # midnight
             self.expiry_at = self.created_at + relativedelta(days=settings.INVITE_CODE_EXPIRY)
         super(InviteCode, self).save(*args, **kwargs)
+
+
+class AnswerProduct(models.Model):
+    product = models.ForeignKey('product.Product', null=True, blank=True)
+    name = models.CharField('product name', max_length=255, blank=False)
+    analysis = models.TextField('product analysis', max_length=255, blank=False)
+
+    def __str__(self):
+        if self.product:
+            return str(self.product)
+        else:
+            return self.name

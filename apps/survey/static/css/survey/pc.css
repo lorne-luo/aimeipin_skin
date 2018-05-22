@@ -1,11 +1,13 @@
-body{
-    background:url(../../image/background.png) no-repeat;
-    background-size:cover;
-}
 html{
     margin:0;
-    pading:0;
+    padding:0;
+}body{
+    background:url(../../image/background.png) no-repeat;
+    background-size:cover;
+    font-size:16px;
+    width:100%;
 }
+
 ul,li{
     list-style:none;
     margin:0;
@@ -16,40 +18,39 @@ input,textarea{
     outline:none;
 }
 p{
-    font-size:16px;
+    /*font-size:16px;*/
 }
-#header>p{
+#header>h1{
     font-size:30px;
     margin:0;
     color:#fff;
 }
 li{
-    font-size:16px;
+    /*font-size:16px;*/
     margin:10px 0;
 }
 #question{
-    width: 820px;
+    width: 100%;
     /*background: #fff;*/
     margin: 60px auto;
     margin-bottom:0;
 }
 #section{
-    margin-top: 200px;
+    margin-top: 120px;
     background: #fff;
     padding: 60px;
 }
 #section p{
-    font-szie:16px;
     color:#4d4d4d;
     display:inline-block;
     font-weight:bold;
     margin:0;
 }
 #section li input[type=text]{
-    width: 400px;
+    width: 80%;
     padding-left: 10px;
     height: 26px;
-    margin-left:30px;
+    margin-left:20px;
 }
 #section li i{
     font-style:normal;
@@ -72,6 +73,7 @@ li{
 }
 #section li label{
     margin-left:10px;
+    font-weight: 400;
 }
 #weight li input{
     width:60px;
@@ -138,7 +140,7 @@ b{
     border-radius: 5px;
     margin-left: 300px;
     cursor: pointer;
-    font-size: 18px;
+    /*font-size: 18px;*/
 }
 .hufupin2{
     display:none;
@@ -190,7 +192,7 @@ img{
 }
 #section .hufupin .pin li span{
     display: inline-block;
-    font-size: 14px;
+    /*font-size: 14px;*/
     color: #000;
     position: relative;
     left: 5px;

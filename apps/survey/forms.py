@@ -317,8 +317,8 @@ class SurveyFillForm(forms.ModelForm):
                                              choices=(('有', 'A. 有'),
                                                       ('没有', 'B. 没有')))
 
-    optional_fields = ['other_question2', 'non_score_question15', 'portrait_part', 'portrait', 'cosmetics','uuid']
-    hidden_fields = ['uuid']
+    optional_fields = ['other_question2', 'non_score_question15', 'portrait_part', 'portrait', 'cosmetics', 'code']
+    hidden_fields = ['code']
 
     class Meta:
         model = Answer
@@ -334,7 +334,6 @@ class SurveyFillForm(forms.ModelForm):
                 field.widget = forms.HiddenInput()
 
 
-
 class InviteCodeAddForm(forms.ModelForm):
     """ Add form for InviteCode """
 
@@ -345,7 +344,10 @@ class InviteCodeAddForm(forms.ModelForm):
 
 class InviteCodeUpdateForm(InviteCodeAddForm):
     """ Update form for InviteCode """
-    pass
+
+    class Meta:
+        model = InviteCode
+        fields = ['name', 'expiry_at']
 
 
 class InviteCodeDetailForm(forms.ModelForm):
@@ -353,4 +355,4 @@ class InviteCodeDetailForm(forms.ModelForm):
 
     class Meta:
         model = InviteCode
-        fields = ['code', 'name']
+        fields = ['code', 'name', 'expiry_at']

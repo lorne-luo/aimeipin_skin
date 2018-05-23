@@ -31,7 +31,7 @@ $(document).ready(function () {
         // console.log(event);
         setTimeout(function () {
             $(self).parent().next().removeClass('active');
-        }, 500);
+        }, 200);
     });
 
     $('.onkeyDownSearch').keyup(function (e) {
@@ -46,45 +46,44 @@ $(document).ready(function () {
     });
 
     $('.hufupin input.span1').focus(function (event) {
-        console.log('input.focus');
-        if($(this).attr('data-brand_id')){
-            $(this).next().next().addClass('active');
+        if ($(this).attr('data-brand_id')) {
+            $(this).next().addClass('active');
         }
     }).blur(function (event) {
         var self = this;
         setTimeout(function () {
-            $(self).next().next().removeClass('active');
+            $(self).next().removeClass('active');
         }, 200);
     }).keyup(function (e) {
         if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
             return;
         } else {
             var search = $(this).val();
-            var self=this;
+            var self = this;
             console.log('search:' + search);
             var brand_id = $(this).attr('data-brand_id');
             console.log('brand_id:' + brand_id);
 
             $.ajax({
-            url: "/api/product/product/autocomplete/",
-            type: "GET",
-            data: {'q': search, 'brand_id': brand_id},
-            dataType: "JSON",
-            success: function (data) {
-                var opt2='';
-                for (var i = 0; i < data.results.length; i++) {
-                    opt2 += '<li data-id="' + data.results[i].id + '" onclick="liClick(this)">' +
-                        '<img src="' + data.results[i].image + '">' +
-                        '<span>' + data.results[i].text + '</span>' +
-                        '</li>';
+                url: "/api/product/product/autocomplete/",
+                type: "GET",
+                data: {'q': search, 'brand_id': brand_id},
+                dataType: "JSON",
+                success: function (data) {
+                    var opt2 = '';
+                    for (var i = 0; i < data.results.length; i++) {
+                        opt2 += '<li data-id="' + data.results[i].id + '" onclick="liClick(this)">' +
+                            '<img src="' + data.results[i].image + '">' +
+                            '<span>' + data.results[i].text + '</span>' +
+                            '</li>';
+                    }
+                    $(self).next().html(opt2)
+                },
+                error: function () {
                 }
-                $(self).next().next().html(opt2)
-            },
-            error: function () {
-            }
-        });
+            });
         }
-        $(this).next().next().addClass('active');
+        $(this).next().addClass('active');
     });
 
 });
@@ -140,10 +139,10 @@ function selChange(tsel) {
                     '<span>' + data.results[i].text + '</span>' +
                     '</li>';
             }
-            $(tsel).parent().next().next().next().html(opt2)
+            $(tsel).parent().next().next().html(opt2);
         },
         error: function () {
-            $(tsel).parent().next().next().next().html("")
+            $(tsel).parent().next().next().html("");
         }
     });
 }

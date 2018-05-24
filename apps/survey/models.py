@@ -33,7 +33,7 @@ class AnswerManager(models.Manager):
 class Answer(models.Model):
     """问卷报告回答,answer"""
     customer = models.ForeignKey('customer.Customer', null=True, blank=True)
-    code = models.ForeignKey('InviteCode', null=True, blank=True)
+    code = models.OneToOneField('InviteCode', null=True, blank=True)
     # purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
     # level = models.CharField(max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 9.9 or 98
     city = models.CharField(_(u'城市'), max_length=255, blank=True)  # 自动抓取地址

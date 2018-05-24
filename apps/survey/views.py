@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.utils import timezone
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
@@ -68,22 +68,31 @@ class SurveyFillView(CommonContextMixin, UpdateView):
         context = super(SurveyFillView, self).get_context_data(**kwargs)
         if self.request.method == "GET":
             if self.object:
-                cosmetic_products1_formset = AnswerProductFormSet(queryset=self.object.cosmetic_products1.all(),
-                                                                  prefix='cosmetic_products1_formset')
-                cosmetic_products2_formset = AnswerProductFormSet(queryset=self.object.cosmetic_products2.all(),
-                                                                  prefix='cosmetic_products2_formset')
-                cosmetic_products3_formset = AnswerProductFormSet(queryset=self.object.cosmetic_products3.all(),
-                                                                  prefix='cosmetic_products3_formset')
-                cosmetic_products4_formset = AnswerProductFormSet(queryset=self.object.cosmetic_products4.all(),
-                                                                  prefix='cosmetic_products4_formset')
-                cosmetic_products5_formset = AnswerProductFormSet(queryset=self.object.cosmetic_products5.all(),
-                                                                  prefix='cosmetic_products5_formset')
-                cosmetic_products6_formset = AnswerProductFormSet(queryset=self.object.cosmetic_products6.all(),
-                                                                  prefix='cosmetic_products6_formset')
-                cosmetic_products7_formset = AnswerProductFormSet(queryset=self.object.cosmetic_products7.all(),
-                                                                  prefix='cosmetic_products7_formset')
-                cosmetic_products8_formset = AnswerProductFormSet(queryset=self.object.cosmetic_products8.all(),
-                                                                  prefix='cosmetic_products8_formset')
+                initial1 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                            for cosmetic in self.object.cosmetic_products1.all()]
+                initial2 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                            for cosmetic in self.object.cosmetic_products2.all()]
+                initial3 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                            for cosmetic in self.object.cosmetic_products3.all()]
+                initial4 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                            for cosmetic in self.object.cosmetic_products4.all()]
+                initial5 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                            for cosmetic in self.object.cosmetic_products5.all()]
+                initial6 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                            for cosmetic in self.object.cosmetic_products6.all()]
+                initial7 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                            for cosmetic in self.object.cosmetic_products7.all()]
+                initial8 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                            for cosmetic in self.object.cosmetic_products8.all()]
+                cosmetic_products1_formset = AnswerProductFormSet(prefix='cosmetic_products1_formset', initial=initial1)
+                cosmetic_products2_formset = AnswerProductFormSet(prefix='cosmetic_products2_formset', initial=initial2)
+                cosmetic_products3_formset = AnswerProductFormSet(prefix='cosmetic_products3_formset', initial=initial3)
+                cosmetic_products4_formset = AnswerProductFormSet(prefix='cosmetic_products4_formset', initial=initial4)
+                cosmetic_products5_formset = AnswerProductFormSet(prefix='cosmetic_products5_formset', initial=initial5)
+                cosmetic_products6_formset = AnswerProductFormSet(prefix='cosmetic_products6_formset', initial=initial6)
+                cosmetic_products7_formset = AnswerProductFormSet(prefix='cosmetic_products7_formset', initial=initial7)
+                cosmetic_products8_formset = AnswerProductFormSet(prefix='cosmetic_products8_formset', initial=initial8)
+
             else:
                 cosmetic_products1_formset = AnswerProductFormSet(prefix='cosmetic_products1_formset')
                 cosmetic_products2_formset = AnswerProductFormSet(prefix='cosmetic_products2_formset')
@@ -106,19 +115,37 @@ class SurveyFillView(CommonContextMixin, UpdateView):
             })
         return context
 
-    def form_valid(self, form):
-        cosmetic_products1_formset = AnswerProductFormSet(data=self.request.POST, prefix='cosmetic_products1_formset')
+    def process_formsets(self):
+        self.process_formset(self.object.cosmetic_products1, 'cosmetic_products1_formset')
+        self.process_formset(self.object.cosmetic_products2, 'cosmetic_products2_formset')
+        self.process_formset(self.object.cosmetic_products3, 'cosmetic_products3_formset')
+        self.process_formset(self.object.cosmetic_products4, 'cosmetic_products4_formset')
+        self.process_formset(self.object.cosmetic_products5, 'cosmetic_products5_formset')
+        self.process_formset(self.object.cosmetic_products6, 'cosmetic_products6_formset')
+        self.process_formset(self.object.cosmetic_products7, 'cosmetic_products7_formset')
+        self.process_formset(self.object.cosmetic_products8, 'cosmetic_products8_formset')
+
+    def process_formset(self, product_set, prefix):
+        cosmetic_products1_formset = AnswerProductFormSet(data=self.request.POST, prefix=prefix)
         ids = []
         for p in cosmetic_products1_formset:
             if p.is_valid():
                 p.save()
-                self.object.cosmetic_products1.add(p)
+                product_set.add(p)
                 ids.append(p.id)
-        deletes = self.object.cosmetic_products1.all().exclude(id__in=ids)
-        self.object.cosmetic_products1.remove(deletes)
+        deletes = product_set.all().exclude(id__in=ids)
         deletes.delete()
 
-        super(SurveyFillView, self).form_valid(form)
+    def form_valid(self, form):
+        if self.object and self.object.id:
+            # update existed
+            self.process_formsets()
+            return super(SurveyFillView, self).form_valid(form)
+        else:
+            # create new
+            self.object = form.save()
+            self.process_formsets()
+            return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
         # todo submission success page

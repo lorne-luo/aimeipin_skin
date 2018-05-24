@@ -319,7 +319,9 @@ class SurveyFillForm(forms.ModelForm):
                                              choices=(('有', 'A. 有'),
                                                       ('没有', 'B. 没有')))
 
-    optional_fields = ['other_question2', 'non_score_question15', 'portrait_part', 'portrait', 'cosmetics', 'code']
+    optional_fields = ['other_question2', 'non_score_question15', 'portrait_part', 'portrait', 'cosmetics', 'code',
+                       'cosmetic_products1', 'cosmetic_products2', 'cosmetic_products3', 'cosmetic_products4',
+                       'cosmetic_products5', 'cosmetic_products6', 'cosmetic_products7', 'cosmetic_products8', 'remark']
     hidden_fields = ['code']
 
     class Meta:
@@ -367,6 +369,11 @@ class AnswerProductInlineForm(forms.Form):
 
     class Meta:
         fields = ['id', 'product', 'name']
+
+    def __init__(self, *args, **kwargs):
+        super(AnswerProductInlineForm, self).__init__(*args, **kwargs)
+        self.fields['name'].disabled = True
+        self.fields['name'].widget.attrs['readonly'] = True
 
 
 # AnswerProductFormSet = inlineformset_factory(Answer, AnswerProduct, form=AnswerProductInlineForm,

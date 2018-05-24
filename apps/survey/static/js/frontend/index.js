@@ -165,13 +165,13 @@ function spanClick(span) {
 }
 
 function liClick(li) {
-    $(li).parent().prev().prev().val('');
+    $(li).parent().prev().val('');
     // $(li).parent().prev().prev().attr('data-id', $(li).attr('data-id'));
     $(li).parent().removeClass('active');
     var name = $(li).text();
     var id = $(li).attr('data-id');
     var lilist = '<li data-id="' + id + '"><b>' + name + '</b><span onclick="del(this)">删除</span></li>';
-    $(li).parent().next().next().append(lilist);
+    $(li).parent().parent().next().find('ul.ulcontainer').append(lilist);
 }
 
 function add(aaa) {

@@ -1,3 +1,5 @@
+{{ formset.management_form }}
+
 <ul>
     <li><p>{{ field.label }}</p></li>
     <li class="hufupin">
@@ -16,8 +18,16 @@
 
             <a class="add" onclick="add(this)">添加</a>
             <ul class="ulcontainer" id="re_name">
+                {% for form in formset %}
+                    <li>
+                    {{ form.id }}
+                    {{ form.product }}
+                    {{ form.name }}
+                    {{ form.DELETE }}
+                    </li>
+                {% endfor %}
             </ul>
         </div>
-        <input type="hidden" name="re_name" value="" class="re_name"/>
+{#        <input type="hidden" name="re_name" value="" class="re_name"/>#}
     </li>
 </ul>

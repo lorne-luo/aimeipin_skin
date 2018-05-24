@@ -129,14 +129,14 @@
                 {% include 'survey/includes/question.html' with field=form.non_score_question15 number=64 %}
 
                 <!-- # 产品选择问题 65-72 -->
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products1 number=65 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products2 number=66 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products3 number=67 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products4 number=68 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products5 number=69 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products6 number=70 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products7 number=71 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products8 number=72 %}
+                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products1 formset=cosmetic_products1_formset number=65 %}
+                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products2 formset=cosmetic_products2_formset number=66 %}
+                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products3 formset=cosmetic_products3_formset number=67 %}
+                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products4 formset=cosmetic_products4_formset number=68 %}
+                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products5 formset=cosmetic_products5_formset number=69 %}
+                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products6 formset=cosmetic_products6_formset number=70 %}
+                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products7 formset=cosmetic_products7_formset number=71 %}
+                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products8 formset=cosmetic_products8_formset number=72 %}
 
                 <!-- # 73-74 其他问题 -->
                 {% include 'survey/includes/question.html' with field=form.other_question1 number=73 %}

@@ -1,9 +1,11 @@
 from django import forms
+from django.contrib.contenttypes.forms import generic_inlineformset_factory
+from django.forms import inlineformset_factory, modelformset_factory, formset_factory
 from django.utils.translation import ugettext_lazy as _
 
 from config.constants import SEX_CHOICES, INCOME_CHOICES
 from core.django.widgets import ThumbnailImageInput
-from .models import Answer, InviteCode
+from .models import Answer, InviteCode, AnswerProduct
 
 
 class AnswerAddForm(forms.ModelForm):
@@ -356,3 +358,18 @@ class InviteCodeDetailForm(forms.ModelForm):
     class Meta:
         model = InviteCode
         fields = ['code', 'name', 'expiry_at']
+
+
+class AnswerProductInlineForm(forms.Form):
+    id = forms.IntegerField(widget=forms.HiddenInput)
+    product = forms.IntegerField(widget=forms.HiddenInput)
+    name = forms.CharField(label='Product name', max_length=100)
+
+    class Meta:
+        fields = ['id', 'product', 'name']
+
+
+# AnswerProductFormSet = inlineformset_factory(Answer, AnswerProduct, form=AnswerProductInlineForm,
+#                                              fk_name='cosmetic_products1', can_order=False, can_delete=True, extra=1)
+
+AnswerProductFormSet = formset_factory(AnswerProductInlineForm, extra=0, can_delete=True)

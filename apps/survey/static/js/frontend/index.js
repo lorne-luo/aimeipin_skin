@@ -175,97 +175,14 @@ function liClick(li) {
 }
 
 function add(aaa) {
-//    var lilist = " ";
-//    $(aaa).parent().html("");
-    var sel = $(aaa).prev().prev().prev().prev().prev().find('input').val();
-    var id = $(aaa).prev().prev().prev().attr('data-id');
-    var spa = $(aaa).prev().prev().prev().val();
-    var inputSear = $(aaa).prev().prev().val();
-    var reg = /^[0-9]{1,1000}$/;
-    var ssspa = sel + spa;
-    if (id == undefined && inputSear.length == 0) {
-//        alert("请选择产品！")
-        var bodyHeight = parseFloat($('body').css('height')) + 60;
-        $('#mask').css('height', bodyHeight + "px");
-        $('#mask').show();
-        $('#mask>div>textarea').html("请选择产品!");
-        $('#goon').on('click', function () {
-            $('#mask').hide();
-        })
-        return;
-    } else if (reg.test(inputSear)) {
-//        alert("产品输入不能为数字！")
-        var bodyHeight = parseFloat($('body').css('height')) + 60;
-        $('#mask').css('height', bodyHeight + "px");
-        $('#mask').show();
-        $('#mask>div>textarea').html("产品输入不能为数字!");
-        $('#goon').on('click', function () {
-            $('#mask').hide();
-        })
-        return;
-    } else if (id != undefined && inputSear.length == 0) {
-        var ppp = 0;
-        $(aaa).next().find('b').each(function (i, val) {
-            if (ssspa == $(aaa).next().find('b')[i].innerHTML) {
-//                alert('请不要添加重复产品！')
-                $('#mask').css('height', bodyHeight + "px");
-                $('#mask').show();
-                $('#mask>div>textarea').html("请不要添加重复产品!");
-                $('#goon').on('click', function () {
-                    $('#mask').hide();
-                })
-                ppp = 1
-                return;
-            }
-        })
-        if (ppp == 0) {
-            var lilist = '<li data-id="' + id + '"><b>' + ssspa + '</b><span onclick="del(this)">删除</span></li>';
-        }
-    } else if (id == undefined && inputSear.length != 0) {
-        var ppp1 = 0;
-        $(aaa).next().find('b').each(function (i, val) {
-            if (inputSear == $(aaa).next().find('b')[i].innerHTML) {
-//                alert('请不要添加重复产品！')
-                $('#mask').css('height', bodyHeight + "px");
-                $('#mask').show();
-                $('#mask>div>textarea').html("请不要添加重复产品!");
-                $('#goon').on('click', function () {
-                    $('#mask').hide();
-                })
-                ppp1 = 1
-                return;
-            }
-        })
-        if (ppp1 == 0) {
-            var lilist = '<li data-id="' + inputSear + '"><b>' + inputSear + '</b><span onclick="del(this)">删除</span></li>';
-        }
-    } else if (id != undefined && inputSear.length != 0) {
-        var ppp2 = 0;
-        $(aaa).next().find('b').each(function (i, val) {
-            if (ssspa == $(aaa).next().find('b')[i].innerHTML || inputSear == $(aaa).next().find('b')[i].innerHTML) {
-//                alert('请不要添加重复产品！')
-                $('#mask').css('height', bodyHeight + "px");
-                $('#mask').show();
-                $('#mask>div>textarea').html("请不要添加重复产品!");
-                $('#goon').on('click', function () {
-                    $('#mask').hide();
-                })
-                ppp2 = 1
-                return;
-            }
-        })
-        if (ppp2 == 0) {
-            var lilist = '<li data-id="' + id + '"><b>' + ssspa + '</b><span onclick="del(this)">删除</span></li>' +
-                '<li data-id="' + inputSear + '"><b>' + inputSear + '</b><span onclick="del(this)">删除</span></li>';
-        }
+    // add product by name
+    var input = $(aaa).prev();
+    if (input.val()) {
+        var li = '<li data-id=""><b>' + input.val() + '</b><span onclick="del(this)">删除</span></li>';
+        $(aaa).next().append(li);
+        input.val('');
+        input.focus();
     }
-    $(aaa).prev().prev().val('');
-    // $(aaa).prev().prev().prev().val('请选择产品');
-    $(aaa).prev().prev().prev().removeAttr('data-id');
-    $(aaa).prev().prev().prev().prev().prev().find('input').val('');
-    $(aaa).prev().prev().prev().prev().prev().find('input').removeAttr('data-id');
-    $(aaa).next().append(lilist);
-    $(aaa).prev().html("");
 }
 
 function del(ddd) {

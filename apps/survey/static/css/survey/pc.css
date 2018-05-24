@@ -66,10 +66,6 @@ li{
     height: 90px;
 }
 #section li span{
-    color:red;
-    position:relative;
-    top:2px;
-    left:4px;
 }
 #section li label{
     margin-left:10px;
@@ -163,14 +159,14 @@ img{
     margin-left:16px;
 }
 #section li.hufupin input{
-    width: 160px;
-    height: 24px;
+    width: 170px;
+    height: 30px;
     border: 1px solid #AAA;
     PADDING-LEFT: 10PX;
 }
 #question .hufupin ul.pin{
     position: absolute;
-    left: 244px;
+    left: 214px;
     border-bottom: none;
     background: #fff;
     z-index: 10000;
@@ -211,9 +207,6 @@ img{
     text-align: center;
     line-height: 26px;
     border-radius: 3px;
-    position: absolute;
-    top: 24px;
-    right: 100px;
     cursor:pointer;
 }
 .hufupin{
@@ -221,18 +214,15 @@ img{
 }
 #question ul.ulcontainer{
     border-bottom: none;
-    position: relative;
-    top: 30px;
-    left: 35px;
-    z-index:0;
+    margin-left: 30px;
+}
+#question ul.ulcontainer li{
+    margin:5px 0 0 0;
 }
 #question .hufupin ul.ulcontainer span{
     display:inline-block;
     margin-left:30px;
     color:red;
-    position: relative;
-    left: 5px;
-    top: 2px;
 }
 #section li input.fileinput{
     position: relative;
@@ -250,8 +240,8 @@ img{
 }
 #section li input.handInp{
     margin-top: 10px;
-    margin-left: 33px;
-    width: 376px;
+    margin-left: 20px;
+    width: 364px;
 }
 .hufupin>span{
     width:160px;
@@ -275,7 +265,7 @@ ul.hufupin16
 {
     position: absolute;
     background: #fff;
-    left: 34px;
+    left: 20px;
     top: 30px;
     border: 1px solid #ddd;
     width: 170px;

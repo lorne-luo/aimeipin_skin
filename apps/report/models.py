@@ -10,8 +10,8 @@ from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SKIN_
 class Report(models.Model):
     """问卷报告结果, user_content,user_content_word"""
     answer = models.ForeignKey('survey.Answer', null=False, blank=False)
-    purpose = models.CharField(max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
-    level = models.CharField(max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 问卷目标
+    purpose = models.CharField('目标', max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
+    level = models.CharField('价位', max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 价位
 
     # 肤质4个维度种类
     oily_type = models.CharField(max_length=64, choices=SKIN_OILY_TYPE_CHOICES, blank=True)

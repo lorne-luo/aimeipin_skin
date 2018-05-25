@@ -69,4 +69,4 @@ class CustomerUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView)
 class CustomerDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     model = Customer
     form_class = forms.CustomerDetailForm
-    template_name = 'adminlte/common_detail_new.html'
+    template_name = 'adminlte/common_detail.html'

@@ -37,4 +37,4 @@ class BrandDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     """ Detail views for Brand """
     model = Brand
     form_class = forms.BrandDetailForm
-    template_name = 'adminlte/common_detail_new.html'
+    template_name = 'adminlte/common_detail.html'

@@ -40,7 +40,7 @@ class AnswerDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     """ Detail views for Answer """
     model = Answer
     form_class = forms.AnswerDetailForm
-    template_name = 'adminlte/common_detail_new.html'
+    template_name = 'adminlte/common_detail.html'
 
 
 class SurveyFillView(CommonContextMixin, UpdateView):
@@ -177,4 +177,4 @@ class InviteCodeDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateVie
     """ Detail views for InviteCode """
     model = InviteCode
     form_class = forms.InviteCodeDetailForm
-    template_name = 'adminlte/common_detail_new.html'
+    template_name = 'adminlte/common_detail.html'

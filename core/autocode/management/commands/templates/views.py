@@ -42,7 +42,7 @@ class <% MODEL_NAME %>DetailView(MultiplePermissionsRequiredMixin, CommonContext
     """ Detail views for <% MODEL_NAME %> """
     model = <% MODEL_NAME %>
     form_class = forms.<% MODEL_NAME %>DetailForm
-    template_name = 'adminlte/common_detail_new.html'
+    template_name = 'adminlte/common_detail.html'
     permissions = {
         "all": ("<% app_name %>.view_<% model_name %>",)
     }

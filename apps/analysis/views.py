@@ -36,4 +36,4 @@ class WordDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     """ Detail views for Word """
     model = Word
     form_class = forms.WordDetailForm
-    template_name = 'adminlte/common_detail_new.html'
+    template_name = 'adminlte/common_detail.html'

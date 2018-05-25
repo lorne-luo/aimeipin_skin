@@ -39,7 +39,7 @@ class NotificationUpdateView(MultiplePermissionsRequiredMixin, CommonContextMixi
 class NotificationDetailView(MultiplePermissionsRequiredMixin, CommonContextMixin, UpdateView):
     model = Notification
     form_class = forms.NotificationDetailForm
-    template_name = 'adminlte/common_detail_new.html'
+    template_name = 'adminlte/common_detail.html'
     permissions = {
         "all": ("notification.view_notification",)
     }
@@ -81,7 +81,7 @@ class NotificationContentUpdateView(MultiplePermissionsRequiredMixin, CommonCont
 class NotificationContentDetailView(MultiplePermissionsRequiredMixin, CommonContextMixin, UpdateView):
     model = NotificationContent
     form_class = forms.NotificationContentDetailForm
-    template_name = 'adminlte/common_detail_new.html'
+    template_name = 'adminlte/common_detail.html'
     permissions = {
         "all": ("notificationcontent.view_notificationcontent",)
     }
@@ -129,7 +129,7 @@ class SiteMailContentUpdateView(MultiplePermissionsRequiredMixin, CommonContextM
 class SiteMailContentDetailView(MultiplePermissionsRequiredMixin, CommonContextMixin, UpdateView):
     model = SiteMailContent
     form_class = forms.SiteMailContentDetailForm
-    template_name = 'adminlte/common_detail_new.html'
+    template_name = 'adminlte/common_detail.html'
     permissions = {
         "all": ("sitemailcontent.view_sitemailcontent",)
     }
@@ -161,7 +161,7 @@ class SiteMailReceiveListView(MultiplePermissionsRequiredMixin, CommonContextMix
 class SiteMailReceiveDetailView(MultiplePermissionsRequiredMixin, CommonContextMixin, UpdateView):
     model = SiteMailReceive
     form_class = forms.SiteMailReceiveDetailForm
-    template_name = 'adminlte/common_detail_new.html'
+    template_name = 'adminlte/common_detail.html'
     permissions = {
         "all": ("sitemailreceive.view_sitemailreceive",)
     }
@@ -171,7 +171,7 @@ class SiteMailReceiveDetailView(MultiplePermissionsRequiredMixin, CommonContextM
 class SiteMailSendDetailView(MultiplePermissionsRequiredMixin, CommonContextMixin, UpdateView):
     model = SiteMailSend
     form_class = forms.SiteMailSendDetailForm
-    template_name = 'adminlte/common_detail_new.html'
+    template_name = 'adminlte/common_detail.html'
     permissions = {
         "all": ("sitemailsend.view_sitemailsend",)
     }
@@ -196,7 +196,7 @@ class TaskListView(MultiplePermissionsRequiredMixin, CommonContextMixin, ListVie
 class TaskDetailView(MultiplePermissionsRequiredMixin, CommonContextMixin, UpdateView):
     model = Task
     form_class = forms.TaskDetailForm
-    template_name = 'adminlte/common_detail_new.html'
+    template_name = 'adminlte/common_detail.html'
     permissions = {
         "all": ("task.view_task",)
     }

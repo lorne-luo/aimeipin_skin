@@ -35,4 +35,4 @@ class ReportDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     """ Detail views for Report """
     model = Report
     form_class = forms.ReportDetailForm
-    template_name = 'adminlte/common_detail_new.html'
+    template_name = 'adminlte/common_detail.html'

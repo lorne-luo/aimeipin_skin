@@ -7,19 +7,30 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 full-width">
             <div class="box box-info">
+                <div class="box-header with-border">
+                    {% block form_title %}
+                        <h3 class="box-title">{{ object }}</h3>
+                    {% endblock %}
+                </div>
+
                 <div class="box-body table-responsive no-padding">
                     <table class="table">
-                    {% for field in object.Config.list_form_fields %}
-                        {% ifnotequal field 'id' %}
-                            <tr>
-                                <th>{{ object|render_field_label:field }}:</th>
-                                <td>{{ object|render_field_value:field|safe }}</td>
-                            </tr>
-                        {% endifnotequal %}
-                    {% endfor %}
+                        {% block table_content %}
+                            {% for field in form.fields %}
+                                {% ifnotequal field 'id' %}
+                                    <tr>
+                                        <th>{{ object|render_field_label:field }}</th>
+                                        <td>{{ object|render_field_value:field|safe }}</td>
+                                    </tr>
+                                {% endifnotequal %}
+                            {% endfor %}
+                        {% endblock %}
                     </table>
+                </div>
+
+                <div class="box-footer">
                 </div>
             </div>
         </div>

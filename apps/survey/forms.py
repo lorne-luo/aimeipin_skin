@@ -343,7 +343,7 @@ class InviteCodeAddForm(forms.ModelForm):
 
     class Meta:
         model = InviteCode
-        fields = ['name']
+        fields = ['name', 'purpose', 'level']
 
 
 class InviteCodeUpdateForm(InviteCodeAddForm):
@@ -351,7 +351,7 @@ class InviteCodeUpdateForm(InviteCodeAddForm):
 
     class Meta:
         model = InviteCode
-        fields = ['name', 'expiry_at']
+        fields = ['name', 'purpose', 'level', 'expiry_at']
 
 
 class InviteCodeDetailForm(forms.ModelForm):
@@ -359,7 +359,7 @@ class InviteCodeDetailForm(forms.ModelForm):
 
     class Meta:
         model = InviteCode
-        fields = ['code', 'name', 'expiry_at']
+        fields = ['code', 'name', 'purpose', 'level', 'expiry_at']
 
 
 class AnswerProductInlineForm(forms.Form):

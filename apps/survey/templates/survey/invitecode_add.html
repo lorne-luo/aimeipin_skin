@@ -4,12 +4,13 @@
 {% block content_title %}创建邀请码{% endblock %}
 
 {% block form_title %}
-    <h3 class="box-title">请填写邀请人姓名</h3>
+    <h3 class="box-title">创建问卷邀请</h3>
 {% endblock %}
 
 {% block form_content %}
     {% for field in form %}
         <div class="form-group {% if field.errors %}error{% endif %} {% if field.is_hidden %}hide{% endif %}">
+            <label for="id_{{ field.name }}" class="col-sm-1 col-xs-2 control-label">{{ field.label }}</label>
             <div class="col-lg-5 col-sm-6 col-xs-12">
                 {{ field }}
             </div>

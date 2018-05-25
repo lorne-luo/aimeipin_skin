@@ -62,18 +62,6 @@ class SiteMailContent(AbstractMessageContent):
     def __unicode__(self):
         return self.title
 
-    class Config:
-        success_url = reverse_lazy(
-            'adminlte:common_list_page',
-            kwargs={
-                'app_name': 'messageset',
-                'model_name': 'sitemailreceive'
-            }
-        )
-        list_form_fields = (
-            'title', 'contents', 'receivers'
-        )
-
     def send(self):
         kwargs = {
             'title': self.title,
@@ -152,25 +140,6 @@ class SiteMailSend(AbstractSiteMail):
     class Meta:
         verbose_name_plural = verbose_name = u'发件箱'
 
-    class Config:
-        detail_template_name = 'messageset/sitemail_detail.html'
-        list_display_fields = (
-            'title', 'send_time', 'id'
-        )
-        list_form_fields = (
-            'title',
-            'content.contents',
-            'send_time',
-        )
-        filter_fields = ('status',)
-        search_fields = ('title',)
-
-        @classmethod
-        def filter_queryset(cls, request, queryset):
-            return queryset.filter(sender=request.user).exclude(
-                status=SiteMailSend.DELETED
-            )
-
 
 class SiteMailReceive(AbstractSiteMail):
     receiver = models.ForeignKey(
@@ -189,19 +158,6 @@ class SiteMailReceive(AbstractSiteMail):
 
     class Meta:
         verbose_name_plural = verbose_name = u'收件箱'
-
-    class Config:
-        list_template_name = 'messageset/sitemail_list.html'
-        form_template_name = 'messageset/sitemail_form.html'
-        detail_template_name = 'messageset/sitemail_detail.html'
-        list_display_fields = (
-            'title', 'sender', 'status', 'send_time', 'id'
-        )
-        list_form_fields = (
-            'title', 'sender'
-        )
-        filter_fields = ('status',)
-        search_fields = ('title',)
 
         @classmethod
         def filter_queryset(cls, request, queryset):
@@ -235,18 +191,6 @@ class NotificationContent(AbstractMessageContent):
 
     def __unicode__(self):
         return self.title
-
-    class Config:
-        success_url = reverse_lazy(
-            'adminlte:common_list_page',
-            kwargs={
-                'app_name': 'messageset',
-                'model_name': 'notification'
-            }
-        )
-        list_form_fields = (
-            'title', 'contents', 'receivers'
-        )
 
     def send(self):
         # if no receivers filed, send to all
@@ -322,17 +266,6 @@ class Notification(models.Model, ReadStatus):
     class Meta:
         verbose_name_plural = verbose_name = u'系统通知'
 
-    class Config:
-        list_template_name = 'messageset/notification_list.html'
-        list_display_fields = (
-            'title', 'status', 'send_time', 'id'
-        )
-        list_form_fields = (
-            'title', 'content.contents', 'send_time'
-        )
-        filter_fields = ('status',)
-        search_fields = ('title',)
-
         @classmethod
         def filter_queryset(cls, request, queryset):
             return queryset.exclude(status=Notification.DELETED).filter(
@@ -403,67 +336,3 @@ class Task(models.Model, TaskStatus):
     class Meta:
         verbose_name_plural = verbose_name = u'后台任务'
 
-    class Config:
-        # 列表页模板
-        list_template_name = 'messageset/task_list.html'
-        # 列表页展现的字段
-        list_display_fields = (
-            'name', 'percent', 'start_app', 'status',
-            'start_time', 'end_time', 'id'
-        )
-        # 表单页需要填写的字段
-        list_form_fields = (
-            'name', 'percent', 'start_app', 'status'
-        )
-        # 数据过滤
-        filter_fields = ('status',)
-        # 模糊搜索
-        search_fields = ('name', 'start_app')
-
-        @classmethod
-        def filter_queryset(cls, request, queryset):
-            return queryset.filter(creator=request.user).exclude(
-                status=TaskStatus.DELETED
-            )
-
-# @receiver(post_save, sender=SiteMailContent)
-# def create_sitemail_datas(sender, instance, created, **kwargs):
-#     """
-#     发送邮件时，向收件箱和发件箱添加数据，
-#     这里将来可以替换为异步消息队列
-#     :param sender:
-#     :param instance:
-#     :param kwargs:
-#     """
-#     if created:
-#         kwargs = {
-#             'title': instance.title,
-#             'content': instance,
-#             'sender': instance.creator,
-#             'creator': instance.creator
-#         }
-#
-#         # if no receivers filed, send to all
-#         if not instance.receivers.count():
-#             instance.receivers = get_user_model().objects.all()
-#             instance.save()
-#
-#         SiteMailSend(**kwargs).save()
-#         for user in instance.receivers.all():
-#             tmp_kwargs = {
-#                 'receiver': user,
-#             }
-#             tmp_kwargs.update(kwargs)
-#             SiteMailReceive(**tmp_kwargs).save()
-
-# @receiver(m2m_changed, sender=NotificationContent.receivers.through)
-# def create_notification_datas(sender, instance, **kwargs):
-#     """
-#     保存系统通知时，给所选用户发送通知，
-#     目前是向Notification表添加数据
-#     这里将来可以替换为异步消息队列
-#     :param sender:
-#     :param instance:
-#     :param kwargs:
-#     """
-#     instance.send()

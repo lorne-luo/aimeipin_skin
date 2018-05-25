@@ -33,9 +33,9 @@ class AnswerManager(models.Manager):
 class Answer(models.Model):
     """问卷报告回答,answer"""
     customer = models.ForeignKey('customer.Customer', null=True, blank=True)
-    code = models.OneToOneField('InviteCode', null=True, blank=True)
-    # purpose = models.CharField('目标', max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
-    # level = models.CharField('价位', max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 9.9 or 98
+    code = models.OneToOneField('InviteCode', null=True, blank=True, on_delete=models.DO_NOTHING)
+    purpose = models.CharField('目标', max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
+    level = models.CharField('价位', max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 价位
     city = models.CharField(_(u'城市'), max_length=255, blank=True)  # 自动抓取地址
 
     # replica of customer basic info
@@ -170,6 +170,10 @@ class Answer(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        if not self.purpose and self.code:
+            self.purpose = self.code.purpose
+        if not self.level and self.code:
+            self.level = self.code.level
         super(Answer, self).save(*args, **kwargs)
 
     def get_oily_score(self):
@@ -188,14 +192,6 @@ class Answer(models.Model):
     def get_loose_score(self):
         return sum([self.question31, self.question32, self.question33, self.question34, self.question35,
                     self.question36, self.question37, self.question38])
-
-    @property
-    def purpose(self):
-        return self.code.purpose if self.code else None
-
-    @property
-    def level(self):
-        return self.code.level if self.code else None
 
 
 class InviteCode(models.Model):

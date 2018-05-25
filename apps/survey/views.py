@@ -62,7 +62,10 @@ class SurveyFillView(CommonContextMixin, UpdateView):
 
     def get_initial(self):
         initial = super(SurveyFillView, self).get_initial()
-        initial.update({'code': self.code})
+        initial.update({
+            'code': self.code,
+            'name': self.code.name,
+        })
         return initial
 
     def get_context_data(self, **kwargs):

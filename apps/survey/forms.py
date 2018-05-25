@@ -20,12 +20,6 @@ class AnswerUpdateForm(AnswerAddForm):
         fields = '__all__'
 
 
-class AnswerDetailForm(AnswerAddForm):
-    class Meta:
-        model = Answer
-        fields = '__all__'
-
-
 class SurveyFillForm(forms.ModelForm):
     sex = forms.ChoiceField(choices=SEX_CHOICES, widget=forms.RadioSelect(), label='2. 您的性别？')
     monthly_income = forms.ChoiceField(choices=INCOME_CHOICES, widget=forms.RadioSelect(), label='9. 月收入水平？')
@@ -336,6 +330,19 @@ class SurveyFillForm(forms.ModelForm):
                 field.required = True
             if field_name in self.hidden_fields:
                 field.widget = forms.HiddenInput()
+
+
+class AnswerDetailForm(SurveyFillForm):
+    class Meta:
+        model = Answer
+        exclude = ['customer', 'created_at', 'status', 'is_changeable', 'city', 'code', 'remark']
+
+    def __init__(self, *args, **kwargs):
+        forms.ModelForm.__init__(self, *args, **kwargs)
+        for field_name in self.fields:
+            field = self.fields[field_name]
+            field.disabled = True
+            field.widget.attrs['readonly'] = True
 
 
 class InviteCodeAddForm(forms.ModelForm):

@@ -76,6 +76,11 @@ def render_field_value(obj, a):
 
 
 @register.filter
+def selected_choice(form, field_name):
+    return dict(form.fields[field_name].choices).get(form.initial.get(field_name, None), None)
+
+
+@register.filter
 def startswith(value, arg):
     """Usage, {% if value|starts_with:"arg" %}"""
     return value.startswith(arg)

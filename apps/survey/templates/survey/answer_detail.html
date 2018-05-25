@@ -1,0 +1,39 @@
+{% extends "adminlte/common_detail.html" %}
+{% load static adminlte_tags survey_filters %}
+
+{% block form_table %}
+    <div class="box-body table-responsive">
+        <p>目标: {{ object.purpose|default:"" }}</p>
+        <p>价位: {{ object.level|default:"" }}</p>
+        <p>当前状态: {{ object.get_status_display|default:"" }}</p>
+        <p>可否修改: {{ object.is_changeable|yesno:"是,否" }}</p>
+        <p>创建日期: {{ object.created_at|default:"" }}</p>
+
+        <table class="table">
+            {% for field in form.fields %}
+                {% if field != 'id' %}
+                    <tr>
+                        <th>{{ object|render_field_label:field }}</th>
+                    </tr>
+
+                    {% if field|startswith:"question" %}
+                        <tr>
+                            <td>{{ form|selected_choice:field }}</td>
+                        </tr>
+                    {% else %}
+                        {% if field|startswith:"cosmetic_products" %}
+                            <tr>
+                                <td>{{ object|render_products:field|safe }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td>{{ object|render_field_value:field|safe }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endif %}
+
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

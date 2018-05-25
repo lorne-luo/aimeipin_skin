@@ -40,7 +40,7 @@ class AnswerDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     """ Detail views for Answer """
     model = Answer
     form_class = forms.AnswerDetailForm
-    template_name = 'adminlte/common_detail.html'
+    template_name = 'survey/answer_detail.html'
 
 
 class SurveyFillView(CommonContextMixin, UpdateView):

@@ -8,6 +8,7 @@
     <th>姓名</th>
     <th>邀请码</th>
     <th>过期</th>
+    <th>问卷链接</th>
     <th class="hidden-sm hidden-xs"></th>
 {% endblock %}
 
@@ -21,6 +22,12 @@
         <td>{!! item.name !!}</td>
         <td>{!! item.code !!}</td>
         <td>{!! item.expiry_at !!}</td>
+        <td>
+            <a href="{% url 'survey:survey-pc' %}?code={!! item.code !!}" target="_blank">问卷链接</a>
+            <button data-url="{{ request.scheme }}://{{ request.get_host }}{% url 'survey:survey-pc' %}?code={!! item.code !!}"
+                    onclick="copyClipboard(this)">复制问卷链接
+            </button>
+        </td>
 
         {% block item_buttons %}
             {{ block.super }}
@@ -31,4 +38,18 @@
 
 {% block common_list_footer_page_script %}
     <script type="text/javascript" src="{% static 'js/survey/invitecode_list.js' %}"></script>
+
+    <script>
+        function copyClipboard(event) {
+            var url = $(event).data("url");
+            var tempInput = document.createElement("input");
+            tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+            tempInput.value = url;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("问卷链接已粘贴至剪切板");
+        }
+    </script>
 {% endblock %}

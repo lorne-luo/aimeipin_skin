@@ -25,5 +25,5 @@ class InviteCodeSerializer(BaseSerializer):
     class Meta:
         model = InviteCode
         fields = ['id', 'edit_url', 'detail_url'] + \
-                 ['code', 'name', 'expiry_at']
+                 ['code', 'name', 'purpose', 'expiry_at']
         read_only_fields = ['id']

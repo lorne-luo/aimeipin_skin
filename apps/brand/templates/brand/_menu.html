@@ -1,7 +1,13 @@
+{% load brand_tags %}
+
 <li class="treeview active">
     <a href="{% url 'brand:brand-list' %}">
         <i class='fa fa-shopping-bag'></i>
         <b>Brand</b>
+
+        <span class="pull-right-container">
+            <small class="label pull-right bg-blue">{% brand_counter %}</small>
+        </span>
     </a>
 
     {% if user.is_superuser %}

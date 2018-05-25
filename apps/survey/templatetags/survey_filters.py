@@ -3,6 +3,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 from django import template
 
 from core.adminlte.templatetags.adminlte_tags import get_attr
+from ..models import Answer
 
 register = template.Library()
 
@@ -18,3 +19,8 @@ def render_products(obj, field_name):
             return ''
 
     return '\n'.join(['<p>%s</p>' % item for item in items])
+
+
+@register.simple_tag
+def answer_counter():
+    return Answer.objects.count()

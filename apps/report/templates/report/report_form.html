@@ -1,11 +1,28 @@
 {% extends "adminlte/common_form.html" %}
 {% load static adminlte_tags %}
 
+{% block form_title %}
+    <h3 class="box-title">{{ object.answer }} 的 {{ object.purpose }}#{{ object.level }} 报告</h3>
+{% endblock %}
+
 {% block form_content %}
     <div class="col-xs-12">
+    <div class="form-group ">
+        <label class="col-sm-1 col-xs-2 control-label">姓名</label>
+        <div class="col-sm-6 col-xs-9">{{ object.answer.name }}</div>
+    </div>
+    <div class="form-group ">
+        <label class="col-sm-1 col-xs-2 control-label">目标</label>
+        <div class="col-sm-6 col-xs-9">{{ object.purpose }}</div>
+    </div>
+    <div class="form-group ">
+        <label class="col-sm-1 col-xs-2 control-label">价位</label>
+        <div class="col-sm-6 col-xs-9">{{ object.level }}</div>
+    </div>
+
     {% for field in form %}
         <div class="form-group {% if field.errors %}error{% endif %} {% if field.is_hidden %}hide{% endif %}">
-            <label for="id_{{ field.name }}" class="col-sm-2 col-xs-3 control-label">{{ field.label }}</label>
+            <label for="id_{{ field.name }}" class="col-sm-1 col-xs-2 control-label">{{ field.label }}</label>
             <div class="col-sm-6 col-xs-9">
                 {{ field }}
             </div>

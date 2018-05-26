@@ -1,23 +1,27 @@
 from django import forms
-from django.utils.translation import ugettext_lazy as _
 
-from core.django.widgets import ThumbnailImageInput
 from .models import Report
 
 
 class ReportAddForm(forms.ModelForm):
     class Meta:
         model = Report
-        fields = '__all__'
+        fields = ['answer', 'purpose', 'level']
+
+    def __init__(self, *args, **kwargs):
+        super(ReportAddForm, self).__init__(*args, **kwargs)
+        self.fields['answer'].widget = forms.HiddenInput()
+        self.fields['purpose'].required = True
+        self.fields['level'].required = True
 
 
-class ReportUpdateForm(ReportAddForm):
+class ReportUpdateForm(forms.ModelForm):
     class Meta:
         model = Report
-        fields = '__all__'
+        exclude = ['answer', 'purpose', 'level']
 
 
-class ReportDetailForm(ReportAddForm):
+class ReportDetailForm(forms.ModelForm):
     class Meta:
         model = Report
         fields = '__all__'

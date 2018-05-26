@@ -1,27 +1,68 @@
 {% extends "adminlte/common_list.html" %}
 {% load static %}
 
-{% block common_list_footer_page_script %}
-    <script type="text/javascript" src="{% static 'js/survey/answer_list.min.js' %}"></script>
+{% block table_row %}
+    <tbody v-for="item in items">
+    <tr>
+        <td class="text-center hidden-sm hidden-x">
+            ##[$index+1]
+            <input type="checkbox" class="minimal" name="checkboxRow" value="#[item.id]"/>
+        </td>
+        <td>{!! item.name !!}</td>
+        <td>{!! item.sex !!}</td>
+        <td>{!! item.birth !!}</td>
+        <td>{!! item.job !!}</td>
+        <td>{!! item.city !!}</td>
+        <td>{!! item.weixin_id !!}</td>
+        <td>{!! item.mobile !!}</td>
+        <td>{!! item.is_changeable_display !!}</td>
+        <td>
+            <button data-url="{{ request.scheme }}://{{ request.get_host }}{!! item.survey_url !!}"
+                    onclick="copyClipboard(this)">复制问卷链接
+            </button>
+
+        <td class="text-right hidden-sm hidden-xs">
+            {% if page_model_perms.view %}
+                <a data-toggle="tooltip" data-placement="bottom" data-original-title="View"
+                   href="#[item.detail_url]" class="btn btn-info btn-sm detail-btn" data-pk="#[item.id]">
+                    <i class="fa fa-lg fa-bars fa-inverse"></i>
+                </a>
+            {% endif %}
+
+            {% if page_model_perms.delete %}
+                <a data-toggle="tooltip" data-placement="bottom" data-original-title="Delete"
+                   data-pk="#[item.id]" v-on:click="removeOne" href="javascript:void(0);"
+                   class="btn btn-danger btn-sm delete-btn">
+                    <i class="fa fa-lg fa-trash-o fa-inverse"></i>
+                </a>
+            {% endif %}
+            </template>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td colspan="11">
+            <a href="" class="btn btn-primary">生成新报告</a>
+        </td>
+    </tr>
+    </tbody>
 {% endblock %}
 
 
-{% block item_buttons %}
-    <td class="text-right hidden-sm hidden-xs">
-        {% if page_model_perms.view %}
-            <a data-toggle="tooltip" data-placement="bottom" data-original-title="View"
-               href="#[item.detail_url]" class="btn btn-info btn-sm detail-btn" data-pk="#[item.id]">
-                <i class="fa fa-lg fa-bars fa-inverse"></i>
-            </a>
-        {% endif %}
 
-
-        {% if page_model_perms.delete %}
-            <a data-toggle="tooltip" data-placement="bottom" data-original-title="Delete"
-               data-pk="#[item.id]" v-on:click="removeOne" href="javascript:void(0);"
-               class="btn btn-danger btn-sm delete-btn">
-                <i class="fa fa-lg fa-trash-o fa-inverse"></i>
-            </a>
-        {% endif %}
-    </td>
+{% block common_list_footer_page_script %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'js/survey/answer_list.min.js' %}"></script>
+    <script>
+        function copyClipboard(event) {
+            var url = $(event).data("url");
+            var tempInput = document.createElement("input");
+            tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+            tempInput.value = url;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+        }
+    </script>
 {% endblock %}

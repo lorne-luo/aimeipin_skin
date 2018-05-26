@@ -193,6 +193,18 @@ class Answer(models.Model):
         return sum([self.question31, self.question32, self.question33, self.question34, self.question35,
                     self.question36, self.question37, self.question38])
 
+    def delete(self, using=None, keep_parents=False):
+        self.code.delete()
+        self.cosmetic_products1.all().delete()
+        self.cosmetic_products2.all().delete()
+        self.cosmetic_products3.all().delete()
+        self.cosmetic_products4.all().delete()
+        self.cosmetic_products5.all().delete()
+        self.cosmetic_products6.all().delete()
+        self.cosmetic_products7.all().delete()
+        self.cosmetic_products8.all().delete()
+        return super(Answer, self).delete(using, keep_parents)
+
 
 class InviteCode(models.Model):
     code = models.CharField(u'邀请码', blank=False, max_length=32, unique=True)

@@ -38,6 +38,7 @@ PURPOSE_CHOICES = (
     (u'清痘痘', u'清痘痘'),
     (u'祛暗沉', u'祛暗沉'),
     (u'调水油', u'调水油'),
+    (u'种草', u'种草'),
 )
 
 SKIN_TYPE_CHOICES = (

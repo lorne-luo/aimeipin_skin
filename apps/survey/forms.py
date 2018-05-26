@@ -313,14 +313,15 @@ class SurveyFillForm(forms.ModelForm):
                                              choices=(('有', 'A. 有'),
                                                       ('没有', 'B. 没有')))
 
-    optional_fields = ['other_question2', 'non_score_question15', 'portrait_part', 'portrait', 'cosmetics', 'code',
+    optional_fields = ['other_question2', 'non_score_question15', 'portrait_part', 'portrait', 'cosmetics', 'uuid',
                        'cosmetic_products1', 'cosmetic_products2', 'cosmetic_products3', 'cosmetic_products4',
-                       'cosmetic_products5', 'cosmetic_products6', 'cosmetic_products7', 'cosmetic_products8', 'remark']
-    hidden_fields = ['code']
+                       'cosmetic_products5', 'cosmetic_products6', 'cosmetic_products7', 'cosmetic_products8', 'remark',
+                       'is_changeable']
+    hidden_fields = ['uuid', 'is_changeable']
 
     class Meta:
         model = Answer
-        exclude = ['customer', 'created_at', 'status', 'is_changeable', 'city']
+        exclude = ['customer', 'created_at', 'status', 'city', 'code', 'purpose', 'level']
 
     def __init__(self, *args, **kwargs):
         super(SurveyFillForm, self).__init__(*args, **kwargs)
@@ -331,11 +332,14 @@ class SurveyFillForm(forms.ModelForm):
             if field_name in self.hidden_fields:
                 field.widget = forms.HiddenInput()
 
+    def clean_is_changeable(self):
+        return False
 
 class AnswerDetailForm(SurveyFillForm):
     class Meta:
         model = Answer
-        exclude = ['customer', 'created_at', 'status', 'is_changeable', 'city', 'code', 'remark']
+        exclude = ['customer', 'created_at', 'status', 'is_changeable', 'city', "uuid", 'remark', 'purpose', 'level',
+                   'code']
 
     def __init__(self, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
@@ -366,7 +370,7 @@ class InviteCodeDetailForm(forms.ModelForm):
 
     class Meta:
         model = InviteCode
-        fields = ['code', 'name', 'purpose', 'level', 'expiry_at']
+        fields = ["uuid", 'name', 'purpose', 'level', 'expiry_at']
 
 
 class AnswerProductInlineForm(forms.Form):

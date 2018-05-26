@@ -23,8 +23,8 @@
         <td>{!! item.code !!}</td>
         <td>{!! item.expiry_at !!}</td>
         <td>
-            <a href="{% url 'survey:survey-pc' %}?code={!! item.code !!}" target="_blank">问卷链接</a>
-            <button data-url="{{ request.scheme }}://{{ request.get_host }}{% url 'survey:survey-pc' %}?code={!! item.code !!}"
+            <a href="{!! item.invite_url !!}" target="_blank">问卷链接</a>
+            <button data-url="{{ request.scheme }}://{{ request.get_host }}{!! item.invite_url !!}"
                     onclick="copyClipboard(this)">复制问卷链接
             </button>
         </td>
@@ -49,7 +49,6 @@
             tempInput.select();
             document.execCommand("copy");
             document.body.removeChild(tempInput);
-            alert("问卷链接已粘贴至剪切板");
         }
     </script>
 {% endblock %}

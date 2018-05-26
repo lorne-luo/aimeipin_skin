@@ -18,6 +18,6 @@ class InviteCodeViewSet(CommonViewSet):
     """ API views for InviteCode """
     queryset = InviteCode.objects.all()
     serializer_class = serializers.InviteCodeSerializer
-    filter_fields = ['id'] + ['code', 'name']
-    search_fields = ['code', 'name']
-    ordering_fields = ['id'] + ['code', 'name']
+    filter_fields = ['id'] + ['uuid', 'name']
+    search_fields = ['uuid', 'name']
+    ordering_fields = ['id'] + ['uuid', 'name']

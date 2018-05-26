@@ -1,3 +1,4 @@
+from django.urls import reverse
 from rest_framework import serializers
 
 from core.api.serializers import BaseSerializer
@@ -21,9 +22,13 @@ class AnswerSerializer(BaseSerializer):
 
 class InviteCodeSerializer(BaseSerializer):
     """ Serializer for InviteCode """
+    invite_url = serializers.SerializerMethodField()
 
     class Meta:
         model = InviteCode
         fields = ['id', 'edit_url', 'detail_url'] + \
-                 ['code', 'name', 'purpose', 'expiry_at']
+                 ['uuid', 'name', 'purpose', 'expiry_at', 'invite_url']
         read_only_fields = ['id']
+
+    def get_invite_url(self, obj):
+        return reverse('survey:survey-pc', args=[obj.uuid])

@@ -47,25 +47,36 @@ class SurveyFillView(CommonContextMixin, UpdateView):
     model = Answer
     form_class = forms.SurveyFillForm
     template_name = 'survey/pc/index.html'
-    slug_url_kwarg = 'code'
     code = None  # InviteCode
+    uuid = None  # InviteCode
 
     def get_object(self, queryset=None):
-        uuid = self.request.GET.get(self.slug_url_kwarg)
-        self.code = InviteCode.objects.filter(code=uuid, expiry_at__gt=timezone.now()).first()
-        if not self.code:
-            raise Http404
+        uuid = self.kwargs.get('uuid') or self.request.GET.get('code')
+        self.uuid = uuid
         if queryset is None:
             queryset = self.get_queryset()
+        answer = queryset.filter(uuid=uuid).first() or queryset.filter(code__uuid=uuid).first()
 
-        return queryset.filter(code=self.code).first()
+        if answer:
+            # existed,return directly
+            return answer
+        else:
+            # new, check invite code
+            self.code = InviteCode.objects.filter(uuid=uuid, expiry_at__gt=timezone.now()).first()
+            if not self.code or self.code.is_used:
+                #invitecode not existed,
+                raise Http404
+            # else:
+            #     Answer.objects.filter()
+            return None
 
     def get_initial(self):
         initial = super(SurveyFillView, self).get_initial()
-        initial.update({
-            'code': self.code,
-            'name': self.code.name,
-        })
+        if not self.object:
+            initial.update({
+                'uuid': self.uuid,
+                'name': self.code.name,
+            })
         return initial
 
     def get_context_data(self, **kwargs):

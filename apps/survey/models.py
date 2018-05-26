@@ -34,6 +34,7 @@ class Answer(models.Model):
     """问卷报告回答,answer"""
     customer = models.ForeignKey('customer.Customer', null=True, blank=True)
     code = models.OneToOneField('InviteCode', null=True, blank=True, on_delete=models.DO_NOTHING)
+    uuid = models.CharField('uuid', max_length=64, blank=True)  # duplication of invitecode.uuid
     purpose = models.CharField('目标', max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
     level = models.CharField('价位', max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 价位
     city = models.CharField(_(u'城市'), max_length=255, blank=True)  # 自动抓取地址
@@ -170,6 +171,10 @@ class Answer(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        if not self.code and self.uuid:
+            self.code = InviteCode.objects.filter(uuid=self.uuid).first()
+        if not self.uuid and self.code:
+            self.uuid = self.code.uuid
         if not self.purpose and self.code:
             self.purpose = self.code.purpose
         if not self.level and self.code:
@@ -207,7 +212,7 @@ class Answer(models.Model):
 
 
 class InviteCode(models.Model):
-    code = models.CharField(u'邀请码', blank=False, max_length=32, unique=True)
+    uuid = models.CharField(u'邀请码', blank=False, max_length=32, unique=True)
     name = models.CharField(u'姓名', blank=True, max_length=32)
     purpose = models.CharField('目标', max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
     level = models.CharField('价位', max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 价位
@@ -216,14 +221,18 @@ class InviteCode(models.Model):
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     def __str__(self):
-        return self.code
+        return self.uuid
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.code = uuid.uuid4().hex
+            self.uuid = uuid.uuid4().hex
             self.created_at = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)  # midnight
             self.expiry_at = self.created_at + relativedelta(days=settings.INVITE_CODE_EXPIRY)
         super(InviteCode, self).save(*args, **kwargs)
+
+    @property
+    def is_used(self):
+        return hasattr(self, 'answer')
 
 
 class AnswerProduct(models.Model):

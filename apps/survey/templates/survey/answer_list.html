@@ -22,6 +22,8 @@
             </button>
 
         <td class="text-right hidden-sm hidden-xs">
+            <a href="{!! item.report_add_url !!}" class="btn btn-sm btn-primary">生成新报告</a>
+
             {% if page_model_perms.view %}
                 <a data-toggle="tooltip" data-placement="bottom" data-original-title="View"
                    href="#[item.detail_url]" class="btn btn-info btn-sm detail-btn" data-pk="#[item.id]">
@@ -39,12 +41,11 @@
             </template>
         </td>
     </tr>
-    <tr>
-        <td></td>
-        <td colspan="11">
-            <a href="" class="btn btn-primary">生成新报告</a>
-        </td>
-    </tr>
+{#    <tr>#}
+{#        <td></td>#}
+{#        <td colspan="11">#}
+{#        </td>#}
+{#    </tr>#}
     </tbody>
 {% endblock %}
 

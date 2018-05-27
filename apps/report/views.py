@@ -15,8 +15,8 @@ class ReportListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ReportListView, self).get_context_data(**kwargs)
-        context['table_titles'] = [u'目标', u'类别', '']
-        context['table_fields'] = ['purpose', 'level', 'id']
+        context['table_titles'] = ['问卷', u'目标', u'类别', '']
+        context['table_fields'] = ['answer', 'purpose', 'level', 'id']
         return context
 
 
@@ -45,8 +45,11 @@ class ReportAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
         return context
 
     def form_valid(self, form):
-        report = form.save()
-        report.generate()
+        answer = form.instance.answer
+        purpose = form.instance.purpose
+        level = form.instance.level
+        report = answer.generate_report(purpose, level)
+
         self.object = report
         return super(ReportAddView, self).form_valid(form)
 

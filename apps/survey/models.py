@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from stdimage import StdImageField
 
+from apps.report.models import Report
 from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SURVEY_LEVEL_CHOICES, SURVEY_STATUS_CHOICES
 from config.settings import ANSWER_PHOTO_FOLDER
 
@@ -209,6 +210,10 @@ class Answer(models.Model):
         self.cosmetic_products7.all().delete()
         self.cosmetic_products8.all().delete()
         return super(Answer, self).delete(using, keep_parents)
+
+    def generate_report(self, purpose, level):
+        report = Report(answer=self, purpose=purpose, level=level)
+        return report
 
 
 class InviteCode(models.Model):

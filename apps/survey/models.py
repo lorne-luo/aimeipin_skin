@@ -10,6 +10,7 @@ from stdimage import StdImageField
 from apps.report.models import Report
 from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SURVEY_LEVEL_CHOICES, SURVEY_STATUS_CHOICES
 from config.settings import ANSWER_PHOTO_FOLDER
+from core.utils.ip import get_location
 
 
 def get_answer_photo_path(instance, filename):
@@ -39,6 +40,7 @@ class Answer(models.Model):
     purpose = models.CharField('目标', max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
     level = models.CharField('价位', max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 价位
     city = models.CharField(_(u'城市'), max_length=255, blank=True)  # 自动抓取地址
+    ip = models.GenericIPAddressField(_(u'IP'), null=True, blank=True)
 
     # replica of customer basic info
     name = models.CharField(_(u'1. 您的姓名？'), max_length=64, null=True, blank=True, help_text='提示：请填写您下单时登记的姓名')
@@ -171,6 +173,10 @@ class Answer(models.Model):
     def __str__(self):
         return self.name
 
+    def update_location(self):
+        # update location by taobao ip api
+        self.city = get_location(self.ip)
+
     def save(self, *args, **kwargs):
         if not self.code and self.uuid:
             self.code = InviteCode.objects.filter(uuid=self.uuid).first()
@@ -180,6 +186,8 @@ class Answer(models.Model):
             self.purpose = self.code.purpose
         if not self.level and self.code:
             self.level = self.code.level
+        if not self.city:
+            self.update_location()
         super(Answer, self).save(*args, **kwargs)
 
     @property

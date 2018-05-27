@@ -4,6 +4,7 @@ from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
 
 from apps.survey.forms import AnswerProductFormSet
+from core.django.utils.ip import get_client_ip
 from core.django.views import CommonContextMixin
 from .models import Answer, InviteCode
 from . import forms
@@ -64,7 +65,7 @@ class SurveyFillView(CommonContextMixin, UpdateView):
             # new, check invite code
             self.code = InviteCode.objects.filter(uuid=uuid, expiry_at__gt=timezone.now()).first()
             if not self.code or self.code.is_used:
-                #invitecode not existed,
+                # invitecode not existed,
                 raise Http404
             # else:
             #     Answer.objects.filter()
@@ -155,11 +156,17 @@ class SurveyFillView(CommonContextMixin, UpdateView):
         if self.object and self.object.id:
             # update existed
             self.process_formsets()
-            return super(SurveyFillView, self).form_valid(form)
+            self.object = form.save()
+            if not self.object.ip:
+                self.object.ip = get_client_ip(self.request)
+                self.object.update_location()
+            return HttpResponseRedirect(self.get_success_url())
         else:
             # create new
             self.object = form.save()
             self.process_formsets()
+            self.object.ip = get_client_ip(self.request)
+            self.object.save()
             return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):

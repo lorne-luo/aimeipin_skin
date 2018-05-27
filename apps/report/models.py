@@ -33,7 +33,7 @@ class Report(models.Model):
     mask_instruct = models.CharField('面膜', max_length=512, blank=True)  # 面膜指导
     emergency_solution = models.TextField('应急方案', max_length=128, blank=True)  # 应急方案
     maintain_solution = models.TextField('日常维稳方案', max_length=128, blank=True)  # 维稳方案
-
+    allergy = models.TextField('过敏', max_length=128, blank=True)  # 过敏, answer.other_question2
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     def classify_skin_type(self):
@@ -75,12 +75,13 @@ class Report(models.Model):
                 self.loose_type = '非紧致性'
 
     def save(self, *args, **kwargs):
-        self.classify_skin_type()
         super(Report, self).save(*args, **kwargs)
 
     def generate(self):
-        pass
+        self.classify_skin_type()
+        self.allergy = self.answer.other_question2
         self.save()
+
 
 class ReportProductAnalysis(models.Model):
     '''用户使用产品的分析 user_product_txt'''

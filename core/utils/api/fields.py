@@ -270,7 +270,7 @@ class JSONField(serializers.Field):
         json_data = {}
         try:
             json_data = json.loads(data)
-        except ValueError, e:
+        except ValueError as e:
             pass
         finally:
             return json_data

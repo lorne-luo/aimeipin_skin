@@ -14,25 +14,25 @@ class Report(models.Model):
     level = models.CharField('价位', max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 价位
 
     # 肤质4个维度种类
-    oily_type = models.CharField(max_length=64, choices=SKIN_OILY_TYPE_CHOICES, blank=True)
-    sensitive_type = models.CharField(max_length=64, choices=SKIN_SENSITIVE_TYPE_CHOICES, blank=True)
-    pigment_type = models.CharField(max_length=64, choices=SKIN_PIGMENT_TYPE_CHOICES, blank=True)
-    loose_type = models.CharField(max_length=64, choices=SKIN_LOOSE_TYPE_CHOICES, blank=True)
+    oily_type = models.CharField('油干类型', max_length=64, choices=SKIN_OILY_TYPE_CHOICES, blank=True)
+    sensitive_type = models.CharField('敏感耐受型', max_length=64, choices=SKIN_SENSITIVE_TYPE_CHOICES, blank=True)
+    pigment_type = models.CharField('色素类型', max_length=64, choices=SKIN_PIGMENT_TYPE_CHOICES, blank=True)
+    loose_type = models.CharField('易皱纹紧致型', max_length=64, choices=SKIN_LOOSE_TYPE_CHOICES, blank=True)
     # 肤质4个维度的测试评分
-    oily_score = models.PositiveIntegerField(blank=True, null=True)
-    sensitivity_score = models.PositiveIntegerField(blank=True, null=True)
-    pigment_score = models.PositiveIntegerField(blank=True, null=True)
-    loose_score = models.PositiveIntegerField(blank=True, null=True)
+    oily_score = models.PositiveIntegerField('油干分数', blank=True, null=True)
+    sensitive_score = models.PositiveIntegerField('敏感耐受分数', blank=True, null=True)
+    pigment_score = models.PositiveIntegerField('色素分数', blank=True, null=True)
+    loose_score = models.PositiveIntegerField('易皱纹紧致分数', blank=True, null=True)
 
-    summary = models.TextField(max_length=128, blank=True)  # 报告总结
-    problem = models.TextField(max_length=128, blank=True)  # 存在的问题
-    avoid_component = models.TextField(max_length=128, blank=True)  # 避免使用的成分
-    doctor_advice = models.TextField(max_length=128, blank=True)  # 医生建议
-    day_instruct = models.CharField(max_length=512, blank=True)  # 日间指导
-    night_instruct = models.CharField(max_length=512, blank=True)  # 夜间指导
-    mask_instruct = models.CharField(max_length=512, blank=True)  # 面膜指导
-    emergency_solution = models.TextField(max_length=128, blank=True)  # 应急方案
-    maintain_solution = models.TextField(max_length=128, blank=True)  # 维稳方案
+    summary = models.TextField('总结', max_length=128, blank=True)  # 报告总结
+    problem = models.TextField('2. 我们认为您存在的问题', max_length=128, blank=True)  # 存在的问题
+    avoid_component = models.TextField('4) 需要避免使用的皮肤护理成分', max_length=128, blank=True)  # 避免使用的成分
+    doctor_advice = models.TextField('三、听听皮肤科医生怎么说', max_length=128, blank=True)  # 医生建议
+    day_instruct = models.CharField('日间', max_length=512, blank=True)  # 日间指导
+    night_instruct = models.CharField('夜间', max_length=512, blank=True)  # 夜间指导
+    mask_instruct = models.CharField('面膜', max_length=512, blank=True)  # 面膜指导
+    emergency_solution = models.TextField('应急方案', max_length=128, blank=True)  # 应急方案
+    maintain_solution = models.TextField('日常维稳方案', max_length=128, blank=True)  # 维稳方案
 
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 

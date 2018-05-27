@@ -36,9 +36,51 @@ class Report(models.Model):
 
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
-    def generate(self):
-        self.save()
+    def classify_skin_type(self):
+        self.oily_score = self.answer.oily_score
+        self.sensitive_score = self.answer.sensitive_score
+        self.pigment_score = self.answer.pigment_score
+        self.loose_score = self.answer.loose_score
 
+        if self.oily_score:
+            if 100 <= self.oily_score <= 149:
+                self.oily_type = '重度干性'
+            elif 150 <= self.oily_score <= 229:
+                self.oily_type = '轻度干性'
+            elif 230 <= self.oily_score <= 299:
+                self.oily_type = '轻度油性'
+            elif 300 <= self.oily_score <= 400:
+                self.oily_type = '重度油性'
+
+        if self.sensitive_score:
+            if 110 <= self.sensitive_score <= 169:
+                self.sensitive_type = '耐受性'
+            elif 170 <= self.sensitive_score <= 269:
+                self.sensitive_type = '轻度耐受性'
+            elif 270 <= self.sensitive_score <= 339:
+                self.sensitive_type = '轻度敏感性'
+            elif 340 <= self.sensitive_score <= 440:
+                self.sensitive_type = '重度敏感性'
+
+        if self.pigment_score:
+            if 60 <= self.pigment_score <= 209:
+                self.pigment_type = '非色素性'
+            elif 210 <= self.pigment_score <= 360:
+                self.pigment_type = '色素性'
+
+        if self.loose_score:
+            if 100 <= self.loose_score <= 249:
+                self.loose_type = '紧致性'
+            elif 250 <= self.loose_score <= 400:
+                self.loose_type = '非紧致性'
+
+    def save(self, *args, **kwargs):
+        self.classify_skin_type()
+        super(Report, self).save(*args, **kwargs)
+
+    def generate(self):
+        pass
+        self.save()
 
 class ReportProductAnalysis(models.Model):
     '''用户使用产品的分析 user_product_txt'''

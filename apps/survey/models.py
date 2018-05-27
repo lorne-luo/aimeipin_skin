@@ -182,20 +182,24 @@ class Answer(models.Model):
             self.level = self.code.level
         super(Answer, self).save(*args, **kwargs)
 
-    def get_oily_score(self):
+    @property
+    def oily_score(self):
         return sum([self.question1, self.question2, self.question3, self.question4, self.question5, self.question6,
                     self.question7, self.question8, self.question9, self.question10])
 
-    def get_sensitive_score(self):
+    @property
+    def sensitive_score(self):
         return sum([self.question11, self.question12, self.question13, self.question14, self.question15,
                     self.question16, self.question17, self.question18, self.question19, self.question20,
                     self.question21])
 
-    def get_pigment_score(self):
+    @property
+    def pigment_score(self):
         return sum([self.question22, self.question23, self.question24, self.question25, self.question26,
                     self.question27, self.question28, self.question29, self.question30])
 
-    def get_loose_score(self):
+    @property
+    def loose_score(self):
         return sum([self.question31, self.question32, self.question33, self.question34, self.question35,
                     self.question36, self.question37, self.question38])
 
@@ -213,6 +217,7 @@ class Answer(models.Model):
 
     def generate_report(self, purpose, level):
         report = Report(answer=self, purpose=purpose, level=level)
+        report.generate()
         return report
 
 

@@ -1,6 +1,12 @@
+{% load report_filters %}
+
 <li class="treeview active">
     <a href="{% url 'report:report-list' %}">
         <i class='fa fa-shopping-bag'></i>
         <b>调查报告</b>
+
+        <span class="pull-right-container">
+            <small class="label pull-right bg-blue">{% report_counter %}</small>
+        </span>
     </a>
 </li>

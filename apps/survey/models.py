@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from stdimage import StdImageField
 
+from apps.analysis.models import SkinType
 from apps.report.models import Report
 from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SURVEY_LEVEL_CHOICES, SURVEY_STATUS_CHOICES
 from config.settings import ANSWER_PHOTO_FOLDER
@@ -198,10 +199,18 @@ class Answer(models.Model):
                     self.question7, self.question8, self.question9, self.question10])
 
     @property
+    def oily_type(self):
+        return SkinType.get_oily_type(self.oily_score)
+
+    @property
     def sensitive_score(self):
         return sum([self.question11, self.question12, self.question13, self.question14, self.question15,
                     self.question16, self.question17, self.question18, self.question19, self.question20,
                     self.question21])
+
+    @property
+    def sensitive_type(self):
+        return SkinType.get_sensitive_type(self.sensitive_score)
 
     @property
     def pigment_score(self):
@@ -209,9 +218,17 @@ class Answer(models.Model):
                     self.question27, self.question28, self.question29, self.question30])
 
     @property
+    def pigment_type(self):
+        return SkinType.get_pigment_type(self.pigment_score)
+
+    @property
     def loose_score(self):
         return sum([self.question31, self.question32, self.question33, self.question34, self.question35,
                     self.question36, self.question37, self.question38])
+
+    @property
+    def loose_type(self):
+        return SkinType.get_loose_type(self.loose_score)
 
     def delete(self, using=None, keep_parents=False):
         self.code.delete()

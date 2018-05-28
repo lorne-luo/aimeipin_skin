@@ -1,9 +1,11 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
     <title>Action28肌肤测试问卷</title>
-    <link rel="stylesheet" href="../css/index.css"/>
+    <link rel="stylesheet" href="{% static 'css/survey/pc.css' %}"/>
     <style>
         #question{
             width: 1000px;
@@ -91,7 +93,7 @@
     <p>Action28肌肤测试问卷  测评报告</p>
     <div id=question1>
         <!--<div id="question2">-->
-            <h3>测评用户：<span id="id_name">XXX</span></h3>
+            <h3>测评用户：<span id="id_name">{{ object.name }}</span></h3>
             <b>测评结果分析</b>
             <table id="questiontable">
                 <thead>
@@ -102,11 +104,26 @@
                 </tr>
                 </thead>
                 <tbody id="tbody">
-                <!--<tr>-->
-                    <!--<td></td>-->
-                    <!--<td></td>-->
-                    <!--<td></td>-->
-                <!--</tr>-->
+                    <tr>
+                        <td>{% if object.oily_type%}{{ object.oily_type.name }}{% endif %}</td>
+                        <td>{{ object.oily_score }}</td>
+                        <td>{% if object.oily_type%}{{ object.oily_type.description }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>{% if object.sensitive_type%}{{ object.sensitive_type.name }}{% endif %}</td>
+                        <td>{{ object.sensitive_score }}</td>
+                        <td>{% if object.sensitive_type%}{{ object.sensitive_type.description }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>{% if object.pigment_type%}{{ object.pigment_type.name }}{% endif %}</td>
+                        <td>{{ object.pigment_score }}</td>
+                        <td>{% if object.pigment_type%}{{ object.pigment_type.description }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>{% if object.loose_type%}{{ object.loose_type }}{% endif %}</td>
+                        <td>{{ object.loose_score }}</td>
+                        <td>{% if object.loose_type%}{{ object.loose_type.description }}{% endif %}</td>
+                    </tr>
                 </tbody>
             </table>
         <!--</div>-->
@@ -117,10 +134,12 @@
     </div>
 </div>
 <!--<div id="buttondiv"><input type="button" value="保存报告"  id="btnsavescore"/></div>-->
-<div id="buttondiv"><a download="" id="btnsavescore">保存报告</a></div>
+<div id="buttondiv">
+    <button type="submit" download="" id="btnsavescore">保存报告</button>
+</div>
 
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/index.js"></script>
+<script>window.jQuery || document.write('<script src="{% static "plugins/jQuery/jquery-3.2.1.min.js" %}"><\/script>')</script>
+<script src="{% static 'js/frontend/index.js' %}"></script>
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>-->
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>-->
 <script src="js/echarts.common.min.js"></script>
@@ -158,17 +177,10 @@
 //                    $('#main img').attr('src','http://servers.jianghujoy.cn:8084/index.php/index/creat-img');
                     $('#id_name').html(res.msg.name);
 
-
                     $('#btnsavescore').click(function(){
                         savescore();
                     })
-
-
-
                 }
-
-
-
 
                 // 基于准备好的dom，初始化echarts实例
                 var myChart = echarts.init(document.getElementById('main'));
@@ -195,18 +207,11 @@
                         data: series
                     }]
                 };
-
 //                 使用刚指定的配置项和数据显示图表。
                 myChart.setOption(option);
-
-
-
-
             },
             error:function(){}
         });
-
-
 
         var sss = true;
         function savescore(){
@@ -225,15 +230,8 @@
 //                var filename = shopname + '.' + type;
 //                saveFile(imgData,filename);
 //
-//
-//
-//
-//
-//
 //                window.location.href= imgUri; // 下载图片
-//
 //            });
-
 
             html2canvas([document.getElementById('question')], {
                 onrendered: function (canvas) {
@@ -249,21 +247,16 @@
                         success: function (response) {
 //                            $('#image_id img').attr('src', response);
 //                            window.location.href= response;
-                            $('#btnsavescore').attr('href',response)
-                            $('#btnsavescore').attr('download','Action28肌肤测试问卷 测评报告')
+                            $('#btnsavescore').attr('href',response);
+                            $('#btnsavescore').attr('download','Action28肌肤测试问卷 测评报告');
                             if(sss){document.getElementById('btnsavescore').click();  sss=false;}
-//
                         },
                         error:function(xhr,status,error){
 
                         }
                     });
                 }
-
             })
-
-
-
 //        var shopname = "糖猫猫的店铺";
 //        var c = document.getElementById("question");
 //        document.getElementById("btnsavescore").addEventListener("click",function() {
@@ -271,7 +264,6 @@
 //                alert("获取数据失败，请刷新页面！");
 //                return false;
 //            }
-//
 //
 //            html2canvas($("#question")).then(function (canvas) {
 //                var type = 'png';
@@ -294,32 +286,8 @@
 //                var filename = shopname + '.' + type;
 //                saveFile(imgData,filename);
 //            });
-//
 //            });
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //            $.ajax({
         //                url:"http://servers.jianghujoy.cn:8084/index.php/index/creat-img-save",
@@ -350,9 +318,6 @@
         //            })
         //
         //            window.location.href = "http://servers.jianghujoy.cn:8084/index/down-file?user_id="+window.localStorage.getItem('id')+"&time="+window.localStorage.getItem('time')
-
-
-
 </script>
 </body>
 </html>

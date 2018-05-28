@@ -1,6 +1,6 @@
 from django.http import Http404, HttpResponseRedirect
 from django.utils import timezone
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, TemplateView
 from braces.views import SuperuserRequiredMixin
 
 from apps.survey.forms import AnswerProductFormSet
@@ -172,6 +172,23 @@ class SurveyFillView(CommonContextMixin, UpdateView):
     def get_success_url(self):
         # todo submission success page
         return '/'
+
+
+class AnswerScoreView(TemplateView):
+    template_name = 'survey/pc/score.html'
+
+    def get_object(self):
+        uuid = self.kwargs.get('uuid') or self.request.GET.get('code')
+        answer = Answer.objects.filter(uuid=uuid).first() or Answer.objects.filter(code__uuid=uuid).first()
+        if answer:
+            return answer
+        raise Http404
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(**kwargs)
+        context.update({'object': self.object})
+        return self.render_to_response(context)
 
 
 class InviteCodeListView(SuperuserRequiredMixin, CommonContextMixin, ListView):

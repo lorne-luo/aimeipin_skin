@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from apps.analysis.models import SkinType
 from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SKIN_OILY_TYPE_CHOICES, \
     SKIN_SENSITIVE_TYPE_CHOICES, SKIN_PIGMENT_TYPE_CHOICES, SKIN_LOOSE_TYPE_CHOICES, \
     PREMIUM_PRODUCT_ADVICE_TYPE_CHOICES, \
@@ -34,6 +35,7 @@ class Report(models.Model):
     emergency_solution = models.TextField('应急方案', max_length=128, blank=True)  # 应急方案
     maintain_solution = models.TextField('日常维稳方案', max_length=128, blank=True)  # 维稳方案
     allergy = models.TextField('过敏', max_length=128, blank=True)  # 过敏, answer.other_question2
+    remark = models.TextField('温馨提示', max_length=128, blank=True)  # 温馨提示, for 9.9
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     def classify_skin_type(self):
@@ -42,37 +44,10 @@ class Report(models.Model):
         self.pigment_score = self.answer.pigment_score
         self.loose_score = self.answer.loose_score
 
-        if self.oily_score:
-            if 100 <= self.oily_score <= 149:
-                self.oily_type = '重度干性'
-            elif 150 <= self.oily_score <= 229:
-                self.oily_type = '轻度干性'
-            elif 230 <= self.oily_score <= 299:
-                self.oily_type = '轻度油性'
-            elif 300 <= self.oily_score <= 400:
-                self.oily_type = '重度油性'
-
-        if self.sensitive_score:
-            if 110 <= self.sensitive_score <= 169:
-                self.sensitive_type = '耐受性'
-            elif 170 <= self.sensitive_score <= 269:
-                self.sensitive_type = '轻度耐受性'
-            elif 270 <= self.sensitive_score <= 339:
-                self.sensitive_type = '轻度敏感性'
-            elif 340 <= self.sensitive_score <= 440:
-                self.sensitive_type = '重度敏感性'
-
-        if self.pigment_score:
-            if 60 <= self.pigment_score <= 209:
-                self.pigment_type = '非色素性'
-            elif 210 <= self.pigment_score <= 360:
-                self.pigment_type = '色素性'
-
-        if self.loose_score:
-            if 100 <= self.loose_score <= 249:
-                self.loose_type = '紧致性'
-            elif 250 <= self.loose_score <= 400:
-                self.loose_type = '非紧致性'
+        self.oily_type = SkinType.get_oily_type(self.oily_score).name
+        self.sensitive_type = SkinType.get_sensitive_type(self.sensitive_score).name
+        self.pigment_type = SkinType.get_pigment_type(self.pigment_score).name
+        self.loose_type = SkinType.get_loose_type(self.loose_score).name
 
     def save(self, *args, **kwargs):
         super(Report, self).save(*args, **kwargs)

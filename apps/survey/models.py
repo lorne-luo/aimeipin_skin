@@ -250,7 +250,7 @@ class InviteCode(models.Model):
             self.created_at = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)  # midnight
             self.expiry_at = self.created_at + relativedelta(days=settings.INVITE_CODE_EXPIRY)
         if not self.qrcode_url and self.uuid:
-            self.qrcode_url = generate_qrcode(self.url, self.uuid)
+            self.generate_qrcode(save=False)
         super(InviteCode, self).save(*args, **kwargs)
 
     @property
@@ -259,7 +259,16 @@ class InviteCode(models.Model):
 
     @property
     def url(self):
-        return reverse('survey:survey-pc', args=[self.uuid])
+        return settings.BASE_URL + reverse('survey:survey-pc', args=[self.uuid])
+
+    @property
+    def full_url(self):
+        return settings.BASE_URL + self.url
+
+    def generate_qrcode(self, save=True):
+        self.qrcode_url = generate_qrcode(self.full_url, self.uuid)
+        if save:
+            self.save()
 
 
 class AnswerProduct(models.Model):

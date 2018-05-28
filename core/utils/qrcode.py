@@ -5,13 +5,14 @@ from django.conf import settings
 
 
 def generate_qrcode(url, uuid):
-    dest_dir = os.path.join(settings.MEDIA_ROOT, settings.QRCODE_FOLDER)
     file_name = '%s.png' % uuid
+    backgroud = os.path.join(settings.STATIC_ROOT, 'qrcode_logo.jpg')
+    dest_dir = os.path.join(settings.MEDIA_ROOT, settings.QRCODE_FOLDER)
     version, level, qr_name = myqr.run(
         url,
         version=1,
         level='H',
-        picture=None,
+        picture=backgroud,
         colorized=False,
         contrast=1.0,
         brightness=1.0,

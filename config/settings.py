@@ -26,6 +26,9 @@ if os.path.exists(env_file):
     print('[environ] Loading : {}'.format(env_file))
     env.read_env(env_file)
 
+BASE_URL = env('BASE_URL', default='http://skin.aimeipin.cc')
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 

@@ -42,3 +42,4 @@ django-environ==0.4.4
 django-tinymce4-lite==1.6.0
 django-countries==5.3
 wechat-sdk==0.6.4
+MyQR==2.3.1

@@ -36,8 +36,8 @@ class InviteCodeSerializer(BaseSerializer):
     class Meta:
         model = InviteCode
         fields = ['id', 'edit_url', 'detail_url'] + \
-                 ['uuid', 'name', 'purpose', 'expiry_at', 'invite_url']
+                 ['uuid', 'name', 'purpose', 'expiry_at', 'invite_url', 'qrcode_url']
         read_only_fields = ['id']
 
     def get_invite_url(self, obj):
-        return reverse('survey:survey-pc', args=[obj.uuid])
+        return obj.url

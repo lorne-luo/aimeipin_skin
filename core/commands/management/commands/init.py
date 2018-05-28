@@ -1,11 +1,13 @@
 '''
- Create initial common data 
+ Create initial common data
 '''
+import os
+
 from django.contrib.auth import get_user_model
 from django.core import management
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Permission, Group
-import copy
+from django.conf import settings
 
 
 class Command(BaseCommand):
@@ -23,4 +25,11 @@ class Command(BaseCommand):
                                                   last_name='Luo')
         admin.groups.add(admin_group)
         admin.save()
+
+        os.makedirs(os.path.join(settings.MEDIA_ROOT, settings.BRAND_LOGO_PHOTO_FOLDER), exist_ok=True)
+        os.makedirs(os.path.join(settings.MEDIA_ROOT, settings.PRODUCT_PHOTO_FOLDER), exist_ok=True)
+        os.makedirs(os.path.join(settings.MEDIA_ROOT, settings.PREMIUM_PRODUCT_PHOTO_FOLDER), exist_ok=True)
+        os.makedirs(os.path.join(settings.MEDIA_ROOT, settings.ANSWER_PHOTO_FOLDER), exist_ok=True)
+        os.makedirs(os.path.join(settings.MEDIA_ROOT, settings.QRCODE_FOLDER), exist_ok=True)
+
         self.stdout.write(self.style.SUCCESS('Superuser and Admin group created.'))

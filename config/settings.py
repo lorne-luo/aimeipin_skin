@@ -200,27 +200,27 @@ SESSION_COOKIE_AGE = 604800 * 4  # 4 weeks
 
 # CELERY
 # ------------------------------------------------------------------------------
-import djcelery
-
-djcelery.setup_loader()
-
-CELERY_BROKER_URL = BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_BROKER_TRANSPORT = BROKER_TRANSPORT = 'redis'
-CELERY_BROKER_TRANSPORT_OPTIONS = BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 604800}
-CELERY_RESULT_BACKEND = CELERY_BROKER_URL
-
-CELERY_TASK_RESULT_EXPIRES = datetime.timedelta(days=1)  # Take note of the CleanUp task in middleware/tasks.py
-CELERY_MAX_CACHED_RESULTS = 1000
-CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
-CELERY_TRACK_STARTED = True
-CELERY_SEND_EVENTS = True
-CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
-
-CELERY_REDIS_CONNECT_RETRY = REDIS_CONNECT_RETRY = True
-CELERY_REDIS_DB = REDIS_DB = 0
-CELERY_BROKER_POOL_LIMIT = BROKER_POOL_LIMIT = 2
-CELERYD_CONCURRENCY = 1
-CELERYD_TASK_TIME_LIMIT = 600
+# import djcelery
+#
+# djcelery.setup_loader()
+#
+# CELERY_BROKER_URL = BROKER_URL = 'redis://127.0.0.1:6379'
+# CELERY_BROKER_TRANSPORT = BROKER_TRANSPORT = 'redis'
+# CELERY_BROKER_TRANSPORT_OPTIONS = BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 604800}
+# CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+#
+# CELERY_TASK_RESULT_EXPIRES = datetime.timedelta(days=1)  # Take note of the CleanUp task in middleware/tasks.py
+# CELERY_MAX_CACHED_RESULTS = 1000
+# CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+# CELERY_TRACK_STARTED = True
+# CELERY_SEND_EVENTS = True
+# CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+#
+# CELERY_REDIS_CONNECT_RETRY = REDIS_CONNECT_RETRY = True
+# CELERY_REDIS_DB = REDIS_DB = 0
+# CELERY_BROKER_POOL_LIMIT = BROKER_POOL_LIMIT = 2
+# CELERYD_CONCURRENCY = 1
+# CELERYD_TASK_TIME_LIMIT = 600
 
 # REST_FRAMEWORK
 # ------------------------------------------------------------------------------
@@ -283,15 +283,15 @@ REST_FRAMEWORK = {
 # ------------------------------------------------------------------------------
 SITE_NAME = env('SITE_NAME', default='Aimeipin Skin')
 # Others
-ID_PHOTO_FOLDER = 'id'
 PRODUCT_PHOTO_FOLDER = 'product'
 BRAND_LOGO_PHOTO_FOLDER = 'brand'
 PREMIUM_PRODUCT_PHOTO_FOLDER = 'premium_product'
 ANSWER_PHOTO_FOLDER = 'answer'
+QRCODE_FOLDER = 'qrcode'
 # for django-guardian
 ANONYMOUS_USER_ID = -1
 SITE_ID = 1
-INVITE_CODE_EXPIRY = 30  # days
+INVITE_CODE_EXPIRY = 60  # days
 
 # CACHES
 # ------------------------------------------------------------------------------

@@ -23,6 +23,7 @@
         <td>{!! item.uuid !!}</td>
         <td>{!! item.expiry_at !!}</td>
         <td>
+            <a href="{!! item.qrcode_url !!}" target="_blank">二维码</a>
             <a href="{!! item.invite_url !!}" target="_blank">问卷链接</a>
             <button data-url="{{ request.scheme }}://{{ request.get_host }}{!! item.invite_url !!}"
                     onclick="copyClipboard(this)">复制问卷链接

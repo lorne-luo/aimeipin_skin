@@ -3,6 +3,7 @@ import uuid
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from stdimage import StdImageField
@@ -11,6 +12,7 @@ from apps.report.models import Report
 from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SURVEY_LEVEL_CHOICES, SURVEY_STATUS_CHOICES
 from config.settings import ANSWER_PHOTO_FOLDER
 from core.utils.ip import get_location
+from core.utils.qrcode import generate_qrcode
 
 
 def get_answer_photo_path(instance, filename):
@@ -235,6 +237,7 @@ class InviteCode(models.Model):
     purpose = models.CharField('目标', max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
     level = models.CharField('价位', max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 价位
     is_used = models.BooleanField(u'已使用', default=False, blank=False)
+    qrcode_url = models.CharField('二维码', max_length=512, blank=True)  # 二维码连接
     expiry_at = models.DateTimeField(u"创建时间", auto_now_add=False, editable=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
@@ -246,11 +249,17 @@ class InviteCode(models.Model):
             self.uuid = uuid.uuid4().hex
             self.created_at = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)  # midnight
             self.expiry_at = self.created_at + relativedelta(days=settings.INVITE_CODE_EXPIRY)
+        if not self.qrcode_url and self.uuid:
+            self.qrcode_url = generate_qrcode(self.url, self.uuid)
         super(InviteCode, self).save(*args, **kwargs)
 
     @property
     def is_used(self):
         return hasattr(self, 'answer')
+
+    @property
+    def url(self):
+        return reverse('survey:survey-pc', args=[self.uuid])
 
 
 class AnswerProduct(models.Model):

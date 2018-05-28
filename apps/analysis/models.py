@@ -84,6 +84,11 @@ class Word(PinYinFieldModelMixin, models.Model):
     pigment_type = models.CharField(_('色素or非色素'), max_length=64, choices=SKIN_PIGMENT_TYPE_CHOICES, blank=True)
     loose_type = models.CharField(_('易皱纹or紧致'), max_length=64, choices=SKIN_LOOSE_TYPE_CHOICES, blank=True)
 
+    oily_type2 = models.ForeignKey('analysis.SkinType',verbose_name=_('油性or干性'), blank=True, null=True,related_name='word_oily_type')
+    sensitive_type2 = models.ForeignKey('analysis.SkinType',verbose_name=_('敏感or耐受'), blank=True, null=True,related_name='word_sensitive_type')
+    pigment_type2 = models.ForeignKey('analysis.SkinType',verbose_name=_('色素or非色素'), blank=True, null=True,related_name='word_pigment_type')
+    loose_type2 = models.ForeignKey('analysis.SkinType',verbose_name=_('易皱纹or紧致'),  blank=True, null=True,related_name='word_loose_type')
+
     report = models.TextField(_('皮肤检测报告总结'), max_length=512, blank=True)  # 总结报告，填充值问卷报告的总结
     problem = models.TextField(_('我们认为您存在的问题'), max_length=128, blank=True)  # 存在的问题
     avoid_component = models.TextField(_('需要避免使用的皮肤护理成分'), max_length=128, blank=True)  # 避免使用的成分

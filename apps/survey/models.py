@@ -259,7 +259,7 @@ class InviteCode(models.Model):
 
     @property
     def url(self):
-        return settings.BASE_URL + reverse('survey:survey-pc', args=[self.uuid])
+        return reverse('survey:survey-pc', args=[self.uuid])
 
     @property
     def full_url(self):

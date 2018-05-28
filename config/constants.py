@@ -41,6 +41,12 @@ PURPOSE_CHOICES = (
     (u'种草', u'种草'),
 )
 
+SKIN_TYPE_DIMENSION_CHOICES = (
+    (u'油性or干性', u'油性or干性'),
+    (u'敏感or耐受', u'敏感or耐受'),
+    (u'色素or非色素', u'色素or非色素'),
+    (u'易皱纹or紧致', u'易皱纹or紧致'),
+)
 SKIN_TYPE_CHOICES = (
     (u'干性肌肤', u'干性肌肤'),
     (u'油性肌肤', u'油性肌肤'),

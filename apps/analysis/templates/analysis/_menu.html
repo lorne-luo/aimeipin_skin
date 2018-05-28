@@ -1,23 +1,21 @@
 <li class="treeview active">
-    <a href="{% url 'analysis:word-list' %}">
+    <a href="javascript:void(0)">
         <i class='fa fa-shopping-bag'></i>
-        <b>话术</b>
+        <b>分析</b>
     </a>
-{##}
-{#    {% if user.is_superuser %}#}
-{#        <ul class="treeview-menu menu-open" style="display: block;">#}
-{#            <li>#}
-{#                {% if perms.word.add_word %}#}
-{#                    <a href="{% url 'analysis:word-add' %}" class="pull-right">#}
-{#                        <i class="fa fa-plus" aria-hidden="true"></i>#}
-{#                    </a>#}
-{#                {% endif %}#}
-{#                <a href="{% url 'analysis:word-list' %}" class="main">#}
-{#                    <i class="fa fa-circle-o"></i>#}
-{#                    话术#}
-{#                </a>#}
-{#            </li>#}
-{##}
-{#        </ul>#}
-{#    {% endif %}#}
+
+    <ul class="treeview-menu menu-open" style="display: block;">
+        <li>
+            <a href="{% url 'analysis:skintype-list' %}" class="main">
+                <i class="fa fa-circle-o"></i>
+                肤质类型
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'analysis:word-list' %}" class="main">
+                <i class="fa fa-circle-o"></i>
+                话术
+            </a>
+        </li>
+    </ul>
 </li>

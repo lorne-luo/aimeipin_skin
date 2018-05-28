@@ -7,6 +7,7 @@ router.include_root_view = False
 
 # reverse('api:word-list'), reverse('api:word-detail', kwargs={'pk': 1})
 router.register(r'word', views.WordViewSet, base_name='word')
+router.register(r'skintype', views.SkinTypeViewSet, base_name='skintype')
 
 urlpatterns = [
     url(r'^word/autocomplete/$', views.WordAutocompleteAPIView.as_view(), name='word-autocomplete'),

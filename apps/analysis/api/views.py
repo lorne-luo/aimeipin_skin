@@ -8,7 +8,7 @@ from core.api.permission import AdminOnlyPermissions
 from core.django.autocomplete import HansSelect2ViewMixin
 from core.django.permission import SellerRequiredMixin
 from core.api.views import CommonViewSet
-from ..models import Word
+from ..models import Word, SkinType
 from . import serializers
 
 log = logging.getLogger(__name__)
@@ -26,6 +26,14 @@ class WordViewSet(CommonViewSet):
                        PinyinSearchFilter,
                        filters.OrderingFilter)
 
+
+class SkinTypeViewSet(CommonViewSet):
+    """ API views for Word """
+    queryset = SkinType.objects.all()
+    serializer_class = serializers.SkinTypeSerializer
+    filter_fields = ['name', 'short_name']
+    search_fields = ['name',]
+    permission_classes = (AdminOnlyPermissions,)
 
 class WordAutocompleteAPIView(SellerRequiredMixin, HansSelect2ViewMixin, autocomplete.Select2QuerySetView):
     model = Word

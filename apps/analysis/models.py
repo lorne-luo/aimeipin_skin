@@ -3,8 +3,17 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from pypinyin import Style
 from config.constants import (SKIN_OILY_TYPE_CHOICES, SKIN_SENSITIVE_TYPE_CHOICES, SKIN_PIGMENT_TYPE_CHOICES,
-                              SKIN_LOOSE_TYPE_CHOICES, PURPOSE_CHOICES)
+                              SKIN_LOOSE_TYPE_CHOICES, PURPOSE_CHOICES, SKIN_TYPE_DIMENSION_CHOICES)
 from core.django.models import PinYinFieldModelMixin
+
+
+class SkinType(models.Model):
+    dimension = models.CharField(_('维度'), max_length=64, choices=SKIN_TYPE_DIMENSION_CHOICES, blank=True)
+    name = models.CharField(_('名称'), max_length=64,
+                            choices=SKIN_OILY_TYPE_CHOICES + SKIN_SENSITIVE_TYPE_CHOICES + SKIN_PIGMENT_TYPE_CHOICES + SKIN_LOOSE_TYPE_CHOICES,
+                            blank=True)
+    short_name = models.CharField(_('简称'), max_length=64, blank=True)
+    description = models.TextField(_('类型'), max_length=128, blank=True)
 
 
 class Word(PinYinFieldModelMixin, models.Model):

@@ -127,16 +127,16 @@ class Answer(models.Model):
 
     # 不记分选择题 50-64
     non_score_question1 = models.CharField('50. 排便是否正常?', blank=True, max_length=255)  # No. 50
-    non_score_question2 = models.CharField('51. 洁面', blank=True, max_length=255)  # No. 51
-    non_score_question3 = models.CharField('52. 化妆水', blank=True, max_length=255)  # No. 52
-    non_score_question4 = models.CharField('53. 精华', blank=True, max_length=255)  # No. 53
-    non_score_question5 = models.CharField('54. 乳液或面霜', blank=True, max_length=255)  # No. 54
-    non_score_question6 = models.CharField('55. 防晒', blank=True, max_length=255)  # No. 55
-    non_score_question7 = models.CharField('56. 卸妆', blank=True, max_length=255)  # No. 56
-    non_score_question8 = models.CharField('57. 洁面', blank=True, max_length=255)  # No. 57
-    non_score_question9 = models.CharField('58. 化妆水', blank=True, max_length=255)  # No. 58
-    non_score_question10 = models.CharField('59. 精华', blank=True, max_length=255)  # No. 59
-    non_score_question11 = models.CharField('60. 乳液或面霜', blank=True, max_length=255)  # No. 60
+    non_score_question2 = models.CharField('51. 日间-洁面', blank=True, max_length=255)  # No. 51
+    non_score_question3 = models.CharField('52. 日间-化妆水', blank=True, max_length=255)  # No. 52
+    non_score_question4 = models.CharField('53. 日间-精华', blank=True, max_length=255)  # No. 53
+    non_score_question5 = models.CharField('54. 日间-乳液或面霜', blank=True, max_length=255)  # No. 54
+    non_score_question6 = models.CharField('55. 日间-防晒', blank=True, max_length=255)  # No. 55
+    non_score_question7 = models.CharField('56. 夜间-卸妆', blank=True, max_length=255)  # No. 56
+    non_score_question8 = models.CharField('57. 夜间-洁面', blank=True, max_length=255)  # No. 57
+    non_score_question9 = models.CharField('58. 夜间-化妆水', blank=True, max_length=255)  # No. 58
+    non_score_question10 = models.CharField('59. 夜间-精华', blank=True, max_length=255)  # No. 59
+    non_score_question11 = models.CharField('60. 夜间-乳液或面霜', blank=True, max_length=255)  # No. 60
     non_score_question12 = models.CharField('61. 面膜（非清洁类面膜）', blank=True, max_length=255)  # No. 61
     non_score_question13 = models.CharField('62. 去角质清洁面膜（去角质啫喱，泥面膜或其它清洁面膜）的频次', blank=True, max_length=255)  # No. 62
     non_score_question14 = models.CharField('63. 您是否去有定期去美容院或医美机构做皮肤护理的习惯？', blank=True, max_length=255)  # No. 63

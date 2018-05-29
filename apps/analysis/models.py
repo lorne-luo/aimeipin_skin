@@ -13,7 +13,8 @@ class SkinType(models.Model):
                             choices=SKIN_OILY_TYPE_CHOICES + SKIN_SENSITIVE_TYPE_CHOICES + SKIN_PIGMENT_TYPE_CHOICES + SKIN_LOOSE_TYPE_CHOICES,
                             blank=True)
     short_name = models.CharField(_('简称'), max_length=64, blank=True)
-    description = models.TextField(_('类型'), max_length=128, blank=True)
+    short_description = models.TextField(_('简评'), max_length=255, blank=True)
+    description = models.TextField(_('备注'), max_length=512, blank=True)
 
     def __str__(self):
         return self.name

@@ -18,7 +18,7 @@ class ReportAddForm(forms.ModelForm):
 class ReportUpdateForm(forms.ModelForm):
     class Meta:
         model = Report
-        exclude = ['answer', 'purpose', 'level']
+        exclude = ['answer', 'purpose', 'level', 'day_products', 'night_products', 'mask_products']
 
 
 class ReportDetailForm(forms.ModelForm):

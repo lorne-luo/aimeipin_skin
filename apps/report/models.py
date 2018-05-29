@@ -15,10 +15,14 @@ class Report(models.Model):
     level = models.CharField('价位', max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 价位
 
     # 肤质4个维度种类
-    oily_type = models.ForeignKey('analysis.SkinType',verbose_name=_('油性or干性'), blank=True, null=True,related_name='report_oily_type')
-    sensitive_type = models.ForeignKey('analysis.SkinType',verbose_name=_('敏感or耐受'), blank=True, null=True,related_name='report_sensitive_type')
-    pigment_type = models.ForeignKey('analysis.SkinType',verbose_name=_('色素or非色素'), blank=True, null=True,related_name='report_pigment_type')
-    loose_type = models.ForeignKey('analysis.SkinType',verbose_name=_('易皱纹or紧致'),  blank=True, null=True,related_name='report_loose_type')
+    oily_type = models.ForeignKey('analysis.SkinType', verbose_name=_('油性or干性'), blank=True, null=True,
+                                  related_name='report_oily_type')
+    sensitive_type = models.ForeignKey('analysis.SkinType', verbose_name=_('敏感or耐受'), blank=True, null=True,
+                                       related_name='report_sensitive_type')
+    pigment_type = models.ForeignKey('analysis.SkinType', verbose_name=_('色素or非色素'), blank=True, null=True,
+                                     related_name='report_pigment_type')
+    loose_type = models.ForeignKey('analysis.SkinType', verbose_name=_('易皱纹or紧致'), blank=True, null=True,
+                                   related_name='report_loose_type')
 
     # 肤质4个维度的测试评分
     oily_score = models.PositiveIntegerField('油干分数', blank=True, null=True)
@@ -30,13 +34,20 @@ class Report(models.Model):
     problem = models.TextField('2. 我们认为您存在的问题', max_length=128, blank=True)  # 存在的问题
     avoid_component = models.TextField('4) 需要避免使用的皮肤护理成分', max_length=128, blank=True)  # 避免使用的成分
     doctor_advice = models.TextField('三、听听皮肤科医生怎么说', max_length=128, blank=True)  # 医生建议
-    day_instruct = models.CharField('日间', max_length=512, blank=True)  # 日间指导
-    night_instruct = models.CharField('夜间', max_length=512, blank=True)  # 夜间指导
-    mask_instruct = models.CharField('面膜', max_length=512, blank=True)  # 面膜指导
+    # day_instruct = models.CharField('日间', max_length=512, blank=True)  # 日间指导
+    # night_instruct = models.CharField('夜间', max_length=512, blank=True)  # 夜间指导
+    # mask_instruct = models.CharField('面膜', max_length=512, blank=True)  # 面膜指导
     emergency_solution = models.TextField('应急方案', max_length=128, blank=True)  # 应急方案
     maintain_solution = models.TextField('日常维稳方案', max_length=128, blank=True)  # 维稳方案
     allergy = models.TextField('过敏', max_length=128, blank=True)  # 过敏, answer.other_question2
     remark = models.TextField('温馨提示', max_length=128, blank=True)  # 温馨提示, for 9.9
+    day_products = models.ManyToManyField('premium_product.PremiumProduct', related_name='day_products', blank=True,
+                                          verbose_name=u'日间')
+    night_products = models.ManyToManyField('premium_product.PremiumProduct', related_name='night_products', blank=True,
+                                            verbose_name=u'夜间')
+    mask_products = models.ManyToManyField('premium_product.PremiumProduct', related_name='mask_products', blank=True,
+                                           verbose_name=u'面膜')
+
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     def classify_skin_type(self):
@@ -45,10 +56,10 @@ class Report(models.Model):
         self.pigment_score = self.answer.pigment_score
         self.loose_score = self.answer.loose_score
 
-        self.oily_type = SkinType.get_oily_type(self.oily_score).name
-        self.sensitive_type = SkinType.get_sensitive_type(self.sensitive_score).name
-        self.pigment_type = SkinType.get_pigment_type(self.pigment_score).name
-        self.loose_type = SkinType.get_loose_type(self.loose_score).name
+        self.oily_type = SkinType.get_oily_type(self.oily_score)
+        self.sensitive_type = SkinType.get_sensitive_type(self.sensitive_score)
+        self.pigment_type = SkinType.get_pigment_type(self.pigment_score)
+        self.loose_type = SkinType.get_loose_type(self.loose_score)
 
     def save(self, *args, **kwargs):
         super(Report, self).save(*args, **kwargs)

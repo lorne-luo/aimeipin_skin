@@ -1,0 +1,33 @@
+<div class="">
+    <h3 class="box-title">产品成分</h3>
+    <table id="attachments-table" class="col-xs-12">
+        {{ products_formset.management_form }}
+        <thead>
+        <tr>
+            <th></th>
+            {% with products_formset.forms|first as first_product_form %}
+                {% for field in first_product_form.visible_fields %}
+                    <th><label>{{ field.label }}</label></th>
+                {% endfor %}
+            {% endwith %}
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="{{ products_formset.prefix }}_table">
+        {% for form in products_formset.forms %}
+            <tr class="{% cycle row1 row2 %} formset_row">
+                <td>
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+                </td>
+                {% for field in form.visible_fields %}
+                    <td class="{% if form.type.errors %}error{% endif %}">
+                        {{ field }}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -34,5 +34,8 @@
             {% endif %}
         </div>
     {% endfor %}
+    {% include 'report/includes/products_formset.html' with products_formset=day_products_formset %}
+    {% include 'report/includes/products_formset.html' with products_formset=night_products_formset %}
+    {% include 'report/includes/products_formset.html' with products_formset=mask_products_formset %}
     </div>
 {% endblock %}

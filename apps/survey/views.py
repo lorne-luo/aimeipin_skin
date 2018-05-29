@@ -142,9 +142,9 @@ class SurveyFillView(CommonContextMixin, UpdateView):
         self.process_formset(self.object.cosmetic_products8, 'cosmetic_products8_formset')
 
     def process_formset(self, product_set, prefix):
-        cosmetic_products1_formset = AnswerProductFormSet(data=self.request.POST, prefix=prefix)
+        products_formset = AnswerProductFormSet(data=self.request.POST, prefix=prefix)
         ids = []
-        for p in cosmetic_products1_formset:
+        for p in products_formset:
             if p.is_valid():
                 p.save()
                 product_set.add(p)

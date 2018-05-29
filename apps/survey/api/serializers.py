@@ -23,7 +23,9 @@ class AnswerSerializer(BaseSerializer):
         return '是' if obj.is_changeable else '否'
 
     def get_survey_url(self, obj):
-        return reverse('survey:survey-pc', args=[obj.uuid])
+        if obj.uuid:
+            return reverse('survey:survey-pc', args=[obj.uuid])
+        return ''
 
     def get_report_add_url(self, obj):
         return reverse('report:report-add', args=[obj.id])

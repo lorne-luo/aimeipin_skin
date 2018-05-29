@@ -2,6 +2,8 @@ from django.http import Http404
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
 
+from apps.premium_product.forms import PremiumProductFormSet
+from apps.premium_product.models import PremiumProduct
 from apps.survey.models import Answer
 from core.django.views import CommonContextMixin
 from .models import Report
@@ -59,6 +61,45 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     model = Report
     form_class = forms.ReportUpdateForm
     template_name = 'report/report_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ReportUpdateView, self).get_context_data(**kwargs)
+        if self.object:
+            day_products_formset = PremiumProductFormSet(initial=self.object.day_products.all(),
+                                                         prefix='day_products_formset')
+            night_products_formset = PremiumProductFormSet(initial=self.object.night_products.all(),
+                                                           prefix='night_products_formset')
+            mask_products_formset = PremiumProductFormSet(initial=self.object.mask_products.all(),
+                                                          prefix='mask_products_formset')
+        else:
+            day_products_formset = PremiumProductFormSet(prefix='day_products_formset')
+            night_products_formset = PremiumProductFormSet(prefix='night_products_formset')
+            mask_products_formset = PremiumProductFormSet(prefix='mask_products_formset')
+
+        context.update({
+            'day_products_formset': day_products_formset,
+            'night_products_formset': night_products_formset,
+            'mask_products_formset': mask_products_formset,
+        })
+        return context
+
+    def process_formset(self, product_set, prefix):
+        products_formset = PremiumProductFormSet(data=self.request.POST, prefix=prefix)
+        ids = []
+        for p in products_formset:
+            if p.is_valid():
+                p.save()
+                product_set.add(p)
+                ids.append(p.id)
+        deletes = product_set.all().exclude(id__in=ids)
+        deletes.delete()
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.process_formset(self.object.day_products, 'day_products_formset')
+        self.process_formset(self.object.night_products, 'night_products_formset')
+        self.process_formset(self.object.mask_products, 'mask_products_formset')
+        return super(ReportUpdateView, self).form_valid(form)
 
 
 class ReportDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):

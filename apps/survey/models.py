@@ -243,6 +243,10 @@ class Answer(models.Model):
         return super(Answer, self).delete(using, keep_parents)
 
     def generate_report(self, purpose, level):
+        if not purpose:
+            purpose = self.purpose
+        if not level:
+            level = self.level
         report = Report(answer=self, purpose=purpose, level=level)
         report.generate()
         return report

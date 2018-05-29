@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import inlineformset_factory
+from django.forms import inlineformset_factory, formset_factory
 from django.utils.translation import ugettext_lazy as _
 
 from core.django.widgets import ThumbnailImageInput
@@ -24,6 +24,7 @@ class PremiumProductDetailForm(forms.ModelForm):
         model = PremiumProduct
         fields = ['name_en', 'name_cn', 'alias', 'pic']
 
+
 class PremiumProductFitInlineForm(forms.ModelForm):
     class Meta:
         model = PremiumProductFit
@@ -39,4 +40,13 @@ class PremiumProductFitInlineForm(forms.ModelForm):
 
 
 PremiumProductFitFormSet = inlineformset_factory(PremiumProduct, PremiumProductFit, form=PremiumProductFitInlineForm,
-                                               can_order=False, can_delete=True, extra=1)
+                                                 can_order=False, can_delete=True, extra=1)
+
+
+class PremiumProductInlineForm(forms.ModelForm):
+    class Meta:
+        model = PremiumProduct
+        fields = ['id', 'name_cn']
+
+
+PremiumProductFormSet = formset_factory(PremiumProductInlineForm, extra=1, can_delete=True)

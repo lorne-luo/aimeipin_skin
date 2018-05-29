@@ -7,7 +7,7 @@ from rest_framework import permissions, filters
 from core.api.filters import PinyinSearchFilter
 from core.utils.string import include_non_asc
 from core.django.autocomplete import HansSelect2ViewMixin
-from core.django.permission import SellerRequiredMixin
+from braces.views import SuperuserRequiredMixin
 from core.api.views import CommonViewSet
 from ..models import PremiumProduct
 from . import serializers
@@ -28,7 +28,7 @@ class PremiumProductViewSet(CommonViewSet):
                        filters.OrderingFilter)
 
 
-class PremiumProductAutocompleteAPIView(SellerRequiredMixin, HansSelect2ViewMixin, autocomplete.Select2QuerySetView):
+class PremiumProductAutocompleteAPIView(SuperuserRequiredMixin, HansSelect2ViewMixin, autocomplete.Select2QuerySetView):
     model = PremiumProduct
     paginate_by = 20
     create_field = 'name_cn'
@@ -37,7 +37,7 @@ class PremiumProductAutocompleteAPIView(SellerRequiredMixin, HansSelect2ViewMixi
         return self.get_queryset().create(**{self.create_field: text, 'seller': self.request.profile})
 
     def get_queryset(self):
-        qs = PremiumProduct.objects.all_for_seller(self.request.user).order_by('brand__name_en', 'name_cn')
+        qs = PremiumProduct.objects.all().order_by('brand__name_en', 'name_cn')
 
         if include_non_asc(self.q):
             qs = qs.filter(Q(name_cn__icontains=self.q) | Q(brand__name_cn__icontains=self.q))

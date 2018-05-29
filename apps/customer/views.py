@@ -4,7 +4,6 @@ from django.db import transaction
 from django.http import HttpResponse
 from django.views.generic import ListView, CreateView, UpdateView
 
-from core.django.permission import SellerOwnerOrSuperuserRequiredMixin
 from core.django.views import CommonContextMixin
 from . import forms
 from .models import Customer

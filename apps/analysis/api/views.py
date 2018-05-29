@@ -1,4 +1,6 @@
 import logging
+
+from braces.views import SuperuserRequiredMixin
 from dal import autocomplete
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
@@ -6,7 +8,6 @@ from rest_framework import filters
 from core.api.filters import PinyinSearchFilter
 from core.api.permission import AdminOnlyPermissions
 from core.django.autocomplete import HansSelect2ViewMixin
-from core.django.permission import SellerRequiredMixin
 from core.api.views import CommonViewSet
 from ..models import Word, SkinType
 from . import serializers
@@ -35,6 +36,6 @@ class SkinTypeViewSet(CommonViewSet):
     search_fields = ['name',]
     permission_classes = (AdminOnlyPermissions,)
 
-class WordAutocompleteAPIView(SellerRequiredMixin, HansSelect2ViewMixin, autocomplete.Select2QuerySetView):
+class WordAutocompleteAPIView(SuperuserRequiredMixin, HansSelect2ViewMixin, autocomplete.Select2QuerySetView):
     model = Word
     paginate_by = 20

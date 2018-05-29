@@ -85,11 +85,11 @@ class Word(PinYinFieldModelMixin, models.Model):
     loose_type = models.ForeignKey('analysis.SkinType',verbose_name=_('易皱纹or紧致'),  blank=True, null=True,related_name='word_loose_type')
 
     report = models.TextField(_('皮肤检测报告总结'), max_length=512, blank=True)  # 总结报告，填充值问卷报告的总结
-    problem = models.TextField(_('我们认为您存在的问题'), max_length=128, blank=True)  # 存在的问题
-    avoid_component = models.TextField(_('需要避免使用的皮肤护理成分'), max_length=128, blank=True)  # 避免使用的成分
-    doctor_advice = models.TextField(_('听听皮肤科医生怎么说'), max_length=128, blank=True)  # 医生建议
-    emergency_solution = models.TextField(_('应急方案'), max_length=128, blank=True)  # 应急方案
-    maintain_solution = models.TextField(_('日常维稳方案'), max_length=128, blank=True)  # 维稳方案
+    problem = models.TextField(_('我们认为您存在的问题'), max_length=1024, blank=True)  # 存在的问题
+    avoid_component = models.TextField(_('需要避免使用的皮肤护理成分'), max_length=1024, blank=True)  # 避免使用的成分
+    doctor_advice = models.TextField(_('听听皮肤科医生怎么说'), max_length=1024, blank=True)  # 医生建议
+    emergency_solution = models.TextField(_('应急方案'), max_length=1024, blank=True)  # 应急方案
+    maintain_solution = models.TextField(_('日常维稳方案'), max_length=1024, blank=True)  # 维稳方案
 
     day_instruct = models.CharField(_('日间'), max_length=512, blank=True)  # 日间指导
     night_instruct = models.CharField(_('夜间'), max_length=512, blank=True)  # 夜间指导

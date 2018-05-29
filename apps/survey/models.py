@@ -194,6 +194,11 @@ class Answer(models.Model):
         super(Answer, self).save(*args, **kwargs)
 
     @property
+    def age(self):
+        today = timezone.now().today()
+        return today.year - self.birth.year - ((today.month, today.day) < (self.birth.month, self.birth.day))
+
+    @property
     def oily_score(self):
         return sum([self.question1, self.question2, self.question3, self.question4, self.question5, self.question6,
                     self.question7, self.question8, self.question9, self.question10])

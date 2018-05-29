@@ -10,14 +10,18 @@ class AnswerSerializer(BaseSerializer):
     is_changeable_display = serializers.SerializerMethodField()
     survey_url = serializers.SerializerMethodField()
     report_add_url = serializers.SerializerMethodField()
+    age = serializers.SerializerMethodField()
 
     class Meta:
         model = Answer
         fields = ['id', 'edit_url', 'detail_url'] + \
                  ['city', 'name', 'sex', 'portrait', 'portrait_part', 'cosmetics', 'birth', 'height', 'weight', 'job',
                   'monthly_income', 'weixin_id', 'mobile', 'is_changeable_display', 'status', 'get_status_display',
-                  'survey_url', 'report_add_url']
+                  'survey_url', 'report_add_url', 'age']
         read_only_fields = ['id']
+
+    def get_age(self, obj):
+        return obj.age
 
     def get_is_changeable_display(self, obj):
         return '是' if obj.is_changeable else '否'

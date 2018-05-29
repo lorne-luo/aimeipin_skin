@@ -34,9 +34,9 @@ class Report(models.Model):
     problem = models.TextField('2. 我们认为您存在的问题', max_length=128, blank=True)  # 存在的问题
     avoid_component = models.TextField('4) 需要避免使用的皮肤护理成分', max_length=128, blank=True)  # 避免使用的成分
     doctor_advice = models.TextField('三、听听皮肤科医生怎么说', max_length=128, blank=True)  # 医生建议
-    # day_instruct = models.CharField('日间', max_length=512, blank=True)  # 日间指导
-    # night_instruct = models.CharField('夜间', max_length=512, blank=True)  # 夜间指导
-    # mask_instruct = models.CharField('面膜', max_length=512, blank=True)  # 面膜指导
+    day_instruct = models.CharField('日间', max_length=512, blank=True)  # 日间指导
+    night_instruct = models.CharField('夜间', max_length=512, blank=True)  # 夜间指导
+    mask_instruct = models.CharField('面膜', max_length=512, blank=True)  # 面膜指导
     emergency_solution = models.TextField('应急方案', max_length=128, blank=True)  # 应急方案
     maintain_solution = models.TextField('日常维稳方案', max_length=128, blank=True)  # 维稳方案
     allergy = models.TextField('过敏', max_length=128, blank=True)  # 过敏, answer.other_question2

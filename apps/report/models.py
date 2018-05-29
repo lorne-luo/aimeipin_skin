@@ -69,6 +69,9 @@ class Report(models.Model):
         self.allergy = self.answer.other_question2
         self.save()
 
+    def __str__(self):
+        return '%s %s#%s' % (self.answer.name, self.purpose, self.level)
+
 
 class ReportProductAnalysis(models.Model):
     '''用户使用产品的分析 user_product_txt'''

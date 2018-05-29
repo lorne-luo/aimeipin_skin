@@ -2,6 +2,7 @@ from django import forms
 from django.forms import inlineformset_factory, formset_factory
 from django.utils.translation import ugettext_lazy as _
 
+from core.django.autocomplete import FormsetModelSelect2
 from core.django.widgets import ThumbnailImageInput
 from .models import PremiumProduct, Brand, PremiumProductFit
 
@@ -43,10 +44,15 @@ PremiumProductFitFormSet = inlineformset_factory(PremiumProduct, PremiumProductF
                                                  can_order=False, can_delete=True, extra=1)
 
 
-class PremiumProductInlineForm(forms.ModelForm):
+class PremiumProductInlineForm(forms.Form):
+    id = forms.IntegerField(widget=forms.HiddenInput)
+    product = forms.ModelChoiceField(label=u'优选产品', queryset=PremiumProduct.objects.all(), required=True,
+                                     widget=FormsetModelSelect2(url='api:premiumproduct-autocomplete',
+                                                                attrs={'data-placeholder': u'任意中英文名称...',
+                                                                       'class': 'form-control'})
+                                     )
     class Meta:
-        model = PremiumProduct
-        fields = ['id', 'name_cn']
+        fields = ['id', 'product']
 
 
 PremiumProductFormSet = formset_factory(PremiumProductInlineForm, extra=1, can_delete=True)

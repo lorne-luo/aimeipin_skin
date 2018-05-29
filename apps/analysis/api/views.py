@@ -18,8 +18,8 @@ class WordViewSet(CommonViewSet):
     """ API views for Word """
     queryset = Word.objects.all()
     serializer_class = serializers.WordSerializer
-    filter_fields = ['purpose', 'oily_type', 'sensitive_type', 'pigment_type', 'loose_type']
-    search_fields = ['purpose', 'oily_type', 'sensitive_type', 'pigment_type', 'loose_type']
+    filter_fields = ['purpose', 'oily_type__name', 'sensitive_type__name', 'pigment_type__name', 'loose_type__name']
+    search_fields = ['purpose', 'oily_type__name', 'sensitive_type__name', 'pigment_type__name', 'loose_type__name']
     permission_classes = (AdminOnlyPermissions,)
     pinyin_search_fields = ['pinyin']  # search only input are all ascii chars
     filter_backends = (DjangoFilterBackend,

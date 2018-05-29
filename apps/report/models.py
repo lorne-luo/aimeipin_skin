@@ -15,15 +15,10 @@ class Report(models.Model):
     level = models.CharField('价位', max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 价位
 
     # 肤质4个维度种类
-    oily_type = models.CharField('油干类型', max_length=64, choices=SKIN_OILY_TYPE_CHOICES, blank=True)
-    sensitive_type = models.CharField('敏感耐受型', max_length=64, choices=SKIN_SENSITIVE_TYPE_CHOICES, blank=True)
-    pigment_type = models.CharField('色素类型', max_length=64, choices=SKIN_PIGMENT_TYPE_CHOICES, blank=True)
-    loose_type = models.CharField('易皱纹紧致型', max_length=64, choices=SKIN_LOOSE_TYPE_CHOICES, blank=True)
-
-    oily_type2 = models.ForeignKey('analysis.SkinType',verbose_name=_('油性or干性'), blank=True, null=True,related_name='report_oily_type')
-    sensitive_type2 = models.ForeignKey('analysis.SkinType',verbose_name=_('敏感or耐受'), blank=True, null=True,related_name='report_sensitive_type')
-    pigment_type2 = models.ForeignKey('analysis.SkinType',verbose_name=_('色素or非色素'), blank=True, null=True,related_name='report_pigment_type')
-    loose_type2 = models.ForeignKey('analysis.SkinType',verbose_name=_('易皱纹or紧致'),  blank=True, null=True,related_name='report_loose_type')
+    oily_type = models.ForeignKey('analysis.SkinType',verbose_name=_('油性or干性'), blank=True, null=True,related_name='report_oily_type')
+    sensitive_type = models.ForeignKey('analysis.SkinType',verbose_name=_('敏感or耐受'), blank=True, null=True,related_name='report_sensitive_type')
+    pigment_type = models.ForeignKey('analysis.SkinType',verbose_name=_('色素or非色素'), blank=True, null=True,related_name='report_pigment_type')
+    loose_type = models.ForeignKey('analysis.SkinType',verbose_name=_('易皱纹or紧致'),  blank=True, null=True,related_name='report_loose_type')
 
     # 肤质4个维度的测试评分
     oily_score = models.PositiveIntegerField('油干分数', blank=True, null=True)

@@ -14,7 +14,7 @@ class WordListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(WordListView, self).get_context_data(**kwargs)
         context['table_titles'] = [u'目标', u'油性or干性', u'敏感or耐受', u'色素or非色素', u'易皱or紧致', '']
-        context['table_fields'] = ['purpose', 'oily_type', 'sensitive_type', 'pigment_type', 'loose_type', 'id']
+        context['table_fields'] = ['purpose', 'oily_type_display', 'sensitive_type_display', 'pigment_type_display', 'loose_type_display', 'id']
         return context
 
 

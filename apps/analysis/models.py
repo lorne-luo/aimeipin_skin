@@ -79,15 +79,10 @@ class Word(PinYinFieldModelMixin, models.Model):
     """肤质对应话术, skin_word"""
     purpose = models.CharField(_('目标'), max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
 
-    oily_type = models.CharField(_('油性or干性'), max_length=64, choices=SKIN_OILY_TYPE_CHOICES, blank=True)
-    sensitive_type = models.CharField(_('敏感or耐受'), max_length=64, choices=SKIN_SENSITIVE_TYPE_CHOICES, blank=True)
-    pigment_type = models.CharField(_('色素or非色素'), max_length=64, choices=SKIN_PIGMENT_TYPE_CHOICES, blank=True)
-    loose_type = models.CharField(_('易皱纹or紧致'), max_length=64, choices=SKIN_LOOSE_TYPE_CHOICES, blank=True)
-
-    oily_type2 = models.ForeignKey('analysis.SkinType',verbose_name=_('油性or干性'), blank=True, null=True,related_name='word_oily_type')
-    sensitive_type2 = models.ForeignKey('analysis.SkinType',verbose_name=_('敏感or耐受'), blank=True, null=True,related_name='word_sensitive_type')
-    pigment_type2 = models.ForeignKey('analysis.SkinType',verbose_name=_('色素or非色素'), blank=True, null=True,related_name='word_pigment_type')
-    loose_type2 = models.ForeignKey('analysis.SkinType',verbose_name=_('易皱纹or紧致'),  blank=True, null=True,related_name='word_loose_type')
+    oily_type = models.ForeignKey('analysis.SkinType',verbose_name=_('油性or干性'), blank=True, null=True,related_name='word_oily_type')
+    sensitive_type = models.ForeignKey('analysis.SkinType',verbose_name=_('敏感or耐受'), blank=True, null=True,related_name='word_sensitive_type')
+    pigment_type = models.ForeignKey('analysis.SkinType',verbose_name=_('色素or非色素'), blank=True, null=True,related_name='word_pigment_type')
+    loose_type = models.ForeignKey('analysis.SkinType',verbose_name=_('易皱纹or紧致'),  blank=True, null=True,related_name='word_loose_type')
 
     report = models.TextField(_('皮肤检测报告总结'), max_length=512, blank=True)  # 总结报告，填充值问卷报告的总结
     problem = models.TextField(_('我们认为您存在的问题'), max_length=128, blank=True)  # 存在的问题
@@ -103,10 +98,10 @@ class Word(PinYinFieldModelMixin, models.Model):
     pinyin = models.CharField(_(u'pinyin'), max_length=512, blank=True)
     pinyin_fields_conf = [
         ('purpose', Style.NORMAL, False),
-        ('oily_type', Style.NORMAL, False),
-        ('sensitive_type', Style.NORMAL, False),
-        ('pigment_type', Style.NORMAL, False),
-        ('loose_type', Style.NORMAL, False),
+        ('oily_type__name', Style.NORMAL, False),
+        ('sensitive_type__name', Style.NORMAL, False),
+        ('pigment_type__name', Style.NORMAL, False),
+        ('loose_type__name', Style.NORMAL, False),
     ]
 
     class Meta:

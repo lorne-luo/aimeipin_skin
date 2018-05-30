@@ -1,6 +1,9 @@
 from django import forms
+from django.forms import inlineformset_factory
 
-from .models import Report
+from apps.premium_product.models import PremiumProduct
+from core.django.autocomplete import FormsetModelSelect2
+from .models import Report, ReportPremiumProduct
 
 
 class ReportAddForm(forms.ModelForm):
@@ -25,3 +28,24 @@ class ReportDetailForm(forms.ModelForm):
     class Meta:
         model = Report
         fields = '__all__'
+
+
+class PremiumProductInlineForm(forms.ModelForm):
+    # id = forms.IntegerField(widget=forms.HiddenInput)
+    type = forms.CharField(widget=forms.HiddenInput)
+    product = forms.ModelChoiceField(label=u'优选产品', queryset=PremiumProduct.objects.all(), required=True,
+                                     widget=FormsetModelSelect2(url='api:premiumproduct-autocomplete',
+                                                                attrs={'data-placeholder': u'任意中英文名称...',
+                                                                       'class': 'form-control'})
+                                     )
+
+    class Meta:
+        model = ReportPremiumProduct
+        fields = ['id','type', 'report', 'product']  # 'id',
+
+    def save(self, commit=True):
+        return super(PremiumProductInlineForm, self).save(commit)
+
+
+PremiumProductFormSet = inlineformset_factory(Report, ReportPremiumProduct, form=PremiumProductInlineForm,
+                                              can_order=False, can_delete=True, extra=1)

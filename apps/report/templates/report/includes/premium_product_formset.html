@@ -1,22 +1,36 @@
 <div class="form-group">
     <h5 class="box-title">{{ title }}</h5>
+    {{ products_formset.management_form }}
+
     <table id="attachments-table" class="col-xs-8">
         <tbody id="{{ products_formset.prefix }}_table">
         {% for form in products_formset.forms %}
             <tr class="{% cycle row1 row2 %} formset_row">
-                <td>
-                    {{ products_formset.management_form }}
-                    {% for hidden in form.hidden_fields %}
-                        {{ hidden }}
-                    {% endfor %}
+                <td class="">
+                    {{ form.product }}
                 </td>
-                {% for field in form.visible_fields %}
-                    <td class="{% if form.type.errors %}error{% endif %}">
-                        {{ field }}
-                    </td>
-                {% endfor %}
+                <td class="">
+                    {{ form.id }}
+                    {{ form.type }}
+                    {{ form.DELETE }}
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
+
+
+<script type="text/javascript">
+    $('#{{ products_formset.prefix }}_table .formset_row').formset({
+        addText: '增加一项',
+        prefix: '{{ products_formset.prefix }}',
+        addCssClass: 'btn btn-success',
+        deleteCssClass: 'remove-day-products',
+        formCssClass: 'dynamic-form',
+        deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>',
+        added: function () {
+            // added callback
+        }
+    });
+</script>

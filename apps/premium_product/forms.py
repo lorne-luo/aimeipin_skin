@@ -42,17 +42,3 @@ class PremiumProductFitInlineForm(forms.ModelForm):
 
 PremiumProductFitFormSet = inlineformset_factory(PremiumProduct, PremiumProductFit, form=PremiumProductFitInlineForm,
                                                  can_order=False, can_delete=True, extra=1)
-
-
-class PremiumProductInlineForm(forms.Form):
-    id = forms.IntegerField(widget=forms.HiddenInput)
-    product = forms.ModelChoiceField(label=u'优选产品', queryset=PremiumProduct.objects.all(), required=True,
-                                     widget=FormsetModelSelect2(url='api:premiumproduct-autocomplete',
-                                                                attrs={'data-placeholder': u'任意中英文名称...',
-                                                                       'class': 'form-control'})
-                                     )
-    class Meta:
-        fields = ['id', 'product']
-
-
-PremiumProductFormSet = formset_factory(PremiumProductInlineForm, extra=1, can_delete=True)

@@ -321,7 +321,7 @@ class SurveyFillForm(forms.ModelForm):
 
     class Meta:
         model = Answer
-        exclude = ['customer', 'created_at', 'status', 'city', 'code', 'purpose', 'level']
+        exclude = ['customer', 'created_at', 'status', 'city', 'code', 'purpose', 'level', 'ip']
 
     def __init__(self, *args, **kwargs):
         super(SurveyFillForm, self).__init__(*args, **kwargs)
@@ -334,6 +334,7 @@ class SurveyFillForm(forms.ModelForm):
 
     def clean_is_changeable(self):
         return False
+
 
 class AnswerDetailForm(SurveyFillForm):
     class Meta:

@@ -127,16 +127,18 @@ b{
 }
 
 /* from page */
+.button-div{
+    text-align: center
+}
 #button{
     background: #13A5EC;
     color: #fff;
     border: none;
-    width: 100px;
-    height: 30px;
-    border-radius: 5px;
-    margin-left: 300px;
+    width: 120px;
+    height: 40px;
     cursor: pointer;
-    /*font-size: 18px;*/
+    border-radius: 5px;
+    font-size: 18px;
 }
 .hufupin2{
     display:none;

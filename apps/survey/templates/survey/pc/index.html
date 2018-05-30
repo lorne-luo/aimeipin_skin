@@ -19,6 +19,10 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'css/survey/pc.css' %}" rel="stylesheet">
 
+    <link href="{% static 'plugins/sweetalert/1.1.3/sweetalert.min.css' %}" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="{% static 'plugins/sweetalert/1.1.3/sweetalert.min.js' %}"></script>
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 {#    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">#}
 
@@ -144,19 +148,12 @@
                 {% include 'survey/includes/question.html' with field=form.other_question2 number=74 %}
 
                 {{ form.errors }}
-                <input type="submit" value="submit"/>
-                <input type="button" value="提交" id="button" onclick="bthClick()"/>
+                <div class="button-div">
+                    <input type="submit" value="提交" id="button" onclick="bthClick()"/>
+                </div>
             </form>
         </div>
     </div>
-    <div id="mask">
-        <div>
-            <p>温馨提示</p>
-            <textarea readonly>您有3、5、26题没有填写，请填写完成</textarea>
-            <input type="button" value="继续" id="goon"/>
-        </div>
-    </div>
-
 </div><!-- /.container -->
 
 

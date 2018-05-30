@@ -60,7 +60,12 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     """ Update views for Report """
     model = Report
     form_class = forms.ReportUpdateForm
-    template_name = 'report/report_form.html'
+    template_name = 'report/report_form_%s.html'
+
+    def get_template_names(self):
+        if self.object.level in ['9.9', '98']:
+            return self.template_name % self.object.level
+        return 'report/report_form_9.9.html'
 
     def get_context_data(self, **kwargs):
         context = super(ReportUpdateView, self).get_context_data(**kwargs)

@@ -11,11 +11,11 @@
 {% endblock %}
 
 {% block form_content %}
-    <div class="col-xs-12">
+    <div class="col-xs-12 col-lg-10">
         <h3>1.用户信息</h3>
 
-        <div class="form-group">
-            <div class="form-group col-xs-10">
+        <div class="row">
+            <div class="col-xs-12">
                 <table class="table table-striped">
                     <tr>
                         <th>姓名</th>
@@ -45,7 +45,7 @@
 
         <h3>2.皮肤检测报告</h3>
         <div class="form-group">
-            <div class="col-xs-10">
+            <div class="col-xs-12">
                 <table class="table table-bordered">
                     <thead class="thead-dark">
                     <tr>
@@ -93,7 +93,7 @@
         <h3>一. 护肤方式诊断</h3>
         <h4>1. 您现在的护肤步骤</h4>
         <div class="form-group">
-            <div class="col-xs-10">
+            <div class="col-xs-12">
                 <table class="table table-bordered">
                     <tr>
                         <th>日间</th>
@@ -137,7 +137,7 @@
 
         <h4>2. 我们认为您存在的问题</h4>
         <div class="form-group">
-            <div class="col-xs-10">
+            <div class="col-xs-12">
                 {{ form.problem }}
             </div>
         </div>
@@ -145,20 +145,20 @@
         <h3>二、护肤品的选择</h3>
         <h4>1. 您的常规皮肤护理目标是</h4>
         <div class="form-group">
-            <div class="col-xs-3">
+            <div class="col-xs-12 col-lg-4 col-md-7">
                 {{ form.purpose }}
             </div>
         </div>
         <h4>2. 过敏成分及症状</h4>
         <div class="form-group">
-            <div class="col-xs-10">
+            <div class="col-xs-12">
                 {{ form.allergy }}
             </div>
         </div>
 
         <h4>3. 护肤品分析</h4>
         <div class="form-group">
-            <div class="col-xs-10">
+            <div class="col-xs-12">
 
                 <table class="table table-bordered">
                     <thead>
@@ -184,14 +184,14 @@
 
         <h4>4. 需要避免使用的皮肤护理成分</h4>
         <div class="form-group">
-            <div class="col-xs-10">
+            <div class="col-xs-12">
                 {{ form.avoid_component }}
             </div>
         </div>
 
         <h4>5. 建议您更换的产品</h4>
         <div class="form-group">
-            <div class="col-xs-10 col-xs-offset-1">
+            <div class="col-xs-11 col-xs-offset-1">
                 {% include 'report/includes/premium_product_formset.html' with products_formset=day_products_formset title='日间' %}
                 {% include 'report/includes/premium_product_formset.html' with products_formset=night_products_formset title='晚间' %}
                 {% include 'report/includes/premium_product_formset.html' with products_formset=mask_products_formset title='面膜' %}
@@ -200,14 +200,14 @@
 
         <h3>三、听听皮肤科医生怎么说</h3>
         <div class="form-group">
-            <div class="col-xs-10">
+            <div class="col-xs-12">
                 {{ form.doctor_advice }}
             </div>
         </div>
 
         <h4>Practise 指导方案</h4>
         <div class="form-group">
-            <div class="col-xs-10">
+            <div class="col-xs-12">
                 <table class="table table-bordered">
                     <tr>
                         <th>日间</th>
@@ -235,7 +235,7 @@
         <p>根据您的肌肤状况给您如下建议:</p>
         <h4>应急方案</h4>
         <div class="form-group">
-            <div class="col-xs-10">
+            <div class="col-xs-12">
                 {{ form.emergency_solution }}
             </div>
         </div>
@@ -243,7 +243,7 @@
         <h4>日常维稳方案</h4>
         <p>您可以按照以下方式进行护理：</p>
         <div class="form-group">
-            <div class="col-xs-10">
+            <div class="col-xs-12">
                 {{ form.maintain_solution }}
             </div>
         </div>

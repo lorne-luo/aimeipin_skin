@@ -41,12 +41,6 @@ class Report(models.Model):
     maintain_solution = models.TextField('日常维稳方案', max_length=128, blank=True)  # 维稳方案
     allergy = models.TextField('过敏', max_length=128, blank=True)  # 过敏, answer.other_question2
     remark = models.TextField('温馨提示', max_length=128, blank=True)  # 温馨提示, for 9.9
-    day_products = models.ManyToManyField('premium_product.PremiumProduct', related_name='day_products', blank=True,
-                                          verbose_name=u'日间')
-    night_products = models.ManyToManyField('premium_product.PremiumProduct', related_name='night_products', blank=True,
-                                            verbose_name=u'夜间')
-    mask_products = models.ManyToManyField('premium_product.PremiumProduct', related_name='mask_products', blank=True,
-                                           verbose_name=u'面膜')
 
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
@@ -81,7 +75,10 @@ class ReportProductAnalysis(models.Model):
     analysis = models.TextField(max_length=128, blank=True)  # 护肤品分析
 
 
-class ReportProductAdvice(models.Model):
+class ReportPremiumProduct(models.Model):
     report = models.ForeignKey(Report, null=False, blank=False)
     type = models.CharField(max_length=64, choices=PREMIUM_PRODUCT_ADVICE_TYPE_CHOICES, blank=True)
     product = models.ForeignKey('premium_product.PremiumProduct', null=False, blank=False)
+
+    def __str__(self):
+        return '%s @ %s %s' % (self.product, self.report, self.type)

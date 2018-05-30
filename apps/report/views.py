@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import Http404
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
@@ -63,23 +64,31 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ReportUpdateView, self).get_context_data(**kwargs)
-        if self.object:
-            day_products_formset = PremiumProductFormSet(
-                queryset=self.object.reportpremiumproduct_set.all().filter(type='日间'),
-                instance=self.object,
-                prefix='day_products_formset')
-            night_products_formset = PremiumProductFormSet(
-                queryset=self.object.reportpremiumproduct_set.all().filter(type='夜间'),
-                instance=self.object,
-                prefix='night_products_formset')
-            mask_products_formset = PremiumProductFormSet(
-                queryset=self.object.reportpremiumproduct_set.all().filter(type='面膜'),
-                instance=self.object,
-                prefix='mask_products_formset')
+        if self.request.method == 'GET':
+            if self.object:
+                day_products_formset = PremiumProductFormSet(
+                    queryset=self.object.reportpremiumproduct_set.all().filter(type='日间'),
+                    instance=self.object,
+                    prefix='day_products_formset')
+                night_products_formset = PremiumProductFormSet(
+                    queryset=self.object.reportpremiumproduct_set.all().filter(type='夜间'),
+                    instance=self.object,
+                    prefix='night_products_formset')
+                mask_products_formset = PremiumProductFormSet(
+                    queryset=self.object.reportpremiumproduct_set.all().filter(type='面膜'),
+                    instance=self.object,
+                    prefix='mask_products_formset')
+            else:
+                day_products_formset = PremiumProductFormSet(instance=self.object, prefix='day_products_formset')
+                night_products_formset = PremiumProductFormSet(instance=self.object, prefix='night_products_formset')
+                mask_products_formset = PremiumProductFormSet(instance=self.object, prefix='mask_products_formset')
         else:
-            day_products_formset = PremiumProductFormSet(prefix='day_products_formset')
-            night_products_formset = PremiumProductFormSet(prefix='night_products_formset')
-            mask_products_formset = PremiumProductFormSet(prefix='mask_products_formset')
+            day_products_formset = PremiumProductFormSet(self.request.POST, self.request.FILES,
+                                                         instance=self.object, prefix='day_products_formset')
+            night_products_formset = PremiumProductFormSet(self.request.POST, self.request.FILES,
+                                                           instance=self.object, prefix='night_products_formset')
+            mask_products_formset = PremiumProductFormSet(self.request.POST, self.request.FILES,
+                                                          instance=self.object, prefix='mask_products_formset')
 
         context.update({
             'day_products_formset': day_products_formset,
@@ -96,24 +105,16 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
             products_formset.save()
             return True
         else:
+            messages.error(self.request, str(products_formset.errors))
             return False
-
-
-        # ids = []
-        # for p in products_formset:
-        #     if p.is_valid():
-        #         p.save()
-        #         product_set.add(p)
-        #         ids.append(p.id)
-        # deletes = product_set.all().exclude(id__in=ids)
-        # deletes.delete()
 
     def form_valid(self, form):
         result = super(ReportUpdateView, self).form_valid(form)
 
-        self.process_formset('day_products_formset')
-        self.process_formset('night_products_formset')
-        self.process_formset('mask_products_formset')
+        if not all([self.process_formset('day_products_formset'),
+                    self.process_formset('night_products_formset'),
+                    self.process_formset('mask_products_formset')]):
+            return self.form_invalid(form)
         return result
 
 

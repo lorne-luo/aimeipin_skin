@@ -1,23 +1,19 @@
-<div class="form-group">
+<div class="form-group"  id="{{ products_formset.prefix }}_table">
     <h5 class="box-title">{{ title }}</h5>
     {{ products_formset.management_form }}
 
-    <table id="attachments-table" class="col-xs-8">
-        <tbody id="{{ products_formset.prefix }}_table">
-        {% for form in products_formset.forms %}
-            <tr class="{% cycle row1 row2 %} formset_row">
-                <td class="">
-                    {{ form.product }}
-                </td>
-                <td class="">
-                    {{ form.id }}
-                    {{ form.type }}
-                    {{ form.DELETE }}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% for form in products_formset.forms %}
+        <div class="form-group col-xs-12 {% cycle row1 row2 %} formset_row">
+            <div class="col-md-8 col-xs-11">
+                {{ form.product }}
+            </div>
+            <div class="">
+                {{ form.id }}
+                {{ form.type }}
+                {{ form.DELETE }}
+            </div>
+        </div>
+    {% endfor %}
 </div>
 
 

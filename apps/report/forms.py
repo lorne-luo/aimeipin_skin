@@ -32,7 +32,7 @@ class ReportDetailForm(forms.ModelForm):
 
 class PremiumProductInlineForm(forms.ModelForm):
     # id = forms.IntegerField(widget=forms.HiddenInput)
-    type = forms.CharField(widget=forms.HiddenInput)
+    type = forms.CharField(widget=forms.HiddenInput, required=False)
     product = forms.ModelChoiceField(label=u'优选产品', queryset=PremiumProduct.objects.all(), required=True,
                                      widget=FormsetModelSelect2(url='api:premiumproduct-autocomplete',
                                                                 attrs={'data-placeholder': u'任意中英文名称...',
@@ -41,7 +41,18 @@ class PremiumProductInlineForm(forms.ModelForm):
 
     class Meta:
         model = ReportPremiumProduct
-        fields = ['id','type', 'report', 'product']  # 'id',
+        fields = ['id', 'type', 'report', 'product']
+
+    def clean(self):
+        product = self.cleaned_data['product']
+        if product:
+            if self.prefix.startswith('day_products_formset'):
+                self.cleaned_data['type'] = '日间'
+            elif self.prefix.startswith('night_products_formset'):
+                self.cleaned_data['type'] = '夜间'
+            elif self.prefix.startswith('mask_products_formset'):
+                self.cleaned_data['type'] = '面膜'
+        return self.cleaned_data
 
 
 PremiumProductFormSet = inlineformset_factory(Report, ReportPremiumProduct, form=PremiumProductInlineForm,

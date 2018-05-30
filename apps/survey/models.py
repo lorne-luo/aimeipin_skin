@@ -211,7 +211,9 @@ class Answer(QRCodeModel, models.Model):
     @property
     def age(self):
         today = timezone.now().today()
-        return today.year - self.birth.year - ((today.month, today.day) < (self.birth.month, self.birth.day))
+        if self.birth:
+            return today.year - self.birth.year - ((today.month, today.day) < (self.birth.month, self.birth.day))
+        return None
 
     @property
     def oily_score(self):

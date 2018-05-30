@@ -11,17 +11,21 @@ class AnswerSerializer(BaseSerializer):
     survey_url = serializers.SerializerMethodField()
     report_add_url = serializers.SerializerMethodField()
     age = serializers.SerializerMethodField()
+    qrcode_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Answer
         fields = ['id', 'edit_url', 'detail_url'] + \
                  ['city', 'name', 'sex', 'portrait', 'portrait_part', 'cosmetics', 'birth', 'height', 'weight', 'job',
                   'monthly_income', 'weixin_id', 'mobile', 'is_changeable_display', 'status', 'get_status_display',
-                  'survey_url', 'report_add_url', 'age']
+                  'survey_url', 'report_add_url', 'age', 'qrcode_url']
         read_only_fields = ['id']
 
     def get_age(self, obj):
         return obj.age
+
+    def get_qrcode_url(self, obj):
+        return obj.get_qrcode_url()
 
     def get_is_changeable_display(self, obj):
         return '是' if obj.is_changeable else '否'

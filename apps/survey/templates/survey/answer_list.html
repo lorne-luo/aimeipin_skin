@@ -17,6 +17,7 @@
         <td>{!! item.mobile !!}</td>
         <td>{!! item.is_changeable_display !!}</td>
         <td>
+            <a href="{!! item.qrcode_url !!}" target="_blank">二维码</a>
             <button data-url="{{ request.scheme }}://{{ request.get_host }}{!! item.survey_url !!}"
                     onclick="copyClipboard(this)">复制问卷链接
             </button>

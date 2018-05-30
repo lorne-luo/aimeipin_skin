@@ -16,6 +16,22 @@ from core.utils.ip import get_location
 from core.utils.qrcode import generate_qrcode
 
 
+class QRCodeModel(object):
+    @property
+    def url(self):
+        return reverse('survey:survey-pc', args=[self.uuid])
+
+    @property
+    def full_url(self):
+        return settings.BASE_URL + self.url
+
+    def generate_uuid(self):
+        uid = uuid.uuid4().hex[:8]
+        while (Answer.objects.filter(uuid=uid).exists()):
+            uid = uuid.uuid4().hex[:8]
+        return uid
+
+
 def get_answer_photo_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = instance.name_en + '_' if instance.name_en else ''
@@ -23,7 +39,6 @@ def get_answer_photo_path(instance, filename):
     filename = filename.replace(' ', '-')
     filename = '%s.%s' % (filename, ext)
     file_path = os.path.join(ANSWER_PHOTO_FOLDER, filename)
-
     return file_path
 
 
@@ -35,11 +50,11 @@ class AnswerManager(models.Manager):
         return self.filter(status='CREATED')
 
 
-class Answer(models.Model):
+class Answer(QRCodeModel, models.Model):
     """问卷报告回答,answer"""
     customer = models.ForeignKey('customer.Customer', null=True, blank=True)
     code = models.OneToOneField('InviteCode', null=True, blank=True, on_delete=models.DO_NOTHING)
-    uuid = models.CharField('uuid', max_length=64, blank=True)  # duplication of invitecode.uuid
+    uuid = models.CharField('uuid', max_length=64, blank=True, unique=True)  # duplication of invitecode.uuid
     purpose = models.CharField('目标', max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
     level = models.CharField('价位', max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 价位
     city = models.CharField(_(u'城市'), max_length=255, blank=True)  # 自动抓取地址
@@ -256,8 +271,15 @@ class Answer(models.Model):
         report.generate()
         return report
 
+    def get_qrcode_url(self):
+        file_name = '%s.png' % self.uuid
+        file_path = os.path.join(settings.MEDIA_ROOT, settings.QRCODE_FOLDER, file_name)
+        if os.path.exists(file_path):
+            return '%s%s/%s' % (settings.MEDIA_URL, settings.QRCODE_FOLDER, file_name)
+        return generate_qrcode(self.full_url, self.uuid)
 
-class InviteCode(models.Model):
+
+class InviteCode(QRCodeModel, models.Model):
     uuid = models.CharField(u'邀请码', blank=False, max_length=32, unique=True)
     name = models.CharField(u'姓名', blank=True, max_length=32)
     purpose = models.CharField('目标', max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
@@ -270,9 +292,13 @@ class InviteCode(models.Model):
     def __str__(self):
         return self.uuid
 
+    def set_uuid(self):
+        if not self.uuid:
+            self.uuid = self.generate_uuid()
+
     def save(self, *args, **kwargs):
+        self.set_uuid()
         if not self.id:
-            self.uuid = uuid.uuid4().hex
             self.created_at = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)  # midnight
             self.expiry_at = self.created_at + relativedelta(days=settings.INVITE_CODE_EXPIRY)
         if not self.qrcode_url and self.uuid:
@@ -282,14 +308,6 @@ class InviteCode(models.Model):
     @property
     def is_used(self):
         return hasattr(self, 'answer')
-
-    @property
-    def url(self):
-        return reverse('survey:survey-pc', args=[self.uuid])
-
-    @property
-    def full_url(self):
-        return settings.BASE_URL + self.url
 
     def generate_qrcode(self, save=True):
         self.qrcode_url = generate_qrcode(self.full_url, self.uuid)

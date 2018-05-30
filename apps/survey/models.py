@@ -273,10 +273,10 @@ class Answer(QRCodeModel, models.Model):
 
     def get_qrcode_url(self):
         file_name = '%s.png' % self.uuid
-        file_path = os.path.join(settings.MEDIA_ROOT, settings.QRCODE_FOLDER, file_name)
-        if os.path.exists(file_path):
-            return '%s%s/%s' % (settings.MEDIA_URL, settings.QRCODE_FOLDER, file_name)
-        return generate_qrcode(self.full_url, self.uuid)
+        # file_path = os.path.join(settings.MEDIA_ROOT, settings.QRCODE_FOLDER, file_name)
+        # if os.path.exists(file_path):
+        return '%s%s/%s' % (settings.MEDIA_URL, settings.QRCODE_FOLDER, file_name)
+        # return generate_qrcode(self.full_url, self.uuid)
 
 
 class InviteCode(QRCodeModel, models.Model):

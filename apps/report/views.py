@@ -92,7 +92,12 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
         products_formset = PremiumProductFormSet(self.request.POST, self.request.FILES,
                                                  prefix=prefix, instance=self.object)
         products_formset.instance = self.object
-        products_formset.save()
+        if products_formset.is_valid():
+            products_formset.save()
+            return True
+        else:
+            return False
+
 
         # ids = []
         # for p in products_formset:

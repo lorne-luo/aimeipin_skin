@@ -43,9 +43,6 @@ class PremiumProductInlineForm(forms.ModelForm):
         model = ReportPremiumProduct
         fields = ['id','type', 'report', 'product']  # 'id',
 
-    def save(self, commit=True):
-        return super(PremiumProductInlineForm, self).save(commit)
-
 
 PremiumProductFormSet = inlineformset_factory(Report, ReportPremiumProduct, form=PremiumProductInlineForm,
                                               can_order=False, can_delete=True, extra=1)

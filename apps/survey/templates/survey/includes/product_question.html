@@ -22,10 +22,11 @@
             <ul class="ulcontainer" id="re_name">
                 {% for form in formset %}
                     <li>
-                    {{ form.id }}
-                    {{ form.product }}
-                    {{ form.name }}
-                    {{ form.DELETE }}
+                        <span>{{ form.name.value }}</span>
+                        {{ form.id }}
+                        {{ form.product }}
+                        {{ form.name }}
+                        {{ form.DELETE }}
                     </li>
                 {% endfor %}
             </ul>

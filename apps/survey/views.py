@@ -84,21 +84,29 @@ class SurveyFillView(CommonContextMixin, UpdateView):
         context = super(SurveyFillView, self).get_context_data(**kwargs)
         if self.request.method == "GET":
             if self.object:
-                initial1 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                initial1 = [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                             'name': cosmetic.name or str(cosmetic.product)}
                             for cosmetic in self.object.cosmetic_products1.all()]
-                initial2 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                initial2 = [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                             'name': cosmetic.name or str(cosmetic.product)}
                             for cosmetic in self.object.cosmetic_products2.all()]
-                initial3 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                initial3 = [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                             'name': cosmetic.name or str(cosmetic.product)}
                             for cosmetic in self.object.cosmetic_products3.all()]
-                initial4 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                initial4 = [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                             'name': cosmetic.name or str(cosmetic.product)}
                             for cosmetic in self.object.cosmetic_products4.all()]
-                initial5 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                initial5 = [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                             'name': cosmetic.name or str(cosmetic.product)}
                             for cosmetic in self.object.cosmetic_products5.all()]
-                initial6 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                initial6 = [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                             'name': cosmetic.name or str(cosmetic.product)}
                             for cosmetic in self.object.cosmetic_products6.all()]
-                initial7 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                initial7 = [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                             'name': cosmetic.name or str(cosmetic.product)}
                             for cosmetic in self.object.cosmetic_products7.all()]
-                initial8 = [{'id': cosmetic.id, 'product': cosmetic.product_id, 'name': cosmetic.name}
+                initial8 = [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                             'name': cosmetic.name or str(cosmetic.product)}
                             for cosmetic in self.object.cosmetic_products8.all()]
                 cosmetic_products1_formset = AnswerProductFormSet(prefix='cosmetic_products1_formset', initial=initial1)
                 cosmetic_products2_formset = AnswerProductFormSet(prefix='cosmetic_products2_formset', initial=initial2)

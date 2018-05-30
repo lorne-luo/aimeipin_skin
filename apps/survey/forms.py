@@ -375,9 +375,9 @@ class InviteCodeDetailForm(forms.ModelForm):
 
 
 class AnswerProductInlineForm(forms.Form):
-    id = forms.IntegerField(widget=forms.HiddenInput)
-    product = forms.IntegerField(widget=forms.HiddenInput)
-    name = forms.CharField(label='Product name', max_length=100)
+    id = forms.IntegerField(widget=forms.HiddenInput, required=False)
+    product = forms.IntegerField(widget=forms.HiddenInput, required=False)
+    name = forms.CharField(label='Product name', max_length=100, widget=forms.HiddenInput, required=False)
 
     class Meta:
         fields = ['id', 'product', 'name']
@@ -386,6 +386,23 @@ class AnswerProductInlineForm(forms.Form):
         super(AnswerProductInlineForm, self).__init__(*args, **kwargs)
         self.fields['name'].disabled = True
         self.fields['name'].widget.attrs['readonly'] = True
+
+    def save(self):
+        id = self.cleaned_data['id']
+        product = self.cleaned_data['product']
+        name = self.cleaned_data['name']
+        DELETE = self.cleaned_data['DELETE']
+        if DELETE and id:
+            AnswerProduct.objects.filter(id=id).delete()
+        elif id:
+            obj = AnswerProduct.objects.filter(id=id).first()
+            if obj:
+                obj.product_id = product
+                obj.name = name
+                obj.save()
+
+        answer = AnswerProduct(product_id=product, name=name)
+        answer.save()
 
 
 # AnswerProductFormSet = inlineformset_factory(Answer, AnswerProduct, form=AnswerProductInlineForm,

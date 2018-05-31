@@ -408,4 +408,4 @@ class AnswerProductInlineForm(forms.Form):
 # AnswerProductFormSet = inlineformset_factory(Answer, AnswerProduct, form=AnswerProductInlineForm,
 #                                              fk_name='cosmetic_products1', can_order=False, can_delete=True, extra=1)
 
-AnswerProductFormSet = formset_factory(AnswerProductInlineForm, extra=0, can_delete=True)
+AnswerProductFormSet = formset_factory(AnswerProductInlineForm, extra=1, can_delete=True)

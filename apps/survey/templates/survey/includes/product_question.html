@@ -1,7 +1,6 @@
 <ul>
     <li>
         <p>{{ field.label }}</p>
-        {{ formset.management_form }}
     </li>
     <li class="hufupin">
         <div>
@@ -11,26 +10,51 @@
             <ul class="hufupin1" cate="12">
             </ul>
 
-            <input class="span1" onclick="spanClick(this)" placeholder="请选择产品">
+            <input class="span1" placeholder="请选择产品">
             <ul class="hufupin2 pin">
             </ul>
         </div>
         <div>
+            {{ formset.management_form }}
             <input type="text" placeholder="手动输入产品名称" class="handInp"/>
             <a class="add" onclick="add(this)">添加</a>
 
-            <ul class="ulcontainer" id="re_name">
+            <ul class="ulcontainer" id="{{ formset.prefix }}">
+
                 {% for form in formset %}
-                    <li>
-                        <span>{{ form.name.value }}</span>
-                        {{ form.id }}
-                        {{ form.product }}
-                        {{ form.name }}
-                        {{ form.DELETE }}
-                    </li>
+                    {% if form.id.value %}
+                        <li class="{% cycle row1 row2 %} formset_row">
+                            <span>{{ form.name.value }}</span>
+                            {{ form.id }}
+                            {{ form.product }}
+                            {{ form.name }}
+                            {{ form.DELETE }}
+                        </li>
+                    {% else %}
+                        <li id="template" style="display: none">
+                            {{ form.id }}
+                            {{ form.product }}
+                            {{ form.name }}
+{#                            {{ form.DELETE }}#}
+                        </li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>
-{#        <input type="hidden" name="re_name" value="" class="re_name"/>#}
+        {#        <input type="hidden" name="re_name" value="" class="re_name"/>#}
     </li>
 </ul>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.{{ formset.prefix }} = $('#{{ formset.prefix }} .formset_row').formset({
+            addText: 'add new',
+            prefix: '{{ formset.prefix }}',
+            formTemplate: '#{{ formset.prefix }} #template',
+            addCssClass: 'btn btn-success',
+            deleteCssClass: 'remove-day-products',
+            formCssClass: 'dynamic-form',
+            deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>'
+        });
+    });
+</script>

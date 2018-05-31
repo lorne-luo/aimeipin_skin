@@ -133,23 +133,6 @@ function selChange(tsel) {
     });
 }
 
-function spanClick(span) {
-    return;
-    if ($(span).next().next().children().length == 0) {
-//             alert("此品牌无产品！");
-        var bodyHeight = parseFloat($('body').css('height')) + 60;
-        $('#mask').css('height', bodyHeight + "px");
-        $('#mask').show();
-        $('#mask>div>textarea').html("此品牌无产品!");
-        $('#goon').on('click', function () {
-            $('#mask').hide();
-        });
-        return;
-
-    }
-    $(span).next().next().toggleClass('active');
-}
-
 function liClick(li) {
     $(li).parent().prev().val('');
     // $(li).parent().prev().prev().attr('data-id', $(li).attr('data-id'));
@@ -161,6 +144,10 @@ function liClick(li) {
 }
 
 function add(aaa) {
+    var form_prefix=$(aaa).next().attr('id');
+    console.log(window[form_prefix]);
+    console.log(window[form_prefix].options);
+
     // add product by name
     var input = $(aaa).prev();
     if (input.val()) {

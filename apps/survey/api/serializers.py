@@ -32,7 +32,7 @@ class AnswerSerializer(BaseSerializer):
 
     def get_survey_url(self, obj):
         if obj.uuid:
-            return reverse('survey:survey-pc', args=[obj.uuid])
+            return reverse('survey:answer', args=[obj.uuid])
         return ''
 
     def get_report_add_url(self, obj):

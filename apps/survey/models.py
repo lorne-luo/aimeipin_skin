@@ -19,17 +19,37 @@ from core.utils.qrcode import generate_qrcode
 class QRCodeModel(object):
     @property
     def url(self):
-        return reverse('survey:survey-pc', args=[self.uuid])
+        if self.uuid:
+            return reverse('survey:answer', args=[self.uuid])
+        return None
 
     @property
     def full_url(self):
-        return settings.BASE_URL + self.url
+        if self.url:
+            return settings.BASE_URL + self.url
+        return None
 
     def generate_uuid(self):
         uid = uuid.uuid4().hex[:8]
         while (Answer.objects.filter(uuid=uid).exists()):
             uid = uuid.uuid4().hex[:8]
         return uid
+
+    def generate_qrcode_file(url, uuid):
+        return generate_qrcode(url, uuid)
+
+    def get_qrcode_url(self, overwrite=False):
+        if not self.uuid:
+            return ''
+        if overwrite:
+            return generate_qrcode(self.full_url, self.uuid)
+
+        file_name = '%s.png' % self.uuid
+        file_path = os.path.join(settings.MEDIA_ROOT, settings.QRCODE_FOLDER, file_name)
+        if os.path.exists(file_path):
+            return '%s%s/%s' % (settings.MEDIA_URL, settings.QRCODE_FOLDER, file_name)
+        else:
+            return generate_qrcode(self.full_url, self.uuid)
 
 
 def get_answer_photo_path(instance, filename):
@@ -198,10 +218,14 @@ class Answer(QRCodeModel, models.Model):
     def save(self, *args, **kwargs):
         if not self.code and self.uuid:
             self.code = InviteCode.objects.filter(uuid=self.uuid).first()
+
         if not self.uuid and self.code:
             self.uuid = self.code.uuid
-        if not self.purpose and self.code:
+        elif not self.purpose and self.code:
             self.purpose = self.code.purpose
+        elif not self.uuid and not self.code:
+            self.uuid = self.generate_uuid()
+
         if not self.level and self.code:
             self.level = self.code.level
         if not self.city:
@@ -273,13 +297,6 @@ class Answer(QRCodeModel, models.Model):
         report.generate()
         return report
 
-    def get_qrcode_url(self):
-        file_name = '%s.png' % self.uuid
-        # file_path = os.path.join(settings.MEDIA_ROOT, settings.QRCODE_FOLDER, file_name)
-        # if os.path.exists(file_path):
-        return '%s%s/%s' % (settings.MEDIA_URL, settings.QRCODE_FOLDER, file_name)
-        # return generate_qrcode(self.full_url, self.uuid)
-
 
 class InviteCode(QRCodeModel, models.Model):
     uuid = models.CharField(u'邀请码', blank=False, max_length=32, unique=True)
@@ -294,27 +311,19 @@ class InviteCode(QRCodeModel, models.Model):
     def __str__(self):
         return self.uuid
 
-    def set_uuid(self):
+    def save(self, *args, **kwargs):
         if not self.uuid:
             self.uuid = self.generate_uuid()
-
-    def save(self, *args, **kwargs):
-        self.set_uuid()
         if not self.id:
             self.created_at = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)  # midnight
             self.expiry_at = self.created_at + relativedelta(days=settings.INVITE_CODE_EXPIRY)
         if not self.qrcode_url and self.uuid:
-            self.generate_qrcode(save=False)
+            self.qrcode_url = self.get_qrcode_url(overwrite=True)
         super(InviteCode, self).save(*args, **kwargs)
 
     @property
     def is_used(self):
         return hasattr(self, 'answer')
-
-    def generate_qrcode(self, save=True):
-        self.qrcode_url = generate_qrcode(self.full_url, self.uuid)
-        if save:
-            self.save()
 
 
 class AnswerProduct(models.Model):

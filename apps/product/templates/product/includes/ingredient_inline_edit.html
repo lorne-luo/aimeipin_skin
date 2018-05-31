@@ -70,20 +70,22 @@
 </div>
 
 <script type="text/javascript">
-    $('#{{ productingredient_formset.prefix }}_table .formset_row').formset({
-        addText: '添加新成分',
-        prefix: '{{ productingredient_formset.prefix }}',
-        addCssClass: 'btn btn-success',
-        deleteCssClass: 'remove-recipe-ingredient',
-        formCssClass: 'dynamic-form',
-        deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>',
-        added: function () {
-            // init iCheck
-            $('#{{ productingredient_formset.prefix }}_table input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' // optional
-            });
-        }
+    $(document).ready(function () {
+        $('#{{ productingredient_formset.prefix }}_table .formset_row').formset({
+            addText: '添加新成分',
+            prefix: '{{ productingredient_formset.prefix }}',
+            addCssClass: 'btn btn-success',
+            deleteCssClass: 'remove-recipe-ingredient',
+            formCssClass: 'dynamic-form',
+            deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>',
+            added: function () {
+                // init iCheck
+                $('#{{ productingredient_formset.prefix }}_table input').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue',
+                    increaseArea: '20%' // optional
+                });
+            }
+        });
     });
 </script>

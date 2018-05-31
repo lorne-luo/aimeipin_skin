@@ -1,4 +1,4 @@
-<div class="form-group"  id="{{ products_formset.prefix }}_table">
+<div class="form-group" id="{{ products_formset.prefix }}_table">
     <h5 class="box-title">{{ title }}</h5>
     {{ products_formset.management_form }}
 
@@ -18,15 +18,14 @@
 
 
 <script type="text/javascript">
-    $('#{{ products_formset.prefix }}_table .formset_row').formset({
-        addText: '增加一项',
-        prefix: '{{ products_formset.prefix }}',
-        addCssClass: 'btn btn-success',
-        deleteCssClass: 'remove-day-products',
-        formCssClass: 'dynamic-form',
-        deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>',
-        added: function () {
-            // added callback
-        }
+    $(document).ready(function () {
+        $('#{{ products_formset.prefix }}_table .formset_row').formset({
+            addText: '增加一项',
+            prefix: '{{ products_formset.prefix }}',
+            addCssClass: 'btn btn-success',
+            deleteCssClass: 'remove-day-products',
+            formCssClass: 'dynamic-form',
+            deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>'
+        });
     });
 </script>

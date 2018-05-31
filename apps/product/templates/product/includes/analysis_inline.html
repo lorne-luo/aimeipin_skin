@@ -55,25 +55,26 @@
 
     jQuery(document).ready(function ($) {
         initChosen();
+
+        $('#{{ productanalysis_formset.prefix }}_table .formset_row').formset({
+            addText: '添加产品话术',
+            prefix: '{{ productanalysis_formset.prefix }}',
+            addCssClass: 'btn btn-success',
+            deleteCssClass: 'remove-recipe-ingredient',
+            formCssClass: 'dynamic-form',
+            deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>',
+            added: function () {
+                // init iCheck
+                $('#{{ productanalysis_formset.prefix }}_table input').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue',
+                    increaseArea: '20%'
+                });
+
+                // jquery choosen init
+                initChosen();
+            }
+        });
     });
 
-    $('#{{ productanalysis_formset.prefix }}_table .formset_row').formset({
-        addText: '添加新成分',
-        prefix: '{{ productanalysis_formset.prefix }}',
-        addCssClass: 'btn btn-success',
-        deleteCssClass: 'remove-recipe-ingredient',
-        formCssClass: 'dynamic-form',
-        deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>',
-        added: function () {
-            // init iCheck
-            $('#{{ productanalysis_formset.prefix }}_table input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%'
-            });
-
-            // jquery choosen init
-            initChosen();
-        }
-    });
 </script>

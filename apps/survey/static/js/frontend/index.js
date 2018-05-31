@@ -144,15 +144,14 @@ function liClick(li) {
 }
 
 function add(aaa) {
-    var form_prefix=$(aaa).next().attr('id');
-    console.log(window[form_prefix]);
-    console.log(window[form_prefix].options);
-
     // add product by name
     var input = $(aaa).prev();
     if (input.val()) {
-        var li = '<li data-id=""><b>' + input.val() + '</b><span onclick="del(this)">删除</span></li>';
-        $(aaa).next().append(li);
+        var addButton=$(aaa).next().find('.formset-add');
+        addButton.trigger( "click" ,[1, input.val()]);
+
+        // var li = '<li data-id=""><b>' + input.val() + '</b><span onclick="del(this)">删除</span></li>';
+        // $(aaa).next().append(li);
         input.val('');
         input.focus();
     }

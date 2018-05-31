@@ -203,6 +203,7 @@ class Answer(QRCodeModel, models.Model):
 
     status = models.CharField(u'状态', choices=SURVEY_STATUS_CHOICES, blank=False, max_length=32, default='CREATED')
     is_changeable = models.BooleanField(u'是否可修改', default=True, blank=False)
+    modified_at = models.DateTimeField('最后更新', auto_now=True, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
     remark = models.TextField(u'备注', blank=True, max_length=255)
 

@@ -42,6 +42,7 @@ class Report(models.Model):
     allergy = models.TextField('过敏', max_length=128, blank=True)  # 过敏, answer.other_question2
     remark = models.TextField('温馨提示', max_length=128, blank=True)  # 温馨提示, for 9.9
 
+    modified_at = models.DateTimeField('最后更新', auto_now=True, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     def classify_skin_type(self):

@@ -14,7 +14,6 @@ $(document).ready(function () {
     }).blur(function (event) {
         var self = this;
         // console.log('input.blur');
-        // console.log(event);
         setTimeout(function () {
             $(self).parent().next().removeClass('active');
         }, 200);
@@ -102,9 +101,8 @@ function ullistSearch(search) {
 
 
 function selChange(tsel) {
-    // console.log('selChange');
+    // console.log('brand selected');
     var opt2 = '';
-    // $(tsel).parent().next().val("请选择产品");
     var id = {'id': $(tsel).attr('data-id'), 'cate': $(tsel).parent().attr('cate')};
     var brand_id = $(tsel).attr('data-id');
     $(tsel).parent().prev().find('input').val($(tsel).html());
@@ -126,6 +124,9 @@ function selChange(tsel) {
                     '</li>';
             }
             $(tsel).parent().next().next().html(opt2);
+            $(tsel).parent().next().attr('placeholder', '输入产品名称检索');
+            $(tsel).parent().next().trigger('focus');
+
         },
         error: function () {
             $(tsel).parent().next().next().html("");
@@ -134,24 +135,22 @@ function selChange(tsel) {
 }
 
 function liClick(li) {
+    // console.log('product selected');
     $(li).parent().prev().val('');
-    // $(li).parent().prev().prev().attr('data-id', $(li).attr('data-id'));
     $(li).parent().removeClass('active');
     var name = $(li).text();
     var id = $(li).attr('data-id');
-    var lilist = '<li data-id="' + id + '"><b>' + name + '</b><span onclick="del(this)">删除</span></li>';
-    $(li).parent().parent().next().find('ul.ulcontainer').append(lilist);
+    var addButton = $(li).parent().parent().next().find('.formset-add');
+    addButton.trigger("click", [id, name]);
+
 }
 
 function add(aaa) {
-    // add product by name
+    // console.log('add product by name');
     var input = $(aaa).prev();
     if (input.val()) {
-        var addButton=$(aaa).next().find('.formset-add');
-        addButton.trigger( "click" ,[1, input.val()]);
-
-        // var li = '<li data-id=""><b>' + input.val() + '</b><span onclick="del(this)">删除</span></li>';
-        // $(aaa).next().append(li);
+        var addButton = $(aaa).next().find('.formset-add');
+        addButton.trigger("click", [null, input.val()]);
         input.val('');
         input.focus();
     }
@@ -159,13 +158,4 @@ function add(aaa) {
 
 function del(ddd) {
     $(ddd).parent().remove();
-}
-
-
-function bthClick() {
-    // swal({
-    //   title: "Good job!",
-    //   text: "You clicked the button!",
-    //   icon: "success",
-    // });
 }

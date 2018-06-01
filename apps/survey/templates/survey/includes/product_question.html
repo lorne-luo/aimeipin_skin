@@ -10,7 +10,7 @@
             <ul class="hufupin1" cate="12">
             </ul>
 
-            <input class="span1" placeholder="请选择产品">
+            <input class="span1" placeholder="请先选择品牌">
             <ul class="hufupin2 pin">
             </ul>
         </div>
@@ -31,7 +31,7 @@
                             {{ form.DELETE }}
                         </li>
                     {% else %}
-                        <li id="template" style="display: none">
+                        <li class="formset_row" id="template" style="display: none">
                             {{ form.id }}
                             {{ form.product }}
                             {{ form.name }}

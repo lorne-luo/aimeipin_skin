@@ -1,4 +1,5 @@
 from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import ListView, CreateView, UpdateView, TemplateView
 from braces.views import SuperuserRequiredMixin
@@ -6,7 +7,7 @@ from braces.views import SuperuserRequiredMixin
 from apps.survey.forms import AnswerProductFormSet
 from core.django.utils.ip import get_client_ip
 from core.django.views import CommonContextMixin
-from .models import Answer, InviteCode
+from .models import Answer, InviteCode, AnswerProduct
 from . import forms
 
 
@@ -148,26 +149,35 @@ class SurveyFillView(CommonContextMixin, UpdateView):
         self.process_formset(self.object.cosmetic_products6, 'cosmetic_products6_formset')
         self.process_formset(self.object.cosmetic_products7, 'cosmetic_products7_formset')
         self.process_formset(self.object.cosmetic_products8, 'cosmetic_products8_formset')
+        self.object.save()
 
     def process_formset(self, product_set, prefix):
         products_formset = AnswerProductFormSet(data=self.request.POST, prefix=prefix)
         ids = []
         for p in products_formset:
             if p.is_valid():
-                p.save()
-                product_set.add(p)
-                ids.append(p.id)
-        deletes = product_set.all().exclude(id__in=ids)
-        deletes.delete()
+                if not p.cleaned_data:
+                    continue
+                id = p.cleaned_data['id']
+                if p.cleaned_data['DELETE']:
+                    product_set.remove(AnswerProduct.objects.filter(id=id).first())
+                    p.save()
+                    continue
+                instance = p.save()
+                product_set.add(instance)
+            else:
+                return False
 
     def form_valid(self, form):
+        if not self.object.ip:
+            self.object.ip = get_client_ip(self.request)
+            self.object.update_location()
+
         if self.object and self.object.id:
             # update existed
-            self.process_formsets()
             self.object = form.save()
-            if not self.object.ip:
-                self.object.ip = get_client_ip(self.request)
-                self.object.update_location()
+            self.process_formsets()
+
             return HttpResponseRedirect(self.get_success_url())
         else:
             # create new
@@ -178,8 +188,8 @@ class SurveyFillView(CommonContextMixin, UpdateView):
             return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
-        # todo submission success page
-        return '/'
+        return reverse('survey:answer-score', args=[self.uuid])
+        # return reverse('survey:answer', args=[self.uuid])
 
 
 class AnswerScoreView(TemplateView):

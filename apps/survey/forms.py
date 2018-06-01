@@ -382,27 +382,28 @@ class AnswerProductInlineForm(forms.Form):
     class Meta:
         fields = ['id', 'product', 'name']
 
-    def __init__(self, *args, **kwargs):
-        super(AnswerProductInlineForm, self).__init__(*args, **kwargs)
-        self.fields['name'].disabled = True
-        self.fields['name'].widget.attrs['readonly'] = True
+    # def __init__(self, *args, **kwargs):
+    #     super(AnswerProductInlineForm, self).__init__(*args, **kwargs)
+    #     self.fields['name'].disabled = True
+    #     self.fields['name'].widget.attrs['readonly'] = True
 
     def save(self):
         id = self.cleaned_data['id']
-        product = self.cleaned_data['product']
+        product_id = self.cleaned_data['product']
         name = self.cleaned_data['name']
         DELETE = self.cleaned_data['DELETE']
         if DELETE and id:
-            AnswerProduct.objects.filter(id=id).delete()
+            return AnswerProduct.objects.filter(id=id).delete()
         elif id:
             obj = AnswerProduct.objects.filter(id=id).first()
             if obj:
-                obj.product_id = product
+                obj.product_id = product_id
                 obj.name = name
                 obj.save()
-
-        answer = AnswerProduct(product_id=product, name=name)
-        answer.save()
+        else:
+            obj = AnswerProduct(product_id=product_id, name=name)
+            obj.save()
+        return obj
 
 
 # AnswerProductFormSet = inlineformset_factory(Answer, AnswerProduct, form=AnswerProductInlineForm,

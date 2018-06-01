@@ -329,8 +329,8 @@ class InviteCode(QRCodeModel, models.Model):
 
 class AnswerProduct(models.Model):
     product = models.ForeignKey('product.Product', null=True, blank=True)
-    name = models.CharField('product name', max_length=255, blank=False)
-    analysis = models.TextField('product analysis', max_length=255, blank=False)
+    name = models.CharField('product name', max_length=255, blank=True)
+    analysis = models.TextField('product analysis', max_length=255, blank=True)
 
     def __str__(self):
         if self.product:
@@ -339,6 +339,6 @@ class AnswerProduct(models.Model):
             return self.name
 
     def save(self, *args, **kwargs):
-        if not self.product:
+        if self.product:
             self.name = str(self.product)
-        super(AnswerProduct, self).save(*args, **kwargs)
+        return super(AnswerProduct, self).save(*args, **kwargs)

@@ -126,7 +126,6 @@ function selChange(tsel) {
             $(tsel).parent().next().next().html(opt2);
             $(tsel).parent().next().attr('placeholder', '输入产品名称检索');
             $(tsel).parent().next().trigger('focus');
-
         },
         error: function () {
             $(tsel).parent().next().next().html("");

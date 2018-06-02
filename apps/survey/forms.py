@@ -3,6 +3,7 @@ from django.contrib.contenttypes.forms import generic_inlineformset_factory
 from django.forms import inlineformset_factory, modelformset_factory, formset_factory
 from django.utils.translation import ugettext_lazy as _
 
+from apps.product.models import Product
 from config.constants import SEX_CHOICES, INCOME_CHOICES
 from core.django.widgets import ThumbnailImageInput
 from .models import Answer, InviteCode, AnswerProduct
@@ -340,7 +341,7 @@ class AnswerDetailForm(SurveyFillForm):
     class Meta:
         model = Answer
         exclude = ['customer', 'created_at', 'status', 'is_changeable', 'city', "uuid", 'remark', 'purpose', 'level',
-                   'code']
+                   'code', 'ip']
 
     def __init__(self, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
@@ -382,18 +383,14 @@ class AnswerProductInlineForm(forms.Form):
     class Meta:
         fields = ['id', 'product', 'name']
 
-    # def __init__(self, *args, **kwargs):
-    #     super(AnswerProductInlineForm, self).__init__(*args, **kwargs)
-    #     self.fields['name'].disabled = True
-    #     self.fields['name'].widget.attrs['readonly'] = True
-
     def save(self):
         id = self.cleaned_data['id']
         product_id = self.cleaned_data['product']
         name = self.cleaned_data['name']
         DELETE = self.cleaned_data['DELETE']
         if DELETE and id:
-            return AnswerProduct.objects.filter(id=id).delete()
+            AnswerProduct.objects.filter(id=id).delete()
+            return None
         elif id:
             obj = AnswerProduct.objects.filter(id=id).first()
             if obj:
@@ -401,8 +398,11 @@ class AnswerProductInlineForm(forms.Form):
                 obj.name = name
                 obj.save()
         else:
-            obj = AnswerProduct(product_id=product_id, name=name)
-            obj.save()
+            if Product.objects.filter(id=product_id).exists():
+                obj = AnswerProduct(product_id=product_id, name=name)
+                obj.save()
+            else:
+                return None
         return obj
 
 

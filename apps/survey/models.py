@@ -342,3 +342,15 @@ class AnswerProduct(models.Model):
         if self.product:
             self.name = str(self.product)
         return super(AnswerProduct, self).save(*args, **kwargs)
+
+    @property
+    def answer(self):
+        answers = self.cosmetic_products1.all() | self.cosmetic_products2.all() | self.cosmetic_products3.all() | self.cosmetic_products4.all() | self.cosmetic_products5.all() | self.cosmetic_products6.all() | self.cosmetic_products7.all() | self.cosmetic_products8.all()
+        return answers.first()
+
+    def update_analysis(self, force_update=False):
+        if self.answer and self.product:
+            if force_update or not self.analysis:
+                self.analysis = self.product.get_analysis(self.answer.oily_type, self.answer.sensitive_type,
+                                                          self.answer.pigment_type, self.answer.loose_type)
+                self.save()

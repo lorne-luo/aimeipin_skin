@@ -165,6 +165,7 @@ class SurveyFillView(CommonContextMixin, UpdateView):
                 instance = p.save()
                 if instance:
                     product_set.add(instance)
+                    instance.update_analysis() # init product analysis
             else:
                 return False
 

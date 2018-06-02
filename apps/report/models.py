@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from apps.analysis.models import SkinType
+from apps.analysis.models import SkinType, Word
 from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SKIN_OILY_TYPE_CHOICES, \
     SKIN_SENSITIVE_TYPE_CHOICES, SKIN_PIGMENT_TYPE_CHOICES, SKIN_LOOSE_TYPE_CHOICES, \
     PREMIUM_PRODUCT_ADVICE_TYPE_CHOICES, \
@@ -59,9 +59,39 @@ class Report(models.Model):
     def save(self, *args, **kwargs):
         super(Report, self).save(*args, **kwargs)
 
+    def get_word(self):
+        return Word.objects.filter(purpose=self.purpose, oily_type=self.oily_type, sensitive_type=self.sensitive_type,
+                                   pigment_type=self.pigment_type, loose_type=self.loose_type).first()
+
+    def analysis_product(self, answer_products):
+        for ap in answer_products:
+            ap.update_analysis(True)
+
     def generate(self):
         self.classify_skin_type()
         self.allergy = self.answer.other_question2
+
+        word = self.get_word()
+        if word:
+            self.summary = word.report
+            self.problem = word.problem
+            self.avoid_component = word.avoid_component
+            self.doctor_advice = word.doctor_advice
+            self.emergency_solution = word.emergency_solution
+            self.maintain_solution = word.maintain_solution
+            self.day_instruct = word.day_instruct
+            self.night_instruct = word.night_instruct
+            self.mask_instruct = word.mask_instruct
+
+        self.analysis_product(self.answer.cosmetic_products1.all())
+        self.analysis_product(self.answer.cosmetic_products2.all())
+        self.analysis_product(self.answer.cosmetic_products3.all())
+        self.analysis_product(self.answer.cosmetic_products4.all())
+        self.analysis_product(self.answer.cosmetic_products5.all())
+        self.analysis_product(self.answer.cosmetic_products6.all())
+        self.analysis_product(self.answer.cosmetic_products7.all())
+        self.analysis_product(self.answer.cosmetic_products8.all())
+
         self.save()
 
     def __str__(self):

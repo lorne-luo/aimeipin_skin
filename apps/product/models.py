@@ -85,6 +85,11 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
         if update_cache:
             Product.objects.clean_cache()
 
+    def get_analysis(self, oily_type, sensitive_type, pigment_type, loose_type):
+        analysis = ProductAnalysis.objects.filter(oily_type=oily_type, sensitive_type=sensitive_type,
+                                                  pigment_type=pigment_type, loose_type=loose_type)
+        return '\n'.join([x.analysis for x in analysis])
+
 
 @receiver(post_delete, sender=Product)
 def product_deleted(sender, **kwargs):
@@ -105,13 +110,18 @@ class ProductIngredient(models.Model):
     def __str__(self):
         return self.name
 
+
 class ProductAnalysis(models.Model):
     """产品的肤质阐述 skin_p_t"""
     product = models.ForeignKey('product.Product', blank=True, null=True)
 
-    oily_type = models.ForeignKey('analysis.SkinType',verbose_name=_('油性or干性'), blank=True, null=True,related_name='product_analysis_oily_type')
-    sensitive_type = models.ForeignKey('analysis.SkinType',verbose_name=_('敏感or耐受'), blank=True, null=True,related_name='product_analysis_sensitive_type')
-    pigment_type = models.ForeignKey('analysis.SkinType',verbose_name=_('色素or非色素'), blank=True, null=True,related_name='product_analysis_pigment_type')
-    loose_type = models.ForeignKey('analysis.SkinType',verbose_name=_('易皱纹or紧致'),  blank=True, null=True,related_name='product_analysis_loose_type')
+    oily_type = models.ForeignKey('analysis.SkinType', verbose_name=_('油性or干性'), blank=True, null=True,
+                                  related_name='product_analysis_oily_type')
+    sensitive_type = models.ForeignKey('analysis.SkinType', verbose_name=_('敏感or耐受'), blank=True, null=True,
+                                       related_name='product_analysis_sensitive_type')
+    pigment_type = models.ForeignKey('analysis.SkinType', verbose_name=_('色素or非色素'), blank=True, null=True,
+                                     related_name='product_analysis_pigment_type')
+    loose_type = models.ForeignKey('analysis.SkinType', verbose_name=_('易皱纹or紧致'), blank=True, null=True,
+                                   related_name='product_analysis_loose_type')
 
     analysis = models.TextField(_(u'对应阐述'), max_length=64, blank=True)

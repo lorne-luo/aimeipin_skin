@@ -79,11 +79,14 @@ class SkinType(models.Model):
 class Word(PinYinFieldModelMixin, models.Model):
     """肤质对应话术, skin_word"""
     purpose = models.CharField(_('目标'), max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
-
-    oily_type = models.ForeignKey('analysis.SkinType',verbose_name=_('油性or干性'), blank=True, null=True,related_name='word_oily_type')
-    sensitive_type = models.ForeignKey('analysis.SkinType',verbose_name=_('敏感or耐受'), blank=True, null=True,related_name='word_sensitive_type')
-    pigment_type = models.ForeignKey('analysis.SkinType',verbose_name=_('色素or非色素'), blank=True, null=True,related_name='word_pigment_type')
-    loose_type = models.ForeignKey('analysis.SkinType',verbose_name=_('易皱纹or紧致'),  blank=True, null=True,related_name='word_loose_type')
+    oily_type = models.ForeignKey('analysis.SkinType', verbose_name=_('油性or干性'), blank=True, null=True,
+                                  related_name='word_oily_type')
+    sensitive_type = models.ForeignKey('analysis.SkinType', verbose_name=_('敏感or耐受'), blank=True, null=True,
+                                       related_name='word_sensitive_type')
+    pigment_type = models.ForeignKey('analysis.SkinType', verbose_name=_('色素or非色素'), blank=True, null=True,
+                                     related_name='word_pigment_type')
+    loose_type = models.ForeignKey('analysis.SkinType', verbose_name=_('易皱纹or紧致'), blank=True, null=True,
+                                   related_name='word_loose_type')
 
     report = models.TextField(_('皮肤检测报告总结'), max_length=512, blank=True)  # 总结报告，填充值问卷报告的总结
     problem = models.TextField(_('我们认为您存在的问题'), max_length=1024, blank=True)  # 存在的问题
@@ -108,3 +111,4 @@ class Word(PinYinFieldModelMixin, models.Model):
     class Meta:
         verbose_name_plural = _('话术')
         verbose_name = _('话术')
+        unique_together = (('purpose', 'oily_type', 'sensitive_type', 'pigment_type', 'loose_type'),)

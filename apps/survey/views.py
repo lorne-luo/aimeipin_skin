@@ -18,8 +18,8 @@ class AnswerListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(AnswerListView, self).get_context_data(**kwargs)
-        context['table_titles'] = [u'姓名', u'性别', u'年龄', u'职业', u'城市', u'微信号', u'手机', '可否修改', '修改连接', '']
-        context['table_fields'] = ['name', 'sex', 'age', 'job', 'city', 'weixin_id', 'mobile',
+        context['table_titles'] = [u'姓名', '目标', u'性别', u'年龄', u'职业', u'城市', u'微信号', u'手机', '可否修改', '修改连接', '']
+        context['table_fields'] = ['name', 'purpose', 'sex', 'age', 'job', 'city', 'weixin_id', 'mobile',
                                    'is_changeable_display', 'survey_url', 'id']
         return context
 
@@ -165,7 +165,7 @@ class SurveyFillView(CommonContextMixin, UpdateView):
                 instance = p.save()
                 if instance:
                     product_set.add(instance)
-                    instance.update_analysis() # init product analysis
+                    instance.update_analysis()  # init product analysis
             else:
                 return False
 

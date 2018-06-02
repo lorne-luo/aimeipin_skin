@@ -7,7 +7,6 @@ from ..models import Answer, InviteCode
 
 class AnswerSerializer(BaseSerializer):
     """ Serializer for Answer """
-    is_changeable_display = serializers.SerializerMethodField()
     survey_url = serializers.SerializerMethodField()
     report_add_url = serializers.SerializerMethodField()
     age = serializers.SerializerMethodField()
@@ -17,8 +16,8 @@ class AnswerSerializer(BaseSerializer):
         model = Answer
         fields = ['id', 'edit_url', 'detail_url'] + \
                  ['city', 'name', 'sex', 'portrait', 'portrait_part', 'cosmetics', 'birth', 'height', 'weight', 'job',
-                  'monthly_income', 'weixin_id', 'mobile', 'is_changeable_display', 'status', 'get_status_display',
-                  'survey_url', 'report_add_url', 'age', 'qrcode_url']
+                  'monthly_income', 'weixin_id', 'mobile', 'is_changeable', 'status', 'get_status_display',
+                  'survey_url', 'report_add_url', 'age', 'qrcode_url', 'purpose', 'level']
         read_only_fields = ['id']
 
     def get_age(self, obj):
@@ -26,9 +25,6 @@ class AnswerSerializer(BaseSerializer):
 
     def get_qrcode_url(self, obj):
         return obj.get_qrcode_url()
-
-    def get_is_changeable_display(self, obj):
-        return '是' if obj.is_changeable else '否'
 
     def get_survey_url(self, obj):
         if obj.uuid:

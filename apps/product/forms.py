@@ -2,6 +2,7 @@ from django import forms
 from django.forms import modelformset_factory, inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
 
+from apps.analysis.models import SkinType
 from core.django.widgets import ThumbnailImageInput
 from .models import Product, Brand, ProductIngredient, ProductAnalysis
 
@@ -55,9 +56,13 @@ class ProductAnalysisInlineForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
 
         self.fields['product'].widget = forms.HiddenInput()
-
         self.fields['analysis'].widget.attrs['rows'] = 2
         self.fields['analysis'].widget.attrs['cols'] = 40
+        self.fields['analysis'].widget.attrs['cols'] = 40
+        self.fields['oily_type'].queryset = SkinType.objects.filter(dimension='油性or干性')
+        self.fields['sensitive_type'].queryset = SkinType.objects.filter(dimension='敏感or耐受')
+        self.fields['pigment_type'].queryset = SkinType.objects.filter(dimension='色素or非色素')
+        self.fields['loose_type'].queryset = SkinType.objects.filter(dimension='易皱纹or紧致')
 
 
 ProductAnalysisFormSet = inlineformset_factory(Product, ProductAnalysis, form=ProductAnalysisInlineForm,

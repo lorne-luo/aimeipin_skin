@@ -1,6 +1,12 @@
 {% extends "adminlte/common_list.html" %}
 {% load static %}
 
+{% block header_page_script %}
+    {{ block.super }}
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+{% endblock %}
+
 {% block table_row %}
     <tbody v-for="item in items">
     <tr>
@@ -9,13 +15,23 @@
             <input type="checkbox" class="minimal" name="checkboxRow" value="#[item.id]"/>
         </td>
         <td>{!! item.name !!}</td>
+        <td>{!! item.purpose !!}#{!! item.level !!}</td>
         <td>{!! item.sex !!}</td>
         <td>{!! item.age !!}</td>
         <td>{!! item.job !!}</td>
         <td>{!! item.city !!}</td>
         <td>{!! item.weixin_id !!}</td>
         <td>{!! item.mobile !!}</td>
-        <td>{!! item.is_changeable_display !!}</td>
+        <td>
+            <div class="btn-group" data-toggle="buttons">
+                <template v-if="item.is_changeable">
+                    <label class="btn-sm btn-success active" v-on:click="update_changeable(item.id, $event)">是</label>
+                </template>
+                <template v-else>
+                    <label class="btn-sm btn-danger" v-on:click="update_changeable(item.id, $event)">否</label>
+                </template>
+            </div>
+        </td>
         <td>
             <a href="{!! item.qrcode_url !!}" target="_blank">二维码</a>
             <button data-url="{{ request.scheme }}://{{ request.get_host }}{!! item.survey_url !!}"
@@ -39,20 +55,15 @@
                     <i class="fa fa-lg fa-trash-o fa-inverse"></i>
                 </a>
             {% endif %}
-            </template>
         </td>
     </tr>
-{#    <tr>#}
-{#        <td></td>#}
-{#        <td colspan="11">#}
-{#        </td>#}
-{#    </tr>#}
     </tbody>
 {% endblock %}
 
 
 
 {% block common_list_footer_page_script %}
+
     <script type="text/javascript" src="{% static 'js/survey/answer_list.min.js' %}"></script>
     <script>
         function copyClipboard(event) {

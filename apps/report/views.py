@@ -130,7 +130,7 @@ class ReportDetailView(CommonContextMixin, UpdateView):
     """ Detail views for Report """
     model = Report
     form_class = forms.ReportDetailForm
-    template_name = 'report/report_download_%s.html'
+    template_name = 'report/report_detail_%s.html'
     http_method_names = ['get']
 
     def get_template_names(self):
@@ -155,6 +155,6 @@ class ReportDownloadView(PdfGenerateBaseView, ReportDetailView):  # PdfGenerateB
         context = self.get_context_data(**kwargs)
         pdf = self.render_to_pdf(self.get_template_names(), context)
         response = HttpResponse(pdf, content_type='application/force-download')
-        response['Content-Disposition'] = 'attachment; filename=Action28_#%s.pdf' % self.object.answer.uuid
+        response['Content-Disposition'] = 'attachment; filename=Action28_NO.%s.pdf' % self.object.answer.uuid
         response['Content-Length'] = len(pdf.content)
         return response

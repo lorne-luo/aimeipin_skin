@@ -10,7 +10,7 @@ from xhtml2pdf.default import DEFAULT_FONT
 
 from config import settings
 
-pdfmetrics.registerFont(TTFont('yh', '%s/static/fonts/STSong.ttf' % settings.BASE_DIR))
+pdfmetrics.registerFont(TTFont('yh', '%s/static/fonts/STSong.TTF' % settings.BASE_DIR))
 
 
 class PdfGenerateBaseView(TemplateView):

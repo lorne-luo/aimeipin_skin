@@ -29,7 +29,10 @@
         <td>{!! item.purpose !!}</td>
         <td>{!! item.level !!}</td>
         <td><a href="{!! item.edit_url !!}">编辑报告</a></td>
-        <td><a href="{!! item.download_url !!}">下载报告</a></td>
+        <td>
+            <a href="{!! item.detail_url !!}">[查看]</a>
+            <a href="{!! item.download_url !!}">[PDF下载]</a>
+        </td>
         <td>{!! item.modified_at !!}</td>
         <td>{!! item.created_at !!}</td>
 

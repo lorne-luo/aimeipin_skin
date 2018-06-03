@@ -1,0 +1,134 @@
+{% extends "adminlte/base.html" %}
+{% load static %}
+
+{% block base_head_title %}
+    {{ object.answer.name }}
+{% endblock %}
+{% block base_head_title_system_name %}Action28 调查报告{% endblock %}
+
+{% block header_base_script %}{% endblock %}
+
+
+{% block base_body %}
+    <body class="report-download">
+    <div class=" container center-block">
+        <div class="text-center center-block">
+            <img height="100px" src="{% static 'qrcode_logo.jpg' %}">
+            <h1 class="title">Action28 调查报告</h1>
+        </div>
+        <div class="col-xs-12">
+            <h3>1.基本信息</h3>
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>姓名</th>
+                            <td>{{ object.answer.name }}</td>
+                            <th>性别</th>
+                            <td>{{ object.answer.sex }}</td>
+                        </tr>
+                        <tr>
+                            <th>目标</th>
+                            <td>{{ object.purpose }}</td>
+                            <th>价位</th>
+                            <td>{{ object.level }}</td>
+                        </tr>
+                        <tr>
+                            <th>年龄</th>
+                            <td>{{ object.answer.age }}</td>
+                            <th>城市</th>
+                            <td>{{ object.answer.city }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <h3>2.皮肤检测报告</h3>
+            <div class="form-group">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>肤质</th>
+                        <th>初次检测分数</th>
+                        <th>参考提示</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ object.oily_type|default:"" }}</td>
+                        <td>{{ object.answer.oily_score }}</td>
+                        <td>{{ object.oily_type.short_description }}</td>
+                        <td>{{ object.oily_type.description }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ object.sensitive_type|default:"" }}</td>
+                        <td>{{ object.answer.sensitive_score }}</td>
+                        <td>{{ object.sensitive_type.short_description }}</td>
+                        <td>{{ object.sensitive_type.description }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ object.pigment_type|default:"" }}</td>
+                        <td>{{ object.answer.pigment_score }}</td>
+                        <td>{{ object.pigment_type.short_description }}</td>
+                        <td>{{ object.pigment_type.description }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ object.loose_type|default:"" }}</td>
+                        <td>{{ object.answer.loose_score }}</td>
+                        <td>{{ object.loose_type.short_description }}</td>
+                        <td>{{ object.loose_type.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>总结</th>
+                        <td colspan="3">{{ form.summary }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4>3. 护肤品分析</h4>
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>护肤品</th>
+                            <th>护肤品分析</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% include 'report/includes/answer_product_readonly.html' with products=object.answer.cosmetic_products1.all %}
+                        {% include 'report/includes/answer_product_readonly.html' with products=object.answer.cosmetic_products2.all %}
+                        {% include 'report/includes/answer_product_readonly.html' with products=object.answer.cosmetic_products3.all %}
+                        {% include 'report/includes/answer_product_readonly.html' with products=object.answer.cosmetic_products4.all %}
+                        {% include 'report/includes/answer_product_readonly.html' with products=object.answer.cosmetic_products5.all %}
+                        {% include 'report/includes/answer_product_readonly.html' with products=object.answer.cosmetic_products6.all %}
+                        {% include 'report/includes/answer_product_readonly.html' with products=object.answer.cosmetic_products7.all %}
+                        {% include 'report/includes/answer_product_readonly.html' with products=object.answer.cosmetic_products8.all %}
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <h5>过敏成分及症状</h5>
+            <div class="row">
+                <div class="col-xs-12">
+                    {{ object.allergy }}
+                </div>
+            </div>
+
+            <h4>4. 温馨提示</h4>
+            <div class="form-group row">
+                <div class="col-xs-12">
+                    {{ object.remark }}
+                </div>
+            </div>
+
+            <p>所有医美方案需在专业医生指导下进行。</p>
+        </div>
+    </div>
+    </body>
+{% endblock %}
+

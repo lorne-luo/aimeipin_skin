@@ -2,6 +2,8 @@ from django.contrib import messages
 from django.http import Http404
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
+from django.views.generic.base import ContextMixin
+from django.views.generic.detail import SingleObjectMixin
 
 from .forms import PremiumProductFormSet
 from apps.survey.models import Answer
@@ -123,14 +125,21 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
         return result
 
 
-class ReportDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
+class ReportDetailView(CommonContextMixin, UpdateView):
     """ Detail views for Report """
     model = Report
     form_class = forms.ReportDetailForm
-    template_name = 'adminlte/common_detail.html'
+    template_name = 'report/report_detail_%s.html'
+    http_method_names = ['get']
 
-class ReportDownloadView(CommonContextMixin, UpdateView):
-    """ Detail views for Report """
+    def get_template_names(self):
+        if self.object.level in ['9.9', '98']:
+            return self.template_name % self.object.level
+        return 'report/report_form_9.9.html'
+
+    def get_context_data(self, **kwargs):
+        return SingleObjectMixin.get_context_data(self, **kwargs)
+
     model = Report
     form_class = forms.ReportDetailForm
     template_name = 'adminlte/common_detail.html'

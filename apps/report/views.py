@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
 from django.views.generic.base import ContextMixin
@@ -130,7 +130,7 @@ class ReportDetailView(CommonContextMixin, UpdateView):
     """ Detail views for Report """
     model = Report
     form_class = forms.ReportDetailForm
-    template_name = 'report/report_detail_%s.html'
+    template_name = 'report/report_download_%s.html'
     http_method_names = ['get']
 
     def get_template_names(self):
@@ -151,4 +151,10 @@ class ReportDownloadView(PdfGenerateBaseView, ReportDetailView):  # PdfGenerateB
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        return super(ReportDownloadView, self).get(request, *args, **kwargs)
+        # return super(ReportDownloadView, self).get(request, *args, **kwargs)
+        context = self.get_context_data(**kwargs)
+        pdf = self.render_to_pdf(self.get_template_names(), context)
+        response = HttpResponse(pdf, content_type='application/force-download')
+        response['Content-Disposition'] = 'attachment; filename=Action28_#%s.pdf' % self.object.answer.uuid
+        response['Content-Length'] = len(pdf.content)
+        return response

@@ -122,28 +122,33 @@ th {
     font-weight: bold;
 }
 
-.skin{
-    font-size: 4mm;
+.skin, .cosmetic  {
+    font-size: 3.9mm;
 }
-.habit th{
+
+.habit th {
     vertical-align: top;
 }
-.habit tr{
+
+.habit tr {
     padding-top: 2mm;
     /*border-bottom: 1px solid #DDDDDD;*/
 }
-.habit tr:first-child{
-        /*border-top: 1px solid #DDDDDD;*/
+
+.habit tr:first-child {
+    /*border-top: 1px solid #DDDDDD;*/
 }
 
 .habit {
-    margin-left:10mm;
-    margin-right:10mm;
+    margin-left: 10mm;
+    margin-right: 10mm;
 }
-.habit ul{
+
+.habit ul {
     line-height: 4mm;
 }
+
 .page-wrapper {
-    margin-left:10mm;
-    margin-right:10mm;
+    margin-left: 10mm;
+    margin-right: 10mm;
 }

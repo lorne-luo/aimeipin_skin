@@ -1,0 +1,149 @@
+@page {
+    size: a4 portrait;
+    @frame content_frame {
+    left: 0pt;
+    width: 210mm;
+    top: 0pt;
+    height: 297mm;
+}
+
+@frame footer_top_frame {
+-pdf-frame-content:footer_top_content;
+left: 0;
+width: 210mm;
+top: 267mm;
+}
+
+@frame footer_bot_frame {
+-pdf-frame-content:footer_bot_content;
+left: 0pt;
+width: 210mm;
+top: 281.5mm;
+}
+}
+
+html {
+    color: #4b4b4d;
+    font-size: 4.23mm;
+    line-height: 4.23mm;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.grey {
+    background-color: #e9eaea;
+}
+
+.green {
+    background-color: #3cb878;
+}
+
+.red {
+    background-color: #ed1c24;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.font-size-1 {
+    font-size: 10.59mm;
+    line-height: 10.59mm;
+}
+
+.font-size-5 {
+    font-size: 4.23mm;
+    line-height: 4.23mm;
+}
+
+.page-wrapper {
+    box-sizing: border-box;
+}
+
+.header {
+    /*border-top: 1.8mm solid #0172de;*/
+    /*border-bottom: 0.5mm solid #e9eaea;*/
+}
+
+.header-left--top {
+    padding: 2.3mm 0 2mm 0;
+}
+
+.header-left--bot {
+    padding: 0mm 0 2.5mm 0;
+    font-size: 4.23mm;
+    line-height: 4.23mm;
+}
+
+.header-right {
+    font-size: 7.06mm;
+    line-height: 7.06mm;
+    font-weight: 500;
+}
+
+.page {
+
+}
+
+.header {
+    margin-top: 10mm;
+    text-align: center;
+}
+
+.header td, th {
+    text-align: center;
+
+}
+
+.header h1 {
+    display: inline-block;
+}
+
+table {
+    line-height: 7.06mm;
+}
+
+td, th {
+    text-align: left;
+    vertical-align: middle;
+}
+
+th {
+    font-weight: bold;
+}
+
+.skin{
+    font-size: 4mm;
+}
+.habit th{
+    vertical-align: top;
+}
+.habit tr{
+    padding-top: 2mm;
+    /*border-bottom: 1px solid #DDDDDD;*/
+}
+.habit tr:first-child{
+        /*border-top: 1px solid #DDDDDD;*/
+}
+
+.habit {
+    margin-left:10mm;
+    margin-right:10mm;
+}
+.habit ul{
+    line-height: 4mm;
+}
+.page-wrapper {
+    margin-left:10mm;
+    margin-right:10mm;
+}

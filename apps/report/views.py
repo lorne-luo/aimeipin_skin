@@ -5,6 +5,7 @@ from braces.views import SuperuserRequiredMixin
 from django.views.generic.base import ContextMixin
 from django.views.generic.detail import SingleObjectMixin
 
+from core.django.utils.pdf import PdfGenerateBaseView
 from .forms import PremiumProductFormSet
 from apps.survey.models import Answer
 from core.django.views import CommonContextMixin
@@ -140,6 +141,14 @@ class ReportDetailView(CommonContextMixin, UpdateView):
     def get_context_data(self, **kwargs):
         return SingleObjectMixin.get_context_data(self, **kwargs)
 
+
+class ReportDownloadView(PdfGenerateBaseView, ReportDetailView):  # PdfGenerateBaseView
+    """ PDF Download views for Report """
     model = Report
     form_class = forms.ReportDetailForm
-    template_name = 'adminlte/common_detail.html'
+    template_name = 'report/report_download_%s.html'
+    http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super(ReportDownloadView, self).get(request, *args, **kwargs)

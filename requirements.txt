@@ -25,7 +25,6 @@ Wand==0.4.3
 enum34
 pyenchant
 weixin-python
-xhtml2pdf==0.0.6
 pyOpenSSL==17.3.0
 pathlib==1.0.1
 jsonfield==2.0.2
@@ -43,3 +42,4 @@ django-tinymce4-lite==1.6.0
 django-countries==5.3
 wechat-sdk==0.6.4
 MyQR==2.3.1
+xhtml2pdf==0.2b1

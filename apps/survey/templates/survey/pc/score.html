@@ -142,7 +142,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <!---->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
-<script src="{% static 'js/frontend/echarts.common.min.js' %}"></script>
+{#<script src="{% static 'js/frontend/echarts.common.min.js' %}"></script>#}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.min.js"></script>
 
 <!--<script src="../js/html2canvas.js"></script>-->
 {#<script src="js/jspdf.debug.js"></script>#}
@@ -152,6 +153,50 @@
 <!--<script type="text/javascript" src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>-->
 
 <script>
+    $(document).ready(function () {
+        var xAxis = [];
+        var series = [];
+        xAxis.push("{{ object.oily_type.name|default:"null" }}");
+        series.push({{ object.oily_score }});
+
+        xAxis.push("{{ object.sensitive_type.name|default:"null" }}");
+        series.push({{ object.sensitive_score }});
+
+        xAxis.push("{{ object.pigment_type.name|default:"null" }}");
+        series.push({{ object.pigment_score }});
+
+        xAxis.push("{{ object.loose_type.name|default:"null" }}");
+        series.push({{ object.loose_score }});
+
+// 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+//                 指定图表的配置项和数据
+        var option = {
+            title: {
+//                text: 'ECharts 入门示例'
+            },
+            tooltip: {},
+            legend: {
+//                data:['销量']
+            },
+            xAxis: {
+                data: xAxis
+            },
+            yAxis: {},
+            series: [{
+//                        name: '销量',
+                type: 'bar',
+                itemStyle: {
+                    normal: {color: '#33A3DC', border: '1px solid red'}
+                },
+                data: series
+            }]
+        };
+//                 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    });
+
 
         $.ajax({
             url:"/index.php/index/answer",

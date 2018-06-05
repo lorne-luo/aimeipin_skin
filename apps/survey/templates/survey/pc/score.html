@@ -126,10 +126,8 @@
                     </tr>
                 </tbody>
             </table>
-        <!--</div>-->
 
         <div id="main" style="width: 600px;height:400px;"></div>
-        <!--<div id="main"><img src="" alt=""/></div>-->
 
     </div>
 </div>
@@ -140,14 +138,19 @@
 
 <script>window.jQuery || document.write('<script src="{% static "plugins/jQuery/jquery-3.2.1.min.js" %}"><\/script>')</script>
 <script src="{% static 'js/frontend/index.js' %}"></script>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>-->
-<script src="js/echarts.common.min.js"></script>
-<script src="../js/html2canvas.js"></script>
-<!--<script src="js/jspdf.debug.js"></script>-->
-<!--<script src="js/renderPDF.js"></script>-->
+<!---->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<!---->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+<script src="{% static 'js/frontend/echarts.common.min.js' %}"></script>
+
+<!--<script src="../js/html2canvas.js"></script>-->
+{#<script src="js/jspdf.debug.js"></script>#}
+<!---->
+<script src="{% static 'js/frontend/renderPDF.js' %}"></script>
 <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>-->
 <!--<script type="text/javascript" src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>-->
+
 <script>
 
         $.ajax({
@@ -174,7 +177,6 @@
                         xAxis.push(res.msg.type[i].t_name);
                         series.push(res.msg.type[i].score);
                     }
-//                    $('#main img').attr('src','http://servers.jianghujoy.cn:8084/index.php/index/creat-img');
                     $('#id_name').html(res.msg.name);
 
                     $('#btnsavescore').click(function(){
@@ -214,25 +216,7 @@
         });
 
         var sss = true;
-        function savescore(){
-//            html2canvas($("#question")).then(function(canvas) {
-//                var imgUri = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); // 获取生成的图片的url
-//
-//                var saveFile = function(data, filename){
-//                    var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
-//                    save_link.href = data;
-//                    save_link.download = filename;
-//
-//                    var event = document.createEvent('MouseEvents');
-//                    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-//                    save_link.dispatchEvent(event);
-//                };
-//                var filename = shopname + '.' + type;
-//                saveFile(imgData,filename);
-//
-//                window.location.href= imgUri; // 下载图片
-//            });
-
+        function savescore() {
             html2canvas([document.getElementById('question')], {
                 onrendered: function (canvas) {
                     var imagedata = canvas.toDataURL('image/png');
@@ -241,83 +225,26 @@
                     $.ajax({
                         url: 'http://servers.jianghujoy.cn:8084/index/get-img',
                         data: {
-                            imgdata:imgdata
+                            imgdata: imgdata
                         },
                         type: 'post',
                         success: function (response) {
 //                            $('#image_id img').attr('src', response);
 //                            window.location.href= response;
-                            $('#btnsavescore').attr('href',response);
-                            $('#btnsavescore').attr('download','Action28肌肤测试问卷 测评报告');
-                            if(sss){document.getElementById('btnsavescore').click();  sss=false;}
+                            $('#btnsavescore').attr('href', response);
+                            $('#btnsavescore').attr('download', 'Action28肌肤测试问卷 测评报告');
+                            if (sss) {
+                                document.getElementById('btnsavescore').click();
+                                sss = false;
+                            }
                         },
-                        error:function(xhr,status,error){
+                        error: function (xhr, status, error) {
 
                         }
                     });
                 }
             })
-//        var shopname = "糖猫猫的店铺";
-//        var c = document.getElementById("question");
-//        document.getElementById("btnsavescore").addEventListener("click",function() {
-//            if (c == null) {
-//                alert("获取数据失败，请刷新页面！");
-//                return false;
-//            }
-//
-//            html2canvas($("#question")).then(function (canvas) {
-//                var type = 'png';
-//                var imgData = c.toDataURL(type);
-//                var _fixType = function(type) {
-//                    type = type.toLowerCase().replace(/jpg/i, 'jpeg');
-//                    var r = type.match(/png|jpeg|bmp|gif/)[0];
-//                    return 'image/' + r;
-//                };
-//                imgData = imgData.replace(_fixType(type),'image/octet-stream');
-//                var saveFile = function(data, filename){
-//                    var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
-//                    save_link.href = data;
-//                    save_link.download = filename;
-//
-//                    var event = document.createEvent('MouseEvents');
-//                    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-//                    save_link.dispatchEvent(event);
-//                };
-//                var filename = shopname + '.' + type;
-//                saveFile(imgData,filename);
-//            });
-//            });
         }
-
-        //            $.ajax({
-        //                url:"http://servers.jianghujoy.cn:8084/index.php/index/creat-img-save",
-        //                type:"POST",
-        //                dataType:"JSON",
-        //                data:{
-        //                    user_id:window.localStorage.getItem('id'),
-        ////                user_id:2,
-        //                    time:window.localStorage.getItem('time'),
-        ////                time:"2017-11-30 10:18:02",
-        //                },
-        //                success:function(){},
-        //                error:function(){}
-        //            })
-        //
-        //            $.ajax({
-        //                url:"http://servers.jianghujoy.cn:8084/index.php/index/creat-html",
-        //                type:"POST",
-        //                dataType:"JSON",
-        //                data:{
-        //                    user_id:window.localStorage.getItem('id'),
-        ////                user_id:2,
-        //                    time:window.localStorage.getItem('time'),
-        ////                time:"2017-11-30 10:18:02",
-        //                },
-        //                success:function(){},
-        //                error:function(){}
-        //            })
-        //
-        //            window.location.href = "http://servers.jianghujoy.cn:8084/index/down-file?user_id="+window.localStorage.getItem('id')+"&time="+window.localStorage.getItem('time')
 </script>
 </body>
 </html>

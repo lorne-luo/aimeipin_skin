@@ -27,3 +27,20 @@
 {% block form_footer %}
     <button type="submit" style="width:108px" class="btn btn-primary">创建邀请码</button>
 {% endblock %}
+
+{% block footer_page_script %}
+    <script>
+        var invitecodeEditPageVue = new CommonFormPageVue({
+            data: {
+                list_api_tag: 'api:invitecode-list',
+                delete_api_tag: 'api:invitecode-delete',
+                detail_api_tag: 'api:invitecode-detail',
+
+                create_url_tag: 'survey:invitecode-add',
+                list_url_tag: 'survey:invitecode-list',
+                detail_url_tag: 'survey:invitecode-detail',
+                update_url_tag: 'survey:invitecode-update'
+            }
+        });
+    </script>
+{% endblock %}

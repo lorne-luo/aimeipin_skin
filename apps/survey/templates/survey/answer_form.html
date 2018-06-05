@@ -19,3 +19,20 @@
     {% endfor %}
     </div>
 {% endblock %}
+
+{% block footer_page_script %}
+    <script>
+        var answerEditPageVue = new CommonFormPageVue({
+            data: {
+                list_api_tag: 'api:answer-list',
+                delete_api_tag: 'api:answer-delete',
+                detail_api_tag: 'api:answer-detail',
+
+                create_url_tag: 'survey:answer-add',
+                list_url_tag: 'survey:answer-list',
+                detail_url_tag: 'survey:answer-detail',
+                update_url_tag: 'survey:answer-update'
+            }
+        });
+    </script>
+{% endblock %}

@@ -135,3 +135,20 @@
     {{ block.super }}
     <script type="text/javascript" src="{% static "js/jquery.formset.min.js" %}"></script>
 {% endblock %}
+
+{% block footer_page_script %}
+    <script>
+        var reportEditPageVue = new CommonFormPageVue({
+            data: {
+                list_api_tag: 'api:report-list',
+                delete_api_tag: 'api:report-delete',
+                detail_api_tag: 'api:report-detail',
+
+                create_url_tag: 'report:report-add',
+                list_url_tag: 'report:report-list',
+                detail_url_tag: 'report:report-detail',
+                update_url_tag: 'report:report-update'
+            }
+        });
+    </script>
+{% endblock %}

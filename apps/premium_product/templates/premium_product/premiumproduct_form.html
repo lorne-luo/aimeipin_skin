@@ -99,3 +99,20 @@
         });
     </script>
 {% endblock %}
+
+{% block footer_page_script %}
+    <script>
+        var premiumproductEditPageVue = new CommonFormPageVue({
+            data: {
+                list_api_tag: 'api:premiumproduct-list',
+                delete_api_tag: 'api:premiumproduct-delete',
+                detail_api_tag: 'api:premiumproduct-detail',
+
+                create_url_tag: 'premium_product:premiumproduct-add',
+                list_url_tag: 'premium_product:premiumproduct-list',
+                detail_url_tag: 'premium_product:premiumproduct-detail',
+                update_url_tag: 'premium_product:premiumproduct-update'
+            }
+        });
+    </script>
+{% endblock %}

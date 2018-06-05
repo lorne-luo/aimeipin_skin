@@ -36,3 +36,20 @@
     {{ block.super }}
     <script src="{% static 'js/jquery.formset.js' %}"></script>
 {% endblock %}
+
+{% block footer_page_script %}
+    <script>
+        var productEditPageVue = new CommonFormPageVue({
+            data: {
+                list_api_tag: 'api:product-list',
+                delete_api_tag: 'api:product-delete',
+                detail_api_tag: 'api:product-detail',
+
+                create_url_tag: 'product:product-add',
+                list_url_tag: 'product:product-list',
+                detail_url_tag: 'product:product-detail',
+                update_url_tag: 'product:product-update'
+            }
+        });
+    </script>
+{% endblock %}

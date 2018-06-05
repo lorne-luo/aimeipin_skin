@@ -1,6 +1,16 @@
 {% extends "adminlte/common_list.html" %}
 {% load static %}
 
+{% block common_list_buttons %}
+<div class="col-xs-5 col-sm-6">
+    {% if page_model_perms.add %}
+      <a class="btn btn-primary" id="create">
+        <i class="fa fa-plus"></i>新增
+      </a>
+    {% endif %}
+</div>
+{% endblock %}
+
 {% block tab_content %}
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">

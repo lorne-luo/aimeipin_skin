@@ -51,6 +51,7 @@ class SurveyFillView(CommonContextMixin, UpdateView):
     template_name = 'survey/pc/index.html'
     code = None  # InviteCode
     uuid = None  # InviteCode
+    purpose = None
 
     def get_object(self, queryset=None):
         uuid = self.kwargs.get('uuid') or self.request.GET.get('code')
@@ -74,11 +75,20 @@ class SurveyFillView(CommonContextMixin, UpdateView):
 
     def get_initial(self):
         initial = super(SurveyFillView, self).get_initial()
+        if self.object and self.object.id and self.object.purpose:
+            self.purpose = self.object.purpose
+        elif self.code and self.code.purpose:
+            self.purpose = self.object.purpose
+
         if not self.object:
             initial.update({
                 'uuid': self.uuid,
                 'name': self.code.name,
             })
+        initial.update({
+            'purpose': self.purpose,
+        })
+
         return initial
 
     def get_context_data(self, **kwargs):
@@ -137,6 +147,14 @@ class SurveyFillView(CommonContextMixin, UpdateView):
                 'cosmetic_products6_formset': cosmetic_products6_formset,
                 'cosmetic_products7_formset': cosmetic_products7_formset,
                 'cosmetic_products8_formset': cosmetic_products8_formset,
+            })
+
+            if self.object and self.object.id and self.object.purpose:
+                self.purpose = self.object.purpose
+            elif self.code and self.code.purpose:
+                self.purpose = self.object.purpose
+            context.update({
+                'purpose': self.purpose
             })
         return context
 

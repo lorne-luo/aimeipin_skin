@@ -317,12 +317,12 @@ class SurveyFillForm(forms.ModelForm):
     optional_fields = ['other_question2', 'non_score_question15', 'portrait_part', 'portrait', 'cosmetics', 'uuid',
                        'cosmetic_products1', 'cosmetic_products2', 'cosmetic_products3', 'cosmetic_products4',
                        'cosmetic_products5', 'cosmetic_products6', 'cosmetic_products7', 'cosmetic_products8', 'remark',
-                       'is_changeable']
-    hidden_fields = ['uuid', 'is_changeable']
+                       'is_changeable', 'purpose']
+    hidden_fields = ['uuid', 'is_changeable', 'purpose']
 
     class Meta:
         model = Answer
-        exclude = ['customer', 'created_at', 'status', 'city', 'code', 'purpose', 'level', 'ip']
+        exclude = ['customer', 'created_at', 'status', 'city', 'code', 'level', 'ip']
 
     def __init__(self, *args, **kwargs):
         super(SurveyFillForm, self).__init__(*args, **kwargs)
@@ -332,6 +332,15 @@ class SurveyFillForm(forms.ModelForm):
                 field.required = True
             if field_name in self.hidden_fields:
                 field.widget = forms.HiddenInput()
+        if kwargs['initial'] and kwargs['initial'].get('purpose', None) == '种草':
+            self.fields['cosmetic_products1'].label = self.fields['cosmetic_products1'].label.replace('目前正在使用的', '种草的')
+            self.fields['cosmetic_products2'].label = self.fields['cosmetic_products2'].label.replace('目前正在使用的', '种草的')
+            self.fields['cosmetic_products3'].label = self.fields['cosmetic_products3'].label.replace('目前正在使用的', '种草的')
+            self.fields['cosmetic_products4'].label = self.fields['cosmetic_products4'].label.replace('目前正在使用的', '种草的')
+            self.fields['cosmetic_products5'].label = self.fields['cosmetic_products5'].label.replace('目前正在使用的', '种草的')
+            self.fields['cosmetic_products6'].label = self.fields['cosmetic_products6'].label.replace('目前正在使用的', '种草的')
+            self.fields['cosmetic_products7'].label = self.fields['cosmetic_products7'].label.replace('目前正在使用的', '种草的')
+            self.fields['cosmetic_products8'].label = self.fields['cosmetic_products8'].label.replace('目前正在使用的', '种草的')
 
     def clean_is_changeable(self):
         return False

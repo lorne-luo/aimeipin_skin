@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import ListView, CreateView, UpdateView, TemplateView
 from braces.views import SuperuserRequiredMixin
+from django.views.generic.edit import BaseUpdateView
 
 from apps.survey.forms import AnswerProductFormSet
 from core.django.utils.ip import get_client_ip
@@ -209,6 +210,13 @@ class SurveyFillView(CommonContextMixin, UpdateView):
     def get_success_url(self):
         return reverse('survey:answer-score', args=[self.uuid])
         # return reverse('survey:answer', args=[self.uuid])
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object and self.object.id and not self.object.is_changeable:
+            # cant change, redirect to score page
+            return HttpResponseRedirect(reverse('survey:answer-score', args=[self.object.uuid]))
+        return BaseUpdateView.get(self, request, *args, **kwargs)
 
 
 class AnswerScoreView(TemplateView):

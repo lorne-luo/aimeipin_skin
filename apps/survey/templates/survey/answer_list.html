@@ -14,11 +14,10 @@
             ##[$index+1]
             <input type="checkbox" class="minimal" name="checkboxRow" value="#[item.id]"/>
         </td>
-        <td>{!! item.name !!}</td>
         <td>{!! item.purpose !!}#{!! item.level !!}</td>
+        <td>{!! item.name !!}</td>
         <td>{!! item.sex !!}</td>
         <td>{!! item.age !!}</td>
-        <td>{!! item.job !!}</td>
         <td>{!! item.city !!}</td>
         <td>{!! item.weixin_id !!}</td>
         <td>{!! item.mobile !!}</td>
@@ -35,9 +34,10 @@
         <td>
             <a href="{!! item.qrcode_url !!}" target="_blank">二维码</a>
             <button data-url="{{ request.scheme }}://{{ request.get_host }}{!! item.survey_url !!}"
-                    onclick="copyClipboard(this)">复制问卷链接
+                    onclick="copyClipboard(this)">复制链接
             </button>
         </td>
+        <td>{!! item.modified_at !!}</td>
         <td><a href="/report/report/list/?search={!! item.uuid !!}">查看报告</a></td>
         <td class="text-right hidden-sm hidden-xs">
             <a href="{!! item.report_add_url !!}" class="btn btn-sm btn-primary">生成新报告</a>

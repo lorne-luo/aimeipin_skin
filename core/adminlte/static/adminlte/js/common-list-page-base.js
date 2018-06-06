@@ -28,11 +28,17 @@ var CommonListPageVue = Vue.extend({
         }
     },
     ready: function () {
-        this.ready();
+        // init search keyword from query string
+        this.search_keyword = this.getQueryStringValue("search");
+        if (this.search_keyword) {
+            $("#tableSearch").val(this.search_keyword);
+        }
 
         if (this.create_url_tag) {
             $('a#create').prop('href', Urls[this.create_url_tag]());
         }
+
+        this.ready();
     },
     methods: {
         ready: function (event) {
@@ -196,6 +202,9 @@ var CommonListPageVue = Vue.extend({
                 }
             );
         },
+        getQueryStringValue: function (key) {
+            return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+        },
         get_param: function () {
             var param = {};
             if (this.currentPage)
@@ -204,7 +213,6 @@ var CommonListPageVue = Vue.extend({
                 param['ordering'] = this.ordering;
             if (this.search_keyword)
                 param['search'] = this.search_keyword;
-
             return param;
         },
         reload: function (event) {

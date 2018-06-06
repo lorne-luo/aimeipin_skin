@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
 from django.views.generic.edit import ProcessFormView
@@ -52,6 +53,8 @@ class ProductAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
         productanalysis_formset.instance = form.instance
         if productanalysis_formset.is_valid():
             productanalysis_formset.save()
+        else:
+            messages.error(self.request, str(productanalysis_formset.errors))
 
         return super(ProductAddView, self).form_valid(form)
 

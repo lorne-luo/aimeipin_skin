@@ -1,9 +1,10 @@
 from django.contrib import messages
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
 from django.views.generic.base import ContextMixin
 from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import ModelFormMixin
 
 from core.django.utils.pdf import PdfGenerateBaseView
 from .forms import PremiumProductFormSet
@@ -39,6 +40,8 @@ class ReportAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
         initial = super(ReportAddView, self).get_initial()
         initial.update({
             'answer': self.answer,
+            'level': self.answer.level,
+            'purpose': self.answer.purpose,
         })
         return initial
 
@@ -56,7 +59,7 @@ class ReportAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
         report = answer.generate_report(purpose, level)
 
         self.object = report
-        return super(ReportAddView, self).form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
@@ -140,6 +143,16 @@ class ReportDetailView(CommonContextMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         return SingleObjectMixin.get_context_data(self, **kwargs)
+
+
+class ReportDisplayView(ReportDetailView):
+    def get_object(self, queryset=None):
+        uuid = self.kwargs.get('uuid')
+        obj = Report.objects.filter(answer__uuid=uuid).first()
+        if obj:
+            return obj
+        else:
+            raise Http404
 
 
 class ReportDownloadView(PdfGenerateBaseView, ReportDetailView):  # PdfGenerateBaseView

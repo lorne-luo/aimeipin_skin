@@ -59,6 +59,12 @@ class Report(models.Model):
     def save(self, *args, **kwargs):
         super(Report, self).save(*args, **kwargs)
 
+    @property
+    def uuid(self):
+        if self.answer:
+            return self.answer.uuid
+        return None
+
     def get_word(self):
         return Word.objects.filter(purpose=self.purpose, oily_type=self.oily_type, sensitive_type=self.sensitive_type,
                                    pigment_type=self.pigment_type, loose_type=self.loose_type).first()

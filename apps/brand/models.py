@@ -31,11 +31,12 @@ def get_brand_logo_path(instance, filename):
 class Brand(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
     """品牌，skin_brand"""
     country = CountryField(verbose_name=_('country'))
-    name_en = models.CharField(_('name_en'), max_length=128, blank=True)
-    name_cn = models.CharField(_('name_cn'), max_length=128, blank=True)
+    name_en = models.CharField(_('英文名称'), max_length=128, blank=True)
+    name_cn = models.CharField(_('中文名称'), max_length=128, blank=True)
     pinyin = models.CharField(_('pinyin'), max_length=512, blank=True)
-    first_letter_en = models.CharField(_('first_letter_en'), max_length=128, blank=True)
-    first_letter_cn = models.CharField(_('first_letter_cn'), max_length=128, blank=True)
+    alias = models.CharField(_(u'别名'), max_length=255, blank=True)
+    first_letter_en = models.CharField(_('英文首字母'), max_length=128, blank=True)
+    first_letter_cn = models.CharField(_('拼音首字母'), max_length=128, blank=True)
     logo = StdImageField(upload_to=get_brand_logo_path, blank=True, null=True, verbose_name=_('Logo'),
                          variations={
                              'medium': (800, 800, True),
@@ -45,6 +46,7 @@ class Brand(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
 
     pinyin_fields_conf = [
         ('name_cn', Style.NORMAL, True),
+        ('alias', Style.NORMAL, True),
     ]
 
     class Meta:

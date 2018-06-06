@@ -17,7 +17,7 @@ class BrandAddForm(forms.ModelForm):
 class BrandUpdateForm(BrandAddForm):
     class Meta:
         model = Brand
-        fields = ['name_en', 'name_cn', 'logo']
+        fields = ['logo', 'name_en', 'first_letter_en', 'name_cn', 'first_letter_cn', 'alias']
 
 
 class BrandDetailForm(BrandAddForm):

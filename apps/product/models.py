@@ -90,6 +90,21 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
                                                   pigment_type=pigment_type, loose_type=loose_type)
         return '\n'.join([x.analysis for x in analysis])
 
+    def have_duplicated(self):
+        count=0
+        total=self.productanalysis_set.all().count()
+        for i in range(total):
+            for j in range(i+1,total):
+                if self.productanalysis_set.all()[i].oily_type==self.productanalysis_set.all()[j].oily_type and \
+                self.productanalysis_set.all()[i].sensitive_type==self.productanalysis_set.all()[j].sensitive_type and \
+                self.productanalysis_set.all()[i].pigment_type==self.productanalysis_set.all()[j].pigment_type and \
+                self.productanalysis_set.all()[i].loose_type==self.productanalysis_set.all()[j].loose_type:
+                    count+=1
+
+        if count>0:
+            return True
+        return False
+
 
 @receiver(post_delete, sender=Product)
 def product_deleted(sender, **kwargs):
@@ -125,3 +140,4 @@ class ProductAnalysis(models.Model):
                                    related_name='product_analysis_loose_type')
 
     analysis = models.TextField(_(u'对应阐述'), max_length=1024, blank=True)
+

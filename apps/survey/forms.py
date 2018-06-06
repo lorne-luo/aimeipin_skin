@@ -318,11 +318,11 @@ class SurveyFillForm(forms.ModelForm):
                        'cosmetic_products1', 'cosmetic_products2', 'cosmetic_products3', 'cosmetic_products4',
                        'cosmetic_products5', 'cosmetic_products6', 'cosmetic_products7', 'cosmetic_products8', 'remark',
                        'is_changeable', 'purpose']
-    hidden_fields = ['uuid', 'is_changeable', 'purpose']
+    hidden_fields = ['uuid', 'purpose']
 
     class Meta:
         model = Answer
-        exclude = ['customer', 'created_at', 'status', 'city', 'code', 'level', 'ip']
+        exclude = ['customer', 'created_at', 'status', 'city', 'code', 'level', 'ip', 'is_changeable']
 
     def __init__(self, *args, **kwargs):
         super(SurveyFillForm, self).__init__(*args, **kwargs)
@@ -341,9 +341,6 @@ class SurveyFillForm(forms.ModelForm):
             self.fields['cosmetic_products6'].label = self.fields['cosmetic_products6'].label.replace('目前正在使用的', '种草的')
             self.fields['cosmetic_products7'].label = self.fields['cosmetic_products7'].label.replace('目前正在使用的', '种草的')
             self.fields['cosmetic_products8'].label = self.fields['cosmetic_products8'].label.replace('目前正在使用的', '种草的')
-
-    def clean_is_changeable(self):
-        return False
 
 
 class AnswerDetailForm(SurveyFillForm):

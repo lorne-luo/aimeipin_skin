@@ -39,12 +39,28 @@ class PinYinFieldModelMixin(object):
                 return True
         return False
 
+    def _split_word(self, sentence):
+        result = []
+        temp = []
+        if ' ' in sentence:
+            temp = sentence.split(' ')
+        if ',' in sentence:
+            if not temp:
+                return sentence.split(',')
+            else:
+                for w in temp:
+                    if w:
+                        result += w.split(',')
+        return result or temp
+
     def update_pinyin_fields(self):
         # only update pinyin field when fields updated
         new_pinyin = ''
         for field_name, style, heteronym in self.pinyin_fields_conf:
             current_value = self.get_attr_by_str(field_name)
-            new_pinyin += self.get_pinyin(current_value, style, heteronym)
+            words = self._split_word(current_value)
+            for word in words:
+                new_pinyin += self.get_pinyin(word, style, heteronym)
             setattr(self, self.pinyin_field, new_pinyin.lower()[:self.MAX_LENGTH])
 
     @classmethod

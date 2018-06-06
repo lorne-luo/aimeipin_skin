@@ -37,7 +37,8 @@
             <button data-url="{{ request.scheme }}://{{ request.get_host }}{!! item.survey_url !!}"
                     onclick="copyClipboard(this)">复制问卷链接
             </button>
-
+        </td>
+        <td><a href="/report/report/list/?search={!! item.uuid !!}">查看报告</a></td>
         <td class="text-right hidden-sm hidden-xs">
             <a href="{!! item.report_add_url !!}" class="btn btn-sm btn-primary">生成新报告</a>
 

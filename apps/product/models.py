@@ -100,6 +100,8 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
                 self.productanalysis_set.all()[i].pigment_type==self.productanalysis_set.all()[j].pigment_type and \
                 self.productanalysis_set.all()[i].loose_type==self.productanalysis_set.all()[j].loose_type:
                     count+=1
+                print(self.productanalysis_set.all()[i].oily_type,self.productanalysis_set.all()[i].sensitive_type,
+                      self.productanalysis_set.all()[i].pigment_type,self.productanalysis_set.all()[i].loose_type)
 
         if count>0:
             return True

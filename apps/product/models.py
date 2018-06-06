@@ -104,7 +104,7 @@ class ProductIngredient(models.Model):
     safe = models.CharField(_(u'safe'), max_length=255, blank=True)
     is_live = models.BooleanField(_(u'活性成分'), default=False, blank=True)  # 活性因子
     is_pox = models.BooleanField(_(u'致痘风险'), default=False, blank=True)  # 导致起痘
-    effect = models.CharField(_(u'使用目的'), max_length=255, blank=True)
+    effect = models.CharField(_(u'使用目的'), max_length=512, blank=True)
     description = models.TextField(_(u'描述'), max_length=512, blank=True)
 
     def __str__(self):
@@ -124,4 +124,4 @@ class ProductAnalysis(models.Model):
     loose_type = models.ForeignKey('analysis.SkinType', verbose_name=_('易皱纹or紧致'), blank=True, null=True,
                                    related_name='product_analysis_loose_type')
 
-    analysis = models.TextField(_(u'对应阐述'), max_length=64, blank=True)
+    analysis = models.TextField(_(u'对应阐述'), max_length=1024, blank=True)

@@ -405,10 +405,10 @@ class AnswerProductInlineForm(forms.Form):
                 obj.save()
         else:
             if Product.objects.filter(id=product_id).exists():
-                obj = AnswerProduct(product_id=product_id, name=name)
-                obj.save()
+                obj = AnswerProduct(product_id=product_id)
             else:
-                return None
+                obj = AnswerProduct(name=name)
+            obj.save()
         return obj
 
 

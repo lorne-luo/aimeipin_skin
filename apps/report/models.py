@@ -1,4 +1,5 @@
 from django.db import models
+from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 
 from apps.analysis.models import SkinType, Word
@@ -74,6 +75,8 @@ class Report(models.Model):
             ap.update_analysis(True)
 
     def generate(self):
+        if not self.answer:
+            raise Http404
         self.classify_skin_type()
         self.allergy = self.answer.other_question2
 

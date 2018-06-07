@@ -6,20 +6,6 @@
     top: 0pt;
     height: 297mm;
 }
-
-@frame footer_top_frame {
--pdf-frame-content:footer_top_content;
-left: 0;
-width: 210mm;
-top: 267mm;
-}
-
-@frame footer_bot_frame {
--pdf-frame-content:footer_bot_content;
-left: 0pt;
-width: 210mm;
-top: 281.5mm;
-}
 }
 
 html {
@@ -109,7 +95,8 @@ html {
 
 table {
     line-height: 7.06mm;
-    width:100%;
+    width: 98%;
+    margin: 0 auto;
 }
 
 td, th {
@@ -121,7 +108,7 @@ th {
     font-weight: bold;
 }
 
-.skin, .cosmetic  {
+.skin, .cosmetic {
     font-size: 3.9mm;
 }
 
@@ -131,11 +118,11 @@ th {
 
 .habit tr {
     padding-top: 2mm;
-    /*border-bottom: 1px solid #DDDDDD;*/
+    border-bottom: 1px solid #DDDDDD;
 }
 
-.habit tr:first-child {
-    /*border-top: 1px solid #DDDDDD;*/
+.habit tr:last-child {
+    border-top: 0;
 }
 
 .habit {

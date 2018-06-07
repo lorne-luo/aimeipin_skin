@@ -1,11 +1,12 @@
 from django.contrib import messages
 from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.template.loader import get_template
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
 from django.views.generic.base import ContextMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import ModelFormMixin
-
+from weasyprint import HTML, CSS
 from core.django.utils.pdf import PdfGenerateBaseView
 from .forms import PremiumProductFormSet
 from apps.survey.models import Answer
@@ -170,4 +171,27 @@ class ReportDownloadView(PdfGenerateBaseView, ReportDetailView):  # PdfGenerateB
         response = HttpResponse(pdf, content_type='application/force-download')
         response['Content-Disposition'] = 'attachment; filename=Action28_NO.%s.pdf' % self.object.answer.uuid
         response['Content-Length'] = len(pdf.content)
+        return response
+
+
+class ReportDownloadView2(ReportDetailView):
+    model = Report
+    form_class = forms.ReportDetailForm
+    template_name = 'report/report_download2_%s.html'
+    http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        # return super(ReportDownloadView, self).get(request, *args, **kwargs)
+        context = self.get_context_data(**kwargs)
+        template_name = self.get_template_names()
+        template = get_template(template_name)
+        html = template.render(context)
+        return HttpResponse(html)
+        pdf = HTML(string=html).write_pdf(stylesheets=[CSS(string='@page { size: A4; margin: 2cm };'
+                                                                  '* { float: none !important };'
+                                                                  '@media print { nav { display: none } }')])
+        response = HttpResponse(pdf, content_type='application/force-download')
+        response['Content-Disposition'] = 'attachment; filename=Action28_NO.%s.pdf' % self.object.answer.uuid
+        response['Content-Length'] = len(pdf)
         return response

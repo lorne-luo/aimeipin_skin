@@ -43,3 +43,4 @@ django-countries==5.3
 wechat-sdk==0.6.4
 MyQR==2.3.1
 xhtml2pdf==0.2b1
+weasyprint==0.42.3

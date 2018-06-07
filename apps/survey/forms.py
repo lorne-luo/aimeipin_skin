@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from apps.product.models import Product
 from config.constants import SEX_CHOICES, INCOME_CHOICES
+from core.django.autocomplete import FormsetModelSelect2
 from core.django.widgets import ThumbnailImageInput
 from .models import Answer, InviteCode, AnswerProduct
 
@@ -416,3 +417,40 @@ class AnswerProductInlineForm(forms.Form):
 #                                              fk_name='cosmetic_products1', can_order=False, can_delete=True, extra=1)
 
 AnswerProductFormSet = formset_factory(AnswerProductInlineForm, extra=1, can_delete=True)
+
+
+class AnswerProductAnalysisInlineForm(AnswerProductInlineForm):
+    id = forms.IntegerField(widget=forms.HiddenInput, required=False)
+    name = forms.CharField(label='Product name', max_length=100, required=False)
+    product = forms.ModelChoiceField(label=u'产品', queryset=Product.objects.all(), required=False,
+                                     widget=FormsetModelSelect2(url='api:product-autocomplete',
+                                                                attrs={'data-placeholder': u'任意中英文名称...',
+                                                                       'class': 'form-control'}))
+    analysis = forms.CharField(label='Product name', widget=forms.Textarea(attrs={'rows': 2, 'cols': 40}), max_length=1024, required=False)
+
+    def save(self):
+        id = self.cleaned_data['id']
+        product_id = self.cleaned_data['product']
+        name = self.cleaned_data['name']
+        analysis = self.cleaned_data['analysis']
+        DELETE = self.cleaned_data['DELETE']
+        if DELETE and id:
+            AnswerProduct.objects.filter(id=id).delete()
+            return None
+        elif id:
+            obj = AnswerProduct.objects.filter(id=id).first()
+            if obj:
+                obj.product_id = product_id
+                obj.name = name
+                obj.analysis = analysis
+                obj.save()
+        else:
+            if Product.objects.filter(id=product_id).exists():
+                obj = AnswerProduct(product_id=product_id)
+            else:
+                obj = AnswerProduct(name=name)
+            obj.save()
+        return obj
+
+
+AnswerProductAnalysisFormSet = formset_factory(AnswerProductAnalysisInlineForm, extra=1, can_delete=True)

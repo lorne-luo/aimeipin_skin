@@ -163,19 +163,20 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>护肤品</th>
+                        <th colspan="2" width="50%">护肤品</th>
                         <th>护肤品分析</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products1.all %}
-                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products2.all %}
-                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products3.all %}
-                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products4.all %}
-                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products5.all %}
-                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products6.all %}
-                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products7.all %}
-                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products8.all %}
+{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products1.all %}#}
+{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products2.all %}#}
+{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products3.all %}#}
+{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products4.all %}#}
+{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products5.all %}#}
+{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products6.all %}#}
+{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products7.all %}#}
+{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products8.all %}#}
+                    {% include 'report/includes/answer_product2.html' with formset=answerproductanalysis_formset %}
 
                     </tbody>
                 </table>

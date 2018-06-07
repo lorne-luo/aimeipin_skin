@@ -1,0 +1,10 @@
+{% for form in formset %}
+    <tr>
+        <td width="25%">
+            {{ form.id }}
+            {{ form.product }}
+        </td>
+        <td width="25%">{{ form.name }}</td>
+        <td>{{ form.analysis }}</td>
+    </tr>
+{% endfor %}

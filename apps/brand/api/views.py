@@ -32,14 +32,6 @@ class BrandAutocompleteAPIView(HansSelect2ViewMixin, autocomplete.Select2QuerySe
     model = Brand
     paginate_by = sys.maxsize  # no pagination
 
-    # create_field = 'name_cn'
-    #
-    # def create_object(self, text):
-    #     if include_non_asc(text):
-    #         return self.get_queryset().create(**{'name_cn': text})
-    #     else:
-    #         return self.get_queryset().create(**{'name_en': text})
-
     def get_queryset(self):
         qs = Brand.objects.all()
 

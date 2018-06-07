@@ -7,6 +7,8 @@ from django.views.generic.base import ContextMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import ModelFormMixin
 from weasyprint import HTML, CSS
+
+from apps.survey.forms import AnswerProductAnalysisFormSet
 from core.django.utils.pdf import PdfGenerateBaseView
 from .forms import PremiumProductFormSet
 from apps.survey.models import Answer
@@ -74,6 +76,53 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
             return self.template_name % self.object.level
         return 'report/report_form_9.9.html'
 
+    def get_productanalysis_initial(self):
+        initial = []
+        if not self.object.answer:
+            return initial
+
+        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                     'name': cosmetic.name or str(cosmetic.product),
+                     'analysis': cosmetic.analysis}
+                    for cosmetic in self.object.answer.cosmetic_products1.all()]
+
+        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                     'name': cosmetic.name or str(cosmetic.product),
+                     'analysis': cosmetic.analysis}
+                    for cosmetic in self.object.answer.cosmetic_products2.all()]
+
+        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                     'name': cosmetic.name or str(cosmetic.product),
+                     'analysis': cosmetic.analysis}
+                    for cosmetic in self.object.answer.cosmetic_products3.all()]
+
+        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                     'name': cosmetic.name or str(cosmetic.product),
+                     'analysis': cosmetic.analysis}
+                    for cosmetic in self.object.answer.cosmetic_products4.all()]
+
+        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                     'name': cosmetic.name or str(cosmetic.product),
+                     'analysis': cosmetic.analysis}
+                    for cosmetic in self.object.answer.cosmetic_products5.all()]
+
+        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                     'name': cosmetic.name or str(cosmetic.product),
+                     'analysis': cosmetic.analysis}
+                    for cosmetic in self.object.answer.cosmetic_products6.all()]
+
+        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                     'name': cosmetic.name or str(cosmetic.product),
+                     'analysis': cosmetic.analysis}
+                    for cosmetic in self.object.answer.cosmetic_products7.all()]
+
+        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
+                     'name': cosmetic.name or str(cosmetic.product),
+                     'analysis': cosmetic.analysis}
+                    for cosmetic in self.object.answer.cosmetic_products8.all()]
+
+        return initial
+
     def get_context_data(self, **kwargs):
         context = super(ReportUpdateView, self).get_context_data(**kwargs)
         if self.request.method == 'GET':
@@ -94,6 +143,9 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
                 day_products_formset = PremiumProductFormSet(instance=self.object, prefix='day_products_formset')
                 night_products_formset = PremiumProductFormSet(instance=self.object, prefix='night_products_formset')
                 mask_products_formset = PremiumProductFormSet(instance=self.object, prefix='mask_products_formset')
+
+            answerproductanalysis_formset = AnswerProductAnalysisFormSet(prefix='answerproductanalysis_formset',
+                                                                         initial=self.get_productanalysis_initial())
         else:
             day_products_formset = PremiumProductFormSet(self.request.POST, self.request.FILES,
                                                          instance=self.object, prefix='day_products_formset')
@@ -101,11 +153,14 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
                                                            instance=self.object, prefix='night_products_formset')
             mask_products_formset = PremiumProductFormSet(self.request.POST, self.request.FILES,
                                                           instance=self.object, prefix='mask_products_formset')
-
+            answerproductanalysis_formset = AnswerProductAnalysisFormSet(self.request.POST, self.request.FILES,
+                                                                         instance=self.object.answer,
+                                                                         prefix='answerproductanalysis_formset')
         context.update({
             'day_products_formset': day_products_formset,
             'night_products_formset': night_products_formset,
             'mask_products_formset': mask_products_formset,
+            'answerproductanalysis_formset': answerproductanalysis_formset,
         })
         return context
 

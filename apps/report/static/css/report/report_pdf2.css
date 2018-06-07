@@ -14,65 +14,9 @@ html {
     line-height: 4.23mm;
 }
 
-.bold {
-    font-weight: bold;
-}
-
-.grey {
-    background-color: #e9eaea;
-}
-
-.green {
-    background-color: #3cb878;
-}
-
-.red {
-    background-color: #ed1c24;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.text-right {
-    text-align: right;
-}
-
-.text-left {
-    text-align: left;
-}
-
-.font-size-1 {
-    font-size: 10.59mm;
-    line-height: 10.59mm;
-}
-
-.font-size-5 {
-    font-size: 4.23mm;
-    line-height: 4.23mm;
-}
-
-.page-wrapper {
-    box-sizing: border-box;
-}
-
-.header {
-}
-
-.header-left--top {
-    padding: 2.3mm 0 2mm 0;
-}
-
-.header-left--bot {
-    padding: 0mm 0 2.5mm 0;
-    font-size: 4.23mm;
-    line-height: 4.23mm;
-}
-
-.header-right {
-    font-size: 7.06mm;
-    line-height: 7.06mm;
-    font-weight: 500;
+body {
+    width: 960px;
+    margin: 0 auto;
 }
 
 .page {
@@ -106,6 +50,11 @@ td, th {
 
 th {
     font-weight: bold;
+}
+
+.info {
+    width: 70%;
+    margin-left: 10px;
 }
 
 .skin, .cosmetic {

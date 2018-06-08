@@ -48,9 +48,15 @@
     <div id="question">
         <div id="header">
             <h1>Action28肌肤测试问卷</h1>
-            <!--<img src=".././assets/logo.png">-->
         </div>
+            <!--<img src=".././assets/logo.png">-->
         <div id="section">
+{#            {% if form.purpose.value %}#}
+{#                <div>目标: {{ form.purpose.value }}</div>#}
+{#            {% endif %}#}
+{#            {% if form.level.value %}#}
+{#                <div>价位: {{ form.level.value }}</div>#}
+{#            {% endif %}#}
             <form id="form" method="post" action="">
                 {% csrf_token %}
                 {{ form.uuid }}
@@ -138,14 +144,25 @@
                 {% include 'survey/includes/question.html' with field=form.non_score_question15 number=64 %}
 
                 <!-- # 产品选择问题 65-72 -->
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products1 formset=cosmetic_products1_formset number=65 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products2 formset=cosmetic_products2_formset number=66 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products3 formset=cosmetic_products3_formset number=67 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products4 formset=cosmetic_products4_formset number=68 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products5 formset=cosmetic_products5_formset number=69 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products6 formset=cosmetic_products6_formset number=70 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products7 formset=cosmetic_products7_formset number=71 %}
-                {% include 'survey/includes/product_question.html' with field=form.cosmetic_products8 formset=cosmetic_products8_formset number=72 %}
+                {% if form.purpose.value == '种草' %}
+                    {% include 'survey/includes/product_question.html' with label='65. 种草的卸妆类的护肤品名' formset=cosmetic_products1_formset number=65 %}
+                    {% include 'survey/includes/product_question.html' with label='66. 种草的洁面乳/洁面霜/洁面油类的护肤品名称' formset=cosmetic_products2_formset number=66 %}
+                    {% include 'survey/includes/product_question.html' with label='67. 种草用化妆水类护肤品名称' formset=cosmetic_products3_formset number=67 %}
+                    {% include 'survey/includes/product_question.html' with label='68. 种草用乳液／面霜类护肤品名称' formset=cosmetic_products4_formset number=68 %}
+                    {% include 'survey/includes/product_question.html' with label='69. 种草的精华类的护肤品名称' formset=cosmetic_products5_formset number=69 %}
+                    {% include 'survey/includes/product_question.html' with label='70. 种草的去角质类的护肤品名称' formset=cosmetic_products6_formset number=70 %}
+                    {% include 'survey/includes/product_question.html' with label='71. 种草的的面膜类的护肤品名称' formset=cosmetic_products7_formset number=71 %}
+                    {% include 'survey/includes/product_question.html' with label='72. 种草的防晒类的护肤品名称' formset=cosmetic_products8_formset number=72 %}
+                {% else %}
+                    {% include 'survey/includes/product_question.html' with label='65. 目前正在使用的卸妆类的护肤品名' formset=cosmetic_products1_formset number=65 %}
+                    {% include 'survey/includes/product_question.html' with label='66. 目前正在使用的洁面乳/洁面霜/洁面油类的护肤品名称' formset=cosmetic_products2_formset number=66 %}
+                    {% include 'survey/includes/product_question.html' with label='67. 目前正在所使用化妆水类护肤品名称' formset=cosmetic_products3_formset number=67 %}
+                    {% include 'survey/includes/product_question.html' with label='68. 目前正在所使用乳液／面霜类护肤品名称' formset=cosmetic_products4_formset number=68 %}
+                    {% include 'survey/includes/product_question.html' with label='69. 目前正在使用的精华类的护肤品名称' formset=cosmetic_products5_formset number=69 %}
+                    {% include 'survey/includes/product_question.html' with label='70. 目前正在使用的去角质类的护肤品名称' formset=cosmetic_products6_formset number=70 %}
+                    {% include 'survey/includes/product_question.html' with label='71. 目前正在使用的的面膜类的护肤品名称' formset=cosmetic_products7_formset number=71 %}
+                    {% include 'survey/includes/product_question.html' with label='72. 目前正在使用的防晒类的护肤品名称' formset=cosmetic_products8_formset number=72 %}
+                {% endif %}
 
                 <!-- # 73-74 其他问题 -->
                 {% include 'survey/includes/question.html' with field=form.other_question1 number=73 %}

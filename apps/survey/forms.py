@@ -383,41 +383,36 @@ class InviteCodeDetailForm(forms.ModelForm):
         fields = ["uuid", 'name', 'purpose', 'level', 'expiry_at']
 
 
-class AnswerProductInlineForm(forms.Form):
-    id = forms.IntegerField(widget=forms.HiddenInput, required=False)
-    product = forms.IntegerField(widget=forms.HiddenInput, required=False)
-    name = forms.CharField(label='Product name', max_length=100, widget=forms.HiddenInput, required=False)
-
+class AnswerProductInlineForm(forms.ModelForm):
     class Meta:
+        model = AnswerProduct
         fields = ['id', 'product', 'name']
 
-    def save(self):
-        id = self.cleaned_data['id']
-        product_id = self.cleaned_data['product']
-        name = self.cleaned_data['name']
-        DELETE = self.cleaned_data['DELETE']
-        if DELETE and id:
-            AnswerProduct.objects.filter(id=id).delete()
-            return None
-        elif id:
-            obj = AnswerProduct.objects.filter(id=id).first()
-            if obj:
-                obj.product_id = product_id
-                obj.name = name
-                obj.save()
-        else:
-            if Product.objects.filter(id=product_id).exists():
-                obj = AnswerProduct(product_id=product_id)
-            else:
-                obj = AnswerProduct(name=name)
-            obj.save()
-        return obj
+    def __init__(self, *args, **kwargs):
+        super(AnswerProductInlineForm, self).__init__(*args, **kwargs)
+        self.fields['product'].widget = forms.HiddenInput()
+        self.fields['name'].widget = forms.HiddenInput()
+
+    def save(self, commit=True):
+        prefix_dict = {'cosmetic_products1_formset': '卸妆',
+                       'cosmetic_products2_formset': '洁面',
+                       'cosmetic_products3_formset': '化妆',
+                       'cosmetic_products4_formset': '面霜',
+                       'cosmetic_products5_formset': '精华',
+                       'cosmetic_products6_formset': '去角质',
+                       'cosmetic_products7_formset': '面膜',
+                       'cosmetic_products8_formset': '防晒'}
+        prefix = self.prefix.split('-')[0]
+        if prefix:
+            self.instance.type = prefix_dict.get(prefix, None)
+        return super(AnswerProductInlineForm, self).save(commit)
 
 
 # AnswerProductFormSet = inlineformset_factory(Answer, AnswerProduct, form=AnswerProductInlineForm,
 #                                              fk_name='cosmetic_products1', can_order=False, can_delete=True, extra=1)
 
-AnswerProductFormSet = formset_factory(AnswerProductInlineForm, extra=1, can_delete=True)
+AnswerProductFormSet = inlineformset_factory(Answer, AnswerProduct, form=AnswerProductInlineForm,
+                                             can_order=False, can_delete=True, extra=1)
 
 
 class AnswerProductAnalysisInlineForm(AnswerProductInlineForm):
@@ -427,7 +422,8 @@ class AnswerProductAnalysisInlineForm(AnswerProductInlineForm):
                                      widget=FormsetModelSelect2(url='api:product-autocomplete',
                                                                 attrs={'data-placeholder': u'任意中英文名称...',
                                                                        'class': 'form-control'}))
-    analysis = forms.CharField(label='Product name', widget=forms.Textarea(attrs={'rows': 2, 'cols': 40}), max_length=1024, required=False)
+    analysis = forms.CharField(label='Product name', widget=forms.Textarea(attrs={'rows': 2, 'cols': 40}),
+                               max_length=1024, required=False)
 
     def save(self):
         id = self.cleaned_data['id']

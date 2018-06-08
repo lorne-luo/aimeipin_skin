@@ -84,42 +84,42 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.cosmetic_products1.all()]
+                    for cosmetic in self.object.answerproduct_set.filter(type='卸妆')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.cosmetic_products2.all()]
+                    for cosmetic in self.object.answerproduct_set.filter(type='洁面')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.cosmetic_products3.all()]
+                    for cosmetic in self.object.answerproduct_set.filter(type='化妆')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.cosmetic_products4.all()]
+                    for cosmetic in self.object.answerproduct_set.filter(type='面霜')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.cosmetic_products5.all()]
+                    for cosmetic in self.object.answerproduct_set.filter(type='精华')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.cosmetic_products6.all()]
+                    for cosmetic in self.object.answerproduct_set.filter(type='去角质')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.cosmetic_products7.all()]
+                    for cosmetic in self.object.answerproduct_set.filter(type='面膜')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.cosmetic_products8.all()]
+                    for cosmetic in self.object.answerproduct_set.filter(type='防晒')]
 
         return initial
 
@@ -140,9 +140,9 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
                     instance=self.object,
                     prefix='mask_products_formset')
             else:
-                day_products_formset = PremiumProductFormSet(instance=self.object, prefix='day_products_formset')
-                night_products_formset = PremiumProductFormSet(instance=self.object, prefix='night_products_formset')
-                mask_products_formset = PremiumProductFormSet(instance=self.object, prefix='mask_products_formset')
+                day_products_formset = PremiumProductFormSet(prefix='day_products_formset')
+                night_products_formset = PremiumProductFormSet(prefix='night_products_formset')
+                mask_products_formset = PremiumProductFormSet(prefix='mask_products_formset')
 
             answerproductanalysis_formset = AnswerProductAnalysisFormSet(prefix='answerproductanalysis_formset',
                                                                          initial=self.get_productanalysis_initial())

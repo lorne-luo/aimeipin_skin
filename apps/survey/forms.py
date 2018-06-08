@@ -245,8 +245,8 @@ class SurveyFillForm(forms.ModelForm):
                                                      ('每天都去，排便正常', 'D. 每天都去，排便正常'),
                                                      ('不一定，有时候会有一点便秘', 'E. 不一定，有时候会有一点便秘')))
     non_score_question2 = forms.ChoiceField(widget=forms.RadioSelect(), label='51. 洁面',
-                                            choices=(('洁面产品洁面1次', 'A. 洁面产品洁面1次'),
-                                                     ('清水洗脸（不用任何洁面产品）', 'B. 清水洗脸（不用任何洁面产品）'),
+                                            choices=(('洗面奶洁面1次', 'A. 洁面产品洁面1次'),
+                                                     ('清水洗脸', 'B. 清水洗脸（不用任何洁面产品）'),
                                                      ('不洁面', 'C. 不洁面'),
                                                      ('其它', 'D. 其它'),))  # todo 如选择d，请备注具体情况：
     non_score_question3 = forms.ChoiceField(widget=forms.RadioSelect(), label='52. 化妆水',
@@ -267,20 +267,20 @@ class SurveyFillForm(forms.ModelForm):
                                                      ('其它产品代替',
                                                       'D. 其它产品代替'),))  # todo 如选择d，请备注具体情况：
     non_score_question6 = forms.ChoiceField(widget=forms.RadioSelect(), label='55. 防晒',
-                                            choices=(('四季每日使用，不管晴天阴天', 'A. 四季每日使用，不管晴天阴天'),
+                                            choices=(('四季每日使用，不管阴天晴天', 'A. 四季每日使用，不管阴天晴天'),
                                                      ('仅仅夏季使用', 'B. 仅仅夏季使用'),
                                                      ('不固定，想起来就用', 'C. 不固定，想起来就用'),
                                                      ('用底妆产品代替', 'D. 用底妆产品代替'),
                                                      ('从来不用', 'E. 从来不用')))
     non_score_question7 = forms.ChoiceField(widget=forms.RadioSelect(), label='56. 卸妆',
-                                            choices=(('使用', 'A. 使用'),
-                                                     ('不使用，直接洗脸',
+                                            choices=(('使用卸妆产品', 'A. 使用'),
+                                                     ('不使用卸妆产品，直接洗脸',
                                                       'B. 不使用，直接洗脸'),
-                                                     ('偶尔使用，不固定',
+                                                     ('偶尔使用卸妆产品，不固定',
                                                       'C. 偶尔使用，不固定')))
     non_score_question8 = forms.ChoiceField(widget=forms.RadioSelect(), label='57. 洁面',
-                                            choices=(('洁面产品洁面1次', 'A. 洁面产品洁面1次'),
-                                                     ('清水洗脸（不用任何洁面产品）', 'B. 清水洗脸（不用任何洁面产品）'),
+                                            choices=(('洗面奶洁面1次', 'A. 洁面产品洁面1次'),
+                                                     ('清水洗脸', 'B. 清水洗脸（不用任何洁面产品）'),
                                                      ('不洁面', 'C. 不洁面'),
                                                      ('其他', 'D. 其他'),))  # todo 如选择d，请备注具体情况：
     non_score_question9 = forms.ChoiceField(widget=forms.RadioSelect(), label='58. 化妆水',
@@ -303,14 +303,15 @@ class SurveyFillForm(forms.ModelForm):
                                              choices=(('从不使用', 'A. 从不使用'),
                                                       ('1周1次', 'B. 1周1次'),
                                                       ('1周2-3次', 'C. 1周2-3次'),
-                                                      ('周3-5次或以上', 'D. 周3-5次或以上'),
+                                                      ('1周3-5次或以上', 'D. 1周3-5次或以上'),
                                                       ('想起来就用，不固定', 'E. 想起来就用，不固定')))
     non_score_question13 = forms.ChoiceField(widget=forms.RadioSelect(), label='62. 去角质清洁面膜（去角质啫喱，泥面膜或其它清洁面膜）的频次',
                                              choices=(('从不使用', 'A. 从不使用'),
                                                       ('1周1次', 'B. 1周1次'),
-                                                      ('2-3周1次', 'C. 2-3周1次'),
-                                                      ('1月1次', 'D. 1月1次'),
-                                                      ('想起来就用，不固定', 'E. 想起来就用，不固定')))
+                                                      ('1周2次或以上', 'C. 1周2次或以上'),
+                                                      ('2-3周1次', 'D. 2-3周1次'),
+                                                      ('1月1次', 'E. 1月1次'),
+                                                      ('想起来就用，不固定', 'F. 想起来就用，不固定')))
     non_score_question14 = forms.ChoiceField(widget=forms.RadioSelect(), label='63. 您是否去有定期去美容院或医美机构做皮肤护理的习惯？',
                                              choices=(('有', 'A. 有'),
                                                       ('没有', 'B. 没有')))

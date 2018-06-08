@@ -5,53 +5,53 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 import django.db.models.deletion
 
-# def forward(apps, schema_editor):
-#     AnswerProduct = apps.get_model('survey', 'AnswerProduct')
-#     for p in AnswerProduct.objects.all():
-#         if p.cosmetic_products1.count():
-#             p.answer = p.cosmetic_products1.first()
-#             p.type = '卸妆'
-#             p.save()
-#             continue
-#         if p.cosmetic_products2.count():
-#             p.answer = p.cosmetic_products2.first()
-#             p.type = '洁面'
-#             p.save()
-#             continue
-#         if p.cosmetic_products3.count():
-#             p.answer = p.cosmetic_products3.first()
-#             p.type = '化妆'
-#             p.save()
-#             continue
-#         if p.cosmetic_products4.count():
-#             p.answer = p.cosmetic_products4.first()
-#             p.type = '面霜'
-#             p.save()
-#             continue
-#         if p.cosmetic_products5.count():
-#             p.answer = p.cosmetic_products5.first()
-#             p.type = '精华'
-#             p.save()
-#             continue
-#         if p.cosmetic_products6.count():
-#             p.answer = p.cosmetic_products6.first()
-#             p.type = '去角质'
-#             p.save()
-#             continue
-#         if p.cosmetic_products7.count():
-#             p.answer = p.cosmetic_products7.first()
-#             p.type = '面膜'
-#             p.save()
-#             continue
-#         if p.cosmetic_products8.count():
-#             p.answer = p.cosmetic_products8.first()
-#             p.type = '防晒'
-#             p.save()
-#             continue
-#
-# def backward(apps, schema_editor):
-#     # do nothing
-#     pass
+def forward(apps, schema_editor):
+    AnswerProduct = apps.get_model('survey', 'AnswerProduct')
+    for p in AnswerProduct.objects.all():
+        if p.cosmetic_products1.count():
+            p.answer = p.cosmetic_products1.first()
+            p.type = '卸妆'
+            p.save()
+            continue
+        if p.cosmetic_products2.count():
+            p.answer = p.cosmetic_products2.first()
+            p.type = '洁面'
+            p.save()
+            continue
+        if p.cosmetic_products3.count():
+            p.answer = p.cosmetic_products3.first()
+            p.type = '化妆'
+            p.save()
+            continue
+        if p.cosmetic_products4.count():
+            p.answer = p.cosmetic_products4.first()
+            p.type = '面霜'
+            p.save()
+            continue
+        if p.cosmetic_products5.count():
+            p.answer = p.cosmetic_products5.first()
+            p.type = '精华'
+            p.save()
+            continue
+        if p.cosmetic_products6.count():
+            p.answer = p.cosmetic_products6.first()
+            p.type = '去角质'
+            p.save()
+            continue
+        if p.cosmetic_products7.count():
+            p.answer = p.cosmetic_products7.first()
+            p.type = '面膜'
+            p.save()
+            continue
+        if p.cosmetic_products8.count():
+            p.answer = p.cosmetic_products8.first()
+            p.type = '防晒'
+            p.save()
+            continue
+
+def backward(apps, schema_editor):
+    # do nothing
+    pass
 
 
 class Migration(migrations.Migration):

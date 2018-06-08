@@ -10,7 +10,8 @@ from stdimage import StdImageField
 
 from apps.analysis.models import SkinType
 from apps.report.models import Report
-from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SURVEY_LEVEL_CHOICES, SURVEY_STATUS_CHOICES
+from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SURVEY_LEVEL_CHOICES, SURVEY_STATUS_CHOICES, \
+    ANSWER_PRODUCT_TYPE_CHOICES
 from config.settings import ANSWER_PHOTO_FOLDER
 from core.utils.ip import get_location
 from core.utils.qrcode import generate_qrcode
@@ -178,7 +179,7 @@ class Answer(QRCodeModel, models.Model):
     non_score_question15 = models.TextField('64. 近半年内您是否有出现过严重的皮肤问题(例如：大面积的痤疮. 湿疹. 皮肤过敏),请详细描述具体情况：', blank=True,
                                             max_length=255, help_text='提示：如没有，请留空')  # No. 64
 
-    # 非选项问题 产品选择题 65-72
+    # 非选项问题 产品选择题 65-72 see fk field AnswerProduct
     cosmetic_products1 = models.ManyToManyField('AnswerProduct', related_name='cosmetic_products1', blank=True,
                                                 verbose_name=u'65. 目前正在使用的卸妆类的护肤品名')
     cosmetic_products2 = models.ManyToManyField('AnswerProduct', related_name='cosmetic_products2', blank=True,
@@ -195,6 +196,7 @@ class Answer(QRCodeModel, models.Model):
                                                 verbose_name=u'71、目前正在使用的的面膜类的护肤品名称')
     cosmetic_products8 = models.ManyToManyField('AnswerProduct', related_name='cosmetic_products8', blank=True,
                                                 verbose_name=u'72、目前正在使用的防晒类的护肤品名称')
+
 
     other_question1 = models.TextField('73、您是否每天（一年四季，不管晴天、阴天、雨天，室内室外）涂抹足量（面部一元硬币大小）专门的防晒产品（不包括隔离霜，底妆）？', blank=True,
                                        max_length=255)  # No. 73
@@ -279,14 +281,7 @@ class Answer(QRCodeModel, models.Model):
 
     def delete(self, using=None, keep_parents=False):
         self.code.delete()
-        self.cosmetic_products1.all().delete()
-        self.cosmetic_products2.all().delete()
-        self.cosmetic_products3.all().delete()
-        self.cosmetic_products4.all().delete()
-        self.cosmetic_products5.all().delete()
-        self.cosmetic_products6.all().delete()
-        self.cosmetic_products7.all().delete()
-        self.cosmetic_products8.all().delete()
+        self.answerproduct_set.all().delete()
         return super(Answer, self).delete(using, keep_parents)
 
     def generate_report(self, purpose, level):
@@ -328,6 +323,8 @@ class InviteCode(QRCodeModel, models.Model):
 
 
 class AnswerProduct(models.Model):
+    answer = models.ForeignKey('survey.Answer', blank=True, null=True)
+    type = models.CharField('type', max_length=64, choices=ANSWER_PRODUCT_TYPE_CHOICES, blank=True)  # 产品类型
     product = models.ForeignKey('product.Product', null=True, blank=True)
     name = models.CharField('product name', max_length=255, blank=True)
     analysis = models.TextField('product analysis', max_length=255, blank=True)
@@ -342,11 +339,6 @@ class AnswerProduct(models.Model):
         if self.product:
             self.name = str(self.product)
         return super(AnswerProduct, self).save(*args, **kwargs)
-
-    @property
-    def answer(self):
-        answers = self.cosmetic_products1.all() | self.cosmetic_products2.all() | self.cosmetic_products3.all() | self.cosmetic_products4.all() | self.cosmetic_products5.all() | self.cosmetic_products6.all() | self.cosmetic_products7.all() | self.cosmetic_products8.all()
-        return answers.first()
 
     def update_analysis(self, force_update=False):
         if self.answer and self.product:

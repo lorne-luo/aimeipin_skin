@@ -11,7 +11,7 @@ from stdimage import StdImageField
 from apps.analysis.models import SkinType
 from apps.report.models import Report
 from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SURVEY_LEVEL_CHOICES, SURVEY_STATUS_CHOICES, \
-    ANSWER_PRODUCT_TYPE_CHOICES
+    ANSWER_PRODUCT_TYPE_CHOICES, PRODUCT_CATEGORY_CHOICES
 from config.settings import ANSWER_PHOTO_FOLDER
 from core.utils.ip import get_location
 from core.utils.qrcode import generate_qrcode
@@ -308,6 +308,7 @@ class InviteCode(QRCodeModel, models.Model):
 class AnswerProduct(models.Model):
     answer = models.ForeignKey('survey.Answer', blank=True, null=True)
     type = models.CharField('type', max_length=64, choices=ANSWER_PRODUCT_TYPE_CHOICES, blank=True)  # 产品类型
+    category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, blank=True)
     product = models.ForeignKey('product.Product', null=True, blank=True)
     name = models.CharField('product name', max_length=255, blank=True)
     analysis = models.TextField('product analysis', max_length=255, blank=True)

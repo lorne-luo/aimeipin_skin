@@ -20,17 +20,6 @@ INCOME_CHOICES = (
     (INCOME_TIER_HOUSEWIFE, 'E. ' + INCOME_TIER_HOUSEWIFE)
 )
 
-PRODUCT_CATEGORY_CHOICES = (
-    (u'乳液/面霜', u'乳液/面霜'),
-    (u'卸妆', u'卸妆'),
-    (u'去角质', u'去角质'),
-    (u'化妆水', u'化妆水'),
-    (u'洁面', u'洁面'),
-    (u'精华', u'精华'),
-    (u'防晒', u'防晒'),
-    (u'面膜', u'面膜'),
-)
-
 PURPOSE_CHOICES = (
     (u'急镇定', u'急镇定'),
     (u'抗轻衰', u'抗轻衰'),
@@ -99,4 +88,15 @@ ANSWER_PRODUCT_TYPE_CHOICES = (
     ('去角质', '去角质'),
     ('面膜', '面膜'),
     ('防晒', '防晒'),
+)
+
+PRODUCT_CATEGORY_CHOICES = (
+    (u'卸妆', u'卸妆'),
+    (u'洁面', u'洁面'),
+    (u'化妆水', u'化妆水'),
+    (u'乳液/面霜', u'乳液/面霜'),
+    (u'精华', u'精华'),
+    (u'去角质', u'去角质'),
+    (u'面膜', u'面膜'),
+    (u'防晒', u'防晒'),
 )

@@ -396,15 +396,15 @@ class AnswerProductInlineForm(forms.ModelForm):
     def save(self, commit=True):
         prefix_dict = {'cosmetic_products1_formset': '卸妆',
                        'cosmetic_products2_formset': '洁面',
-                       'cosmetic_products3_formset': '化妆',
-                       'cosmetic_products4_formset': '面霜',
+                       'cosmetic_products3_formset': '化妆水',
+                       'cosmetic_products4_formset': '乳液/面霜',
                        'cosmetic_products5_formset': '精华',
                        'cosmetic_products6_formset': '去角质',
                        'cosmetic_products7_formset': '面膜',
                        'cosmetic_products8_formset': '防晒'}
         prefix = self.prefix.split('-')[0]
         if prefix:
-            self.instance.type = prefix_dict.get(prefix, None)
+            self.instance.category = prefix_dict.get(prefix, None)
         return super(AnswerProductInlineForm, self).save(commit)
 
 

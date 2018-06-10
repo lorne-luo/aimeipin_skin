@@ -92,14 +92,14 @@ class Report(models.Model):
             self.night_instruct = word.night_instruct
             self.mask_instruct = word.mask_instruct
 
-        self.analysis_product(self.answer.answerproduct_set.filter(type='卸妆'))
-        self.analysis_product(self.answer.answerproduct_set.filter(type='洁面'))
-        self.analysis_product(self.answer.answerproduct_set.filter(type='化妆'))
-        self.analysis_product(self.answer.answerproduct_set.filter(type='面霜'))
-        self.analysis_product(self.answer.answerproduct_set.filter(type='精华'))
-        self.analysis_product(self.answer.answerproduct_set.filter(type='去角质'))
-        self.analysis_product(self.answer.answerproduct_set.filter(type='面膜'))
-        self.analysis_product(self.answer.answerproduct_set.filter(type='防晒'))
+        self.analysis_product(self.answer.answerproduct_set.filter(category='卸妆'))
+        self.analysis_product(self.answer.answerproduct_set.filter(category='洁面'))
+        self.analysis_product(self.answer.answerproduct_set.filter(category='化妆'))
+        self.analysis_product(self.answer.answerproduct_set.filter(category='面霜'))
+        self.analysis_product(self.answer.answerproduct_set.filter(category='精华'))
+        self.analysis_product(self.answer.answerproduct_set.filter(category='去角质'))
+        self.analysis_product(self.answer.answerproduct_set.filter(category='面膜'))
+        self.analysis_product(self.answer.answerproduct_set.filter(category='防晒'))
 
         self.save()
 

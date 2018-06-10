@@ -3,9 +3,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
-from django.views.generic.base import ContextMixin
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.edit import ModelFormMixin
 from weasyprint import HTML, CSS
 
 from apps.survey.forms import AnswerProductAnalysisFormSet
@@ -84,42 +82,42 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answerproduct_set.filter(type='卸妆')]
+                    for cosmetic in self.object.answer.answerproduct_set.filter(category='卸妆')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answerproduct_set.filter(type='洁面')]
+                    for cosmetic in self.object.answer.answerproduct_set.filter(category='洁面')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answerproduct_set.filter(type='化妆')]
+                    for cosmetic in self.object.answer.answerproduct_set.filter(category='化妆')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answerproduct_set.filter(type='面霜')]
+                    for cosmetic in self.object.answer.answerproduct_set.filter(category='面霜')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answerproduct_set.filter(type='精华')]
+                    for cosmetic in self.object.answer.answerproduct_set.filter(category='精华')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answerproduct_set.filter(type='去角质')]
+                    for cosmetic in self.object.answer.answerproduct_set.filter(category='去角质')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answerproduct_set.filter(type='面膜')]
+                    for cosmetic in self.object.answer.answerproduct_set.filter(category='面膜')]
 
         initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
                      'name': cosmetic.name or str(cosmetic.product),
                      'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answerproduct_set.filter(type='防晒')]
+                    for cosmetic in self.object.answer.answerproduct_set.filter(category='防晒')]
 
         return initial
 

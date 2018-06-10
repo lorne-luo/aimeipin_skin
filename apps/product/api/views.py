@@ -42,8 +42,11 @@ class ProductAutocompleteAPIView(HansSelect2ViewMixin, autocomplete.Select2Query
     def get_queryset(self):
         qs = Product.objects.all()
         brand_id = self.request.GET.get('brand_id', '')
+        category = self.forwarded.get('category')
         if brand_id:
             qs = qs.filter(brand__id=brand_id)
+        if category:
+            qs = qs.filter(category=category)
 
         if include_non_asc(self.q):
             qs = qs.filter(Q(name_cn__icontains=self.q))

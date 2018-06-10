@@ -137,13 +137,16 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
                     queryset=self.object.reportpremiumproduct_set.all().filter(type='面膜'),
                     instance=self.object,
                     prefix='mask_products_formset')
+                if self.object.answer:
+                    answerproductanalysis_formset = AnswerProductAnalysisFormSet(prefix='answerproductanalysis_formset',
+                                                                                 instance=self.object.answer)
+                else:
+                    answerproductanalysis_formset = AnswerProductAnalysisFormSet(prefix='answerproductanalysis_formset')
             else:
                 day_products_formset = PremiumProductFormSet(prefix='day_products_formset')
                 night_products_formset = PremiumProductFormSet(prefix='night_products_formset')
                 mask_products_formset = PremiumProductFormSet(prefix='mask_products_formset')
-
-            answerproductanalysis_formset = AnswerProductAnalysisFormSet(prefix='answerproductanalysis_formset',
-                                                                         initial=self.get_productanalysis_initial())
+                answerproductanalysis_formset = AnswerProductAnalysisFormSet(prefix='answerproductanalysis_formset')
         else:
             day_products_formset = PremiumProductFormSet(self.request.POST, self.request.FILES,
                                                          instance=self.object, prefix='day_products_formset')

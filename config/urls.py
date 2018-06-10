@@ -30,8 +30,8 @@ wagtail_urlpatterns = [
 
 apps_urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^dashboard/', include('apps.dashboard.urls', namespace='dashboard')),
-    url(r'^users/', include('core.auth_user.urls', namespace='users')),
+    url(r'^', include('apps.dashboard.urls', namespace='dashboard')),
+    url(r'^', include('core.auth_user.urls', namespace='users')),
     url(r'^customer/', include('apps.customer.urls', namespace='customer')),
     url(r'^brand/', include('apps.brand.urls', namespace='brand')),
     url(r'^product/', include('apps.product.urls', namespace='product')),

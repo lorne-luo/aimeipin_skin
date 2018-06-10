@@ -90,28 +90,10 @@
         <h4>3. 护肤品分析</h4>
         <div class="row">
             <div class="col-xs-12">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>护肤品</th>
-                        <th>护肤品分析</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products1.all %}#}
-{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products2.all %}#}
-{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products3.all %}#}
-{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products4.all %}#}
-{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products5.all %}#}
-{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products6.all %}#}
-{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products7.all %}#}
-{#                    {% include 'report/includes/answer_product.html' with products=object.answer.cosmetic_products8.all %}#}
-                    {% include 'report/includes/answer_product2.html' with formset=answerproductanalysis_formset %}
-                    </tbody>
-                </table>
+                {% include 'report/includes/answer_product2.html' with formset=answerproductanalysis_formset %}
             </div>
-
         </div>
+
         <h5>过敏成分及症状</h5>
         <div class="row">
             <div class="col-xs-12">
@@ -149,6 +131,36 @@
                 detail_url_tag: 'report:report-detail',
                 update_url_tag: 'report:report-update'
             }
+        });
+    </script>
+{% endblock %}
+
+
+{% block footer_base_script %}
+    <script type="text/javascript" src="{% static 'adminlte/js/common-form.js' %}"></script>
+    <script type="text/javascript">
+
+        jQuery(document).ready(function ($) {
+            $('#commonForm input').addClass('form-control');
+            $('#commonForm select').addClass('form-control');
+            $('#commonForm textarea').addClass('form-control');
+            $("select[class$='form-control'][readonly=true]").prop('disabled', true);
+
+            $("select[class$='form-control']").not("select[id$=product]").chosen({
+                search_contains: true,
+                disable_search_threshold: 10
+            });
+        });
+    </script>
+
+    <!-- iCheck init -->
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
         });
     </script>
 {% endblock %}

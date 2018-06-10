@@ -1,10 +1,76 @@
-{% for form in formset %}
+{{ formset.management_form }}
+<table class="table table-bordered" id="{{ formset.prefix }}_table">
+    <thead>
     <tr>
-        <td width="25%">
-            {{ form.id }}
-            {{ form.product }}
-        </td>
-        <td width="25%">{{ form.name }}</td>
-        <td>{{ form.analysis }}</td>
+        <th width="30%">护肤品</th>
+        <th width="10%">类型</th>
+        <th>分析</th>
+        <th style="width: 45px">删除</th>
     </tr>
-{% endfor %}
+    </thead>
+    <tbody>
+    {% for form in formset %}
+        {% if form.id.value %}
+            <tr class="{% cycle row1 row2 %} formset_row">
+                <td>
+                    {{ form.id }}
+                    {{ form.product }}
+                    {{ form.name }}
+                </td>
+                <td>{{ form.category }}</td>
+                <td>{{ form.analysis }}</td>
+                <td>{{ form.DELETE }}</td>
+            </tr>
+{#        {% else %}#}
+{#            <tr class="formset_row" id="{{ formset.prefix }}_template" >#}
+{#                <td>#}
+{#                    {{ form.id }}#}
+{#                    {{ form.product }}#}
+{#                    {{ form.name }}#}
+{#                </td>#}
+{#                <td>{{ form.category }}</td>#}
+{#                <td>{{ form.analysis }}</td>#}
+{#                <td></td>#}
+{#            </tr>#}
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>
+<table  id="{{ formset.prefix }}_template" style="display: none">
+    {% for form in formset %}
+        {% if not form.id.value %}
+            <tr class="formset_row" >
+                <td>
+                    {{ form.id }}
+                    {{ form.product }}
+                    {{ form.name }}
+                </td>
+                <td>{{ form.category }}</td>
+                <td>{{ form.analysis }}</td>
+                <td></td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+
+<script type="text/javascript">
+    $('#{{ formset.prefix }}_table .formset_row').formset({
+        formTemplate: '#{{ formset.prefix }}_template tr',
+        addText: '增加一项',
+        prefix: '{{ formset.prefix }}',
+        addCssClass: 'btn btn-success',
+        deleteCssClass: 'remove-day-products',
+        formCssClass: 'dynamic-form',
+        deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>',
+        added: function (row) {
+            $("#{{ formset.prefix }}_table select[id$=category]").chosen({
+                search_contains: true,
+                disable_search_threshold: 10,
+                width: "90%"
+            });
+
+{#            $('[data-autocomplete-light-function]', row).each(window.__dal__initialize);#}
+            // jquery choosen init
+        }
+    });
+</script>

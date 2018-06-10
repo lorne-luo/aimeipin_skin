@@ -2,7 +2,7 @@
     <h5 class="box-title">{{ title }}</h5>
     {{ products_formset.management_form }}
 
-    {% for form in products_formset.forms %}
+    {% for form in products_formset %}
         <div class="form-group col-xs-12 {% cycle row1 row2 %} formset_row">
             <div class="col-md-8 col-xs-11">
                 {{ form.product }}
@@ -18,14 +18,15 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#{{ products_formset.prefix }}_table .formset_row').formset({
-            addText: '增加一项',
-            prefix: '{{ products_formset.prefix }}',
-            addCssClass: 'btn btn-success',
-            deleteCssClass: 'remove-day-products',
-            formCssClass: 'dynamic-form',
-            deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>'
-        });
+    $('#{{ products_formset.prefix }}_table .formset_row').formset({
+        addText: '增加一项',
+        prefix: '{{ products_formset.prefix }}',
+        addCssClass: 'btn btn-success',
+        deleteCssClass: 'remove-day-products',
+        formCssClass: 'dynamic-form',
+        deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>',
+        added: function (row) {
+{#            $('[data-autocomplete-light-function]', row).each(window.__dal__initialize);#}
+        }
     });
 </script>

@@ -103,7 +103,7 @@ class ResizeUploadedImageModelMixin(object):
     usage:
         cal self.resize_image('image_field_name') before super.save()
     """
-    MAX_WIDTH = 800
+    MAX_WIDTH = 1000
 
     def resize_image(self, image_field_name):
         # resize uploaded image when save new

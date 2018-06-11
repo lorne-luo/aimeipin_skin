@@ -13,6 +13,7 @@ from apps.report.models import Report
 from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SURVEY_LEVEL_CHOICES, SURVEY_STATUS_CHOICES, \
     ANSWER_PRODUCT_TYPE_CHOICES, PRODUCT_CATEGORY_CHOICES
 from config.settings import ANSWER_PHOTO_FOLDER
+from core.django.models import ResizeUploadedImageModelMixin
 from core.utils.ip import get_location
 from core.utils.qrcode import generate_qrcode
 
@@ -71,7 +72,7 @@ class AnswerManager(models.Manager):
         return self.filter(status='CREATED')
 
 
-class Answer(QRCodeModel, models.Model):
+class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
     """问卷报告回答,answer"""
     customer = models.ForeignKey('customer.Customer', null=True, blank=True)
     code = models.OneToOneField('InviteCode', null=True, blank=True, on_delete=models.DO_NOTHING)
@@ -202,6 +203,10 @@ class Answer(QRCodeModel, models.Model):
         self.city = get_location(self.ip)
 
     def save(self, *args, **kwargs):
+        self.resize_image('portrait')
+        self.resize_image('portrait_part')
+        self.resize_image('cosmetics')
+
         if not self.code and self.uuid:
             self.code = InviteCode.objects.filter(uuid=self.uuid).first()
 

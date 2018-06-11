@@ -39,7 +39,6 @@ class Brand(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
     first_letter_cn = models.CharField(_('拼音首字母'), max_length=128, blank=True)
     logo = StdImageField(upload_to=get_brand_logo_path, blank=True, null=True, verbose_name=_('Logo'),
                          variations={
-                             'medium': (800, 800, True),
                              'thumbnail': (400, 400, True)
                          })
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)

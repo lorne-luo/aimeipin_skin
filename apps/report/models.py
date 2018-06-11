@@ -58,6 +58,7 @@ class Report(models.Model):
         self.loose_type = SkinType.get_loose_type(self.loose_score)
 
     def save(self, *args, **kwargs):
+        self.classify_skin_type()
         super(Report, self).save(*args, **kwargs)
 
     @property

@@ -413,7 +413,7 @@ AnswerProductFormSet = inlineformset_factory(Answer, AnswerProduct, form=AnswerP
 
 
 class AnswerProductAnalysisInlineForm(forms.ModelForm):
-    product = forms.ModelChoiceField(label=u'商品', queryset=Product.objects.all(),
+    product = forms.ModelChoiceField(label=u'商品', queryset=Product.objects.all(), required=False,
                                      widget=FormsetModelSelect2(url='api:product-autocomplete',
                                                                 forward=['category'],
                                                                 attrs={'data-placeholder': u'任意品牌名称...'}))

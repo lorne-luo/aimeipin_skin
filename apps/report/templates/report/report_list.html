@@ -12,8 +12,7 @@
     <th>姓名</th>
     <th>目标</th>
     <th>类别</th>
-    <th>编辑报告</th>
-    <th>下载报告</th>
+    <th>编辑/下载</th>
     <th>最后修改</th>
     <th>创建日期</th>
 {% endblock %}
@@ -28,8 +27,8 @@
         <td>{!! item.answer_display !!} <a href="{!! item.answer_url !!}">[查看问卷]</a></td>
         <td>{!! item.purpose !!}</td>
         <td>{!! item.level !!}</td>
-        <td><a href="{!! item.edit_url !!}">编辑报告</a></td>
         <td>
+            <a href="{!! item.edit_url !!}">[编辑]</a>
             <a href="{!! item.detail_url !!}">[查看]</a>
             <a href="{!! item.download_url !!}">[PDF下载]</a>
         </td>

@@ -44,7 +44,7 @@ class PremiumProductInlineForm(forms.ModelForm):
         fields = ['id', 'type', 'report', 'product']
 
     def clean(self):
-        product = self.cleaned_data['product']
+        product = self.cleaned_data.get('product', None)
         if product:
             if self.prefix.startswith('day_products_formset'):
                 self.cleaned_data['type'] = '日间'

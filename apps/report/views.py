@@ -165,23 +165,25 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
         })
         return context
 
-    def process_formset(self, prefix):
-        products_formset = PremiumProductFormSet(self.request.POST, self.request.FILES,
-                                                 prefix=prefix, instance=self.object)
-        products_formset.instance = self.object
-        if products_formset.is_valid():
-            products_formset.save()
+    def process_formset(self, fromset_class, prefix, instance):
+        formset = fromset_class(self.request.POST, self.request.FILES,
+                                prefix=prefix, instance=instance)
+        formset.instance = instance
+        if formset.is_valid():
+            formset.save()
             return True
         else:
-            messages.error(self.request, str(products_formset.errors))
+            messages.error(self.request, str(formset.errors))
             return False
 
     def form_valid(self, form):
         result = super(ReportUpdateView, self).form_valid(form)
 
-        if not all([self.process_formset('day_products_formset'),
-                    self.process_formset('night_products_formset'),
-                    self.process_formset('mask_products_formset')]):
+        if not all([self.process_formset(PremiumProductFormSet, 'day_products_formset', self.object),
+                    self.process_formset(PremiumProductFormSet, 'night_products_formset', self.object),
+                    self.process_formset(PremiumProductFormSet, 'mask_products_formset', self.object),
+                    self.process_formset(AnswerProductAnalysisFormSet, 'answerproductanalysis_formset',
+                                         self.object.answer)]):
             return self.form_invalid(form)
         return result
 

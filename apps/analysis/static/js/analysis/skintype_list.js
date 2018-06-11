@@ -10,7 +10,8 @@ var skintypeListPageVue = new CommonListPageVue({
             list_url_tag:   'analysis:skintype-list',
             update_url_tag: 'analysis:skintype-update',
             detail_url_tag: 'analysis:skintype-detail',
-            list_url:       Urls['api:skintype-list']()
+            list_url:       Urls['api:skintype-list'](),
+            ordering:'dimension,lower_bound'
         }
     }
 );

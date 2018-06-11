@@ -47,8 +47,8 @@ class SkinTypeListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(SkinTypeListView, self).get_context_data(**kwargs)
-        context['table_titles'] = [u'维度', u'名称', u'简称', u'备注', '']
-        context['table_fields'] = ['dimension', 'name', 'short_name', 'description', 'id']
+        context['table_titles'] = [u'维度', u'名称', '分数下界', '分数上界', u'简称', u'备注', '']
+        context['table_fields'] = ['dimension', 'name', 'lower_bound', 'upper_bound', 'short_name', 'description', 'id']
         return context
 
 

@@ -88,12 +88,17 @@
         <table class="cosmetic">
             <thead>
             <tr>
-                <th style="width:90mm">护肤品</th>
+                <th width="35%">护肤品</th>
                 <th>护肤品分析</th>
             </tr>
             </thead>
             <tbody>
-            {% include 'report/includes/answer_product_readonly.html' with products=object.answer.answerproduct_set.all %}
+            {% for product in object.answer.answerproduct_set.all %}
+                <tr>
+                    <td>{{ product }}</td>
+                    <td>{{ product.analysis }}</td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
         <br/>

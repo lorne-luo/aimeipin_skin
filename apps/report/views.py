@@ -245,7 +245,7 @@ class ReportDownloadView2(ReportDetailView):
         template_name = self.get_template_names()
         template = get_template(template_name)
         html = template.render(context)
-        return HttpResponse(html)
+        # return HttpResponse(html)
         pdf = HTML(string=html).write_pdf(stylesheets=[CSS(string='@page { size: A4; margin: 2cm };'
                                                                   '* { float: none !important };'
                                                                   '@media print { nav { display: none } }')])

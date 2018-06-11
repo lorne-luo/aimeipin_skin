@@ -31,17 +31,17 @@ class Report(models.Model):
     pigment_score = models.PositiveIntegerField('色素分数', blank=True, null=True)
     loose_score = models.PositiveIntegerField('易皱纹紧致分数', blank=True, null=True)
 
-    summary = models.TextField('总结', max_length=128, blank=True)  # 报告总结
-    problem = models.TextField('2. 我们认为您存在的问题', max_length=128, blank=True)  # 存在的问题
-    avoid_component = models.TextField('4) 需要避免使用的皮肤护理成分', max_length=128, blank=True)  # 避免使用的成分
-    doctor_advice = models.TextField('三、听听皮肤科医生怎么说', max_length=128, blank=True)  # 医生建议
+    summary = models.TextField('总结', blank=True)  # 报告总结
+    problem = models.TextField('2. 我们认为您存在的问题', blank=True)  # 存在的问题
+    avoid_component = models.TextField('4) 需要避免使用的皮肤护理成分', blank=True)  # 避免使用的成分
+    doctor_advice = models.TextField('三、听听皮肤科医生怎么说',  blank=True)  # 医生建议
     day_instruct = models.CharField('日间', max_length=512, blank=True)  # 日间指导
     night_instruct = models.CharField('夜间', max_length=512, blank=True)  # 夜间指导
     mask_instruct = models.CharField('面膜', max_length=512, blank=True)  # 面膜指导
-    emergency_solution = models.TextField('应急方案', max_length=128, blank=True)  # 应急方案
-    maintain_solution = models.TextField('日常维稳方案', max_length=128, blank=True)  # 维稳方案
-    allergy = models.TextField('过敏', max_length=128, blank=True)  # 过敏, answer.other_question2
-    remark = models.TextField('温馨提示', max_length=128, blank=True)  # 温馨提示, for 9.9
+    emergency_solution = models.TextField('应急方案', blank=True)  # 应急方案
+    maintain_solution = models.TextField('日常维稳方案',  blank=True)  # 维稳方案
+    allergy = models.TextField('过敏',blank=True)  # 过敏, answer.other_question2
+    remark = models.TextField('温馨提示', blank=True)  # 温馨提示, for 9.9
 
     modified_at = models.DateTimeField('最后更新', auto_now=True, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)

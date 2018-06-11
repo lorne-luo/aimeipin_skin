@@ -23,58 +23,34 @@ class SkinType(models.Model):
 
     @staticmethod
     def get_oily_type(score):
-        name = ''
         if score:
-            if 100 <= score <= 149:
-                name = '重度干性'
-            elif 150 <= score <= 229:
-                name = '轻度干性'
-            elif 230 <= score <= 299:
-                name = '轻度油性'
-            elif 300 <= score <= 400:
-                name = '重度油性'
-        if name:
-            return SkinType.objects.filter(name=name).first()
+            for t in SkinType.objects.filter(dimension='油性or干性'):
+                if t.lower_bound <= score <= t.upper_bound:
+                    return t
         return None
 
     @staticmethod
     def get_sensitive_type(score):
-        name = ''
         if score:
-            if 110 <= score <= 169:
-                name = '耐受性'
-            elif 170 <= score <= 269:
-                name = '轻度耐受性'
-            elif 270 <= score <= 339:
-                name = '轻度敏感性'
-            elif 340 <= score <= 440:
-                name = '重度敏感性'
-        if name:
-            return SkinType.objects.filter(name=name).first()
+            for t in SkinType.objects.filter(dimension='敏感or耐受'):
+                if t.lower_bound <= score <= t.upper_bound:
+                    return t
         return None
 
     @staticmethod
     def get_pigment_type(score):
-        name = ''
         if score:
-            if 60 <= score <= 209:
-                name = '非色素性'
-            elif 210 <= score <= 360:
-                name = '色素性'
-        if name:
-            return SkinType.objects.filter(name=name).first()
+            for t in SkinType.objects.filter(dimension='色素or非色素'):
+                if t.lower_bound <= score <= t.upper_bound:
+                    return t
         return None
 
     @staticmethod
     def get_loose_type(score):
-        name = ''
         if score:
-            if 100 <= score <= 249:
-                name = '紧致性'
-            elif 250 <= score <= 400:
-                name = '非紧致性'
-        if name:
-            return SkinType.objects.filter(name=name).first()
+            for t in SkinType.objects.filter(dimension='易皱纹or紧致'):
+                if t.lower_bound <= score <= t.upper_bound:
+                    return t
         return None
 
 

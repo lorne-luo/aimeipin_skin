@@ -37,5 +37,5 @@ class SkinTypeSerializer(BaseSerializer):
     class Meta:
         model = SkinType
         fields = ['id', 'edit_url', 'detail_url'] + \
-                 ['dimension', 'name', 'short_name', 'description']
+                 ['dimension', 'name', 'short_name', 'description', 'lower_bound', 'upper_bound']
         read_only_fields = ['id']

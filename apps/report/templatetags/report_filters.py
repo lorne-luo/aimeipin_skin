@@ -26,7 +26,7 @@ def base64_static(path):
 
     data_type = 'data:image/png;base64,'
 
-    if path.endswith('.ttf'):
+    if path.lower().endswith('.ttf'):
         data_type = 'data:application/x-font-ttf;charset=utf-8;base64,'
 
     if os.path.exists(file_path):

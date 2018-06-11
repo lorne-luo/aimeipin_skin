@@ -3,29 +3,27 @@
 <html lang="en-us">
 <head>
     <title>Action28 调查报告</title>
+    <style>
+{#        @font-face {#}
+{#            font-family: STSong;#}
+{#            src: url({% base64_static "fonts/STSong.TTF" %});#}
+{#        }#}
+    </style>
     {% inline_static 'css/report/report_pdf2.css' %}
 </head>
 
 <body class="report-download">
 <div class="page page-wrapper">
-    <table class="header">
-        <tr class="gap"></tr>
-        <tr class="gap"></tr>
-        <tr>
-            <td>
-{#                <img height="100px" src="{% base64_static 'qrcode_logo.jpg' %}">#}
-                <h1 class="title">Action28 调查报告</h1>
-            </td>
-        </tr>
-    </table>
-
+    <div class="header">
+        <h1 class="title">Action28 调查报告</h1>
+    </div>
     <div class="page-wrapper">
         <h2>1.基本信息</h2>
         <table class="info">
             <tr>
-                <th width="30mm">姓名</th>
+                <th>姓名</th>
                 <td>{{ object.answer.name }}</td>
-                <th width="30mm">性别</th>
+                <th>性别</th>
                 <td>{{ object.answer.sex }}</td>
             </tr>
             <tr>
@@ -47,9 +45,9 @@
         <table class="skin">
             <thead>
             <tr>
-                <th style="width:25mm">肤质</th>
+                <th style="width:10mm">肤质</th>
                 <th style="width:20mm">检测分数</th>
-                <th style="width:45mm">参考提示</th>
+                <th style="width:20mm">参考提示</th>
                 <th>备注</th>
             </tr>
             </thead>
@@ -78,11 +76,12 @@
                 <td>{{ object.loose_type.short_description }}</td>
                 <td><p>{{ object.loose_type.description }}</p></td>
             </tr>
+        </table>
+        <table>
             <tr>
                 <th>总结</th>
-                <td colspan="3">{{ object.summary|default:"无" }}</td>
+                <td>{{ object.summary|default:"无" }}</td>
             </tr>
-            </tbody>
         </table>
         <br/>
 
@@ -130,14 +129,14 @@
         <br/>
 
         <h3>2. 我们认为您存在的问题</h3>
-        <div>
+        <div class="table">
             <p>{{ object.problem|default:"无" }}</p>
         </div>
         <br/>
 
         <h2>二、护肤品的选择</h2>
         <h3>1. 过敏成分及症状</h3>
-        <div>
+        <div class="table">
             <p>{{ object.allergy|default:"无" }}</p>
         </div>
         <br/>
@@ -146,7 +145,7 @@
         <table class="cosmetic">
             <thead>
             <tr>
-                <th width="35%">护肤品</th>
+                <th>护肤品</th>
                 <th>护肤品分析</th>
             </tr>
             </thead>
@@ -162,13 +161,13 @@
         <br/>
 
         <h3>4. 需要避免使用的皮肤护理成分</h3>
-        <div>
+        <div class="table">
             <p>{{ object.avoid_component|default:"无" }}</p>
         </div>
         <br/>
 
         <h3>5. 建议您更换的产品</h3>
-        <div class="col-xs-11 col-xs-offset-1">
+        <div class="table">
             {% if object.day_premiumproducts.count %}
                 <h4 class="box-title">日间</h4>
                 {% for product in object.day_premiumproducts %}
@@ -193,7 +192,7 @@
         <br/>
 
         <h2>三、听听皮肤科医生怎么说</h2>
-        <div>
+        <div class="table">
             <p>{{ object.doctor_advice|default:"无" }}</p>
         </div>
         <br/>
@@ -224,14 +223,14 @@
         <h3>四. Extra 皮肤科急速解决方案</h3>
         <p>根据您的肌肤状况给您如下建议:</p>
         <h4>应急方案</h4>
-        <div>
+        <div class="table">
             <p>{{ object.emergency_solution|default:"无" }}</p>
         </div>
         <br/>
 
         <h4>日常维稳方案</h4>
         <p>您可以按照以下方式进行护理：</p>
-        <div>
+        <div class="table">
             <p>{{ object.maintain_solution|default:"无" }}</p>
         </div>
         <br/>

@@ -8,22 +8,16 @@
 
 <body class="report-download">
 <div class="page page-wrapper">
-    <table class="header">
-        <tr class="gap"></tr>
-        <tr class="gap"></tr>
-        <tr>
-            <td><img height="100px" src="{% base64_static 'qrcode_logo.jpg' %}">
-                <h1 class="title">Action28 调查报告</h1></td>
-        </tr>
-    </table>
-
+    <div class="header">
+        <h1 class="title">Action28 调查报告</h1>
+    </div>
     <div class="page-wrapper">
         <h2>1.基本信息</h2>
         <table class="info">
             <tr>
-                <th style="width:30mm">姓名</th>
+                <th>姓名</th>
                 <td>{{ object.answer.name }}</td>
-                <th style="width:30mm">性别</th>
+                <th>性别</th>
                 <td>{{ object.answer.sex }}</td>
             </tr>
             <tr>
@@ -43,11 +37,11 @@
 
         <h2>2.皮肤检测报告</h2>
         <table class="skin">
-            <thead class="thead-dark" style="background: #dddddd;">
+            <thead>
             <tr>
-                <th style="width:45mm">肤质</th>
-                <th style="width:40mm">检测分数</th>
-                <th style="width:85mm">参考提示</th>
+                <th style="width:10mm">肤质</th>
+                <th style="width:20mm">检测分数</th>
+                <th style="width:20mm">参考提示</th>
                 <th>备注</th>
             </tr>
             </thead>
@@ -56,39 +50,40 @@
                 <td>{{ object.oily_type }}</td>
                 <td>{{ object.answer.oily_score }}</td>
                 <td>{{ object.oily_type.short_description }}</td>
-                <td>{{ object.oily_type.description }}</td>
+                <td><p>{{ object.oily_type.description }}</p></td>
             </tr>
             <tr>
                 <td>{{ object.sensitive_type }}</td>
                 <td>{{ object.answer.sensitive_score }}</td>
                 <td>{{ object.sensitive_type.short_description }}</td>
-                <td>{{ object.sensitive_type.description }}</td>
+                <td><p>{{ object.sensitive_type.description }}</p></td>
             </tr>
             <tr>
                 <td>{{ object.pigment_type }}</td>
                 <td>{{ object.answer.pigment_score }}</td>
                 <td>{{ object.pigment_type.short_description }}</td>
-                <td>{{ object.pigment_type.description }}</td>
+                <td><p>{{ object.pigment_type.description }}</p></td>
             </tr>
             <tr>
                 <td>{{ object.loose_type }}</td>
                 <td>{{ object.answer.loose_score }}</td>
                 <td>{{ object.loose_type.short_description }}</td>
-                <td>{{ object.loose_type.description }}</td>
+                <td><p>{{ object.loose_type.description }}</p></td>
             </tr>
+        </table>
+        <table>
             <tr>
                 <th>总结</th>
-                <td colspan="3">{{ object.summary|default:"无" }}</td>
+                <td>{{ object.summary|default:"无" }}</td>
             </tr>
-            </tbody>
         </table>
         <br/>
 
-        <h2>3. 护肤品分析</h2>
+        <h3>2. 护肤品分析</h3>
         <table class="cosmetic">
             <thead>
             <tr>
-                <th width="35%">护肤品</th>
+                <th>护肤品</th>
                 <th>护肤品分析</th>
             </tr>
             </thead>
@@ -104,13 +99,13 @@
         <br/>
 
         <h3>过敏成分及症状</h3>
-        <div>
+        <div class="table">
             <p>{{ object.allergy|default:"无" }}</p>
         </div>
         <br/>
 
         <h2>4. 温馨提示</h2>
-        <div>
+        <div class="table">
             <p>{{ object.remark|default:"无" }}</p>
         </div>
         <br/>

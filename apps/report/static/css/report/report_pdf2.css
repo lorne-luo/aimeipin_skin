@@ -1,30 +1,37 @@
 @page {
-    size: a4 portrait;
-    @frame content_frame {
-    left: 0pt;
-    width: 210mm;
-    top: 0pt;
-    height: 297mm;
+    size: A4 portrait;
+    margin: 5mm;
 }
+
+@media print {
+    html, body {
+        width: 210mm;
+        height: 297mm;
+        font-family: Hiragino Sans GB;
+    }
 }
 
 html {
     color: #4b4b4d;
-    font-size: 4.23mm;
+    font-size: 4mm;
+    line-height: 7mm;
 }
 
 body {
-    width: 960px;
-    margin: 0 auto;
 }
 
 .page {
+    margin: 0 auto;
 
 }
 
 .header {
-    margin-top: 10mm;
+    margin: 40px auto 10px auto;
     text-align: center;
+}
+
+.header .title {
+    font-size: 8mm;
 }
 
 .header td, th {
@@ -36,10 +43,8 @@ body {
     display: inline-block;
 }
 
-table {
-    line-height: 7.06mm;
-    width: 98%;
-    margin: 0 auto;
+table, .table {
+    width: 96%;
 }
 
 td, th {
@@ -57,7 +62,6 @@ th {
 }
 
 .skin, .cosmetic {
-    font-size: 3.9mm;
 }
 
 .habit th {
@@ -65,7 +69,7 @@ th {
 }
 
 .habit tr {
-    padding-top: 2mm;
+    padding-top: 10px;
     border-bottom: 1px solid #DDDDDD;
 }
 
@@ -74,14 +78,15 @@ th {
 }
 
 .habit {
-    margin-left: 10mm;
-    margin-right: 10mm;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .habit ul {
 }
 
 .page-wrapper {
-    margin-left: 10mm;
-    margin-right: 10mm;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: left;
 }

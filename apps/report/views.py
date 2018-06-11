@@ -246,9 +246,7 @@ class ReportDownloadView2(ReportDetailView):
         template = get_template(template_name)
         html = template.render(context)
         # return HttpResponse(html)
-        pdf = HTML(string=html).write_pdf(stylesheets=[CSS(string='@page { size: A4; margin: 2cm };'
-                                                                  '* { float: none !important };'
-                                                                  '@media print { nav { display: none } }')])
+        pdf = HTML(string=html).write_pdf()
         response = HttpResponse(pdf, content_type='application/force-download')
         response['Content-Disposition'] = 'attachment; filename=Action28_NO.%s.pdf' % self.object.answer.uuid
         response['Content-Length'] = len(pdf)

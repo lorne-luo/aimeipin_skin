@@ -37,7 +37,14 @@ class PremiumProductAutocompleteAPIView(SuperuserRequiredMixin, HansSelect2ViewM
         return self.get_queryset().create(**{self.create_field: text, 'seller': self.request.profile})
 
     def get_queryset(self):
-        qs = PremiumProduct.objects.all().order_by('brand__name_en', 'name_cn')
+        purpose = self.forwarded.get('purpose')
+
+        if purpose:
+            qs = PremiumProduct.search_fit(purpose)
+        else:
+            qs = PremiumProduct.objects.all()
+
+        qs = qs.order_by('brand__name_en', 'name_cn')
 
         if include_non_asc(self.q):
             qs = qs.filter(Q(name_cn__icontains=self.q) | Q(brand__name_cn__icontains=self.q))

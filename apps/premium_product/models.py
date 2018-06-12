@@ -85,6 +85,11 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
         if update_cache:
             PremiumProduct.objects.clean_cache()
 
+    @staticmethod
+    def search_fit(purpose):
+        product_ids = [x.product_id for x in PremiumProductFit.objects.filter(purpose=purpose)]
+        return PremiumProduct.objects.filter(id__in=product_ids)
+
 
 @receiver(post_delete, sender=PremiumProduct)
 def product_deleted(sender, **kwargs):

@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import inlineformset_factory
 
+from dal.forward import Const
 from apps.premium_product.models import PremiumProduct
 from core.django.autocomplete import FormsetModelSelect2
 from .models import Report, ReportPremiumProduct
@@ -35,9 +36,9 @@ class PremiumProductInlineForm(forms.ModelForm):
     type = forms.CharField(widget=forms.HiddenInput, required=False)
     product = forms.ModelChoiceField(label=u'优选产品', queryset=PremiumProduct.objects.all(), required=True,
                                      widget=FormsetModelSelect2(url='api:premiumproduct-autocomplete',
+                                                                # forward=[Const('', 'purpose')],
                                                                 attrs={'data-placeholder': u'任意中英文名称...',
-                                                                       'class': 'form-control'})
-                                     )
+                                                                       'class': 'form-control'}))
 
     class Meta:
         model = ReportPremiumProduct
@@ -57,3 +58,15 @@ class PremiumProductInlineForm(forms.ModelForm):
 
 PremiumProductFormSet = inlineformset_factory(Report, ReportPremiumProduct, form=PremiumProductInlineForm,
                                               can_order=False, can_delete=True, extra=1)
+
+
+def get_premiumproduct_formset(purpose):
+    class ModifiedForm(PremiumProductInlineForm):
+        product = forms.ModelChoiceField(label=u'优选产品', queryset=PremiumProduct.objects.all(), required=True,
+                                         widget=FormsetModelSelect2(url='api:premiumproduct-autocomplete',
+                                                                    forward=[Const(purpose, 'purpose')],
+                                                                    attrs={'data-placeholder': u'任意中英文名称...',
+                                                                           'class': 'form-control'}))
+
+    return inlineformset_factory(Report, ReportPremiumProduct, form=ModifiedForm,
+                                 can_order=False, can_delete=True, extra=1)

@@ -54,7 +54,7 @@ var answerListPageVue = new AnswerListPageVue({
             update_url_tag: 'survey:answer-update',
             detail_url_tag: 'survey:answer-detail',
             list_url: Urls['api:answer-list'](),
-            ordering:'-id'
+            ordering:'-modified_at'
         }
     }
 );

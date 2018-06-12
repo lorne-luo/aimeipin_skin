@@ -20,4 +20,4 @@ class InviteCodeViewSet(CommonViewSet):
     serializer_class = serializers.InviteCodeSerializer
     filter_fields = ['id'] + ['uuid', 'name']
     search_fields = ['uuid', 'name']
-    ordering_fields = ['id'] + ['uuid', 'name']
+    ordering_fields = ['id', 'expiry_at']

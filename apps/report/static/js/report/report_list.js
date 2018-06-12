@@ -9,7 +9,8 @@ var reportListPageVue = new CommonListPageVue({
             list_url_tag: 'report:report-list',
             update_url_tag: 'report:report-update',
             detail_url_tag: 'report:report-detail',
-            list_url: Urls['api:report-list']()
+            list_url: Urls['api:report-list'](),
+            ordering:'-modified_at'
         }
     }
 );

@@ -177,11 +177,13 @@ class SurveyFillView(CommonContextMixin, UpdateView):
             return False
 
     def form_valid(self, form):
-        if self.object and not self.object.ip:
-            self.object.ip = get_client_ip(self.request)
-            self.object.update_location()
+        self.object = form.save()
 
-        result = super(SurveyFillView, self).form_valid(form)
+        if self.object:
+            if not self.object.ip or not self.object.city:
+                self.object.ip = get_client_ip(self.request)
+                self.object.update_location()
+                self.object.save()
 
         if not all([self.process_formset('cosmetic_products1_formset'),
                     self.process_formset('cosmetic_products2_formset'),
@@ -192,7 +194,7 @@ class SurveyFillView(CommonContextMixin, UpdateView):
                     self.process_formset('cosmetic_products7_formset'),
                     self.process_formset('cosmetic_products8_formset')]):
             return self.form_invalid(form)
-        return result
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
         return reverse('survey:answer-score', args=[self.uuid])

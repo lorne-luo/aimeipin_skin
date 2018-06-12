@@ -2,34 +2,35 @@
 {% load static %}
 
 {% block table_head %}
-  <th class="text-center hidden-sm hidden-xs" style="width:60px;">
-    <input type="checkbox" name="checkboxAllRow" class="checkboxAllRow" v-on:click="toggleAllBox"/>
-  </th>
-  <th></th>
-  <th>名称</th>
-  <th class="hidden-sm hidden-xs">品牌</th>
-  <th class="hidden-sm hidden-xs"></th>
+    <th class="text-center hidden-sm hidden-xs" style="width:60px;">
+        <input type="checkbox" name="checkboxAllRow" class="checkboxAllRow" v-on:click="toggleAllBox"/>
+    </th>
+    <th></th>
+    <th>名称</th>
+    <th class="hidden-sm hidden-xs">品牌</th>
+    <th class="hidden-sm hidden-xs"></th>
 {% endblock %}
 
 {% block table_row %}
-  <tbody v-for="item in items">
-  <tr>
-    <td class="text-center hidden-sm hidden-xs">
-      ##[$index+1]
-      <input type="checkbox" class="minimal" name="checkboxRow" value="#[item.id]"/>
-    </td>
-    <td>
-      <a v-if="item.thumbnail" href="{!! item.edit_url !!}"><img style="height:75px" src="{!! item.thumbnail !!}"/></a>
-      <a v-else href="{!! item.edit_url !!}"><img style="height:75px" src="/static/img/no_image.jpg"/></a>
-    </td>
-    <td class="hidden-sm hidden-xs">
-      <a href="{!! item.edit_url !!}">{!! item.name_cn !!}</a><br/>{!! item.name_en !!}
-    </td>
-    <td class="hidden-sm hidden-xs">{!! item.brand_display !!}</td>
-    <td class="visible-sm visible-xs"><a href="{!! item.edit_url !!}">{!! item.brand_display !!} {!! item.name_cn !!}</a>
-    </td>
+    <tbody v-for="item in items">
+    <tr>
+        <td class="text-center hidden-sm hidden-xs">
+            ##[$index+1]
+            <input type="checkbox" class="minimal" name="checkboxRow" value="#[item.id]"/>
+        </td>
+        <td>
+            <a v-if="item.thumbnail" href="{!! item.edit_url !!}"><img style="height:75px"
+                                                                       src="{!! item.thumbnail !!}"/></a>
+            <a v-else href="{!! item.edit_url !!}"><img style="height:75px" src="/static/img/no_image.jpg"/></a>
+        </td>
+        <td class="hidden-sm hidden-xs">
+            <a href="{!! item.edit_url !!}">{!! item.name_cn !!}</a><br/>{!! item.name_en !!}
+        </td>
+        <td class="hidden-sm hidden-xs">{!! item.brand_display !!}</td>
+        <td class="visible-sm visible-xs"><a href="{!! item.edit_url !!}">{!! item.brand_display !!} {!! item.name_cn
+            !!}</a>
+        </td>
 
-    {% block item_buttons %}
         <td class="text-right hidden-sm hidden-xs">
             <template v-if="detail_url_tag">
                 <a data-toggle="tooltip" data-placement="bottom" data-original-title="View"
@@ -53,11 +54,10 @@
                 </a>
             </template>
         </td>
-    {% endblock %}
-  </tr>
-  </tbody>
+    </tr>
+    </tbody>
 {% endblock %}
 
 {% block common_list_footer_page_script %}
-  <script type="text/javascript" src="{% static 'js/product/product_list.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/product/product_list.min.js' %}"></script>
 {% endblock %}

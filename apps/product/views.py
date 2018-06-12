@@ -15,12 +15,8 @@ class ProductListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
-        if self.request.user.is_superuser:
-            context['table_titles'] = ['Pic', 'Name', 'Brand', 'Last Price', 'Avg Price', '']
-            context['table_fields'] = ['pic', 'link', 'brand', 'last_sell_price', 'avg_sell_price', 'id']
-        else:
-            context['table_titles'] = ['Pic', 'Name', 'Brand', 'Avg Price']
-            context['table_fields'] = ['pic', 'link', 'brand', 'avg_sell_price']
+        context['table_titles'] = ['Pic', 'Name', 'Brand']
+        context['table_fields'] = ['pic', 'link', 'brand']
         context['brands'] = Brand.objects.all()
         return context
 

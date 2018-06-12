@@ -177,7 +177,7 @@ class SurveyFillView(CommonContextMixin, UpdateView):
             return False
 
     def form_valid(self, form):
-        if not self.object.ip:
+        if self.object and not self.object.ip:
             self.object.ip = get_client_ip(self.request)
             self.object.update_location()
 

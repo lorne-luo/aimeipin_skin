@@ -334,15 +334,6 @@ class SurveyFillForm(forms.ModelForm):
                 field.required = True
             if field_name in self.hidden_fields:
                 field.widget = forms.HiddenInput()
-        if kwargs['initial'] and kwargs['initial'].get('purpose', None) == '种草':
-            self.fields['cosmetic_products1'].label = self.fields['cosmetic_products1'].label.replace('目前正在使用的', '种草的')
-            self.fields['cosmetic_products2'].label = self.fields['cosmetic_products2'].label.replace('目前正在使用的', '种草的')
-            self.fields['cosmetic_products3'].label = self.fields['cosmetic_products3'].label.replace('目前正在使用的', '种草的')
-            self.fields['cosmetic_products4'].label = self.fields['cosmetic_products4'].label.replace('目前正在使用的', '种草的')
-            self.fields['cosmetic_products5'].label = self.fields['cosmetic_products5'].label.replace('目前正在使用的', '种草的')
-            self.fields['cosmetic_products6'].label = self.fields['cosmetic_products6'].label.replace('目前正在使用的', '种草的')
-            self.fields['cosmetic_products7'].label = self.fields['cosmetic_products7'].label.replace('目前正在使用的', '种草的')
-            self.fields['cosmetic_products8'].label = self.fields['cosmetic_products8'].label.replace('目前正在使用的', '种草的')
 
 
 class AnswerDetailForm(SurveyFillForm):

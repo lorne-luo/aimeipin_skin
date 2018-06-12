@@ -81,8 +81,8 @@ class SurveyFillView(CommonContextMixin, UpdateView):
         if self.object and self.object.id and self.object.purpose:
             self.purpose = self.object.purpose
         elif self.code and self.code.purpose:
-            self.purpose = self.object.purpose
-            self.level = self.object.level
+            self.purpose = self.code.purpose
+            self.level = self.code.level
 
         if not self.object:
             initial.update({

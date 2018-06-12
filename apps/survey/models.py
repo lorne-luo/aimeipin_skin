@@ -83,7 +83,7 @@ class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
     ip = models.GenericIPAddressField(_(u'IP'), null=True, blank=True)
 
     # replica of customer basic info
-    name = models.CharField(_(u'1. 您的姓名？'), max_length=64, null=True, blank=True, help_text='提示：请填写您下单时登记的姓名')
+    name = models.CharField(_(u'1. 您的姓名？'), max_length=255, null=True, blank=True, help_text='提示：请填写您下单时登记的姓名')
     sex = models.CharField(_(u'2. 您的性别？'), choices=SEX_CHOICES, max_length=30, null=True, blank=True, help_text='')
     portrait = StdImageField(_('3. 无PS、无滤镜、清晰纯素颜照片一张'), upload_to=get_answer_photo_path, blank=True, null=True,
                              variations={
@@ -104,10 +104,10 @@ class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
     birth = models.DateField(_(u'6. 您的出生日期？'), null=True, blank=True, help_text='提示：格式：2017-01-01')
     height = models.PositiveIntegerField(_(u'7. 您的身高'), null=True, blank=True)
     weight = models.PositiveIntegerField(_(u'体重'), null=True, blank=True)
-    job = models.CharField(_(u'8. 您目前从事的职业?'), max_length=64, blank=True)
+    job = models.CharField(_(u'8. 您目前从事的职业?'), max_length=255, blank=True)
     monthly_income = models.CharField(_(u'9. 月收入水平？'), choices=INCOME_CHOICES, max_length=50, blank=True)
-    weixin_id = models.CharField(_(u'10. 您的微信号？'), max_length=128, blank=True, help_text='提示：微信号不是昵称')
-    mobile = models.CharField(_(u'11. 您的手机号？'), max_length=15, blank=True)
+    weixin_id = models.CharField(_(u'10. 您的微信号？'), max_length=255, blank=True, help_text='提示：微信号不是昵称')
+    mobile = models.CharField(_(u'11. 您的手机号？'), max_length=32, blank=True)
 
     # 记分选择题
     # 12-21 是干油
@@ -191,7 +191,7 @@ class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
     is_changeable = models.BooleanField(u'是否可修改', default=True, blank=False)
     modified_at = models.DateTimeField('最后更新', auto_now=True, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
-    remark = models.TextField(u'备注', blank=True, max_length=255)
+    remark = models.TextField(u'备注', blank=True)
 
     objects = AnswerManager()
 
@@ -288,7 +288,7 @@ class InviteCode(QRCodeModel, models.Model):
     purpose = models.CharField('目标', max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标
     level = models.CharField('价位', max_length=64, choices=SURVEY_LEVEL_CHOICES, blank=True)  # 价位
     is_used = models.BooleanField(u'已使用', default=False, blank=False)
-    qrcode_url = models.CharField('二维码', max_length=512, blank=True)  # 二维码连接
+    qrcode_url = models.CharField('二维码', max_length=1024, blank=True)  # 二维码连接
     expiry_at = models.DateTimeField(u"创建时间", auto_now_add=False, editable=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
@@ -315,8 +315,8 @@ class AnswerProduct(models.Model):
     type = models.CharField('type', max_length=64, choices=ANSWER_PRODUCT_TYPE_CHOICES, blank=True)  # 产品类型
     category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, blank=True)
     product = models.ForeignKey('product.Product', null=True, blank=True)
-    name = models.CharField('product name', max_length=255, blank=True)
-    analysis = models.TextField('product analysis', max_length=255, blank=True)
+    name = models.CharField('product name', max_length=512, blank=True)
+    analysis = models.TextField('product analysis', blank=True)
 
     def __str__(self):
         if self.product:

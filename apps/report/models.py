@@ -35,9 +35,9 @@ class Report(models.Model):
     problem = models.TextField('2. 我们认为您存在的问题', blank=True)  # 存在的问题
     avoid_component = models.TextField('4) 需要避免使用的皮肤护理成分', blank=True)  # 避免使用的成分
     doctor_advice = models.TextField('三、听听皮肤科医生怎么说', blank=True)  # 医生建议
-    day_instruct = models.CharField('日间', max_length=512, blank=True)  # 日间指导
-    night_instruct = models.CharField('夜间', max_length=512, blank=True)  # 夜间指导
-    mask_instruct = models.CharField('面膜', max_length=512, blank=True)  # 面膜指导
+    day_instruct = models.TextField('日间', blank=True)  # 日间指导
+    night_instruct = models.TextField('夜间', blank=True)  # 夜间指导
+    mask_instruct = models.TextField('面膜', blank=True)  # 面膜指导
     emergency_solution = models.TextField('应急方案', blank=True)  # 应急方案
     maintain_solution = models.TextField('日常维稳方案', blank=True)  # 维稳方案
     allergy = models.TextField('过敏', blank=True)  # 过敏, answer.other_question2
@@ -124,8 +124,8 @@ class ReportProductAnalysis(models.Model):
     '''用户使用产品的分析 user_product_txt'''
     report = models.ForeignKey(Report, null=False, blank=False)
     product = models.ForeignKey('product.Product', null=False, blank=False)  # 产品外键或名称
-    name = models.CharField(max_length=255, blank=True)
-    analysis = models.TextField(max_length=128, blank=True)  # 护肤品分析
+    name = models.CharField('名称', max_length=512, blank=True)
+    analysis = models.TextField('分析', blank=True)  # 护肤品分析
 
 
 class ReportPremiumProduct(models.Model):

@@ -44,16 +44,15 @@ class PremiumProductManager(models.Manager):
 class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
     """优选产品, 会推荐销售给客户, skin_you_product"""
     brand = models.ForeignKey(Brand, blank=True, null=True, verbose_name=_('brand'))
-    name_en = models.CharField(_(u'name_en'), max_length=128, blank=True)
-    name_cn = models.CharField(_(u'name_cn'), max_length=128, blank=True)
-    pinyin = models.TextField(_('pinyin'), max_length=512, blank=True)
+    name_en = models.CharField(_(u'name_en'), max_length=512, blank=True)
+    name_cn = models.CharField(_(u'name_cn'), max_length=512, blank=True)
+    pinyin = models.TextField(_('pinyin'), max_length=1024, blank=True)
     pic = StdImageField(upload_to=get_premium_product_pic_path, blank=True, null=True, verbose_name=_('picture'),
                         variations={
-                            'medium': (800, 800, True),
                             'thumbnail': (400, 400, True)
                         })
     description = models.TextField(_(u'description'), blank=True)
-    alias = models.CharField(_(u'alias'), max_length=255, blank=True)
+    alias = models.CharField(_(u'alias'), max_length=512, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     pinyin_fields_conf = [

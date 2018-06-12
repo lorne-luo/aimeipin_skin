@@ -15,8 +15,8 @@ class SkinType(models.Model):
     short_name = models.CharField(_('简称'), max_length=64, blank=True)
     lower_bound = models.IntegerField(_('分数下界'), blank=True, null=True)
     upper_bound = models.IntegerField(_('分数上界'), blank=True, null=True)
-    short_description = models.TextField(_('简评'), max_length=255, blank=True)
-    description = models.TextField(_('备注'), max_length=512, blank=True)
+    short_description = models.TextField(_('简评'), max_length=512, blank=True)
+    description = models.TextField(_('备注'), blank=True)
 
     def __str__(self):
         return self.name
@@ -66,18 +66,18 @@ class Word(PinYinFieldModelMixin, models.Model):
     loose_type = models.ForeignKey('analysis.SkinType', verbose_name=_('易皱纹or紧致'), blank=True, null=True,
                                    related_name='word_loose_type')
 
-    report = models.TextField(_('皮肤检测报告总结'), max_length=512, blank=True)  # 总结报告，填充值问卷报告的总结
-    problem = models.TextField(_('我们认为您存在的问题'), max_length=1024, blank=True)  # 存在的问题
-    avoid_component = models.TextField(_('需要避免使用的皮肤护理成分'), max_length=1024, blank=True)  # 避免使用的成分
-    doctor_advice = models.TextField(_('听听皮肤科医生怎么说'), max_length=1024, blank=True)  # 医生建议
-    emergency_solution = models.TextField(_('应急方案'), max_length=1024, blank=True)  # 应急方案
-    maintain_solution = models.TextField(_('日常维稳方案'), max_length=1024, blank=True)  # 维稳方案
+    report = models.TextField(_('皮肤检测报告总结'), blank=True)  # 总结报告，填充值问卷报告的总结
+    problem = models.TextField(_('我们认为您存在的问题'), blank=True)  # 存在的问题
+    avoid_component = models.TextField(_('需要避免使用的皮肤护理成分'), blank=True)  # 避免使用的成分
+    doctor_advice = models.TextField(_('听听皮肤科医生怎么说'), blank=True)  # 医生建议
+    emergency_solution = models.TextField(_('应急方案'), blank=True)  # 应急方案
+    maintain_solution = models.TextField(_('日常维稳方案'), blank=True)  # 维稳方案
 
-    day_instruct = models.CharField(_('日间'), max_length=512, blank=True)  # 日间指导
-    night_instruct = models.CharField(_('夜间'), max_length=512, blank=True)  # 夜间指导
-    mask_instruct = models.CharField(_('面膜'), max_length=512, blank=True)  # 面膜指导
+    day_instruct = models.TextField(_('日间'), blank=True)  # 日间指导
+    night_instruct = models.TextField(_('夜间'), blank=True)  # 夜间指导
+    mask_instruct = models.TextField(_('面膜'), blank=True)  # 面膜指导
 
-    pinyin = models.CharField(_(u'pinyin'), max_length=512, blank=True)
+    pinyin = models.CharField(_(u'pinyin'), max_length=1024, blank=True)
     pinyin_fields_conf = [
         ('purpose', Style.NORMAL, False),
         ('oily_type__name', Style.NORMAL, False),

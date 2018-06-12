@@ -45,14 +45,14 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
     """普通产品库，由爬虫导入，客户输入现用产品时使用，不会推荐给客人, skin_product"""
     # sku = models.CharField(max_length=36, unique=True, blank=True)
     brand = models.ForeignKey(Brand, blank=True, null=True)
-    name_en = models.CharField(_(u'name_en'), max_length=255, blank=True)
-    name_cn = models.CharField(_(u'name_cn'), max_length=255, blank=True)
-    pinyin = models.CharField(_(u'pinyin'), max_length=512, blank=True)
+    name_en = models.CharField(_(u'name_en'), max_length=512, blank=True)
+    name_cn = models.CharField(_(u'name_cn'), max_length=512, blank=True)
+    pinyin = models.CharField(_(u'pinyin'), max_length=1024, blank=True)
     pic = StdImageField(upload_to=get_product_pic_path, blank=True, null=True, verbose_name=_('picture'),
                         variations={
                             'thumbnail': (400, 400, True)
                         })
-    alias = models.CharField(_(u'alias'), max_length=255, blank=True)
+    alias = models.CharField(_(u'alias'), max_length=512, blank=True)
     category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, blank=True)
     description = models.TextField(_(u'description'), blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
@@ -118,13 +118,13 @@ def product_deleted(sender, **kwargs):
 
 class ProductIngredient(models.Model):
     """产品成分, skin_component"""
-    name = models.CharField(_(u'name'), max_length=255, blank=True)
+    name = models.CharField(_(u'name'), max_length=512, blank=True)
     is_safe = models.BooleanField(_(u'安全风险'), default=False, blank=True)  # 是否安全
     safe = models.CharField(_(u'safe'), max_length=255, blank=True)
     is_live = models.BooleanField(_(u'活性成分'), default=False, blank=True)  # 活性因子
     is_pox = models.BooleanField(_(u'致痘风险'), default=False, blank=True)  # 导致起痘
-    effect = models.CharField(_(u'使用目的'), max_length=512, blank=True)
-    description = models.TextField(_(u'描述'), max_length=512, blank=True)
+    effect = models.TextField(_(u'使用目的'), blank=True)
+    description = models.TextField(_(u'描述'), blank=True)
 
     def __str__(self):
         return self.name
@@ -143,7 +143,7 @@ class ProductAnalysis(models.Model):
     loose_type = models.ForeignKey('analysis.SkinType', verbose_name=_('易皱纹or紧致'), blank=True, null=True,
                                    related_name='product_analysis_loose_type')
 
-    analysis = models.TextField(_(u'对应阐述'), max_length=1024, blank=True)
+    analysis = models.TextField(_(u'对应阐述'), blank=True)
 
     class Meta:
-        unique_together = ('product','oily_type', 'sensitive_type', 'pigment_type', 'loose_type')
+        unique_together = ('product', 'oily_type', 'sensitive_type', 'pigment_type', 'loose_type')

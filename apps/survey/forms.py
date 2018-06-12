@@ -417,8 +417,7 @@ class AnswerProductAnalysisInlineForm(forms.ModelForm):
                                      widget=FormsetModelSelect2(url='api:product-autocomplete',
                                                                 forward=['category'],
                                                                 attrs={'data-placeholder': u'任意品牌名称...'}))
-    analysis = forms.CharField(label='analysis', widget=forms.Textarea(attrs={'rows': 3, 'cols': 40}),
-                               max_length=1024, required=False)
+    analysis = forms.CharField(label='analysis', widget=forms.Textarea(attrs={'rows': 3, 'cols': 40}), required=False)
 
     class Meta:
         model = AnswerProduct

@@ -85,7 +85,7 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
             Product.objects.clean_cache()
 
     def get_analysis(self, oily_type, sensitive_type, pigment_type, loose_type):
-        analysis = ProductAnalysis.objects.filter(oily_type=oily_type, sensitive_type=sensitive_type,
+        analysis = self.productanalysis_set.filter(oily_type=oily_type, sensitive_type=sensitive_type,
                                                   pigment_type=pigment_type, loose_type=loose_type)
         return '\n'.join([x.analysis for x in analysis])
 

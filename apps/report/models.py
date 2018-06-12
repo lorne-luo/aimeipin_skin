@@ -71,9 +71,6 @@ class Report(models.Model):
         return Word.objects.filter(purpose=self.purpose, oily_type=self.oily_type, sensitive_type=self.sensitive_type,
                                    pigment_type=self.pigment_type, loose_type=self.loose_type).first()
 
-    def analysis_product(self, answer_products):
-        for ap in answer_products:
-            ap.update_analysis(True)
 
     def generate(self):
         if not self.answer:
@@ -93,14 +90,8 @@ class Report(models.Model):
             self.night_instruct = word.night_instruct
             self.mask_instruct = word.mask_instruct
 
-        self.analysis_product(self.answer.answerproduct_set.filter(category='卸妆'))
-        self.analysis_product(self.answer.answerproduct_set.filter(category='洁面'))
-        self.analysis_product(self.answer.answerproduct_set.filter(category='化妆'))
-        self.analysis_product(self.answer.answerproduct_set.filter(category='面霜'))
-        self.analysis_product(self.answer.answerproduct_set.filter(category='精华'))
-        self.analysis_product(self.answer.answerproduct_set.filter(category='去角质'))
-        self.analysis_product(self.answer.answerproduct_set.filter(category='面膜'))
-        self.analysis_product(self.answer.answerproduct_set.filter(category='防晒'))
+        for ap in self.answer.answerproduct_set.all():
+            ap.update_analysis(True)
 
         self.save()
 

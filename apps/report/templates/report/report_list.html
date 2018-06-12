@@ -5,6 +5,15 @@
     <script type="text/javascript" src="{% static 'js/report/report_list.min.js' %}"></script>
 {% endblock %}
 
+{% block common_list_buttons %}
+    <div class="col-xs-5 col-sm-6">
+        <a class="btn btn-danger hidden-sm hidden-xs" v-on:click="removeSelected">
+            <i class="fa fa-trash-o"></i>
+            删除
+        </a>
+    </div>
+{% endblock %}
+
 {% block table_head %}
     <th class="text-center hidden-sm hidden-xs" style="width:60px;">
         <input type="checkbox" name="checkboxAllRow" class="checkboxAllRow" v-on:click="toggleAllBox"/>

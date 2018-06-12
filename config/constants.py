@@ -79,17 +79,6 @@ SURVEY_STATUS_CHOICES = (
     ('FINISHED', '完成'),
 )
 
-ANSWER_PRODUCT_TYPE_CHOICES = (
-    ('卸妆', '卸妆'),
-    ('洁面', '洁面'),
-    ('化妆', '化妆'),
-    ('面霜', '面霜'),
-    ('精华', '精华'),
-    ('去角质', '去角质'),
-    ('面膜', '面膜'),
-    ('防晒', '防晒'),
-)
-
 PRODUCT_CATEGORY_CHOICES = (
     (u'卸妆', u'卸妆'),
     (u'洁面', u'洁面'),

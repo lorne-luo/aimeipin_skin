@@ -11,7 +11,7 @@ from stdimage import StdImageField
 from apps.analysis.models import SkinType
 from apps.report.models import Report
 from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SURVEY_LEVEL_CHOICES, SURVEY_STATUS_CHOICES, \
-    ANSWER_PRODUCT_TYPE_CHOICES, PRODUCT_CATEGORY_CHOICES
+    PRODUCT_CATEGORY_CHOICES
 from config.settings import ANSWER_PHOTO_FOLDER
 from core.django.models import ResizeUploadedImageModelMixin
 from core.utils.ip import get_location
@@ -281,6 +281,38 @@ class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
         report.generate()
         return report
 
+    @property
+    def cosmetic_products1(self):
+        return self.answerproduct_set.filter(category='卸妆')
+
+    @property
+    def cosmetic_products2(self):
+        return self.answerproduct_set.filter(category='洁面')
+
+    @property
+    def cosmetic_products3(self):
+        return self.answerproduct_set.filter(category='化妆水')
+
+    @property
+    def cosmetic_products4(self):
+        return self.answerproduct_set.filter(category='乳液/面霜')
+
+    @property
+    def cosmetic_products5(self):
+        return self.answerproduct_set.filter(category='精华')
+
+    @property
+    def cosmetic_products6(self):
+        return self.answerproduct_set.filter(category='去角质')
+
+    @property
+    def cosmetic_products7(self):
+        return self.answerproduct_set.filter(category='面膜')
+
+    @property
+    def cosmetic_products8(self):
+        return self.answerproduct_set.filter(category='防晒')
+
 
 class InviteCode(QRCodeModel, models.Model):
     uuid = models.CharField(u'邀请码', blank=False, max_length=32, unique=True)
@@ -312,7 +344,6 @@ class InviteCode(QRCodeModel, models.Model):
 
 class AnswerProduct(models.Model):
     answer = models.ForeignKey('survey.Answer', blank=True, null=True)
-    type = models.CharField('type', max_length=64, choices=ANSWER_PRODUCT_TYPE_CHOICES, blank=True)  # 产品类型
     category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, blank=True)
     product = models.ForeignKey('product.Product', null=True, blank=True)
     name = models.CharField('product name', max_length=512, blank=True)

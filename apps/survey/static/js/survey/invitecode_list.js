@@ -11,7 +11,7 @@ var invitecodeListPageVue = new CommonListPageVue({
             update_url_tag: 'survey:invitecode-update',
             detail_url_tag: 'survey:invitecode-detail',
             list_url:       Urls['api:invitecode-list']() + '?',
-            ordering:'-expiry_at'
+            ordering:'-expiry_at,-id'
         }
     }
 );

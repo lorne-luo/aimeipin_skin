@@ -3,27 +3,10 @@
 <li class="treeview active">
     <a href="{% url 'premium_product:premiumproduct-list' %}">
         <i class='fa fa-shopping-bag'></i>
-        <b>Premium Product</b>
+        <b>优选产品库</b>
+        
         <span class="pull-right-container">
             <small class="label pull-right bg-blue">{% premium_product_counter %}</small>
         </span>
     </a>
-
-    {% if user.is_superuser %}
-        <ul class="treeview-menu menu-open" style="display: block;">
-            {% if perms.premium_product.view_premiumproduct %}
-                <li>
-                    {% if perms.premium_product.add_premiumproduct %}
-                        <a href="{% url 'premium_product:premiumproduct-add' %}" class="pull-right">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                        </a>
-                    {% endif %}
-                    <a href="{% url 'premium_product:premiumproduct-list' %}" class="main">
-                        <i class="fa fa-circle-o"></i>
-                        Premium Product
-                    </a>
-                </li>
-            {% endif %}
-        </ul>
-    {% endif %}
 </li>

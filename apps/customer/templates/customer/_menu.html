@@ -1,23 +1,12 @@
 {% load customer_tags %}
 
 <li class="treeview active">
-    <a href="javascript:void(0)">
+    <a href="{% url 'customer:customer-list' %}">
         <i class="fa fa-users"></i>
-        <b>Customer</b>
+        <b>客户信息</b>
 
         <span class="pull-right-container">
             <small class="label pull-right bg-blue">{% customer_counter %}</small>
         </span>
     </a>
-
-    <ul class="treeview-menu menu-open" style="display: block;">
-        {% if perms.customer.view_customer %}
-            <li>
-                <a href="{% url 'customer:customer-list' %}" class="main">
-                    <i class="fa fa-circle-o"></i>
-                    Customer
-                </a>
-            </li>
-        {% endif %}
-    </ul>
 </li>

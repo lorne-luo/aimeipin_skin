@@ -3,28 +3,10 @@
 <li class="treeview active">
     <a href="{% url 'product:product-list' %}">
         <i class='fa fa-shopping-bag'></i>
-        <b>Product</b>
+        <b>产品库</b>
 
         <span class="pull-right-container">
             <small class="label pull-right bg-blue">{% product_counter %}</small>
         </span>
     </a>
-
-    {% if user.is_superuser %}
-        <ul class="treeview-menu menu-open" style="display: block;">
-            {% if perms.product.view_product %}
-                <li>
-                    {% if perms.product.add_product %}
-                        <a href="{% url 'product:product-add' %}" class="pull-right">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                        </a>
-                    {% endif %}
-                    <a href="{% url 'product:product-list' %}" class="main">
-                        <i class="fa fa-circle-o"></i>
-                        Product
-                    </a>
-                </li>
-            {% endif %}
-        </ul>
-    {% endif %}
 </li>

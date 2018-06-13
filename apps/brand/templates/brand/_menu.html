@@ -3,27 +3,10 @@
 <li class="treeview active">
     <a href="{% url 'brand:brand-list' %}">
         <i class='fa fa-shopping-bag'></i>
-        <b>Brand</b>
+        <b>品牌</b>
 
         <span class="pull-right-container">
             <small class="label pull-right bg-blue">{% brand_counter %}</small>
         </span>
     </a>
-
-    {% if user.is_superuser %}
-        <ul class="treeview-menu menu-open" style="display: block;">
-            <li>
-                {% if perms.brand.add_brand %}
-                    <a href="{% url 'brand:brand-add' %}" class="pull-right">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                    </a>
-                {% endif %}
-                <a href="{% url 'brand:brand-list' %}" class="main">
-                    <i class="fa fa-circle-o"></i>
-                    Brand
-                </a>
-            </li>
-
-        </ul>
-    {% endif %}
 </li>

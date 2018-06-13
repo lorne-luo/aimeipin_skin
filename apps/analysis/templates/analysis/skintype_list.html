@@ -1,6 +1,34 @@
 {% extends "adminlte/common_list.html" %}
 {% load static %}
 
+{% block common_list_buttons %}
+    <div class="col-xs-5 col-sm-6">
+        <a class="btn btn-primary" id="create">
+            <i class="fa fa-plus"></i>新增
+        </a>
+    </div>
+{% endblock %}
+
+{% block item_buttons %}
+    <td class="text-right hidden-sm hidden-xs">
+        <template v-if="detail_url_tag">
+            <a data-toggle="tooltip" data-placement="bottom" data-original-title="View"
+               href="#[item.detail_url]" class="btn btn-info btn-sm detail-btn"
+               data-pk="#[item.id]">
+                <i class="fa fa-lg fa-bars fa-inverse"></i>
+            </a>
+        </template>
+
+        <template v-if="update_url_tag">
+            <a data-toggle="tooltip" data-placement="bottom" data-original-title="Edit"
+               href="#[item.edit_url]" class="btn btn-warning btn-sm edit-btn"
+               data-pk="#[item.id]">
+                <i class="fa fa-lg fa-pencil fa-inverse"></i>
+            </a>
+        </template>
+    </td>
+{% endblock %}
+
 {% block common_list_footer_page_script %}
     <script type="text/javascript" src="{% static 'js/analysis/skintype_list.min.js' %}"></script>
 {% endblock %}

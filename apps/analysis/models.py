@@ -21,6 +21,9 @@ class SkinType(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        unique_together = ("dimension", "name")
+
     @staticmethod
     def get_oily_type(score):
         if score:

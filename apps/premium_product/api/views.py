@@ -21,8 +21,8 @@ class PremiumProductViewSet(CommonViewSet):
     serializer_class = serializers.PremiumProductSerializer
     permission_classes = [permissions.AllowAny]
     filter_fields = ['name_en', 'name_cn', 'brand__name_cn', 'brand__name_en']
-    search_fields = ['name_cn', 'brand_name_cn']
-    pinyin_search_fields = ['name_en', 'brand_name_en', 'pinyin']  # search only input are all ascii chars
+    search_fields = ['name_cn', 'brand__name_cn']
+    pinyin_search_fields = ['name_en', 'brand__name_en', 'pinyin']  # search only input are all ascii chars
     filter_backends = (DjangoFilterBackend,
                        PinyinSearchFilter,
                        filters.OrderingFilter)

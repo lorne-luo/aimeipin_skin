@@ -156,14 +156,6 @@ class Report(models.Model):
         return self.reportpremiumproduct_set.filter(type='面膜')
 
 
-class ReportProductAnalysis(models.Model):
-    '''用户使用产品的分析 user_product_txt'''
-    report = models.ForeignKey(Report, null=False, blank=False)
-    product = models.ForeignKey('product.Product', null=False, blank=False)  # 产品外键或名称
-    name = models.CharField('名称', max_length=512, blank=True)
-    analysis = models.TextField('分析', blank=True)  # 护肤品分析
-
-
 class ReportPremiumProduct(models.Model):
     report = models.ForeignKey(Report, null=False, blank=False)
     type = models.CharField(max_length=64, choices=PREMIUM_PRODUCT_ADVICE_TYPE_CHOICES, blank=True)

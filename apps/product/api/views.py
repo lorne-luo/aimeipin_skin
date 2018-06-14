@@ -29,7 +29,7 @@ class ProductViewSet(CommonViewSet):
 
 class ProductAutocompleteAPIView(HansSelect2ViewMixin, autocomplete.Select2QuerySetView):
     model = Product
-    paginate_by = None
+    paginate_by = 20
 
     # create_field = 'name_cn'
     #

@@ -33,14 +33,6 @@ def get_premium_product_pic_path(instance, filename):
     return file_path
 
 
-class PremiumProductManager(models.Manager):
-    DEFAULT_CACHE_KEY = 'QUERYSET_CACHE_DEFAULT_PREMIUMPRODUCT'
-
-    def clean_cache(self):
-        log.info('[QUERYSET_CACHE] clean carriers.')
-        # cache.delete(self.DEFAULT_CACHE_KEY)
-
-
 class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
     """优选产品, 会推荐销售给客户, skin_you_product"""
     brand = models.ForeignKey(Brand, blank=True, null=True, verbose_name=_('brand'))
@@ -59,7 +51,6 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
         ('name_cn', Style.NORMAL, True),
         ('alias', Style.NORMAL, True),
     ]
-    objects = PremiumProductManager()
 
     class Meta:
         verbose_name_plural = _('PremiumProducts')
@@ -89,12 +80,6 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
     def search_fit(purpose):
         product_ids = [x.product_id for x in PremiumProductFit.objects.filter(purpose=purpose)]
         return PremiumProduct.objects.filter(id__in=product_ids)
-
-
-@receiver(post_delete, sender=PremiumProduct)
-def product_deleted(sender, **kwargs):
-    instance = kwargs['instance']
-    PremiumProduct.objects.clean_cache()
 
 
 class PremiumProductFit(models.Model):

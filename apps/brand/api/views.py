@@ -30,7 +30,7 @@ class BrandViewSet(CommonViewSet):
 
 class BrandAutocompleteAPIView(HansSelect2ViewMixin, autocomplete.Select2QuerySetView):
     model = Brand
-    paginate_by = sys.maxsize  # no pagination
+    paginate_by = 20  # no pagination
 
     def get_queryset(self):
         qs = Brand.objects.all()
@@ -41,7 +41,7 @@ class BrandAutocompleteAPIView(HansSelect2ViewMixin, autocomplete.Select2QuerySe
             # all ascii, number and letter
             key = self.q.lower()
             qs = qs.filter(
-                Q(pinyin__icontains=key) | Q(name_en__icontains=key))
+                Q(pinyin__icontains=key) | Q(name_en__icontains=key)| Q(name_cn__icontains=key))
         return qs
 
     def get_results(self, context):
@@ -49,6 +49,9 @@ class BrandAutocompleteAPIView(HansSelect2ViewMixin, autocomplete.Select2QuerySe
             {
                 'id': self.get_result_value(result),
                 'text': self.get_result_label(result),
-                'image': result.logo.url if result.logo else None,
+                # 'image': result.logo.url if result.logo else None,
             } for result in context['object_list']
         ]
+
+class BrandSearchAPIView(BrandAutocompleteAPIView):
+    paginate_by = sys.maxsize  # no pagination

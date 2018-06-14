@@ -50,7 +50,7 @@ $(document).ready(function () {
             console.log('brand_id:' + brand_id);
 
             $.ajax({
-                url: "/api/product/product/autocomplete/",
+                url: "/api/product/product/search/",
                 type: "GET",
                 data: {'q': search, 'brand_id': brand_id},
                 dataType: "JSON",
@@ -75,7 +75,7 @@ $(document).ready(function () {
 
 function ullistSearch(search) {
     $.ajax({
-        url: "/api/brand/brand/autocomplete/",
+        url: "/api/brand/brand/search/",
         type: "GET",
         data: {'q': search},
         dataType: "JSON",
@@ -112,7 +112,7 @@ function selChange(tsel) {
     var search = '';
 
     $.ajax({
-        url: "/api/product/product/autocomplete/",
+        url: "/api/product/product/search/",
         type: "GET",
         data: {'q': search, 'brand_id': brand_id},
         dataType: "JSON",

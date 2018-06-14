@@ -1,4 +1,6 @@
 import logging
+
+import sys
 from django.db.models import Q
 from dal import autocomplete
 from django_filters.rest_framework import DjangoFilterBackend
@@ -36,9 +38,6 @@ class ProductAutocompleteAPIView(HansSelect2ViewMixin, autocomplete.Select2Query
     # def create_object(self, text):
     #     return self.get_queryset().create(**{self.create_field: text, 'seller': self.request.profile})
 
-    def has_more(self, context):
-        return False
-
     def get_queryset(self):
         qs = Product.objects.all()
         brand_id = self.request.GET.get('brand_id', '')
@@ -55,7 +54,7 @@ class ProductAutocompleteAPIView(HansSelect2ViewMixin, autocomplete.Select2Query
             key = self.q.lower()
             if key:
                 qs = qs.filter(
-                    Q(pinyin__contains=key) | Q(name_en__icontains=key))
+                    Q(pinyin__contains=key) | Q(name_en__icontains=key)| Q(name_cn__icontains=key))
         return qs
 
     def get_results(self, context):
@@ -66,3 +65,13 @@ class ProductAutocompleteAPIView(HansSelect2ViewMixin, autocomplete.Select2Query
                 'image': result.pic.url if result.pic else None,
             } for result in context['object_list']
         ]
+
+
+class ProductSearchAPIView(ProductAutocompleteAPIView):
+    paginate_by = sys.maxsize
+
+    # def get_queryset(self):
+    #     brand_id = self.request.GET.get('brand_id', '')
+    #     if not self.q and not brand_id:
+    #         return Product.objects.none()
+    #     return super(ProductSearchAPIView, self).get_queryset()

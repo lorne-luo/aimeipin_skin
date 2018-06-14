@@ -39,7 +39,8 @@
         <td>
             <a href="{!! item.edit_url !!}">[编辑]</a>
             <a href="{!! item.detail_url !!}">[查看]</a>
-            <a href="{!! item.download_url !!}">[PDF下载]</a>
+            <a v-if="item.pdf" href="{!! item.pdf !!}">[PDF下载]</a>
+            <span v-else>[PDF生成中]</span>
         </td>
         <td>{!! item.modified_at !!}</td>
         <td>{!! item.created_at !!}</td>

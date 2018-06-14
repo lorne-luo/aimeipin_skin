@@ -1,12 +1,19 @@
+import os
+import threading
+
+import logging
+from django.conf import settings
 from django.db import models
 from django.http import Http404
+from django.template.loader import get_template
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from weasyprint import HTML
 
 from apps.analysis.models import SkinType, Word
-from config.constants import SEX_CHOICES, INCOME_CHOICES, PURPOSE_CHOICES, SKIN_OILY_TYPE_CHOICES, \
-    SKIN_SENSITIVE_TYPE_CHOICES, SKIN_PIGMENT_TYPE_CHOICES, SKIN_LOOSE_TYPE_CHOICES, \
-    PREMIUM_PRODUCT_ADVICE_TYPE_CHOICES, \
-    SURVEY_LEVEL_CHOICES
+from config.constants import PURPOSE_CHOICES, PREMIUM_PRODUCT_ADVICE_TYPE_CHOICES, SURVEY_LEVEL_CHOICES
+
+log = logging.getLogger(__name__)
 
 
 class Report(models.Model):
@@ -60,9 +67,45 @@ class Report(models.Model):
         self.pigment_type = SkinType.get_pigment_type(self.pigment_score)
         self.loose_type = SkinType.get_loose_type(self.loose_score)
 
+    def get_update_fields(self):
+        # exclude `pdf` and `pdf_created_at` which should updated by background thread
+        if self.id:
+            l = [f.name for f in self._meta.fields]
+            l.remove('id')
+            l.remove('pdf')
+            l.remove('pdf_created_at')
+            return l
+        return None
+
     def save(self, *args, **kwargs):
-        self.classify_skin_type()
+        if 'update_fields' not in kwargs:
+            self.classify_skin_type()
+            self.start_pdf_generation()
+            kwargs['update_fields'] = self.get_update_fields()
         super(Report, self).save(*args, **kwargs)
+
+    def start_pdf_generation(self):
+        def generate_pdf(id):
+            log.info('[PDF GENERATION] #%s Started' % id)
+            report = Report.objects.filter(id=id).first()
+            if report:
+                context = {'object': report}
+                template_name = 'report/report_download2_%s.html' % report.level
+                template = get_template(template_name)
+                html = template.render(context)
+
+                url = '%s/%s.pdf' % (settings.REPORT_PDF_FOLDER, report.uuid)
+                file_path = os.path.join(settings.MEDIA_ROOT, url)
+                pdf = HTML(string=html).write_pdf(file_path)
+                report.pdf_created_at = timezone.now()
+                report.pdf = url
+                report.save(update_fields=['pdf', 'pdf_created_at'])
+                log.info('[PDF GENERATION] #%s Finished' % id)
+
+        t = threading.Thread(target=generate_pdf,
+                             args=(self.id,))
+        t.setDaemon(True)
+        t.start()
 
     @property
     def uuid(self):
@@ -73,7 +116,6 @@ class Report(models.Model):
     def get_word(self):
         return Word.objects.filter(purpose=self.purpose, oily_type=self.oily_type, sensitive_type=self.sensitive_type,
                                    pigment_type=self.pigment_type, loose_type=self.loose_type).first()
-
 
     def generate(self):
         if not self.answer:

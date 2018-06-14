@@ -291,6 +291,7 @@ BRAND_LOGO_PHOTO_FOLDER = 'brand'
 PREMIUM_PRODUCT_PHOTO_FOLDER = 'premium_product'
 ANSWER_PHOTO_FOLDER = 'answer'
 QRCODE_FOLDER = 'qrcode'
+REPORT_PDF_FOLDER = 'report'
 # for django-guardian
 ANONYMOUS_USER_ID = -1
 SITE_ID = 1

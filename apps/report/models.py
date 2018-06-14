@@ -79,9 +79,10 @@ class Report(models.Model):
 
     def save(self, *args, **kwargs):
         if 'update_fields' not in kwargs:
-            self.classify_skin_type()
             self.start_pdf_generation()
-            kwargs['update_fields'] = self.get_update_fields()
+            self.classify_skin_type()
+            self.pdf = None
+            # kwargs['update_fields'] = self.get_update_fields()
         super(Report, self).save(*args, **kwargs)
 
     def start_pdf_generation(self):

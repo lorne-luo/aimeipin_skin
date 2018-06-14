@@ -296,6 +296,12 @@ ANONYMOUS_USER_ID = -1
 SITE_ID = 1
 INVITE_CODE_EXPIRY = 60  # days
 
+# CELERY
+CELERY_BROKER_URL = env('BROKER_URL', default='redis://127.0.0.1:6379')
+CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 31536000}
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+CELERY_REDIS_DB = 0
+
 # CACHES
 # ------------------------------------------------------------------------------
 CACHES = {

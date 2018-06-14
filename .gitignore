@@ -28,6 +28,7 @@ sdist/
 testcode/
 var/
 temp/
+celerybeat*
 collectstatic/
 *.egg-info/
 .installed.cfg

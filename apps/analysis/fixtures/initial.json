@@ -1,0 +1,158 @@
+[
+  {
+    "model": "analysis.skintype",
+    "pk": 1,
+    "fields": {
+      "dimension": "\u6cb9\u6027or\u5e72\u6027",
+      "name": "\u91cd\u5ea6\u6cb9\u6027",
+      "short_name": "\u91cd\u6cb9",
+      "lower_bound": 300,
+      "upper_bound": 400,
+      "short_description": "\u60a8\u5c5e\u4e8e\u91cd\u5ea6\u6cb9\u6027\u808c\u80a4",
+      "description": "\u4f1a\u6709\u51fa\u6cb9\u8fc7\u591a\u7684\u60c5\u51b5\uff0c\u5bb9\u6613\u9020\u6210\u6bdb\u5b54\u7c97\u5927\u3001\u9ed1\u5934\u8f83\u591a\uff0c\u75d8\u75d8\u95ed\u53e3\u7b49\u73b0\u8c61\u3002"
+    }
+  },
+  {
+    "model": "analysis.skintype",
+    "pk": 2,
+    "fields": {
+      "dimension": "\u6cb9\u6027or\u5e72\u6027",
+      "name": "\u8f7b\u5ea6\u6cb9\u6027",
+      "short_name": "\u8f7b\u6cb9",
+      "lower_bound": 230,
+      "upper_bound": 299,
+      "short_description": "\u60a8\u5c5e\u4e8e\u8f7b\u5ea6\u6cb9\u6027\u808c\u80a4",
+      "description": "\u4f1a\u6709\u8f7b\u5ea6\u7684\u51fa\u6cb9\u95ee\u9898\uff0c\u5076\u5c14\u51fa\u6cb9\u5389\u5bb3\uff0c\u5076\u5c14\u4f1a\u957f\u75d8"
+    }
+  },
+  {
+    "model": "analysis.skintype",
+    "pk": 3,
+    "fields": {
+      "dimension": "\u6cb9\u6027or\u5e72\u6027",
+      "name": "\u8f7b\u5ea6\u5e72\u6027",
+      "short_name": "\u8f7b\u5e72",
+      "lower_bound": 150,
+      "upper_bound": 229,
+      "short_description": "\u60a8\u5c5e\u4e8e\u8f7b\u5ea6\u5e72\u6027\u808c\u80a4",
+      "description": "\u4e0d\u6cb9\u817b\uff0c\u4e0d\u6613\u51fa\u6cb9\uff0c\u5e72\u71e5\u5b63\u8282\u5bb9\u6613\u51fa\u73b0\u8d77\u76ae\u73b0\u8c61"
+    }
+  },
+  {
+    "model": "analysis.skintype",
+    "pk": 4,
+    "fields": {
+      "dimension": "\u6cb9\u6027or\u5e72\u6027",
+      "name": "\u91cd\u5ea6\u5e72\u6027",
+      "short_name": "\u91cd\u5e72",
+      "lower_bound": 100,
+      "upper_bound": 149,
+      "short_description": "\u60a8\u5c5e\u4e8e\u91cd\u5ea6\u5e72\u6027\u808c\u80a4",
+      "description": "\u5bb9\u6613\u51fa\u73b0\u76ae\u80a4\u5e72\u71e5\u8d77\u76ae\u7684\u73b0\u8c61"
+    }
+  },
+  {
+    "model": "analysis.skintype",
+    "pk": 5,
+    "fields": {
+      "dimension": "\u654f\u611for\u8010\u53d7",
+      "name": "\u91cd\u5ea6\u654f\u611f\u6027",
+      "short_name": "\u654f\u611f",
+      "lower_bound": 340,
+      "upper_bound": 440,
+      "short_description": "\u60a8\u5c5e\u4e8e\u91cd\u5ea6\u654f\u611f\u6027\u808c\u80a4",
+      "description": "\u5bb9\u6613\u4ea7\u751f\u654f\u611f"
+    }
+  },
+  {
+    "model": "analysis.skintype",
+    "pk": 6,
+    "fields": {
+      "dimension": "\u654f\u611for\u8010\u53d7",
+      "name": "\u8f7b\u5ea6\u654f\u611f\u6027",
+      "short_name": "\u8f7b\u654f",
+      "lower_bound": 270,
+      "upper_bound": 339,
+      "short_description": "\u60a8\u5c5e\u4e8e\u8f7b\u5ea6\u654f\u611f\u6027\u808c\u80a4",
+      "description": "\u6bd4\u8f83\u5bb9\u6613\u4ea7\u751f\u654f\u611f\u73b0\u8c61"
+    }
+  },
+  {
+    "model": "analysis.skintype",
+    "pk": 7,
+    "fields": {
+      "dimension": "\u654f\u611for\u8010\u53d7",
+      "name": "\u8f7b\u5ea6\u8010\u53d7\u6027",
+      "short_name": "\u8f7b\u8010\u53d7",
+      "lower_bound": 170,
+      "upper_bound": 269,
+      "short_description": "\u60a8\u5c5e\u4e8e\u8f7b\u5ea6\u8010\u53d7\u6027\u808c\u80a4",
+      "description": "\u4e00\u822c\u60c5\u51b5\u8f83\u5c11\u53d1\u751f\u654f\u611f\uff0c\u5076\u5c14\u4e5f\u4f1a\u51fa\u73b0\u4e0d\u8010\u53d7\u7684\u60c5\u51b5"
+    }
+  },
+  {
+    "model": "analysis.skintype",
+    "pk": 8,
+    "fields": {
+      "dimension": "\u654f\u611for\u8010\u53d7",
+      "name": "\u8010\u53d7\u6027",
+      "short_name": "\u8010\u53d7",
+      "lower_bound": 110,
+      "upper_bound": 169,
+      "short_description": "\u60a8\u5c5e\u4e8e\u8010\u53d7\u6027\u808c\u80a4",
+      "description": "\u4e00\u822c\u60c5\u51b5\u4e0d\u5bb9\u6613\u53d1\u751f\u654f\u611f"
+    }
+  },
+  {
+    "model": "analysis.skintype",
+    "pk": 9,
+    "fields": {
+      "dimension": "\u8272\u7d20or\u975e\u8272\u7d20",
+      "name": "\u8272\u7d20\u6027",
+      "short_name": "\u8272\u7d20",
+      "lower_bound": 210,
+      "upper_bound": 360,
+      "short_description": "\u60a8\u5c5e\u4e8e\u8272\u7d20\u6027\u808c\u80a4",
+      "description": "\u6bd4\u8f83\u5bb9\u6613\u4ea7\u751f\u6591\u70b9\uff0c\u8272\u6c89\uff0c\u8f83\u5bb9\u6613\u6652\u9ed1"
+    }
+  },
+  {
+    "model": "analysis.skintype",
+    "pk": 10,
+    "fields": {
+      "dimension": "\u8272\u7d20or\u975e\u8272\u7d20",
+      "name": "\u975e\u8272\u7d20\u6027",
+      "short_name": "\u975e\u8272\u7d20",
+      "lower_bound": 60,
+      "upper_bound": 209,
+      "short_description": "\u60a8\u5c5e\u4e8e\u975e\u8272\u7d20\u6027\u808c\u80a4",
+      "description": "\u4e0d\u5bb9\u6613\u4ea7\u751f\u6591\u70b9"
+    }
+  },
+  {
+    "model": "analysis.skintype",
+    "pk": 11,
+    "fields": {
+      "dimension": "\u6613\u76b1\u7eb9or\u7d27\u81f4",
+      "name": "\u975e\u7d27\u81f4\u6027",
+      "short_name": "\u6613\u76b1\u7eb9",
+      "lower_bound": 250,
+      "upper_bound": 400,
+      "short_description": "\u60a8\u5c5e\u4e8e\u975e\u7d27\u81f4\u6027\u808c\u80a4",
+      "description": "\u5bb9\u6613\u4ea7\u751f\u76b1\u7eb9\u3001\u9762\u90e8\u4e0b\u5782\u51f9\u9677\u7b49\u73b0\u8c61"
+    }
+  },
+  {
+    "model": "analysis.skintype",
+    "pk": 12,
+    "fields": {
+      "dimension": "\u6613\u76b1\u7eb9or\u7d27\u81f4",
+      "name": "\u7d27\u81f4\u6027",
+      "short_name": "\u7d27\u81f4",
+      "lower_bound": 100,
+      "upper_bound": 249,
+      "short_description": "\u60a8\u5c5e\u4e8e\u7d27\u81f4\u6027\u808c\u80a4",
+      "description": "\u770b\u8d77\u6765\u8981\u6bd4\u5b9e\u9645\u5e74\u9f84\u5e74\u8f7b\uff0c\u4e0d\u6613\u4ea7\u751f\u76b1\u7eb9\u3001\u9762\u90e8\u4e0b\u5782\u51f9\u9677\u7b49\u73b0\u8c61"
+    }
+  }
+]

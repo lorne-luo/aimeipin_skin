@@ -39,6 +39,12 @@ class SkinTypeUpdateForm(forms.ModelForm):
         model = SkinType
         fields = '__all__'
 
+    def __init__(self, *args, **kwargs):
+        super(SkinTypeUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['name'].disabled = True
+        self.fields['name'].widget.attrs['readonly'] = True
+        self.fields['dimension'].disabled = True
+        self.fields['dimension'].widget.attrs['readonly'] = True
 
 class SkinTypeDetailForm(forms.ModelForm):
     class Meta:

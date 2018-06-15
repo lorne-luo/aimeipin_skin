@@ -79,10 +79,7 @@ class Report(models.Model):
 
     def save(self, *args, **kwargs):
         if 'update_fields' not in kwargs:
-            self.start_pdf_generation()
             self.classify_skin_type()
-            self.pdf = None
-            # kwargs['update_fields'] = self.get_update_fields()
         super(Report, self).save(*args, **kwargs)
 
     def start_pdf_generation(self):
@@ -103,8 +100,10 @@ class Report(models.Model):
                 report.save(update_fields=['pdf', 'pdf_created_at'])
                 log.info('[PDF GENERATION] #%s Finished' % id)
 
-        t = threading.Thread(target=generate_pdf,
-                             args=(self.id,))
+        self.pdf = None
+        self.pdf_created_at = None
+        self.save(update_fields=['pdf', 'pdf_created_at'])
+        t = threading.Thread(target=generate_pdf, args=(self.id,))
         t.setDaemon(True)
         t.start()
 

@@ -187,6 +187,8 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
                     self.process_formset(AnswerProductAnalysisFormSet, 'answerproductanalysis_formset',
                                          self.object.answer)]):
             return self.form_invalid(form)
+
+        self.object.start_pdf_generation()
         return result
 
 

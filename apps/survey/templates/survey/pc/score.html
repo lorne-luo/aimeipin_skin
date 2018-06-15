@@ -177,8 +177,7 @@
 </div>
 <!--<div id="buttondiv"><input type="button" value="保存报告"  id="btnsavescore"/></div>-->
 <div id="buttondiv">
-{#    <button type="submit" download="" id="btnsavescore">保存报告</button>#}
-    {% if objects.is_changeable %}
+    {% if object.is_changeable %}
         <a href="{% url 'survey:answer' uuid=object.uuid %}" id="btnsavescore">修改问卷答案</a>
     {% else %}
         <p>问卷已不可修改，有问题请联系客服</p>

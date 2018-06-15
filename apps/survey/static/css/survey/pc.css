@@ -154,6 +154,10 @@ b {
     text-align: center
 }
 
+span.required {
+    color: red;
+}
+
 #button {
     background: #13A5EC;
     color: #fff;
@@ -384,11 +388,12 @@ ul.hufupin16 li {
     #question .hufupin ul.pin {
         left: 15px;
     }
-    #question ul.ulcontainer{
+
+    #question ul.ulcontainer {
         margin-left: 10px;
     }
 
     #question .hufupin ul.ulcontainer span {
-    margin-left: 0;
-}
+        margin-left: 0;
+    }
 }

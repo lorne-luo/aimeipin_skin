@@ -1,5 +1,5 @@
 <ul id="{{ number }}">
-    <li><p>{{ field.label }}</p>{% if field.field.required %}<span>*</span>{% endif %}</li>
+    <li><p>{{ field.label }}</p>{% if field.field.required %}<span class="required">*</span>{% endif %}</li>
     <li>{{ field }}</li>
     {% if field.help_text %}
         <li><i>{{ field.help_text }}</i></li>

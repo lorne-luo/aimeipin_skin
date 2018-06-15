@@ -8,6 +8,7 @@ from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from pypinyin import Style, pinyin
 from stdimage import StdImageField
+from stdimage.utils import UploadToClassNameDir
 from taggit.managers import TaggableManager
 
 from config.constants import PRODUCT_CATEGORY_CHOICES, PURPOSE_CHOICES, SKIN_TYPE_CHOICES
@@ -19,27 +20,13 @@ from ..brand.models import Brand
 log = logging.getLogger(__name__)
 
 
-def get_premium_product_pic_path(instance, filename):
-    ext = filename.split('.')[-1]
-    filename = instance.brand.name_en + '_' if instance.brand.name_en else ''
-    filename = '%s%s' % (filename, instance.name_en)
-    filename = filename.replace(' ', '-')
-    filename = '%s.%s' % (filename, ext)
-    file_path = os.path.join(PREMIUM_PRODUCT_PHOTO_FOLDER, filename)
-
-    # from apps.celery.tasks import guetzli_compress_image
-    # full_path = os.path.join(MEDIA_ROOT, file_path)
-    # guetzli_compress_image.apply_async(args=[full_path], countdown=30)
-    return file_path
-
-
 class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
     """优选产品, 会推荐销售给客户, skin_you_product"""
     brand = models.ForeignKey(Brand, blank=True, null=True, verbose_name=_('brand'))
     name_en = models.CharField(_(u'name_en'), max_length=512, blank=True)
     name_cn = models.CharField(_(u'name_cn'), max_length=512, blank=True)
     pinyin = models.TextField(_('pinyin'), max_length=1024, blank=True)
-    pic = StdImageField(upload_to=get_premium_product_pic_path, blank=True, null=True, verbose_name=_('picture'),
+    pic = StdImageField(upload_to=UploadToClassNameDir(), blank=True, null=True, verbose_name=_('picture'),
                         variations={
                             'thumbnail': (400, 400, True)
                         })
@@ -71,10 +58,8 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
 
     def save(self, *args, **kwargs):
         self.resize_image('pic')  # resize images when first uploaded
-        update_cache = kwargs.pop('update_cache', True) or not self.id  # default to update cache
         super(PremiumProduct, self).save(*args, **kwargs)
-        if update_cache:
-            PremiumProduct.objects.clean_cache()
+
 
     @staticmethod
     def search_fit(**kwargs):

@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 ('name_en', models.CharField(blank=True, max_length=128, verbose_name='name_en')),
                 ('name_cn', models.CharField(blank=True, max_length=128, verbose_name='name_cn')),
                 ('pinyin', models.TextField(blank=True, max_length=512, verbose_name='pinyin')),
-                ('pic', stdimage.models.StdImageField(blank=True, null=True, upload_to=apps.premium_product.models.get_premium_product_pic_path, verbose_name='picture')),
+                ('pic', stdimage.models.StdImageField(blank=True, null=True, upload_to='premiumproduct', verbose_name='picture')),
                 ('description', models.TextField(blank=True, verbose_name='description')),
                 ('alias', models.CharField(blank=True, max_length=255, verbose_name='alias')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='创建时间')),

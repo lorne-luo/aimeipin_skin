@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 ('name_en', models.CharField(blank=True, max_length=255, verbose_name='name_en')),
                 ('name_cn', models.CharField(blank=True, max_length=255, verbose_name='name_cn')),
                 ('pinyin', models.CharField(blank=True, max_length=255, verbose_name='pinyin')),
-                ('pic', stdimage.models.StdImageField(blank=True, null=True, upload_to=apps.product.models.get_product_pic_path, verbose_name='picture')),
+                ('pic', stdimage.models.StdImageField(blank=True, null=True, upload_to='product', verbose_name='picture')),
                 ('alias', models.CharField(blank=True, max_length=255, verbose_name='alias')),
                 ('category', models.CharField(blank=True, choices=[('乳液/面霜', '乳液/面霜'), ('卸妆', '卸妆'), ('去角质', '去角质'), ('化妆水', '化妆水'), ('洁面', '洁面'), ('精华', '精华'), ('防晒', '防晒'), ('面膜', '面膜')], max_length=64)),
                 ('description', models.TextField(blank=True, verbose_name='description')),

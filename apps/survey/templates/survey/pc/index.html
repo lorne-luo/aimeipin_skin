@@ -57,7 +57,7 @@
 {#            {% if form.level.value %}#}
 {#                <div>价位: {{ form.level.value }}</div>#}
 {#            {% endif %}#}
-            <form id="form" method="post" action="">
+            <form id="form" enctype="multipart/form-data" method="post" action="">
                 {% csrf_token %}
                 {{ form.uuid }}
 

@@ -288,7 +288,7 @@ SITE_NAME = env('SITE_NAME', default='Aimeipin Skin')
 # Others
 PRODUCT_PHOTO_FOLDER = 'product'
 BRAND_LOGO_PHOTO_FOLDER = 'brand'
-PREMIUM_PRODUCT_PHOTO_FOLDER = 'premium_product'
+PREMIUM_PRODUCT_PHOTO_FOLDER = 'premiumproduct'
 ANSWER_PHOTO_FOLDER = 'answer'
 QRCODE_FOLDER = 'qrcode'
 REPORT_PDF_FOLDER = 'report'

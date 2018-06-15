@@ -8,6 +8,7 @@ from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from pypinyin import Style, pinyin
 from stdimage import StdImageField
+from stdimage.utils import UploadToClassNameDir
 from taggit.managers import TaggableManager
 
 from config.constants import PRODUCT_CATEGORY_CHOICES, SKIN_OILY_TYPE_CHOICES, SKIN_SENSITIVE_TYPE_CHOICES, \
@@ -19,28 +20,6 @@ from ..brand.models import Brand
 log = logging.getLogger(__name__)
 
 
-def get_product_pic_path(instance, filename):
-    ext = filename.split('.')[-1]
-    filename = instance.brand.name_en + '_' if instance.brand.name_en else ''
-    filename = '%s%s' % (filename, instance.name_en)
-    filename = filename.replace(' ', '-')
-    filename = '%s.%s' % (filename, ext)
-    file_path = os.path.join(PRODUCT_PHOTO_FOLDER, filename)
-
-    # from apps.celery.tasks import guetzli_compress_image
-    # full_path = os.path.join(MEDIA_ROOT, file_path)
-    # guetzli_compress_image.apply_async(args=[full_path], countdown=30)
-    return file_path
-
-
-class ProductManager(models.Manager):
-    DEFAULT_CACHE_KEY = 'QUERYSET_CACHE_DEFAULT_PRODUCT'
-
-    def clean_cache(self):
-        log.info('[QUERYSET_CACHE] clean carriers.')
-        # cache.delete(self.DEFAULT_CACHE_KEY)
-
-
 class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
     """普通产品库，由爬虫导入，客户输入现用产品时使用，不会推荐给客人, skin_product"""
     # sku = models.CharField(max_length=36, unique=True, blank=True)
@@ -48,7 +27,7 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
     name_en = models.CharField(_(u'name_en'), max_length=512, blank=True)
     name_cn = models.CharField(_(u'name_cn'), max_length=512, blank=True)
     pinyin = models.CharField(_(u'pinyin'), max_length=1024, blank=True)
-    pic = StdImageField(upload_to=get_product_pic_path, blank=True, null=True, verbose_name=_('picture'),
+    pic = StdImageField(upload_to=UploadToClassNameDir(), blank=True, null=True, verbose_name=_('picture'),
                         variations={
                             'thumbnail': (400, 400, True)
                         })
@@ -62,7 +41,6 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
         ('name_cn', Style.NORMAL, False),
         ('alias', Style.NORMAL, False),
     ]
-    objects = ProductManager()
 
     def __str__(self):
         if self.brand and self.brand.name_cn:
@@ -79,10 +57,8 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
 
     def save(self, *args, **kwargs):
         self.resize_image('pic')  # resize images when first uploaded
-        update_cache = kwargs.pop('update_cache', True) or not self.id  # default to update cache
         super(Product, self).save(*args, **kwargs)
-        if update_cache:
-            Product.objects.clean_cache()
+
 
     def get_analysis(self, oily_type, sensitive_type, pigment_type, loose_type):
         analysis = self.productanalysis_set.filter(oily_type=oily_type, sensitive_type=sensitive_type,
@@ -109,11 +85,6 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
             return True
         return False
 
-
-@receiver(post_delete, sender=Product)
-def product_deleted(sender, **kwargs):
-    instance = kwargs['instance']
-    Product.objects.clean_cache()
 
 
 class ProductIngredient(models.Model):

@@ -72,7 +72,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='answer',
             name='cosmetics',
-            field=stdimage.models.StdImageField(blank=True, null=True, upload_to=apps.survey.models.get_answer_photo_path, verbose_name='5. 现阶段使用护肤品合集'),
+            field=stdimage.models.StdImageField(blank=True, null=True, upload_to='answer', verbose_name='5. 现阶段使用护肤品合集'),
         ),
         migrations.AddField(
             model_name='answer',
@@ -202,12 +202,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='answer',
             name='portrait',
-            field=stdimage.models.StdImageField(blank=True, null=True, upload_to=apps.survey.models.get_answer_photo_path, verbose_name='3. 无PS、无滤镜、清晰纯素颜照片一张'),
+            field=stdimage.models.StdImageField(blank=True, null=True, upload_to='answer', verbose_name='3. 无PS、无滤镜、清晰纯素颜照片一张'),
         ),
         migrations.AddField(
             model_name='answer',
             name='portrait_part',
-            field=stdimage.models.StdImageField(blank=True, null=True, upload_to=apps.survey.models.get_answer_photo_path, verbose_name='4. 如需重点关注部位可在此上传无PS、无滤镜、清晰的纯素颜照片'),
+            field=stdimage.models.StdImageField(blank=True, null=True, upload_to='answer', verbose_name='4. 如需重点关注部位可在此上传无PS、无滤镜、清晰的纯素颜照片'),
         ),
         migrations.AlterField(
             model_name='answer',

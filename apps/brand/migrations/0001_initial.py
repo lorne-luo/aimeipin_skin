@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('pinyin', models.CharField(blank=True, max_length=512, verbose_name='pinyin')),
                 ('first_letter_en', models.CharField(blank=True, max_length=128, verbose_name='first_letter_en')),
                 ('first_letter_cn', models.CharField(blank=True, max_length=128, verbose_name='first_letter_cn')),
-                ('logo', stdimage.models.StdImageField(blank=True, null=True, upload_to=apps.brand.models.get_brand_logo_path, verbose_name='Logo')),
+                ('logo', stdimage.models.StdImageField(blank=True, null=True, upload_to='brand', verbose_name='Logo')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='创建时间')),
             ],
             options={

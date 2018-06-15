@@ -5,6 +5,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from pypinyin import Style, pinyin, lazy_pinyin
 from stdimage import StdImageField
+from stdimage.utils import UploadToClassNameDir
 from taggit.managers import TaggableManager
 
 from django_countries.fields import CountryField
@@ -12,20 +13,6 @@ from core.django.models import PinYinFieldModelMixin, ResizeUploadedImageModelMi
 from config.settings import BRAND_LOGO_PHOTO_FOLDER, MEDIA_URL, MEDIA_ROOT
 
 log = logging.getLogger(__name__)
-
-
-def get_brand_logo_path(instance, filename):
-    ext = filename.split('.')[-1]
-    filename = instance.name_en + '_' if instance.name_en else ''
-    filename = '%s%s' % (filename, instance.name_en)
-    filename = filename.replace(' ', '-')
-    filename = '%s.%s' % (filename, ext)
-    file_path = os.path.join(BRAND_LOGO_PHOTO_FOLDER, filename)
-
-    # from apps.celery.tasks import guetzli_compress_image
-    # full_path = os.path.join(MEDIA_ROOT, file_path)
-    # guetzli_compress_image.apply_async(args=[full_path], countdown=30)
-    return file_path
 
 
 class Brand(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
@@ -37,7 +24,7 @@ class Brand(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model):
     alias = models.CharField(_(u'别名'), max_length=255, blank=True)
     first_letter_en = models.CharField(_('英文首字母'), max_length=128, blank=True)
     first_letter_cn = models.CharField(_('拼音首字母'), max_length=128, blank=True)
-    logo = StdImageField(upload_to=get_brand_logo_path, blank=True, null=True, verbose_name=_('Logo'),
+    logo = StdImageField(upload_to=UploadToClassNameDir(), blank=True, null=True, verbose_name=_('Logo'),
                          variations={
                              'thumbnail': (400, 400, True)
                          })

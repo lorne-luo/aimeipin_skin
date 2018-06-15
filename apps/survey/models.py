@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from stdimage import StdImageField
+from stdimage.utils import UploadToClassNameDir
 
 from apps.analysis.models import SkinType
 from apps.report.models import Report
@@ -54,16 +55,6 @@ class QRCodeModel(object):
             return generate_qrcode(self.full_url, self.uuid)
 
 
-def get_answer_photo_path(instance, filename):
-    ext = filename.split('.')[-1]
-    filename = instance.name_en + '_' if instance.name_en else ''
-    filename = '%s%s' % (filename, instance.name_en)
-    filename = filename.replace(' ', '-')
-    filename = '%s.%s' % (filename, ext)
-    file_path = os.path.join(ANSWER_PHOTO_FOLDER, filename)
-    return file_path
-
-
 class AnswerManager(models.Manager):
     def filled(self):
         return self.exclude(status='CREATED')
@@ -85,18 +76,18 @@ class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
     # replica of customer basic info
     name = models.CharField(_(u'1. 您的姓名？'), max_length=255, null=True, blank=True, help_text='提示：请填写您下单时登记的姓名')
     sex = models.CharField(_(u'2. 您的性别？'), choices=SEX_CHOICES, max_length=30, null=True, blank=True, help_text='')
-    portrait = StdImageField(_('3. 无PS、无滤镜、清晰纯素颜照片一张'), upload_to=get_answer_photo_path, blank=True, null=True,
+    portrait = StdImageField(_('3. 无PS、无滤镜、清晰纯素颜照片一张'), upload_to=UploadToClassNameDir(), blank=True, null=True,
                              variations={
                                  'medium': (1000, 1000, True),
                                  'thumbnail': (400, 400, True)
                              }, help_text='提示：上传文件不超过4M')
-    portrait_part = StdImageField(_('4. 如需重点关注部位可在此上传无PS、无滤镜、清晰的纯素颜照片'), upload_to=get_answer_photo_path, blank=True,
+    portrait_part = StdImageField(_('4. 如需重点关注部位可在此上传无PS、无滤镜、清晰的纯素颜照片'), upload_to=UploadToClassNameDir(), blank=True,
                                   null=True,
                                   variations={
                                       'medium': (1000, 1000, True),
                                       'thumbnail': (400, 400, True)
                                   }, help_text='提示：上传文件不超过4M')
-    cosmetics = StdImageField(_('5. 现阶段使用护肤品合集'), upload_to=get_answer_photo_path, blank=True, null=True,
+    cosmetics = StdImageField(_('5. 现阶段使用护肤品合集'), upload_to=UploadToClassNameDir(), blank=True, null=True,
                               variations={
                                   'medium': (1000, 1000, True),
                                   'thumbnail': (400, 400, True)

@@ -77,9 +77,12 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
             PremiumProduct.objects.clean_cache()
 
     @staticmethod
-    def search_fit(purpose):
-        product_ids = [x.product_id for x in PremiumProductFit.objects.filter(purpose=purpose)]
-        return PremiumProduct.objects.filter(id__in=product_ids)
+    def search_fit(**kwargs):
+        if kwargs:
+            product_ids = [x.product_id for x in PremiumProductFit.objects.filter(**kwargs)]
+            return PremiumProduct.objects.filter(id__in=product_ids)
+        else:
+            return PremiumProduct.objects.all()
 
 
 class PremiumProductFit(models.Model):

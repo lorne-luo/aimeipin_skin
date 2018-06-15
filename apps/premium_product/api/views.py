@@ -40,7 +40,7 @@ class PremiumProductAutocompleteAPIView(SuperuserRequiredMixin, HansSelect2ViewM
         purpose = self.forwarded.get('purpose')
 
         if purpose:
-            qs = PremiumProduct.search_fit(purpose)
+            qs = PremiumProduct.search_fit(purpose=purpose)
         else:
             qs = PremiumProduct.objects.all()
 

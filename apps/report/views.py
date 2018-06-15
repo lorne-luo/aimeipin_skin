@@ -124,7 +124,8 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ReportUpdateView, self).get_context_data(**kwargs)
-        PremiumProductFormSet = get_premiumproduct_formset(self.object.purpose) if self.object else forms.PremiumProductFormSet
+        PremiumProductFormSet = get_premiumproduct_formset(
+            self.object.purpose) if self.object else forms.PremiumProductFormSet
         if self.request.method == 'GET':
             if self.object:
                 day_products_formset = PremiumProductFormSet(
@@ -182,12 +183,18 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     def form_valid(self, form):
         result = super(ReportUpdateView, self).form_valid(form)
 
-        PremiumProductFormSet = get_premiumproduct_formset(self.object.purpose) if self.object else forms.PremiumProductFormSet
-        if not all([self.process_formset(PremiumProductFormSet, 'day_products_formset', self.object),
-                    self.process_formset(PremiumProductFormSet, 'night_products_formset', self.object),
-                    self.process_formset(PremiumProductFormSet, 'mask_products_formset', self.object),
-                    self.process_formset(AnswerProductAnalysisFormSet, 'answerproductanalysis_formset',
-                                         self.object.answer)]):
+        if self.object.level == '98':
+            PremiumProductFormSet = get_premiumproduct_formset(
+                self.object.purpose) if self.object else forms.PremiumProductFormSet
+            if not all([self.process_formset(PremiumProductFormSet, 'day_products_formset', self.object),
+                        self.process_formset(PremiumProductFormSet, 'night_products_formset', self.object),
+                        self.process_formset(PremiumProductFormSet, 'mask_products_formset', self.object),
+                        self.process_formset(AnswerProductAnalysisFormSet, 'answerproductanalysis_formset',
+                                             self.object.answer)]):
+                return self.form_invalid(form)
+
+        if not self.process_formset(AnswerProductAnalysisFormSet, 'answerproductanalysis_formset',
+                                    self.object.answer):
             return self.form_invalid(form)
 
         self.object.start_pdf_generation()

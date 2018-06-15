@@ -1,89 +1,108 @@
-html{
-    margin:0;
-    padding:0;
-}body{
-    background:url(../../image/background.png) no-repeat;
-    background-size:cover;
-    font-size:16px;
-    width:100%;
+html {
+    margin: 0;
+    padding: 0;
 }
 
-ul,li{
-    list-style:none;
-    margin:0;
-    padding:0;
+body {
+    background: url(../../image/background.png) no-repeat;
+    background-size: cover;
+    font-size: 16px;
+    width: 100%;
 }
-input,textarea{
-    border:1px solid #ddd;
-    outline:none;
+
+ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
-p{
+
+input, textarea {
+    border: 1px solid #ddd;
+    outline: none;
+}
+
+p {
     /*font-size:16px;*/
 }
-#header>h1{
-    font-size:30px;
-    margin:0;
-    color:#fff;
+
+#header > h1 {
+    font-size: 30px;
+    margin: 0;
+    color: #fff;
+    text-align: center;
 }
-li{
+
+li {
     /*font-size:16px;*/
-    margin:10px 0;
+    margin: 10px 0;
 }
-#question{
+
+#question {
     width: 100%;
     /*background: #fff;*/
     margin: 60px auto;
-    margin-bottom:0;
+    margin-bottom: 0;
 }
-#section{
+
+#section {
     margin-top: 120px;
     background: #fff;
     padding: 60px;
 }
-#section p{
-    color:#4d4d4d;
-    display:inline-block;
-    font-weight:bold;
-    margin:0;
+
+#section p {
+    color: #4d4d4d;
+    display: inline-block;
+    font-weight: bold;
+    margin: 0;
 }
-#section li input[type=text]{
+
+#section li input[type=text] {
     width: 80%;
     padding-left: 10px;
     height: 26px;
-    margin-left:20px;
+    margin-left: 20px;
 }
-#section li i{
-    font-style:normal;
-    margin-left:20px;
+
+#section li i {
+    font-style: normal;
+    margin-left: 20px;
 }
-#question form>ul{
+
+#question form > ul {
     padding-bottom: 10px;
     border-bottom: 1px solid #ddd;
     margin-bottom: 50px;
 }
-#question ul li textarea{
+
+#question ul li textarea {
     width: 100%;
     height: 90px;
 }
-#section li span{
+
+#section li span {
 }
-#section li label{
-    margin-left:10px;
+
+#section li label {
+    margin-left: 10px;
     font-weight: 400;
 }
-#weight li input{
-    width:60px;
+
+#weight li input {
+    width: 60px;
     height: 26px;
 }
-#mask{
+
+#mask {
     position: absolute;
     top: 0;
     width: 100%;
     /*height: 100%;*/
-    background: rgba(000,000,000,0.3);
-    display:none;
+    background: rgba(000, 000, 000, 0.3);
+    display: none;
 }
-#mask>div{
+
+#mask > div {
     width: 500px;
     height: 270px;
     background: #fff;
@@ -94,7 +113,8 @@ li{
     left: 700px;
 
 }
-#mask>div p{
+
+#mask > div p {
     background: #13A5EC;
     color: #fff;
     height: 45px;
@@ -104,7 +124,8 @@ li{
     position: relative;
     bottom: 20px;
 }
-#mask>div textarea{
+
+#mask > div textarea {
     width: 360px;
     margin-top: 20px;
     height: 120px;
@@ -112,7 +133,8 @@ li{
     border: none;
     text-align: center;
 }
-#mask>div input{
+
+#mask > div input {
     width: 60px;
     height: 30px;
     background: #13A5EC;
@@ -120,17 +142,19 @@ li{
     color: #fff;
     border-radius: 5px;
     margin-left: 220px;
-    cursor:pointer;
+    cursor: pointer;
 }
-b{
-    font-weight:normal;
+
+b {
+    font-weight: normal;
 }
 
 /* from page */
-.button-div{
+.button-div {
     text-align: center
 }
-#button{
+
+#button {
     background: #13A5EC;
     color: #fff;
     border: none;
@@ -140,33 +164,43 @@ b{
     border-radius: 5px;
     font-size: 18px;
 }
-.hufupin2{
-    display:none;
+
+.hufupin2 {
+    display: none;
 }
-.hufupin2 li{
-    height:28px;
-    line-height:28px;
+
+.hufupin2 li {
+    height: 28px;
+    line-height: 28px;
 }
-.span1{
-    cursor:pointer;
+
+.span1 {
+    cursor: pointer;
 }
-img{
-    width:28px;
+
+img {
+    width: 28px;
     border: 1px solid #ddd;
 }
-.hufupin select{
-    width:160px;
-    height:28px;
-    margin-right:16px;
-    margin-left:16px;
+
+.hufupin select {
+    width: 160px;
+    height: 28px;
+    margin-right: 16px;
+    margin-left: 16px;
 }
-#section li.hufupin input{
-    width: 170px;
+
+#section li.hufupin input {
     height: 30px;
     border: 1px solid #AAA;
     PADDING-LEFT: 10PX;
 }
-#question .hufupin ul.pin{
+
+#section li.hufupin input.half {
+    width: 170px;
+}
+
+#question .hufupin ul.pin {
     position: absolute;
     left: 214px;
     border-bottom: none;
@@ -180,15 +214,18 @@ img{
     overflow-y: scroll;
     display: none;
     min-width: 170px;
-    top: 27px;
+    top: 30px;
 }
-#question .hufupin ul.pin.active{
-    display:block;
+
+#question .hufupin ul.pin.active {
+    display: block;
 }
-#section .hufupin ul li{
-    cursor:pointer;
+
+#section .hufupin ul li {
+    cursor: pointer;
 }
-#section .hufupin .pin li span{
+
+#section .hufupin .pin li span {
     display: inline-block;
     /*font-size: 14px;*/
     color: #000;
@@ -200,7 +237,8 @@ img{
     white-space: nowrap;
     overflow: hidden;
 }
-.add{
+
+.add {
     color: #fff;
     background: #13A5EC;
     width: 50px;
@@ -209,45 +247,53 @@ img{
     text-align: center;
     line-height: 26px;
     border-radius: 3px;
-    cursor:pointer;
+    cursor: pointer;
 }
-.hufupin{
-    position:relative;
+
+.hufupin {
+    position: relative;
 }
-#question ul.ulcontainer{
+
+#question ul.ulcontainer {
     border-bottom: none;
     margin-left: 30px;
 }
-#question ul.ulcontainer li{
-    margin:5px 0 0 0;
+
+#question ul.ulcontainer li {
+    margin: 5px 0 0 0;
 }
-#question .hufupin ul.ulcontainer span{
-    display:inline-block;
-    margin-left:30px;
+
+#question .hufupin ul.ulcontainer span {
+    display: inline-block;
+    margin-left: 30px;
 }
-#section li input.fileinput{
+
+#section li input.fileinput {
     position: relative;
     left: -310px;
     z-index: 0;
     width: 260px;
     cursor: pointer;
 }
-#section li input.inputopa{
-    position:relative;
-    z-index:100;
-    opacity:0;
-    width:300px;
-    cursor:pointer;
+
+#section li input.inputopa {
+    position: relative;
+    z-index: 100;
+    opacity: 0;
+    width: 300px;
+    cursor: pointer;
 }
-#section li input.handInp{
+
+#section li input.handInp {
     margin-top: 10px;
-    margin-left: 20px;
     width: 364px;
 }
-.hufupin>span{
-    width:160px;
+
+.hufupin > span {
+    width: 160px;
 }
-.hufupin>span>i{
+
+.hufupin > span > i {
     background: url(../../image/path.png) no-repeat;
     width: 18px;
     height: 18px;
@@ -256,14 +302,14 @@ img{
     right: 46px;
     background-size: contain;
 }
+
 ul.hufupin1,
 ul.hufupin11,
 ul.hufupin12,
 ul.hufupin13,
 ul.hufupin14,
 ul.hufupin15,
-ul.hufupin16
-{
+ul.hufupin16 {
     position: absolute;
     background: #fff;
     left: 20px;
@@ -272,19 +318,19 @@ ul.hufupin16
     width: 170px;
     height: 160px;
     overflow-y: auto;
-    display:none;
+    display: none;
     z-index: 100;
 }
+
 ul.hufupin1.active,
 ul.hufupin11.active,
 ul.hufupin12.active,
 ul.hufupin13.active,
 ul.hufupin14.active,
 ul.hufupin15.active,
-ul.hufupin16.active{
-    display:block;
+ul.hufupin16.active {
+    display: block;
 }
-
 
 ul.hufupin1 li,
 ul.hufupin11 li,
@@ -292,7 +338,57 @@ ul.hufupin12 li,
 ul.hufupin13 li,
 ul.hufupin14 li,
 ul.hufupin15 li,
-ul.hufupin16 li
-{
-    padding-left:10px;
+ul.hufupin16 li {
+    padding-left: 10px;
+}
+
+@media (max-width: 767px) {
+    .table-responsive > .table > thead > tr > th,
+    .table-responsive > .table > tbody > tr > th,
+    .table-responsive > .table > tfoot > tr > th,
+    .table-responsive > .table > thead > tr > td,
+    .table-responsive > .table > tbody > tr > td,
+    .table-responsive > .table > tfoot > tr > td {
+        white-space: normal !important;
+    }
+
+    .container {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    #section {
+        margin-top: 60px;
+        padding: 15px;
+    }
+
+    #section li input.handInp {
+        max-width: 340px;
+        width: 80%;
+    }
+
+    #section li.hufupin input.half {
+        max-width: 170px;
+        width: 40%;
+    }
+
+    #section li input[type=text] {
+        margin-left: 10px;
+    }
+
+    ul.hufupin1, ul.hufupin11, ul.hufupin12, ul.hufupin13, ul.hufupin14, ul.hufupin15, ul.hufupin16, ul.hufupin2 {
+        left: 15px;
+        width: 80%;
+    }
+
+    #question .hufupin ul.pin {
+        left: 15px;
+    }
+    #question ul.ulcontainer{
+        margin-left: 10px;
+    }
+
+    #question .hufupin ul.ulcontainer span {
+    margin-left: 0;
+}
 }

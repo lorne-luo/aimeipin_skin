@@ -2,14 +2,14 @@ $(document).ready(function () {
     $('.hufupin>span>i').click(function () {
         // console.log('.hufupin>span>i');
         var search = "";
-        ullistSearch(search);
+        brandSearch(search);
         $(this).parent().next().toggleClass('active');
     });
 
     $('.hufupin span input.onkeyDownSearch').focus(function () {
         // console.log('input.focus');
         var search = "";
-        ullistSearch(search);
+        brandSearch(search);
         $(this).parent().next().addClass('active');
     }).blur(function (event) {
         var self = this;
@@ -25,12 +25,13 @@ $(document).ready(function () {
         } else {
             var search = $(this).val();
             console.log('search:' + search);
-            ullistSearch(search);
+            brandSearch(search);
         }
         $(this).parent().next().addClass('active')
     });
 
     $('.hufupin input.span1').focus(function (event) {
+        console.log("span1 focus");
         if ($(this).attr('data-brand_id')) {
             $(this).next().addClass('active');
         }
@@ -57,7 +58,7 @@ $(document).ready(function () {
                 success: function (data) {
                     var opt2 = '';
                     for (var i = 0; i < data.results.length; i++) {
-                        opt2 += '<li data-id="' + data.results[i].id + '" onclick="liClick(this)">' +
+                        opt2 += '<li data-id="' + data.results[i].id + '" onclick="productClick(this)">' +
                             '<img src="' + data.results[i].image + '">' +
                             '<span>' + data.results[i].text + '</span>' +
                             '</li>';
@@ -73,7 +74,8 @@ $(document).ready(function () {
 
 });
 
-function ullistSearch(search) {
+function brandSearch(search) {
+    // brand input box selected, query brand from server
     $.ajax({
         url: "/api/brand/brand/search/",
         type: "GET",
@@ -82,7 +84,7 @@ function ullistSearch(search) {
         success: function (data) {
             var brandOptions = '';
             for (var i = 0; i < data.results.length; i++) {
-                brandOptions += '<li data-id="' + data.results[i].id + '" onclick="selChange(this)">' + data.results[i].text + '</li>';
+                brandOptions += '<li data-id="' + data.results[i].id + '" onclick="brandClick(this)">' + data.results[i].text + '</li>';
             }
             $('.hufupin .hufupin1').html(brandOptions);
             $('.hufupin .hufupin11').html(brandOptions);
@@ -100,7 +102,8 @@ function ullistSearch(search) {
 }
 
 
-function selChange(tsel) {
+function brandClick(tsel) {
+    // brand selected, query product with brand_id, and popup product selection window
     // console.log('brand selected');
     var opt2 = '';
     var id = {'id': $(tsel).attr('data-id'), 'cate': $(tsel).parent().attr('cate')};
@@ -118,14 +121,16 @@ function selChange(tsel) {
         dataType: "JSON",
         success: function (data) {
             for (var i = 0; i < data.results.length; i++) {
-                opt2 += '<li data-id="' + data.results[i].id + '" onclick="liClick(this)">' +
+                opt2 += '<li data-id="' + data.results[i].id + '" onclick="productClick(this)">' +
                     '<img src="' + data.results[i].image + '">' +
                     '<span>' + data.results[i].text + '</span>' +
                     '</li>';
             }
             $(tsel).parent().next().next().html(opt2);
-            $(tsel).parent().next().attr('placeholder', '输入产品名称检索');
-            $(tsel).parent().next().trigger('focus');
+            var productInput = $(tsel).parent().next();
+            productInput.prop("disabled", false);
+            productInput.attr('placeholder', '输入名称检索');
+            productInput.trigger('focus');
         },
         error: function () {
             $(tsel).parent().next().next().html("");
@@ -133,7 +138,8 @@ function selChange(tsel) {
     });
 }
 
-function liClick(li) {
+function productClick(li) {
+    // product selected from product list
     // console.log('product selected');
     $(li).parent().prev().val('');
     $(li).parent().removeClass('active');

@@ -23,6 +23,13 @@ class AnswerUpdateForm(AnswerAddForm):
 
 
 class SurveyFillForm(forms.ModelForm):
+    portrait = forms.ImageField(label=_("3. 无PS、无滤镜、清晰纯素颜照片一张"), required=False,
+                           widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
+    portrait_part = forms.ImageField(label=_("cosmetics"), required=False,
+                           widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
+    cosmetics = forms.ImageField(label=_("4. 如需重点关注部位可在此上传无PS、无滤镜、清晰的纯素颜照片"), required=False,
+                           widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
+
     sex = forms.ChoiceField(choices=SEX_CHOICES, widget=forms.RadioSelect(), label='2. 您的性别？')
     monthly_income = forms.ChoiceField(choices=INCOME_CHOICES, widget=forms.RadioSelect(), label='9. 月收入水平？')
 

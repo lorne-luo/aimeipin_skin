@@ -1,7 +1,23 @@
 <div class="form-group" id="{{ products_formset.prefix }}_table">
-    <h5 class="box-title">{{ title }}</h5>
-    {{ products_formset.management_form }}
+    <h4 class="box-title">{{ title }}</h4>
 
+    <div id="{{ products_formset.prefix }}_selection">
+        <div class="col-xs-1">{{ premiumproductselectform.skin_type.label }}</div>
+        <div class="col-xs-2">{{ premiumproductselectform.skin_type }}</div>
+        <div class="col-xs-1">{{ premiumproductselectform.purpose.label }}</div>
+        <div class="col-xs-2">{{ premiumproductselectform.purpose }}</div>
+        <div class="col-xs-1">{{ premiumproductselectform.category.label }}</div>
+        <div class="col-xs-2">{{ premiumproductselectform.category }}</div>
+
+        <div class="clearfix" style="clear:both">
+            <div class="col-xs-1">{{ premiumproductselectform.name.label }}</div>
+            <div class="col-xs-8">{{ premiumproductselectform.name }}</div>
+            <ul class="hide"></ul>
+        </div>
+    </div>
+    <br>
+
+    {{ products_formset.management_form }}
     {% for form in products_formset %}
         <div class="form-group col-xs-12 {% cycle row1 row2 %} formset_row">
             <div class="col-md-8 col-xs-11">
@@ -15,7 +31,7 @@
         </div>
     {% endfor %}
 </div>
-
+<hr>
 
 <script type="text/javascript">
     $('#{{ products_formset.prefix }}_table .formset_row').formset({
@@ -28,5 +44,11 @@
         added: function (row) {
 {#            $('[data-autocomplete-light-function]', row).each(window.__dal__initialize);#}
         }
+    });
+
+    $(document).ready(function () {
+        $('#{{ products_formset.prefix }}_selection #id_premiumproduct_select-name').focus(function (event) {
+            console.log("123");
+        })
     });
 </script>

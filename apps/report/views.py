@@ -6,6 +6,7 @@ from braces.views import SuperuserRequiredMixin
 from django.views.generic.detail import SingleObjectMixin
 from weasyprint import HTML, CSS
 
+from apps.premium_product.forms import PremiumProductSelectForm
 from apps.survey.forms import AnswerProductAnalysisFormSet
 from core.django.utils.pdf import PdfGenerateBaseView
 from .forms import get_premiumproduct_formset
@@ -163,6 +164,7 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
             'night_products_formset': night_products_formset,
             'mask_products_formset': mask_products_formset,
             'answerproductanalysis_formset': answerproductanalysis_formset,
+            'premiumproductselectform': PremiumProductSelectForm(prefix='premiumproduct_select'),
         })
         return context
 

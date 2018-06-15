@@ -189,8 +189,8 @@
                 if (hideAddButton) addButton.hide();
             }
             addButton.click(function(event, product_id, name) {
-                console.log(product_id);
-                console.log(name);
+                // console.log(product_id);
+                // console.log(name);
                 var formCount = parseInt(totalForms.val()),
                     row = options.formTemplate.clone(true).removeClass('formset-custom-template'),
                     buttonRow = $($(this).parents('tr.' + options.formCssClass + '-add').get(0) || this),

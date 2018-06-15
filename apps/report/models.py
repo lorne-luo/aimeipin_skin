@@ -83,29 +83,26 @@ class Report(models.Model):
         super(Report, self).save(*args, **kwargs)
 
     def start_pdf_generation(self):
-        def generate_pdf(id):
-            log.info('[PDF GENERATION] #%s Started' % id)
-            report = Report.objects.filter(id=id).first()
-            if report:
-                context = {'object': report}
-                template_name = 'report/report_download2_%s.html' % report.level
-                template = get_template(template_name)
-                html = template.render(context)
-
-                url = '%s/%s.pdf' % (settings.REPORT_PDF_FOLDER, report.uuid)
-                file_path = os.path.join(settings.MEDIA_ROOT, url)
-                pdf = HTML(string=html).write_pdf(file_path)
-                report.pdf_created_at = timezone.now()
-                report.pdf = url
-                report.save(update_fields=['pdf', 'pdf_created_at'])
-                log.info('[PDF GENERATION] #%s Finished' % id)
-
         self.pdf = None
         self.pdf_created_at = None
         self.save(update_fields=['pdf', 'pdf_created_at'])
-        t = threading.Thread(target=generate_pdf, args=(self.id,))
+        t = threading.Thread(target=self.generate_pdf, args=())
         t.setDaemon(True)
         t.start()
+
+    def generate_pdf(self):
+        context = {'object': self}
+        template_name = 'report/report_download2_%s.html' % self.level
+        template = get_template(template_name)
+        html = template.render(context)
+
+        url = '%s/%s.pdf' % (settings.REPORT_PDF_FOLDER, self.uuid)
+        file_path = os.path.join(settings.MEDIA_ROOT, url)
+        pdf = HTML(string=html).write_pdf(file_path)
+        self.pdf_created_at = timezone.now()
+        self.pdf = url
+        self.save(update_fields=['pdf', 'pdf_created_at'])
+        log.info('[PDF GENERATION] #%s Finished' % id)
 
     @property
     def uuid(self):

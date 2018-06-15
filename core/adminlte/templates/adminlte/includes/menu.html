@@ -3,16 +3,9 @@
         <ul class="sidebar-menu">
             <li class="header">导航</li>
 
-{#            <li class="active">#}
-{#                <a href="{% url 'member:member-home' %}">#}
-{#                    <i class="fa fa-dashboard"></i>#}
-{#                    <b>{{ default_dashboard_title|default:"首页" }}</b>#}
-{#                </a>#}
-{#            </li>#}
+{#            {% include "dashboard/_menu.html" %}#}
 
-            {% include "dashboard/_menu.html" %}
-
-            {% include "customer/_menu.html" %}
+{#            {% include "customer/_menu.html" %}#}
 
             {% include "brand/_menu.html" %}
 

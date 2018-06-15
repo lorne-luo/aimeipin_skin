@@ -102,28 +102,36 @@ class SurveyFillView(CommonContextMixin, UpdateView):
             if self.object:
                 cosmetic_products1_formset = AnswerProductFormSet(prefix='cosmetic_products1_formset',
                                                                   instance=self.object,
-                                                                  queryset=self.object.answerproduct_set.filter(category='卸妆'))
+                                                                  queryset=self.object.answerproduct_set.filter(
+                                                                      category='卸妆'))
                 cosmetic_products2_formset = AnswerProductFormSet(prefix='cosmetic_products2_formset',
                                                                   instance=self.object,
-                                                                  queryset=self.object.answerproduct_set.filter(category='洁面'))
+                                                                  queryset=self.object.answerproduct_set.filter(
+                                                                      category='洁面'))
                 cosmetic_products3_formset = AnswerProductFormSet(prefix='cosmetic_products3_formset',
                                                                   instance=self.object,
-                                                                  queryset=self.object.answerproduct_set.filter(category='化妆'))
+                                                                  queryset=self.object.answerproduct_set.filter(
+                                                                      category='化妆'))
                 cosmetic_products4_formset = AnswerProductFormSet(prefix='cosmetic_products4_formset',
                                                                   instance=self.object,
-                                                                  queryset=self.object.answerproduct_set.filter(category='面霜'))
+                                                                  queryset=self.object.answerproduct_set.filter(
+                                                                      category='面霜'))
                 cosmetic_products5_formset = AnswerProductFormSet(prefix='cosmetic_products5_formset',
                                                                   instance=self.object,
-                                                                  queryset=self.object.answerproduct_set.filter(category='精华'))
+                                                                  queryset=self.object.answerproduct_set.filter(
+                                                                      category='精华'))
                 cosmetic_products6_formset = AnswerProductFormSet(prefix='cosmetic_products6_formset',
                                                                   instance=self.object,
-                                                                  queryset=self.object.answerproduct_set.filter(category='去角质'))
+                                                                  queryset=self.object.answerproduct_set.filter(
+                                                                      category='去角质'))
                 cosmetic_products7_formset = AnswerProductFormSet(prefix='cosmetic_products7_formset',
                                                                   instance=self.object,
-                                                                  queryset=self.object.answerproduct_set.filter(category='面膜'))
+                                                                  queryset=self.object.answerproduct_set.filter(
+                                                                      category='面膜'))
                 cosmetic_products8_formset = AnswerProductFormSet(prefix='cosmetic_products8_formset',
                                                                   instance=self.object,
-                                                                  queryset=self.object.answerproduct_set.filter(category='防晒'))
+                                                                  queryset=self.object.answerproduct_set.filter(
+                                                                      category='防晒'))
 
             else:
                 cosmetic_products1_formset = AnswerProductFormSet(prefix='cosmetic_products1_formset')
@@ -194,6 +202,9 @@ class SurveyFillView(CommonContextMixin, UpdateView):
                     self.process_formset('cosmetic_products7_formset'),
                     self.process_formset('cosmetic_products8_formset')]):
             return self.form_invalid(form)
+
+        for r in self.object.report_set.all():
+            r.regenerate()
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):

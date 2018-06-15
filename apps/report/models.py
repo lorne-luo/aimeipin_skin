@@ -138,6 +138,17 @@ class Report(models.Model):
 
         self.save()
 
+    def regenerate(self):
+        if not self.answer:
+            return
+
+        self.classify_skin_type()
+        self.allergy = self.answer.other_question2
+        for ap in self.answer.answerproduct_set.all():
+            ap.update_analysis(False)
+
+        self.save()
+
     def __str__(self):
         return '%s %s#%s' % (self.answer.name, self.purpose, self.level)
 

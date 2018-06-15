@@ -53,6 +53,7 @@ class Report(models.Model):
     pdf = models.FileField('PDF', blank=True)
     pdf_created_at = models.DateTimeField('PDF生成时间', null=True, blank=True)
 
+    is_delivered = models.BooleanField(default=False)  # 用户是否关注公众账号
     modified_at = models.DateTimeField('最后更新', auto_now=True, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 

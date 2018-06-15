@@ -12,7 +12,8 @@ class ReportSerializer(BaseSerializer):
     class Meta:
         model = Report
         fields = ['id', 'edit_url', 'detail_url'] + \
-                 ['answer', 'purpose', 'level', 'answer_display', 'answer_url', 'modified_at', 'created_at', 'pdf']
+                 ['answer', 'purpose', 'level', 'answer_display', 'answer_url', 'modified_at', 'created_at', 'pdf',
+                  'is_delivered']
         read_only_fields = ['id']
 
     def get_answer_display(self, obj):

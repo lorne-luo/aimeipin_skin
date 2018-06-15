@@ -24,6 +24,7 @@
     <th>编辑/下载</th>
     <th>最后修改</th>
     <th>创建日期</th>
+    <th>已交付</th>
 {% endblock %}
 
 {% block table_row %}
@@ -44,6 +45,16 @@
         </td>
         <td>{!! item.modified_at !!}</td>
         <td>{!! item.created_at !!}</td>
+        <td>
+            <div class="btn-group" data-toggle="buttons">
+                <template v-if="item.is_delivered">
+                    <label class="btn-sm btn-success active" v-on:click="update_delivered(item.id, $event)">是</label>
+                </template>
+                <template v-else>
+                    <label class="btn-sm btn-danger" v-on:click="update_delivered(item.id, $event)">否</label>
+                </template>
+            </div>
+        </td>
 
         <td class="text-right hidden-sm hidden-xs">
             <template v-if="update_url_tag">

@@ -74,8 +74,8 @@ class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
     ip = models.GenericIPAddressField(_(u'IP'), null=True, blank=True)
 
     # replica of customer basic info
-    name = models.CharField(_(u'1. 您的姓名？'), max_length=255, null=True, blank=True, help_text='提示：请填写您下单时登记的姓名')
-    sex = models.CharField(_(u'2. 您的性别？'), choices=SEX_CHOICES, max_length=30, null=True, blank=True, help_text='')
+    name = models.CharField(_(u'1. 您的姓名'), max_length=255, null=True, blank=True, help_text='提示：请填写您下单时登记的姓名')
+    sex = models.CharField(_(u'2. 您的性别'), choices=SEX_CHOICES, max_length=30, null=True, blank=True, help_text='')
     portrait = StdImageField(_('3. 无PS、无滤镜、清晰纯素颜照片一张'), upload_to=UploadToClassNameDir(), blank=True, null=True,
                              variations={
                                  'medium': (1000, 1000, True),
@@ -92,13 +92,13 @@ class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
                                   'medium': (1000, 1000, True),
                                   'thumbnail': (400, 400, True)
                               }, help_text='提示：上传文件不超过4M')
-    birth = models.DateField(_(u'6. 您的出生日期？'), null=True, blank=True, help_text='提示：格式：2017-01-01')
+    birth = models.DateField(_(u'6. 您的出生日期'), null=True, blank=True, help_text='提示：格式：2017-01-01')
     height = models.PositiveIntegerField(_(u'7. 您的身高'), null=True, blank=True)
     weight = models.PositiveIntegerField(_(u'体重'), null=True, blank=True)
-    job = models.CharField(_(u'8. 您目前从事的职业?'), max_length=255, blank=True)
-    monthly_income = models.CharField(_(u'9. 月收入水平？'), choices=INCOME_CHOICES, max_length=50, blank=True)
-    weixin_id = models.CharField(_(u'10. 您的微信号？'), max_length=255, blank=True, help_text='提示：微信号不是昵称')
-    mobile = models.CharField(_(u'11. 您的手机号？'), max_length=32, blank=True)
+    job = models.CharField(_(u'8. 您目前从事的职业'), max_length=255, blank=True)
+    monthly_income = models.CharField(_(u'9. 月收入水平'), choices=INCOME_CHOICES, max_length=50, blank=True)
+    weixin_id = models.CharField(_(u'10. 您的微信号'), max_length=255, blank=True, help_text='提示：微信号不是昵称')
+    mobile = models.CharField(_(u'11. 您的手机号'), max_length=32, blank=True)
 
     # 记分选择题
     # 12-21 是干油

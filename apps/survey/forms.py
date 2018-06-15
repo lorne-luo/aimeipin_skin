@@ -30,8 +30,8 @@ class SurveyFillForm(forms.ModelForm):
     cosmetics = forms.ImageField(label=_("4. 如需重点关注部位可在此上传无PS、无滤镜、清晰的纯素颜照片"), required=False,
                            widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
 
-    sex = forms.ChoiceField(choices=SEX_CHOICES, widget=forms.RadioSelect(), label='2. 您的性别？')
-    monthly_income = forms.ChoiceField(choices=INCOME_CHOICES, widget=forms.RadioSelect(), label='9. 月收入水平？')
+    sex = forms.ChoiceField(choices=SEX_CHOICES, widget=forms.RadioSelect(), label='2. 您的性别')
+    monthly_income = forms.ChoiceField(choices=INCOME_CHOICES, widget=forms.RadioSelect(), label='9. 月收入水平')
 
     question1 = forms.ChoiceField(widget=forms.RadioSelect(), label='12. 在照片上，你的皮肤看起来油光发亮？',
                                   choices=((10, 'A. 从来不会'),

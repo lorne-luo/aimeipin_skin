@@ -38,7 +38,10 @@
             </button>
         </td>
         <td>{!! item.modified_at !!}</td>
-        <td><a href="/report/report/list/?search={!! item.uuid !!}"><label class="btn btn-sm label-success">{!! item.report_count !!}</label></a></td>
+        <td>
+            <a v-if="item.report_count" href="/report/report/list/?search={!! item.uuid !!}"><label class="btn btn-sm label-success">{!! item.report_count !!}</label></a>
+            <a v-else href="#"><label class="btn btn-sm label-danger">{!! item.report_count !!}</label></a>
+        </td>
         <td class="text-right hidden-sm hidden-xs">
             <a href="{!! item.report_add_url !!}" class="btn btn-sm btn-primary">生成新报告</a>
 

@@ -1,21 +1,21 @@
 <div class="form-group" id="{{ products_formset.prefix }}_table">
     <h4 class="box-title">{{ title }}</h4>
 
-    <div id="{{ products_formset.prefix }}_selection">
-        <div class="col-xs-1">{{ premiumproductselectform.skin_type.label }}</div>
-        <div class="col-xs-2">{{ premiumproductselectform.skin_type }}</div>
-        <div class="col-xs-1">{{ premiumproductselectform.purpose.label }}</div>
-        <div class="col-xs-2">{{ premiumproductselectform.purpose }}</div>
-        <div class="col-xs-1">{{ premiumproductselectform.category.label }}</div>
-        <div class="col-xs-2">{{ premiumproductselectform.category }}</div>
-
-        <div class="clearfix" style="clear:both">
-            <div class="col-xs-1">{{ premiumproductselectform.name.label }}</div>
-            <div class="col-xs-8">{{ premiumproductselectform.name }}</div>
-            <ul class="hide"></ul>
-        </div>
-    </div>
-    <br>
+{#    <div id="{{ products_formset.prefix }}_selection">#}
+{#        <div class="col-xs-1">{{ premiumproductselectform.skin_type.label }}</div>#}
+{#        <div class="col-xs-2">{{ premiumproductselectform.skin_type }}</div>#}
+{#        <div class="col-xs-1">{{ premiumproductselectform.purpose.label }}</div>#}
+{#        <div class="col-xs-2">{{ premiumproductselectform.purpose }}</div>#}
+{#        <div class="col-xs-1">{{ premiumproductselectform.category.label }}</div>#}
+{#        <div class="col-xs-2">{{ premiumproductselectform.category }}</div>#}
+{##}
+{#        <div class="clearfix" style="clear:both">#}
+{#            <div class="col-xs-1">{{ premiumproductselectform.name.label }}</div>#}
+{#            <div class="col-xs-8">{{ premiumproductselectform.name }}</div>#}
+{#            <ul class="hide"></ul>#}
+{#        </div>#}
+{#    </div>#}
+{#    <br>#}
 
     {{ products_formset.management_form }}
     {% for form in products_formset %}

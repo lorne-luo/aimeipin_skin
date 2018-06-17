@@ -3,10 +3,6 @@
     <a href="{% url 'survey:answer-list' %}">
         <i class='fa fa-shopping-bag'></i>
         <b>调查问卷</b>
-
-        <span class="pull-right-container">
-            <small class="label pull-right bg-blue">{% answer_counter %}</small>
-        </span>
     </a>
     <ul class="treeview-menu menu-open" style="display: block;">
         <li>
@@ -14,6 +10,7 @@
             <a href="{% url 'survey:invitecode-list' %}" class="main"><i class="fa fa-circle-o"></i>邀请码</a>
         </li>
         <li>
+            <a class="label small pull-right bg-blue">{% answer_counter %}</a>
             <a href="{% url 'survey:answer-list' %}" class="main"><i class="fa fa-circle-o"></i>调查问卷</a>
         </li>
     </ul>

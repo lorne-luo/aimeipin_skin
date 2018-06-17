@@ -29,7 +29,7 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
     pinyin = models.CharField(_(u'pinyin'), max_length=1024, blank=True)
     pic = StdImageField(upload_to=UploadToClassNameDir(), blank=True, null=True, verbose_name=_('picture'),
                         variations={
-                            'thumbnail': (400, 400, True)
+                            'thumbnail': (64, 64, True),
                         })
     alias = models.CharField(_(u'alias'), max_length=512, blank=True)
     category = models.CharField(max_length=64, choices=PRODUCT_CATEGORY_CHOICES, blank=True)

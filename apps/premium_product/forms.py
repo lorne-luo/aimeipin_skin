@@ -10,7 +10,7 @@ from .models import PremiumProduct, Brand, PremiumProductFit
 
 class PremiumProductAddForm(forms.ModelForm):
     pic = forms.ImageField(label=_("picture"), required=False,
-                           widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
+                           widget=ThumbnailImageInput({'width': '280px'}))
 
     class Meta:
         model = PremiumProduct

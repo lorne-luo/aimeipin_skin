@@ -93,8 +93,8 @@ class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
                                   'thumbnail': (400, 400, True)
                               }, help_text='提示：上传文件不超过4M')
     birth = models.DateField(_(u'6. 您的出生日期'), null=True, blank=True, help_text='提示：格式：2017-01-01')
-    height = models.PositiveIntegerField(_(u'7. 您的身高'), null=True, blank=True)
-    weight = models.PositiveIntegerField(_(u'体重'), null=True, blank=True)
+    height = models.DecimalField(_(u'7. 您的身高'), decimal_places=1, max_digits=5, null=True, blank=True)
+    weight = models.DecimalField(_(u'体重'), decimal_places=1, max_digits=5, null=True, blank=True)
     job = models.CharField(_(u'8. 您目前从事的职业'), max_length=255, blank=True)
     monthly_income = models.CharField(_(u'9. 月收入水平'), choices=INCOME_CHOICES, max_length=50, blank=True)
     weixin_id = models.CharField(_(u'10. 您的微信号'), max_length=255, blank=True, help_text='提示：微信号不是昵称')
@@ -191,7 +191,8 @@ class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
 
     def update_location(self):
         # update location by taobao ip api
-        self.city = get_location(self.ip)
+        if self.ip:
+            self.city = get_location(self.ip)
 
     def save(self, *args, **kwargs):
         self.resize_image('portrait')

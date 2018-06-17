@@ -11,13 +11,15 @@ class AnswerSerializer(BaseSerializer):
     report_add_url = serializers.SerializerMethodField()
     age = serializers.SerializerMethodField()
     qrcode_url = serializers.SerializerMethodField()
+    report_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Answer
         fields = ['id', 'edit_url', 'detail_url'] + \
                  ['city', 'name', 'sex', 'portrait', 'portrait_part', 'cosmetics', 'birth', 'height', 'weight', 'job',
                   'monthly_income', 'weixin_id', 'mobile', 'is_changeable', 'status', 'get_status_display',
-                  'survey_url', 'report_add_url', 'age', 'qrcode_url', 'purpose', 'level', 'uuid', 'modified_at']
+                  'survey_url', 'report_add_url', 'age', 'qrcode_url', 'purpose', 'level', 'uuid', 'modified_at',
+                  'report_count']
         read_only_fields = ['id']
 
     def get_age(self, obj):
@@ -30,6 +32,9 @@ class AnswerSerializer(BaseSerializer):
         if obj.uuid:
             return reverse('survey:answer', args=[obj.uuid])
         return ''
+
+    def get_report_count(self, obj):
+        return obj.report_set.count()
 
     def get_report_add_url(self, obj):
         return reverse('report:report-add', args=[obj.id])

@@ -59,10 +59,9 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
         self.resize_image('pic')  # resize images when first uploaded
         super(Product, self).save(*args, **kwargs)
 
-
     def get_analysis(self, oily_type, sensitive_type, pigment_type, loose_type):
         analysis = self.productanalysis_set.filter(oily_type=oily_type, sensitive_type=sensitive_type,
-                                                  pigment_type=pigment_type, loose_type=loose_type)
+                                                   pigment_type=pigment_type, loose_type=loose_type)
         return '\n'.join([x.analysis for x in analysis])
 
     def have_duplicated(self):
@@ -84,7 +83,6 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
         if count > 0:
             return True
         return False
-
 
 
 class ProductIngredient(models.Model):

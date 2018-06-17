@@ -24,10 +24,10 @@
         <td>
             <div class="btn-group" data-toggle="buttons">
                 <template v-if="item.is_changeable">
-                    <label class="btn-sm btn-success active" v-on:click="update_changeable(item.id, $event)">是</label>
+                    <label class="btn btn-sm btn-success active" v-on:click="update_changeable(item.id, $event)">是</label>
                 </template>
                 <template v-else>
-                    <label class="btn-sm btn-danger" v-on:click="update_changeable(item.id, $event)">否</label>
+                    <label class="btn btn-sm btn-danger" v-on:click="update_changeable(item.id, $event)">否</label>
                 </template>
             </div>
         </td>
@@ -38,7 +38,7 @@
             </button>
         </td>
         <td>{!! item.modified_at !!}</td>
-        <td><a href="/report/report/list/?search={!! item.uuid !!}">查看报告</a></td>
+        <td><a href="/report/report/list/?search={!! item.uuid !!}"><label class="btn btn-sm label-success">{!! item.report_count !!}</label></a></td>
         <td class="text-right hidden-sm hidden-xs">
             <a href="{!! item.report_add_url !!}" class="btn btn-sm btn-primary">生成新报告</a>
 

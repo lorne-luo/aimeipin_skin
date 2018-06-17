@@ -78,18 +78,15 @@ class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
     sex = models.CharField(_(u'2. 您的性别'), choices=SEX_CHOICES, max_length=30, null=True, blank=True, help_text='')
     portrait = StdImageField(_('3. 无PS、无滤镜、清晰纯素颜照片一张'), upload_to=UploadToClassNameDir(), blank=True, null=True,
                              variations={
-                                 'medium': (1000, 1000, True),
                                  'thumbnail': (400, 400, True)
                              }, help_text='提示：上传文件不超过4M')
     portrait_part = StdImageField(_('4. 如需重点关注部位可在此上传无PS、无滤镜、清晰的纯素颜照片'), upload_to=UploadToClassNameDir(), blank=True,
                                   null=True,
                                   variations={
-                                      'medium': (1000, 1000, True),
                                       'thumbnail': (400, 400, True)
                                   }, help_text='提示：上传文件不超过4M')
     cosmetics = StdImageField(_('5. 现阶段使用护肤品合集'), upload_to=UploadToClassNameDir(), blank=True, null=True,
                               variations={
-                                  'medium': (1000, 1000, True),
                                   'thumbnail': (400, 400, True)
                               }, help_text='提示：上传文件不超过4M')
     birth = models.DateField(_(u'6. 您的出生日期'), null=True, blank=True, help_text='提示：格式：2017-01-01')

@@ -8,7 +8,6 @@ from weasyprint import HTML, CSS
 
 from apps.premium_product.forms import PremiumProductSelectForm
 from apps.survey.forms import AnswerProductAnalysisFormSet
-from core.django.utils.pdf import PdfGenerateBaseView
 from .forms import get_premiumproduct_formset
 from apps.survey.models import Answer
 from core.django.views import CommonContextMixin
@@ -237,25 +236,7 @@ class ReportDisplayView(ReportDetailView):
             raise Http404
 
 
-class ReportDownloadView(PdfGenerateBaseView, ReportDetailView):  # PdfGenerateBaseView
-    """ PDF Download views for Report """
-    model = Report
-    form_class = forms.ReportDetailForm
-    template_name = 'report/report_download_%s.html'
-    http_method_names = ['get']
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        # return super(ReportDownloadView, self).get(request, *args, **kwargs)
-        context = self.get_context_data(**kwargs)
-        pdf = self.render_to_pdf(self.get_template_names(), context)
-        response = HttpResponse(pdf, content_type='application/force-download')
-        response['Content-Disposition'] = 'attachment; filename=Action28_NO.%s.pdf' % self.object.answer.uuid
-        response['Content-Length'] = len(pdf.content)
-        return response
-
-
-class ReportDownloadView2(ReportDetailView):
+class ReportDownloadView(ReportDetailView):
     model = Report
     form_class = forms.ReportDetailForm
     template_name = 'report/report_download2_%s.html'

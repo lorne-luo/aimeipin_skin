@@ -1,12 +1,10 @@
-__author__ = 'Lorne'
-
 SCOPE_USERINFO = 'snsapi_userinfo'
 SCOPE_BASE = 'snsapi_base'
 
-BIND_DOMAIN = 'luotao.net'
+BIND_DOMAIN = 'aimeipin.cc'
 
-APP_NAME = 'hmbb'
-APP_ID = 'wxf82bd745389170d0'
-APP_SECRET = 'd96a4e85754c49f148b312f5efbaf961'
+APP_NAME = 'aimeipin'
+APP_ID = 'wxf3d017eaf0b53463'
+APP_SECRET = 'd6914a211b5175f62cc5dafb389cd074'
 MCH_ID = ''
 MCH_KEY = ''

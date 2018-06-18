@@ -10,8 +10,8 @@ urlpatterns = []
 
 # urls for page
 urlpatterns += (
-    url(r'^login$', views.wx_login, name='login'),
-    url(r'^auth$', views.wx_auth, name='auth'),
-    url(r'^index', views.wx_index, name='index'),
+    url(r'^login/$', views.wx_login, name='login'),
+    url(r'^auth/$', views.wx_auth, name='auth'),
+    url(r'^index/$', views.wx_index, name='index'),
     # url(r'^pay_notify', views.wx_pay_notify, name='pay_notify'),
 )

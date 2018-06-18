@@ -20,17 +20,16 @@ from .models import WxPayment, WxReturnCode, WxUser
 log = logging.getLogger(__name__)
 
 
-def wx_login(request, app_name):
+def wx_login(request):
     next = request.GET.get('next', '')
     full_url = 'http://%s%s' % (conf.BIND_DOMAIN, reverse('weixin:auth'))
     wx_login = WeixinLogin(conf.APP_ID, conf.APP_SECRET)
     login_url = wx_login.authorize(full_url, conf.SCOPE_USERINFO, next)
-    log.info('%s_login_url: %s' % (app_name, login_url))
+    log.info('weixin login_url: %s' % (login_url))
     return HttpResponseRedirect(login_url)
 
 
 def wx_auth(request, app_name):
-    request.session['wx_app_name'] = conf.APP_NAME
     request.session['wx_app_id'] = conf.APP_ID
 
     code = request.GET.get("code", None)

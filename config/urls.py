@@ -39,7 +39,7 @@ apps_urlpatterns = [
     url(r'^analysis/', include('apps.analysis.urls', namespace='analysis')),
     url(r'^survey/', include('apps.survey.urls', namespace='survey')),
     url(r'^report/', include('apps.report.urls', namespace='report')),
-    url(r'^weixin/', include('apps.weixin.urls', namespace='weixin')),
+    url(r'^wx/', include('apps.weixin.urls', namespace='weixin')),
 ]
 
 # REST API

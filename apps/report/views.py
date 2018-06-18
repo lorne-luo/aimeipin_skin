@@ -160,12 +160,22 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
             answerproductanalysis_formset = AnswerProductAnalysisFormSet(self.request.POST, self.request.FILES,
                                                                          instance=self.object.answer,
                                                                          prefix='answerproductanalysis_formset')
+        premiumproduct_select_initial = {}
+        if self.object:
+            premiumproduct_select_initial['purpose'] = self.object.purpose
+            if self.object.oily_type:
+                if self.object.oily_type.name in ['重度油性', '轻度油性']:
+                    premiumproduct_select_initial['skin_type'] = '油性肌肤'
+                else:
+                    premiumproduct_select_initial['skin_type'] = '干性肌肤'
+
         context.update({
             'day_products_formset': day_products_formset,
             'night_products_formset': night_products_formset,
             'mask_products_formset': mask_products_formset,
             'answerproductanalysis_formset': answerproductanalysis_formset,
-            'premiumproductselectform': PremiumProductSelectForm(prefix='premiumproduct_select'),
+            'premiumproductselectform': PremiumProductSelectForm(prefix='premiumproduct_select',
+                                                                 initial=premiumproduct_select_initial),
         })
         return context
 

@@ -62,7 +62,7 @@ class ProductAutocompleteAPIView(HansSelect2ViewMixin, autocomplete.Select2Query
             {
                 'id': self.get_result_value(result),
                 'text': self.get_result_label(result),
-                'image': result.pic.url if result.pic else None,
+                'image': result.pic.thumbnail.url if result.pic else None,
             } for result in context['object_list']
         ]
 

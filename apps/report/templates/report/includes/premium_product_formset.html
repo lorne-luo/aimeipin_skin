@@ -1,43 +1,66 @@
-<div class="form-group" id="{{ products_formset.prefix }}_table">
+<div class="form-group formset-div" id="{{ products_formset.prefix }}_table">
     <h4 class="box-title">{{ title }}</h4>
 
-{#    <div id="{{ products_formset.prefix }}_selection">#}
-{#        <div class="col-xs-1">{{ premiumproductselectform.skin_type.label }}</div>#}
-{#        <div class="col-xs-2">{{ premiumproductselectform.skin_type }}</div>#}
-{#        <div class="col-xs-1">{{ premiumproductselectform.purpose.label }}</div>#}
-{#        <div class="col-xs-2">{{ premiumproductselectform.purpose }}</div>#}
-{#        <div class="col-xs-1">{{ premiumproductselectform.category.label }}</div>#}
-{#        <div class="col-xs-2">{{ premiumproductselectform.category }}</div>#}
-{##}
-{#        <div class="clearfix" style="clear:both">#}
-{#            <div class="col-xs-1">{{ premiumproductselectform.name.label }}</div>#}
-{#            <div class="col-xs-8">{{ premiumproductselectform.name }}</div>#}
-{#            <ul class="hide"></ul>#}
-{#        </div>#}
-{#    </div>#}
-{#    <br>#}
+    <div id="{{ products_formset.prefix }}_selection" class="premiumproduct-selection">
+        <table>
+            <tr>
+                <th style="padding:0 20px">{{ premiumproductselectform.skin_type.label }}</th>
+                <td style="width:150px">{{ premiumproductselectform.skin_type }}</td>
+                <th style="padding:0 20px">{{ premiumproductselectform.purpose.label }}</th>
+                <td style="width:150px">{{ premiumproductselectform.purpose }}</td>
+                <th style="padding:0 20px">{{ premiumproductselectform.category.label }}</th>
+                <td style="width:150px">{{ premiumproductselectform.category }}</td>
+            </tr>
+            <tr style="margin-top: 15px">
+                <th style="padding:0 20px">{{ premiumproductselectform.name.label }}</th>
+                <td colspan="6">{{ premiumproductselectform.name }}</td>
+            </tr>
+        </table>
+
+        <ul class="premium_product_list hide" id="{{ products_formset.prefix }}_selections">
+        </ul>
+    </div>
+    <br>
 
     {{ products_formset.management_form }}
     {% for form in products_formset %}
+        {% if form.id.value %}
         <div class="form-group col-xs-12 {% cycle row1 row2 %} formset_row">
-            <div class="col-md-8 col-xs-11">
-                {{ form.product }}
+            <div class="col-md-8 col-xs-6">
+                <span>{{ form.instance.product }}</span>
             </div>
             <div class="">
+                {{ form.product }}
                 {{ form.id }}
                 {{ form.type }}
                 {{ form.DELETE }}
             </div>
         </div>
+        {% endif %}
     {% endfor %}
 </div>
 <hr>
 
+<div id="{{ products_formset.prefix }}_template" style="display: none">
+    {% for form in products_formset %}
+        {% if not form.id.value %}
+        <div class="form-group col-xs-12 {% cycle row1 row2 %} formset_row">
+            <div class="">
+                {{ form.product }}
+                {{ form.id }}
+                {{ form.type }}
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
 <script type="text/javascript">
     $('#{{ products_formset.prefix }}_table .formset_row').formset({
         addText: '增加一项',
+        formTemplate: '#{{ products_formset.prefix }}_template .formset_row',
         prefix: '{{ products_formset.prefix }}',
-        addCssClass: 'btn btn-success',
+        addCssClass: 'btn btn-success formset-add hide',
         deleteCssClass: 'remove-day-products',
         formCssClass: 'dynamic-form',
         deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>',
@@ -48,7 +71,6 @@
 
     $(document).ready(function () {
         $('#{{ products_formset.prefix }}_selection #id_premiumproduct_select-name').focus(function (event) {
-            console.log("123");
         })
     });
 </script>

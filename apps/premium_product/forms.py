@@ -50,3 +50,12 @@ class PremiumProductSelectForm(forms.Form):
     purpose = forms.ChoiceField(label='目标', choices=(('------', ''),) + PURPOSE_CHOICES, required=False)
     category = forms.ChoiceField(label='类别', choices=(('------', ''),) + PRODUCT_CATEGORY_CHOICES, required=False)
     name = forms.CharField(label='名称', required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(PremiumProductSelectForm, self).__init__(*args, **kwargs)
+        self.fields.get('name').widget.attrs['placeholder'] = '输入产品名称检索'
+        self.fields.get('name').widget.attrs['autocomplete'] = 'off'
+        self.fields.get('skin_type').widget.attrs['class'] = 'premiumproduct-skin_type'
+        self.fields.get('category').widget.attrs['class'] = 'premiumproduct-category'
+        self.fields.get('purpose').widget.attrs['class'] = 'premiumproduct-purpose'
+        self.fields.get('name').widget.attrs['class'] = 'premiumproduct-name'

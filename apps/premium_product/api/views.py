@@ -1,4 +1,6 @@
 import logging
+
+import sys
 from django.db.models import Q
 from dal import autocomplete
 from django_filters.rest_framework import DjangoFilterBackend
@@ -38,9 +40,18 @@ class PremiumProductAutocompleteAPIView(SuperuserRequiredMixin, HansSelect2ViewM
 
     def get_queryset(self):
         purpose = self.forwarded.get('purpose')
+        skin_type = self.forwarded.get('skin_type')
+        category = self.forwarded.get('category')
 
-        if purpose:
-            qs = PremiumProduct.search_fit(purpose=purpose)
+        if purpose or skin_type or category:
+            data = {}
+            if purpose:
+                data.update({'purpose': purpose})
+            if skin_type:
+                data.update({'skin_type': skin_type})
+            if category:
+                data.update({'category': category})
+            qs = PremiumProduct.search_fit(**data   )
         else:
             qs = PremiumProduct.objects.all()
 
@@ -54,3 +65,18 @@ class PremiumProductAutocompleteAPIView(SuperuserRequiredMixin, HansSelect2ViewM
             qs = qs.filter(
                 Q(pinyin__contains=key) | Q(name_en__icontains=key) | Q(brand__name_en__icontains=key))
         return qs
+
+
+class PremiumProductSearchAPIView(PremiumProductAutocompleteAPIView):
+    paginate_by = sys.maxsize
+    create_field = None
+
+    def get_results(self, context):
+        return [
+            {
+                'id': self.get_result_value(result),
+                'text': self.get_result_label(result),
+                'image': result.pic.thumbnail.url if result.pic else None,
+            } for result in context['object_list']
+        ]
+

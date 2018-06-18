@@ -9,7 +9,9 @@ router.include_root_view = False
 router.register(r'premium_product', views.PremiumProductViewSet, base_name='premiumproduct')
 
 urlpatterns = [
-    url(r'^premium_product/premium_product/autocomplete/$', views.PremiumProductAutocompleteAPIView.as_view(), name='premiumproduct-autocomplete'),
+    url(r'^premium_product/autocomplete/$', views.PremiumProductAutocompleteAPIView.as_view(), name='premiumproduct-autocomplete'),
+    url(r'^premium_product/search/$', views.PremiumProductSearchAPIView.as_view(), name='premiumproduct-search'),
+
 ]
 
 urlpatterns += router.urls

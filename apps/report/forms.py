@@ -34,11 +34,13 @@ class ReportDetailForm(forms.ModelForm):
 class PremiumProductInlineForm(forms.ModelForm):
     # id = forms.IntegerField(widget=forms.HiddenInput)
     type = forms.CharField(widget=forms.HiddenInput, required=False)
-    product = forms.ModelChoiceField(label=u'优选产品', queryset=PremiumProduct.objects.all(), required=True,
-                                     widget=FormsetModelSelect2(url='api:premiumproduct-autocomplete',
-                                                                # forward=[Const('', 'purpose')],
-                                                                attrs={'data-placeholder': u'任意中英文名称...',
-                                                                       'class': 'form-control'}))
+    product = forms.ModelChoiceField(widget=forms.HiddenInput, queryset=PremiumProduct.objects.all(), required=False)
+
+    # product = forms.ModelChoiceField(label=u'优选产品', queryset=PremiumProduct.objects.all(), required=True,
+    #                                  widget=FormsetModelSelect2(url='api:premiumproduct-autocomplete',
+    #                                                             # forward=[Const('', 'purpose')],
+    #                                                             attrs={'data-placeholder': u'任意中英文名称...',
+    #                                                                    'class': 'form-control'}))
 
     class Meta:
         model = ReportPremiumProduct
@@ -68,5 +70,5 @@ def get_premiumproduct_formset(purpose):
                                                                     attrs={'data-placeholder': u'任意中英文名称...',
                                                                            'class': 'form-control'}))
 
-    return inlineformset_factory(Report, ReportPremiumProduct, form=ModifiedForm,
+    return inlineformset_factory(Report, ReportPremiumProduct, form=PremiumProductInlineForm,
                                  can_order=False, can_delete=True, extra=1)

@@ -4,6 +4,7 @@ from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.utils.http import urlquote
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from stdimage import StdImageField
@@ -32,6 +33,15 @@ class QRCodeModel(object):
             return settings.BASE_URL + self.url
         return None
 
+    @property
+    def login_url(self):
+        # http://127.0.0.1:8002/wx/login/?next=%2Fsurvey%2Fa6ad4430%2F
+        # add weixin login
+        wx_login_url = reverse('weixin:login')
+        if self.url:
+            return settings.BASE_URL + wx_login_url + '?next=%s' % urlquote(self.url)
+        return None
+
     def generate_uuid(self):
         uid = uuid.uuid4().hex[:8]
         while (Answer.objects.filter(uuid=uid).exists()):
@@ -45,14 +55,14 @@ class QRCodeModel(object):
         if not self.uuid:
             return ''
         if overwrite:
-            return generate_qrcode(self.full_url, self.uuid)
+            return generate_qrcode(self.login_url, self.uuid)
 
         file_name = '%s.png' % self.uuid
         file_path = os.path.join(settings.MEDIA_ROOT, settings.QRCODE_FOLDER, file_name)
         if os.path.exists(file_path):
             return '%s%s/%s' % (settings.MEDIA_URL, settings.QRCODE_FOLDER, file_name)
         else:
-            return generate_qrcode(self.full_url, self.uuid)
+            return generate_qrcode(self.login_url, self.uuid)
 
 
 class AnswerManager(models.Manager):
@@ -65,7 +75,7 @@ class AnswerManager(models.Manager):
 
 class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
     """问卷报告回答,answer"""
-    customer = models.ForeignKey('customer.Customer', null=True, blank=True)
+    customer = models.ForeignKey('weixin.WxUser', null=True, blank=True)
     code = models.OneToOneField('InviteCode', null=True, blank=True, on_delete=models.DO_NOTHING)
     uuid = models.CharField('uuid', max_length=64, blank=True, unique=True)  # duplication of invitecode.uuid
     purpose = models.CharField('目标', max_length=64, choices=PURPOSE_CHOICES, blank=True)  # 问卷目标

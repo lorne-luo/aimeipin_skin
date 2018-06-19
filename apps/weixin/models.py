@@ -222,6 +222,9 @@ class WxUser(UserProfileMixin, models.Model):
             return True
 
         days = 30
-        if self.modified_at + relativedelta(days=days) > timezone.now():
+        if self.modified_at + relativedelta(days=days) < timezone.now():
             return True
         return False
+
+    def __str__(self):
+        return self.nickname

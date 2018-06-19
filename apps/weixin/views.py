@@ -24,6 +24,13 @@ log = logging.getLogger(__name__)
 
 def wx_login(request):
     next = request.GET.get('next', '')
+    if request.user.is_authenticated():
+        if next:
+            url = urlunquote(next)
+            return HttpResponseRedirect(url)
+        else:
+            raise Http404
+
     full_url = '%s%s' % (settings.BASE_URL, reverse('weixin:auth'))
     wx_login = WeixinLogin(conf.APP_ID, conf.APP_SECRET)
     login_url = wx_login.authorize(full_url, conf.SCOPE_USERINFO, next)
@@ -81,7 +88,6 @@ def wx_auth(request):
     user.backend = 'django.contrib.auth.backends.ModelBackend'
     login(request, user)
 
-    state = request.GET.get('state', None)  # next url
     if state:
         url = urlunquote(state)
     else:

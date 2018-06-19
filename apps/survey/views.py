@@ -1,12 +1,15 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth import login
 from django.utils import timezone
 from django.views.generic import ListView, CreateView, UpdateView, TemplateView
 from braces.views import SuperuserRequiredMixin
 from django.views.generic.edit import BaseUpdateView
 
 from apps.survey.forms import AnswerProductFormSet
+from core.auth_user.models import AuthUser
 from core.django.utils.ip import get_client_ip
 from core.django.views import CommonContextMixin
 from .models import Answer, InviteCode, AnswerProduct
@@ -188,10 +191,17 @@ class SurveyFillView(CommonContextMixin, UpdateView):
         self.object = form.save()
 
         if self.object:
+            update_fields = []
             if not self.object.ip or not self.object.city:
                 self.object.ip = get_client_ip(self.request)
                 self.object.update_location()
-                self.object.save()
+                update_fields += ['ip', 'city']
+            if not self.object.customer and self.request.user.is_authenticated():
+                if not self.request.user.is_superuser and hasattr(self.request.user, 'wxuser'):
+                    self.object.customer = self.request.user.wxuser
+                    update_fields.append('customer')
+            if update_fields:
+                self.object.save(update_fields=update_fields)
 
         if not all([self.process_formset('cosmetic_products1_formset'),
                     self.process_formset('cosmetic_products2_formset'),
@@ -212,6 +222,12 @@ class SurveyFillView(CommonContextMixin, UpdateView):
         # return reverse('survey:answer', args=[self.uuid])
 
     def get(self, request, *args, **kwargs):
+        wx_openid = self.request.session.get('wx_openid', None)
+        if not self.request.user.is_authenticated() and wx_openid:
+            user = AuthUser.objects.filter(username=wx_openid).first()
+            if user:
+                login(request, user)
+
         self.object = self.get_object()
         if self.object and self.object.id and not self.object.is_changeable:
             # cant change, redirect to score page

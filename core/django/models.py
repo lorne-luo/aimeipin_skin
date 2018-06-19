@@ -42,6 +42,7 @@ class PinYinFieldModelMixin(object):
     def _split_word(self, sentence):
         result = []
         temp = []
+        sentence = sentence or ''
         if ' ' in sentence:
             temp = sentence.split(' ')
         if ',' in sentence:

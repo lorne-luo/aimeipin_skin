@@ -7,6 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from django.utils import timezone
+from django.conf import settings
 from django.utils.http import urlunquote
 from weixin import WeixinPay
 from weixin.base import Map
@@ -22,7 +23,7 @@ log = logging.getLogger(__name__)
 
 def wx_login(request):
     next = request.GET.get('next', '')
-    full_url = 'http://%s%s' % (conf.BIND_DOMAIN, reverse('weixin:auth'))
+    full_url = '%s%s' % (settings.BASE_URL, reverse('weixin:auth'))
     wx_login = WeixinLogin(conf.APP_ID, conf.APP_SECRET)
     login_url = wx_login.authorize(full_url, conf.SCOPE_USERINFO, next)
     log.info('weixin login_url: %s' % (login_url))
@@ -30,8 +31,6 @@ def wx_login(request):
 
 
 def wx_auth(request, app_name):
-    request.session['wx_app_id'] = conf.APP_ID
-
     code = request.GET.get("code", None)
     if code is None:
         return HttpResponse('No Code Provided.')
@@ -47,6 +46,8 @@ def wx_auth(request, app_name):
     # 关于网页授权access_token和普通access_token的区别
     # 1、微信网页授权是通过OAuth2.0机制实现的，在用户授权给公众号后，公众号可以获取到一个网页授权特有的接口调用凭证（网页授权access_token），通过网页授权access_token可以进行授权后接口调用，如获取用户基本信息；
     # 2、其他微信接口，需要通过基础支持中的“获取access_token”接口来获取到的普通access_token调用。
+
+
 
     if (scope == conf.SCOPE_USERINFO):
         # continue to get userinfo
@@ -76,7 +77,6 @@ def wx_auth(request, app_name):
             wx_user.auth_user = user
 
         wx_user.save()
-
         user.backend = 'django.contrib.auth.backends.ModelBackend'
         login(request, user)
 
@@ -94,7 +94,7 @@ def wx_index(request, app_name):
 
 
 def wx_pay_notify(request, app_name):
-    full_url = 'http://%s%s' % (conf.BIND_DOMAIN, reverse('weixin:pay_notify'))
+    full_url = '%s%s' % (settings.BASE_URL, reverse('weixin:pay_notify'))
     weixin_pay = WeixinPay(conf.APP_ID, conf.MCH_ID, conf.MCH_KEY, full_url)
 
     result = Map(weixin_pay.to_dict(request.body))

@@ -2,6 +2,9 @@
 import datetime
 import time
 import logging
+
+from django.conf import settings
+
 from . import conf as wx_conf
 from django.db import models
 from django.core.urlresolvers import reverse
@@ -100,14 +103,14 @@ class WxApp(models.Model):
     @property
     def pay(self):
         url = reverse('weixin:pay_notify', args=[self.name])
-        full_url = 'http://%s%s' % (wx_conf.BIND_DOMAIN, url)
+        full_url = '%s%s' % (settings.BASE_URL, url)
         pay = WeixinPay(self.app_id, self.mch_id, self.mch_key, full_url)
         return pay
 
     @classmethod
     def get_login_url(self, scope=wx_conf.SCOPE_USERINFO, state=''):
         url = reverse('weixin:auth', args=[self.name])
-        full_url = 'http://%s%s' % (wx_conf.BIND_DOMAIN, url)
+        full_url = '%s%s' % (settings.BASE_URL, url)
         wx_login = WeixinLogin(self.app_id, self.app_secret)
         return wx_login.authorize(full_url, scope, state)
 
@@ -209,4 +212,5 @@ class WxUser(UserProfileMixin, models.Model):
     subscribe_time = models.DateField(blank=True, null=True)
     # remark = models.CharField(_('Remark'), max_length=128, blank=True)  # 公众号运营者对粉丝的备注
     groupid = models.CharField(max_length=256, blank=True)  # 用户所在的分组ID
+    modified_at = models.DateTimeField('最后更新', auto_now=True, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)

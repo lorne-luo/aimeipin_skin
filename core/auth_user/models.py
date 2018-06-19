@@ -7,23 +7,23 @@ from core.auth_user.constant import ADMIN_GROUP
 
 
 class AuthUserManager(UserManager):
-    def _create_user(self, password, is_staff, is_superuser, email, **extra_fields):
+    def _create_user(self, username, password, is_staff, is_superuser, email, **extra_fields):
         """
         Creates and saves a User with the given username, email and password.
         """
         now = timezone.now()
         email = self.normalize_email(email)
-        user = self.model(username=email, email=email, is_staff=is_staff, is_active=True,
+        user = self.model(username=username, email=email, is_staff=is_staff, is_active=True,
                           is_superuser=is_superuser, date_joined=now, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, mobile=None, email=None, password=None, **extra_fields):
-        return self._create_user(password, False, False, email, **extra_fields)
+    def create_user(self, username, mobile=None, email=None, password=None, **extra_fields):
+        return self._create_user(username, password, False, False, email, **extra_fields)
 
-    def create_superuser(self, email, password, **extra_fields):
-        return self._create_user(password, True, True, email, **extra_fields)
+    def create_superuser(self, username, email, password, **extra_fields):
+        return self._create_user(username, password, True, True, email, **extra_fields)
 
 
 class AuthUser(AbstractUser):
@@ -33,14 +33,14 @@ class AuthUser(AbstractUser):
         (WEBSITE, WEBSITE),
         (WEIXIN, WEIXIN),
     )
-    email = models.EmailField(_('email address'), unique=True, blank=False)
+    email = models.EmailField(_('email address'), blank=True)
     mobile = models.CharField(_('mobile'), max_length=128, blank=True)
     type = models.CharField(_('type'), max_length=32, choices=USER_TYPE_CHOICES, blank=True, default=WEBSITE)
     # if type is WEBSIT mobile field is mobile, if type is WEIXIN mobile field is openid
 
     objects = AuthUserManager()
     REQUIRED_FIELDS = []
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
 
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'

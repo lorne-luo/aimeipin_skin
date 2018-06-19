@@ -11,11 +11,6 @@ class AuthUserAuthenticateBackend(ModelBackend):
             username = kwargs.get('username') or kwargs.get('mobile') or kwargs.get('email')
         try:
             key = 'username'
-            if username.isdigit():
-                key = 'mobile'
-            elif '@' in username:
-                key = 'email'
-
             user = UserModel._default_manager.get(**{key: username})
             if user.check_password(password):
                 return user

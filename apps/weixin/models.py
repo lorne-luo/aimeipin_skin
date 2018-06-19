@@ -3,6 +3,7 @@ import datetime
 import time
 import logging
 
+from dateutil.relativedelta import relativedelta
 from django.conf import settings
 
 from . import conf as wx_conf
@@ -159,7 +160,7 @@ class WxPayment(models.Model):
     nonce_str = models.CharField(max_length=32, blank=True, null=True)  # 返回的随机字符串
     # 微信返回的签名值 https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_3
     sign = models.CharField(max_length=32, blank=True, null=True)
-    sign_type = models.CharField(max_length=32, blank=True,  default='MD5')
+    sign_type = models.CharField(max_length=32, blank=True, default='MD5')
     err_code = models.CharField(max_length=32, blank=True, null=True)  # 错误代码
     err_code_des = models.CharField(max_length=128, blank=True, null=True)  # 错误信息描述
     openid = models.CharField(max_length=128, blank=True, null=True)
@@ -174,7 +175,7 @@ class WxPayment(models.Model):
     time_end = models.CharField(max_length=16, blank=True, null=True)
 
     # 查询订单解口 orderquery返回
-    trade_state = models.CharField(max_length=32, blank=True,  choices=PaymentStatus.CHOICES)  # 交易状态
+    trade_state = models.CharField(max_length=32, blank=True, choices=PaymentStatus.CHOICES)  # 交易状态
     # 交易状态描述,对当前查询订单状态的描述和下一步操作的指引
     trade_state_desc = models.CharField(max_length=256, blank=True, null=True)
     xml_response = models.TextField(blank=True, null=True)  # 原始xml信息
@@ -214,3 +215,13 @@ class WxUser(UserProfileMixin, models.Model):
     groupid = models.CharField(max_length=256, blank=True)  # 用户所在的分组ID
     modified_at = models.DateTimeField('最后更新', auto_now=True, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
+
+    def need_update(self):
+        # need update user info every 30 days
+        if not self.modified_at:
+            return True
+
+        days = 30
+        if self.modified_at + relativedelta(days=days) > timezone.now():
+            return True
+        return False

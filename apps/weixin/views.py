@@ -3,6 +3,7 @@ import json
 import logging
 
 from django.contrib.auth import login
+from django.contrib.auth.backends import ModelBackend
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
@@ -30,13 +31,12 @@ def wx_login(request):
     return HttpResponseRedirect(login_url)
 
 
-def wx_auth(request, app_name):
+def wx_auth(request):
     code = request.GET.get("code", None)
     if code is None:
         return HttpResponse('No Code Provided.')
 
     wx_login = WeixinLogin(conf.APP_ID, conf.APP_SECRET)
-
     data = wx_login.access_token(code)
 
     openid = data.openid
@@ -47,9 +47,9 @@ def wx_auth(request, app_name):
     # 1、微信网页授权是通过OAuth2.0机制实现的，在用户授权给公众号后，公众号可以获取到一个网页授权特有的接口调用凭证（网页授权access_token），通过网页授权access_token可以进行授权后接口调用，如获取用户基本信息；
     # 2、其他微信接口，需要通过基础支持中的“获取access_token”接口来获取到的普通access_token调用。
 
+    wx_user, created = WxUser.objects.get_or_create(openid=openid)
 
-
-    if (scope == conf.SCOPE_USERINFO):
+    if created or wx_user.need_update():
         # continue to get userinfo
         userinfo = wx_login.user_info(token, openid)
         wx_user = WxUser.objects.filter(openid=openid).first() or WxUser()
@@ -61,39 +61,40 @@ def wx_auth(request, app_name):
         wx_user.province = userinfo.province
         wx_user.city = userinfo.city
         wx_user.country = userinfo.country
-        wx_user.unionid = userinfo.get('unionid', None)
+        wx_user.unionid = userinfo.get('unionid', '')
         wx_user.privilege = json.dumps(userinfo.privilege)
         wx_user.language = userinfo.language
+        wx_user.save()
 
         # 关于UnionID机制
         # 1、请注意，网页授权获取用户基本信息也遵循UnionID机制。即如果开发者有在多个公众号，或在公众号、移动应用之间统一用户帐号的需求，需要前往微信开放平台（open.weixin.qq.com）绑定公众号后，才可利用UnionID机制来满足上述需求。
         # 2、UnionID机制的作用说明：如果开发者拥有多个移动应用、网站应用和公众帐号，可通过获取用户基本信息中的unionid来区分用户的唯一性，因为同一用户，对同一个微信开放平台下的不同应用（移动应用、网站应用和公众帐号），unionid是相同的。
 
-        if not wx_user.auth_user:
-            user, created = AuthUser.objects.get_or_create(type=AuthUser.WEIXIN, mobile=wx_user.openid)
-            if created or getattr(user, 'customer', None):
-                customer = Customer(name=wx_user.nickname)
-                customer.auth_user = user
-            wx_user.auth_user = user
-
+    user = wx_user.auth_user
+    if not user:
+        user = AuthUser.objects.filter(username=wx_user.openid).first()
+        if not user:
+            user = AuthUser.objects.create_user(username=wx_user.openid, password=wx_user.openid)
+        wx_user.auth_user = user
         wx_user.save()
-        user.backend = 'django.contrib.auth.backends.ModelBackend'
-        login(request, user)
+
+    user.backend = 'django.contrib.auth.backends.ModelBackend'
+    login(request, user)
 
     state = request.GET.get('state', None)  # next url
     if state:
         url = urlunquote(state)
     else:
-        url = reverse('weixin:index', args=[app_name])
+        url = reverse('weixin:index')
 
     return HttpResponseRedirect(url)
 
 
-def wx_index(request, app_name):
-    return HttpResponse('test page for ' + app_name)
+def wx_index(request):
+    return HttpResponse('test page')
 
 
-def wx_pay_notify(request, app_name):
+def wx_pay_notify(request):
     full_url = '%s%s' % (settings.BASE_URL, reverse('weixin:pay_notify'))
     weixin_pay = WeixinPay(conf.APP_ID, conf.MCH_ID, conf.MCH_KEY, full_url)
 

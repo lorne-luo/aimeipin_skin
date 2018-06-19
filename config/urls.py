@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib.auth import views as auth_views
+from django.contrib.staticfiles.views import serve
 
 # from wagtail.wagtailadmin import urls as wagtailadmin_urls
 # from wagtail.wagtailcore import urls as wagtail_urls
@@ -12,6 +13,7 @@ from django.contrib.auth import views as auth_views
 from core.auth_user.views import ChangePasswordView
 from core import auth_user
 from core.auth_user.forms import CustomPasswordResetForm, CustomSetPasswordForm
+
 
 def if_installed(appname, *args, **kwargs):
     ret = url(*args, **kwargs)
@@ -78,10 +80,12 @@ urlpatterns = wagtail_urlpatterns + apps_urlpatterns + [
         name='password_reset_complete'),
 
     # dbsettings
-    url(r'^djadmin/settings/', include('dbsettings.urls')),
+    # url(r'^djadmin/settings/', include('dbsettings.urls')),
 
     # django-tinymce
-    url(r'^tinymce/', include('tinymce.urls')),
+    # url(r'^tinymce/', include('tinymce.urls')),
+
+    url(r'^MP_verify_aVcytWJVmPok60D5\.txt$', serve, kwargs={'path': 'MP_verify_aVcytWJVmPok60D5.txt'}),
 
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in

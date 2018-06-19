@@ -17,7 +17,6 @@ easy-thumbnails==2.5
 pytz==2017.3
 django-redis==4.8.0
 redis==2.10.6
-django-dbsettings==0.10.0
 django-guardian==1.4.9
 django-js-reverse==0.8.1
 python-dateutil

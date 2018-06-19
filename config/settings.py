@@ -41,7 +41,6 @@ ALLOWED_HOSTS = ['*']
 INTERNAL_IPS = ('0.0.0.0', '127.0.0.1')
 ADMIN_EMAIL = env('ADMIN_EMAIL', default='dev@luotao.net')  # 管理员email地址
 ADMINS = [('Admin', ADMIN_EMAIL)]
-BASE_URL = env('BASE_URL', default='http://localhost:8000')
 
 # Application definition
 INSTALLED_APPS = (

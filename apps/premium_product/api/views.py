@@ -51,7 +51,7 @@ class PremiumProductAutocompleteAPIView(SuperuserRequiredMixin, HansSelect2ViewM
                 data.update({'skin_type': skin_type})
             if category:
                 data.update({'category': category})
-            qs = PremiumProduct.search_fit(**data   )
+            qs = PremiumProduct.search_fit(**data)
         else:
             qs = PremiumProduct.objects.all()
 
@@ -63,7 +63,8 @@ class PremiumProductAutocompleteAPIView(SuperuserRequiredMixin, HansSelect2ViewM
             # all ascii, number and letter
             key = self.q.lower()
             qs = qs.filter(
-                Q(pinyin__contains=key) | Q(name_en__icontains=key) | Q(brand__name_en__icontains=key))
+                Q(pinyin__contains=key) | Q(name_cn__icontains=key) | Q(name_en__icontains=key) | Q(
+                    brand__name_en__icontains=key))
         return qs
 
 
@@ -79,4 +80,3 @@ class PremiumProductSearchAPIView(PremiumProductAutocompleteAPIView):
                 'image': result.pic.thumbnail.url if result.pic else None,
             } for result in context['object_list']
         ]
-

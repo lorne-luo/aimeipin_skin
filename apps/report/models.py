@@ -84,12 +84,13 @@ class Report(models.Model):
         super(Report, self).save(*args, **kwargs)
 
     def start_pdf_generation(self):
-        self.pdf = None
-        self.pdf_created_at = None
-        self.save(update_fields=['pdf', 'pdf_created_at'])
-        t = threading.Thread(target=self.generate_pdf, args=())
-        t.setDaemon(True)
-        t.start()
+        self.generate_pdf()
+        # self.pdf = None
+        # self.pdf_created_at = None
+        # self.save(update_fields=['pdf', 'pdf_created_at'])
+        # t = threading.Thread(target=self.generate_pdf, args=())
+        # t.setDaemon(True)
+        # t.start()
 
     def generate_pdf(self):
         context = {'object': self}

@@ -1,4 +1,4 @@
-<div class="form-group formset-div" id="{{ products_formset.prefix }}_table">
+<div class="form-group formset-div">
     <h4 class="box-title">{{ title }}</h4>
 
     <div id="{{ products_formset.prefix }}_selection" class="premiumproduct-selection">
@@ -23,21 +23,38 @@
     <br>
 
     {{ products_formset.management_form }}
-    {% for form in products_formset %}
-        {% if form.id.value %}
-        <div class="form-group col-xs-12 {% cycle row1 row2 %} formset_row">
-            <div class="col-md-8 col-xs-6">
-                <span>{{ form.instance.product }}</span>
+
+    <div id="{{ products_formset.prefix }}_table">
+        {% if products_formset|length > 1 %}
+            {% for form in products_formset %}
+                {% if form.id.value %}
+                    <div class="form-group col-xs-12 {% cycle row1 row2 %} formset_row">
+                        <div class="col-md-8 col-xs-6">
+                            <span>{{ form.instance.product }}</span>
+                        </div>
+                        <div class="">
+                            {{ form.product }}
+                            {{ form.id }}
+                            {{ form.type }}
+                            {{ form.DELETE }}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <div class="form-group col-xs-12 {% cycle row1 row2 %} formset_row hide">
+                <div class="col-md-8 col-xs-6">
+                    <span></span>
+                </div>
+                <div class="">
+                    {{ form.product }}
+                    {{ form.id }}
+                    {{ form.type }}
+                    {{ form.DELETE }}
+                </div>
             </div>
-            <div class="">
-                {{ form.product }}
-                {{ form.id }}
-                {{ form.type }}
-                {{ form.DELETE }}
-            </div>
-        </div>
         {% endif %}
-    {% endfor %}
+    </div>
 </div>
 <hr>
 

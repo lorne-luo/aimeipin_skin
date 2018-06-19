@@ -24,11 +24,11 @@ class ThumbnailImageInput(forms.ClearableFileInput):
     def get_context(self, name, value, attrs):
         original_value = value
         if value:
-            if self.size == 'thumbnail':
+            if self.size == 'thumbnail' and hasattr(value, 'thumbnail'):
                 value = value.thumbnail
-            elif self.size == 'medium':
+            elif self.size == 'medium' and hasattr(value, 'medium'):
                 value = value.medium
-            elif self.size == 'large':
+            elif self.size == 'large' and hasattr(value, 'large'):
                 value = value.large
 
         context = super(ThumbnailImageInput, self).get_context(name, value, attrs)

@@ -1,0 +1,46 @@
+{% extends "adminlte/common_list.html" %}
+{% load static %}
+
+{% block common_list_buttons %}{% endblock %}
+
+{% block table_head %}
+    <th></th>
+    <th>姓名</th>
+    <th>性别</th>
+    <th>微信号</th>
+    <th>城市</th>
+    <th>已订阅</th>
+    <th>查看问卷</th>
+    <th>查看报告</th>
+    <th></th>
+{% endblock %}
+
+{% block table_row %}
+    <tbody v-for="item in items">
+    <tr>
+        <td style="text-align: center; padding: 0"><img height="32px" src="{!! item.headimg_url!!}"/></td>
+        <td><a href="#[item.detail_url]">{!! item.nickname !!}</a></td>
+        <td>{!! item.sex !!}</td>
+        <td>{!! item.weixin_id !!}</td>
+        <td>{!! item.country !!} {!! item.province !!} {!! item.city !!}</td>
+        <td>
+            <span v-if="item.is_subscribe">是</span>
+            <span v-else>否</span>
+        </td>
+        <td><a href="/survey/answer/list/?search={!! item.openid !!}">[查看问卷]</a></td>
+        <td><a href="/report/report/list/?search={!! item.openid !!}">[查看报告]</a></td>
+        <td class="text-right hidden-sm hidden-xs">
+            <template v-if="detail_url_tag">
+                <a data-toggle="tooltip" data-placement="bottom" data-original-title="View"
+                   href="#[item.detail_url]" class="btn btn-info btn-sm detail-btn" data-pk="#[item.id]">
+                    <i class="fa fa-lg fa-bars fa-inverse"></i>
+                </a>
+            </template>
+        </td>
+    </tr>
+    </tbody>
+{% endblock %}
+
+{% block common_list_footer_page_script %}
+    <script type="text/javascript" src="{% static 'js/weixin/wxuser_list.min.js' %}"></script>
+{% endblock %}

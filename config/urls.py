@@ -47,6 +47,7 @@ apps_urlpatterns = [
 # REST API
 api_urlpatterns = [
     url(r'^customer/', include('apps.customer.api.urls')),
+    url(r'^wx/', include('apps.weixin.api.urls')),
     url(r'^brand/', include('apps.brand.api.urls')),
     url(r'^product/', include('apps.product.api.urls')),
     url(r'^premium_product/', include('apps.premium_product.api.urls')),

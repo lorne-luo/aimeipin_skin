@@ -2,25 +2,38 @@
 import json
 import logging
 
+from braces.views import SuperuserRequiredMixin
 from django.contrib.auth import login
-from django.contrib.auth.backends import ModelBackend
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from django.utils import timezone
 from django.conf import settings
 from django.utils.http import urlunquote
+from django.views.generic import ListView, UpdateView
 from weixin import WeixinPay
 from weixin.base import Map
 from weixin.login import WeixinLogin
 
-from . import conf
-from apps.customer.models import Customer
+from core.django.views import CommonContextMixin
 from core.auth_user.models import AuthUser
-from .models import WxPayment, WxReturnCode, WxUser
+from . import forms
+from . import conf
+from .models import WxReturnCode, WxUser
 
 log = logging.getLogger(__name__)
 
+
+# views for Customer
+
+class WxUserListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
+    model = WxUser
+    template_name_suffix = '_list'  # customer/customer_list.html
+
+
+class WxUserDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
+    model = WxUser
+    form_class = forms.WxUserDetailForm
+    template_name = 'adminlte/common_detail.html'
 
 def wx_login(request):
     next = request.GET.get('next', '')

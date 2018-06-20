@@ -45,7 +45,7 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
 
     def __str__(self):
         if self.brand and self.name_cn and not (
-            self.name_cn.startswith(self.brand.name_cn) or self.name_cn.startswith(self.brand.name_en)):
+                    self.name_cn.startswith(self.brand.name_cn) or self.name_cn.startswith(self.brand.name_en)):
             return '%s %s' % (self.brand, self.name_cn)
         else:
             return self.name_cn
@@ -68,6 +68,12 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
             return PremiumProduct.objects.filter(id__in=product_ids)
         else:
             return PremiumProduct.objects.all()
+
+    def has_combine(self, skin_type, purpose, category):
+        for fit in self.premiumproductfit_set.all():
+            if [skin_type, purpose, category] == [fit.skin_type, fit.purpose, fit.category]:
+                return True
+        return False
 
 
 class PremiumProductFit(models.Model):

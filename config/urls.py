@@ -34,7 +34,6 @@ apps_urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('apps.dashboard.urls', namespace='dashboard')),
     url(r'^', include('core.auth_user.urls', namespace='users')),
-    url(r'^customer/', include('apps.customer.urls', namespace='customer')),
     url(r'^brand/', include('apps.brand.urls', namespace='brand')),
     url(r'^product/', include('apps.product.urls', namespace='product')),
     url(r'^premium_product/', include('apps.premium_product.urls', namespace='premium_product')),
@@ -46,7 +45,6 @@ apps_urlpatterns = [
 
 # REST API
 api_urlpatterns = [
-    url(r'^customer/', include('apps.customer.api.urls')),
     url(r'^wx/', include('apps.weixin.api.urls')),
     url(r'^brand/', include('apps.brand.api.urls')),
     url(r'^product/', include('apps.product.api.urls')),

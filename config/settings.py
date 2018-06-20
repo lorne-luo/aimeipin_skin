@@ -63,7 +63,6 @@ INSTALLED_APPS = (
     'core.autocode',
 
     'apps.weixin',
-    'apps.customer',
     'apps.product',
     'apps.premium_product',
     'apps.brand',

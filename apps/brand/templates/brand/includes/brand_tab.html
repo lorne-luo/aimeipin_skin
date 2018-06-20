@@ -1,11 +1,21 @@
 {% for brand in all_brand %}
     {% if brand.first_letter_en >= start and brand.first_letter_en <= end %}
-            <a href="{% url 'brand:brand-update' pk=brand.id %}">{{ brand.name_en }}</a>
+        <span>
+            <a href="{% url 'premium_product:premiumproduct-list'%}?search={{ brand.name_cn }}">{{ brand.name_en }}</a>
+            <a href="{% url 'brand:brand-update' pk=brand.id %}">
+                  <i class="fa fa-edit"></i>
+            </a>
+        </span>
     {% endif %}
 {% endfor %}
-<hr />
+<hr/>
 {% for brand in all_brand %}
     {% if brand.first_letter_cn >= start and brand.first_letter_cn <= end %}
-            <a href="{% url 'brand:brand-update' pk=brand.id %}">{{ brand.name_cn }}</a>
+        <span>
+            <a href="{% url 'premium_product:premiumproduct-list'%}?search={{ brand.name_cn }}">{{ brand.name_cn }}</a>
+            <a href="{% url 'brand:brand-update' pk=brand.id %}">
+                  <i class="fa fa-edit"></i>
+            </a>
+        </span>
     {% endif %}
 {% endfor %}

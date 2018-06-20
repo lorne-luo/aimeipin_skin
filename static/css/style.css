@@ -190,15 +190,15 @@ aside.messagesetVue div.menu li {
     padding: 0 0 0 15px;
 }
 
-.sidebar-menu .treeview-menu>li>a.label {
+.sidebar-menu .treeview-menu > li > a.label {
     font-size: 75%;
 }
 
-.premiumproduct-selection{
+.premiumproduct-selection {
     position: relative;
 }
 
-.premiumproduct-selection ul.premium_product_list{
+.premiumproduct-selection ul.premium_product_list {
     position: absolute;
     background: #fff;
     left: 68px;
@@ -208,4 +208,11 @@ aside.messagesetVue div.menu li {
     height: 300px;
     overflow-y: auto;
     z-index: 100;
+}
+
+.brand_list_content .tab-content {
+    line-height: 40px;
+}
+.brand_list_content .tab-content span {
+    margin: 15px;
 }

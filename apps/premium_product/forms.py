@@ -41,6 +41,10 @@ class PremiumProductFitInlineForm(forms.ModelForm):
         self.fields['product'].widget = forms.HiddenInput()
 
 
+class PremiumProductImportForm(forms.Form):
+    file = forms.FileField(label='优选产品excel', required=True)
+
+
 PremiumProductFitFormSet = inlineformset_factory(PremiumProduct, PremiumProductFit, form=PremiumProductFitInlineForm,
                                                  can_order=False, can_delete=True, extra=1)
 

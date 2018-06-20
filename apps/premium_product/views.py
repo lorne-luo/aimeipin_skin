@@ -1,8 +1,10 @@
+from django.contrib import messages
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
-from django.views.generic.edit import ProcessFormView
+from django.views.generic.edit import ProcessFormView, FormView
+from pyexcel_xls import get_data
 
-from apps.premium_product.forms import PremiumProductFitFormSet
+from apps.premium_product.forms import PremiumProductFitFormSet, PremiumProductImportForm
 from core.django.views import CommonContextMixin
 from .models import PremiumProduct
 from ..brand.models import Brand
@@ -67,3 +69,25 @@ class PremiumProductDetailView(SuperuserRequiredMixin, CommonContextMixin, Updat
     model = PremiumProduct
     # template_name_suffix = '_form'
     fields = ['name_en', 'name_cn', 'pic', 'brand']
+
+
+class PremiumProductImportView(FormView):
+    form_class = PremiumProductImportForm
+    success_url = '#'
+    template_name = 'premium_product/premiumproduct_import.html'
+
+    def form_valid(self, form):
+        file = form.cleaned_data.get('file')
+        file_ext = file.name.split('.')[-1]
+        data = get_data(file, file_ext)
+
+        try:
+            for table in data:
+                for row in table:
+                    name = row[0]
+                    brand = row[1]
+        except Exception as e:
+            messages.error(self.request, '导入失败:%s' % e)
+
+        messages.info(self.request, '导入成功')
+        return super(PremiumProductImportView, self).form_valid(form)

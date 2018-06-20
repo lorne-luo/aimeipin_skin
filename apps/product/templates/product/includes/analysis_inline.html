@@ -26,7 +26,10 @@
                     <td>{{ form.pigment_type }}</td>
                     <td>{{ form.loose_type }}</td>
                     <td>{{ form.analysis }}</td>
-                    <td>{{ form.product }}</td>
+                    <td>
+                        {{ form.product }}
+                        {{ form.id }}
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

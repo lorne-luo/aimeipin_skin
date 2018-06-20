@@ -52,13 +52,16 @@ class AbstractPKInFilter(FilterSet):
     class Meta:
         model = None
 
+
 class PinyinSearchFilter(SearchFilter):
     def filter_queryset(self, request, queryset, view):
         search_terms = self.get_search_terms(request)
         if any([include_non_asc(x) for x in search_terms]):
-            search_fields = getattr(view, 'search_fields', None)
+            # cn
+            search_fields = getattr(view, 'search_fields', [])
         else:
-            search_fields = getattr(view, 'pinyin_search_fields', None)
+            # en
+            search_fields = getattr(view, 'pinyin_search_fields', []) + getattr(view, 'search_fields', [])
 
         if not search_fields or not search_terms:
             return queryset
@@ -82,8 +85,9 @@ class PinyinSearchFilter(SearchFilter):
             queryset = distinct(queryset, base)
         return queryset
 
+
 def pk_in_filter_factory(model):
     super_class = AbstractPKInFilter
     name = '%sPKInFilter' % model.__name__
     Meta = type('Meta', (object,), {'model': model})
-    return type(name, (super_class,), {'Meta': Meta,})
+    return type(name, (super_class,), {'Meta': Meta, })

@@ -80,6 +80,7 @@
     <script src="{% static 'js/jquery.formset.js' %}"></script>
 
     <script type="text/javascript">
+
         function initChosen() {
             $("#{{ premiumproductfit_formset.prefix }}_table select").chosen({
                 search_contains: true,
@@ -87,6 +88,14 @@
                 width: "90%"
             });
         }
+
+        $('#commonForm input').addClass('form-control');
+        $('#commonForm select').addClass('form-control');
+        $('#commonForm textarea').addClass('form-control');
+        $(".premiumproduct_form_content select[class$='form-control']").not(".hide select[class$='form-control']").chosen({
+                search_contains: true,
+                disable_search_threshold: 10
+            });
 
         jQuery(document).ready(function ($) {
             initChosen();

@@ -220,6 +220,10 @@ class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
             self.level = self.code.level
         if not self.city:
             self.update_location()
+
+        if self.customer and not self.customer.weixin_id:
+            self.customer.weixin_id = self.weixin_id
+            self.customer.save(update_fields=['weixin_id'])
         super(Answer, self).save(*args, **kwargs)
 
     @property

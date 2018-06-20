@@ -101,6 +101,7 @@ def wx_auth(request):
     user.backend = 'django.contrib.auth.backends.ModelBackend'
     login(request, user)
 
+    state = request.GET.get('state', None)
     if state:
         url = urlunquote(state)
     else:

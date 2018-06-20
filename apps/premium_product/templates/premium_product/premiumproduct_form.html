@@ -72,7 +72,13 @@
         </div>
     </div>
 
+
+{% endblock %}
+
+{% block footer_base_script %}
+    <script type="text/javascript" src="{% static 'adminlte/js/common-form.js' %}"></script>
     <script src="{% static 'js/jquery.formset.js' %}"></script>
+
     <script type="text/javascript">
         function initChosen() {
             $("#{{ premiumproductfit_formset.prefix }}_table select").chosen({
@@ -84,19 +90,19 @@
 
         jQuery(document).ready(function ($) {
             initChosen();
+        });
 
-            $('#{{ premiumproductfit_formset.prefix }}_table .formset_row').formset({
-                addText: '添加新组合',
-                prefix: '{{ premiumproductfit_formset.prefix }}',
-                addCssClass: 'btn btn-success',
-                deleteCssClass: 'remove-recipe-ingredient',
-                formCssClass: 'dynamic-form',
-                deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>',
-                added: function () {
-                    // jquery choosen init
-                    initChosen();
-                }
-            });
+        $('#{{ premiumproductfit_formset.prefix }}_table .formset_row').formset({
+            addText: '添加新组合',
+            prefix: '{{ premiumproductfit_formset.prefix }}',
+            addCssClass: 'btn btn-success',
+            deleteCssClass: 'remove-recipe-ingredient',
+            formCssClass: 'dynamic-form',
+            deleteText: '<i style="color:#dd4b39" class="fa fa-lg fa-trash"></i>',
+            added: function () {
+                // jquery choosen init
+                initChosen();
+            }
         });
     </script>
 {% endblock %}

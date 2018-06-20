@@ -43,8 +43,9 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
     ]
 
     def __str__(self):
-        if self.brand and self.brand.name_cn:
-            return '%s %s' % (self.brand.name_cn, self.name_cn)
+        if self.brand and self.name_cn and not (
+                    self.name_cn.startswith(self.brand.name_cn) or self.name_cn.startswith(self.brand.name_en)):
+            return '%s %s' % (self.brand, self.name_cn)
         else:
             return self.name_cn
 

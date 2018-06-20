@@ -48,8 +48,8 @@ class QRCodeModel(object):
             uid = uuid.uuid4().hex[:8]
         return uid
 
-    def generate_qrcode_file(url, uuid):
-        return generate_qrcode(url, uuid)
+    def generate_qrcode_file(self):
+        return generate_qrcode(self.login_url, self.uuid)
 
     def get_qrcode_url(self, overwrite=False):
         if not self.uuid:

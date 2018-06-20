@@ -12,7 +12,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('premium_product', '0001_initial'),
-        ('customer', '0001_initial'),
         ('product', '0001_initial'),
     ]
 
@@ -74,7 +73,6 @@ class Migration(migrations.Migration):
                 ('question38', models.PositiveIntegerField(blank=True, null=True)),
                 ('allergy', models.TextField(blank=True, max_length=128)),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='创建时间')),
-                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='customer.Customer')),
             ],
         ),
         migrations.CreateModel(

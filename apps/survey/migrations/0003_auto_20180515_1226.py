@@ -211,11 +211,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='answer',
-            name='customer',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='customer.Customer'),
-        ),
-        migrations.AlterField(
-            model_name='answer',
             name='height',
             field=models.PositiveIntegerField(blank=True, null=True, verbose_name='7. 您的身高'),
         ),

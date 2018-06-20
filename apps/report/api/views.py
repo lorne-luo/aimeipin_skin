@@ -11,4 +11,4 @@ class ReportViewSet(CommonViewSet):
     queryset = Report.objects.all()
     serializer_class = serializers.ReportSerializer
     filter_fields = ['purpose', 'level']
-    search_fields = ['answer__name', 'answer__uuid']
+    search_fields = ['answer__name', 'answer__uuid', 'answer__customer__openid']

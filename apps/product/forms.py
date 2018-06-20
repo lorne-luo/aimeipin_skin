@@ -56,7 +56,7 @@ class ProductAnalysisInlineForm(forms.ModelForm):
             field.widget.attrs['class'] = 'form-control'
 
         self.fields['product'].widget = forms.HiddenInput()
-        self.fields['analysis'].widget.attrs['rows'] = 2
+        self.fields['analysis'].widget.attrs['rows'] = 4
         self.fields['analysis'].widget.attrs['cols'] = 40
         self.fields['oily_type'].queryset = SkinType.objects.filter(dimension='油性or干性')
         self.fields['sensitive_type'].queryset = SkinType.objects.filter(dimension='敏感or耐受')

@@ -221,3 +221,7 @@ aside.messagesetVue div.menu li {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+#productanalysis_formset_table textarea{
+    margin: 5px 0;
+}

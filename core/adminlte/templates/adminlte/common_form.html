@@ -46,7 +46,7 @@
             {% endblock %}
         </div>
 
-        <div class="box-body">
+        <div class="box-body {{ page_model_name }}_form_content">
             {% include "adminlte/includes/messages.html" %}
 
             {% block form_content %}

@@ -295,6 +295,10 @@ ANONYMOUS_USER_ID = -1
 SITE_ID = 1
 INVITE_CODE_EXPIRY = 60  # days
 
+WECHAT_APP_ID = env('WECHAT_APP_ID', default='wx0bda7c0cd5c05a36')
+WECHAT_APP_SECRET = env('WECHAT_APP_SECRET', default='')
+
+
 # CACHES
 # ------------------------------------------------------------------------------
 CACHES = {

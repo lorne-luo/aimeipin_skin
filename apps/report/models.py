@@ -81,6 +81,7 @@ class Report(models.Model):
     def save(self, *args, **kwargs):
         if 'update_fields' not in kwargs:
             self.classify_skin_type()
+            self._analysis_product()
         super(Report, self).save(*args, **kwargs)
 
     def start_pdf_generation(self):
@@ -134,10 +135,14 @@ class Report(models.Model):
             self.night_instruct = word.night_instruct
             self.mask_instruct = word.mask_instruct
 
-        for ap in self.answer.answerproduct_set.all():
-            ap.update_analysis(True)
+        self._analysis_product(True)
 
         self.save()
+
+    def _analysis_product(self, force_update=False):
+        if self.answer:
+            for ap in self.answer.answerproduct_set.all():
+                ap.update_analysis(force_update)
 
     def regenerate(self):
         if not self.answer:

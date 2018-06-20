@@ -216,3 +216,8 @@ aside.messagesetVue div.menu li {
 .brand_list_content .tab-content span {
     margin: 15px;
 }
+
+.dynamic-form-add .btn-success{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

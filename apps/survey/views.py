@@ -222,13 +222,15 @@ class SurveyFillView(CommonContextMixin, UpdateView):
         # return reverse('survey:answer', args=[self.uuid])
 
     def get(self, request, *args, **kwargs):
-        wx_openid = self.request.session.get('wx_openid', None)
-        if not self.request.user.is_authenticated() and wx_openid:
-            user = AuthUser.objects.filter(username=wx_openid).first()
-            if user:
-                login(request, user)
-
         self.object = self.get_object()
+        wx_openid = self.request.session.get('wx_openid', None)
+        user = AuthUser.objects.filter(username=wx_openid).first()
+        if wx_openid and user:
+            login(request, user)
+            if self.object and not self.object.customer and hasattr(user, 'wxuser'):
+                self.object.customer = user.wxuser
+                self.object.save()
+
         if self.object and self.object.id and not self.object.is_changeable:
             # cant change, redirect to score page
             return HttpResponseRedirect(reverse('survey:answer-score', args=[self.object.uuid]))

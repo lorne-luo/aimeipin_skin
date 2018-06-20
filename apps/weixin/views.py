@@ -4,16 +4,17 @@ import logging
 
 from braces.views import SuperuserRequiredMixin
 from django.contrib.auth import login
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, resolve
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from django.utils import timezone
 from django.conf import settings
-from django.utils.http import urlunquote
+from django.utils.http import urlunquote, urlquote
 from django.views.generic import ListView, UpdateView
 from weixin import WeixinPay
 from weixin.base import Map
 from weixin.login import WeixinLogin
 
+from apps.survey.models import Answer
 from core.django.views import CommonContextMixin
 from core.auth_user.models import AuthUser
 from . import forms
@@ -35,18 +36,20 @@ class WxUserDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     form_class = forms.WxUserDetailForm
     template_name = 'adminlte/common_detail.html'
 
+
 def wx_login(request):
-    next = request.GET.get('next', '')
+    next_url = request.GET.get('next', '')
+    next_url = urlunquote(next_url)
+
     if request.user.is_authenticated():
-        if next:
-            url = urlunquote(next)
-            return HttpResponseRedirect(url)
+        if next_url:
+            return HttpResponseRedirect(next_url)
         else:
             raise Http404
 
     full_url = '%s%s' % (settings.BASE_URL, reverse('weixin:auth'))
     wx_login = WeixinLogin(conf.APP_ID, conf.APP_SECRET)
-    login_url = wx_login.authorize(full_url, conf.SCOPE_USERINFO, next)
+    login_url = wx_login.authorize(full_url, conf.SCOPE_USERINFO, urlquote(next_url))
     log.info('weixin login_url: %s' % (login_url))
     return HttpResponseRedirect(login_url)
 
@@ -60,7 +63,6 @@ def wx_auth(request):
     data = wx_login.access_token(code)
 
     openid = data.openid
-    request.session['wx_openid'] = openid
     scope = data.scope
     token = data.access_token  # 网页授权access_token和公众号的access_token不一样
     # 关于网页授权access_token和普通access_token的区别
@@ -100,6 +102,7 @@ def wx_auth(request):
 
     user.backend = 'django.contrib.auth.backends.ModelBackend'
     login(request, user)
+    request.session['wx_openid'] = openid
 
     state = request.GET.get('state', None)
     if state:

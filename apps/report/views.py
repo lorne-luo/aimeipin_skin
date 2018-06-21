@@ -255,3 +255,19 @@ class ReportDownloadView(ReportDetailView):
         response['Content-Disposition'] = 'attachment; filename=Action28_NO.%s.pdf' % self.object.answer.uuid
         response['Content-Length'] = len(pdf)
         return response
+
+
+class ReportDownloadView2(ReportDetailView):
+    model = Report
+    form_class = forms.ReportDetailForm
+    template_name = 'report/report_download2_%s.html'
+    http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        # return super(ReportDownloadView, self).get(request, *args, **kwargs)
+        context = self.get_context_data(**kwargs)
+        template_name = self.get_template_names()
+        template = get_template(template_name)
+        html = template.render(context)
+        return HttpResponse(html)

@@ -4,7 +4,7 @@
     <a href="javascript:void(0)">
         <i class='fa fa-shopping-bag'></i>
         <b>优选产品库</b>
-        
+
         <span class="pull-right-container">
             <small class="label pull-right bg-blue">{% premium_product_counter %}</small>
         </span>
@@ -26,26 +26,3 @@
     </ul>
 </li>
 
-
-<li class="treeview active">
-    <a href="javascript:void(0)">
-        <i class='fa fa-shopping-bag'></i>
-        <b>分析</b>
-    </a>
-
-    <ul class="treeview-menu menu-open" style="display: block;">
-        <li>
-            <a href="{% url 'analysis:skintype-list' %}" class="main">
-                <i class="fa fa-circle-o"></i>
-                肤质类型
-            </a>
-        </li>
-        <li>
-            <a href="{% url 'analysis:word-add' %}" class="pull-right"><i class="fa fa-plus" aria-hidden="true"></i></a>
-            <a href="{% url 'analysis:word-list' %}" class="main">
-                <i class="fa fa-circle-o"></i>
-                话术
-            </a>
-        </li>
-    </ul>
-</li>

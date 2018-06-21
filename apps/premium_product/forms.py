@@ -1,3 +1,5 @@
+import os
+
 from django import forms
 from django.forms import inlineformset_factory, formset_factory
 from django.utils.translation import ugettext_lazy as _
@@ -43,6 +45,16 @@ class PremiumProductFitInlineForm(forms.ModelForm):
 
 class PremiumProductImportForm(forms.Form):
     file = forms.FileField(label='优选产品excel', required=True)
+
+    def clean_file(self):
+        file = self.cleaned_data.get('file', None)
+        if not file:
+            raise forms.ValidationError("File required.")
+
+        file_name, file_ext = os.path.splitext(file.name)
+        if file_ext.lower() not in ['.xls', '.xlsx']:
+            raise forms.ValidationError("请提交扩展名为xls/xlsx的Excel文件.")
+        return file
 
 
 PremiumProductFitFormSet = inlineformset_factory(PremiumProduct, PremiumProductFit, form=PremiumProductFitInlineForm,

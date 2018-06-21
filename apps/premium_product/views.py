@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.exceptions import ValidationError
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
 from django.views.generic.edit import ProcessFormView, FormView
@@ -82,24 +83,28 @@ class PremiumProductImportView(FormView):
     def form_valid(self, form):
         file = form.cleaned_data.get('file')
         file_ext = file.name.split('.')[-1]
-        data = get_data(file, file_ext)
+        data = get_data(file, file_ext.lower())
 
         current_row = None
         try:
             for table_name, table in data.items():
+                current_row = None
+                if len(table[0]) != 5 or table[0][0] != '肤质选项':
+                    raise ValidationError('Excel文件格式不正确，需包含"肤质选项, 目标选项, 类别选项, 产品名称, 图片" 7列.')
                 for row in table[1:]:
                     current_row = row
                     self.process_row(row)
 
         except Exception as e:
-            messages.error(self.request, '导入失败: %s, %s' % (current_row, e))
+            messages.error(self.request, '导入失败: %s, %s' % (current_row or '', e))
             return super(PremiumProductImportView, self).form_invalid(form)
 
-        messages.info(self.request, '导入成功')
+        messages.success(self.request, '导入成功.')
         return super(PremiumProductImportView, self).form_valid(form)
 
     def process_row(self, row):
-        if not row or all([not row[0], not row[1], not row[3], not row[4]]):
+        # 肤质选项, 目标选项, 类别选项, 产品名称, 图片
+        if not row or len(row) < 4 or not row[3]:
             return
 
         if row[0] == '油性':
@@ -107,11 +112,15 @@ class PremiumProductImportView(FormView):
         elif row[0] == '干性':
             skintype = '干性肌肤'
         else:
-            skintype = None
-        purpose = row[1]
-        category = row[2]
-        name_cn = row[3]
-        pic = 'premiumproduct/%s.jpg' % row[4] if '.' not in row[4] else row[4]
+            skintype = ''
+        purpose = row[1] or ''
+        category = row[2] or ''
+        name_cn = row[3] or ''
+
+        if len(row) > 4 and row[4]:
+            pic = 'premiumproduct/%s.jpg' % row[4] if '.' not in row[4] else 'premiumproduct/%s' % row[4]
+        else:
+            pic = None
 
         product, created = PremiumProduct.objects.get_or_create(name_cn=name_cn)
         product.pic = pic

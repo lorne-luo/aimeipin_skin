@@ -1,3 +1,5 @@
+import os
+
 from django import forms
 from django.forms import modelformset_factory, inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
@@ -26,22 +28,31 @@ class ProductDetailForm(forms.ModelForm):
         fields = ['name_en', 'name_cn', 'alias', 'pic', 'brand', 'category']
 
 
-# class ProductIngredientInlineForm(forms.ModelForm):
-#     class Meta:
-#         model = ProductIngredient
-#         fields = '__all__'
-#
-#     def __init__(self, *args, **kwargs):
-#         super(ProductIngredientInlineForm, self).__init__(*args, **kwargs)
-#         for field_name in self.fields:
-#             field = self.fields.get(field_name)
-#             field.widget.attrs['class'] = 'form-control'
-#
-#         self.fields['product'].widget = forms.HiddenInput()
-#
-#
-# ProductIngredientFormSet = inlineformset_factory(Product, ProductIngredient, form=ProductIngredientInlineForm,
-#                                                  can_order=False, can_delete=True, extra=1)
+class ProductImportForm(forms.Form):
+    product_file = forms.FileField(label='产品excel', required=False)
+    component_file = forms.FileField(label='产品成分excel', required=False)
+
+    def validate_filefield(self, file):
+        if file:
+            file_name, file_ext = os.path.splitext(file.name)
+            if file_ext.lower() not in ['.xls', '.xlsx']:
+                raise forms.ValidationError("请提交扩展名为xls/xlsx的Excel文件.")
+
+    def clean_product_file(self):
+        product_file = self.cleaned_data.get('product_file', None)
+        self.validate_filefield(product_file)
+        return product_file
+
+    def clean_component_file(self):
+        component_file = self.cleaned_data.get('component_file', None)
+        self.validate_filefield(component_file)
+        return component_file
+
+    def clean(self):
+        product_file = self.cleaned_data.get('product_file', None)
+        component_file = self.cleaned_data.get('component_file', None)
+        if not product_file and not component_file:
+            raise forms.ValidationError("至少提供一组Excel文件.")
 
 
 class ProductAnalysisInlineForm(forms.ModelForm):

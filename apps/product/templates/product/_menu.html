@@ -1,7 +1,7 @@
 {% load product_tags %}
 
 <li class="treeview active">
-    <a href="{% url 'product:product-list' %}">
+    <a href="javascript:void(0)">
         <i class='fa fa-shopping-bag'></i>
         <b>产品库</b>
 
@@ -9,4 +9,20 @@
             <small class="label pull-right bg-blue">{% product_counter %}</small>
         </span>
     </a>
+
+    <ul class="treeview-menu menu-open" style="display: block;">
+        <li>
+            <a href="{% url 'product:product-add' %}" class="pull-right"><i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a href="{% url 'product:product-list' %}" class="main">
+                <i class="fa fa-circle-o"></i>
+                产品
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'product:product-import' %}" class="main">
+                <i class="fa fa-circle-o"></i>
+                批量导入
+            </a>
+        </li>
+    </ul>
 </li>

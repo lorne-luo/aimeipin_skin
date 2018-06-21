@@ -10,7 +10,8 @@ var wordListPageVue = new CommonListPageVue({
             list_url_tag:   'analysis:word-list',
             update_url_tag: 'analysis:word-update',
             detail_url_tag: 'analysis:word-detail',
-            list_url:       Urls['api:word-list']()
+            list_url:       Urls['api:word-list'](),
+            ordering:'purpose,oily_type,sensitive_type,pigment_type,loose_type'
         }
     }
 );

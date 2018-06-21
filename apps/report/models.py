@@ -4,6 +4,7 @@ import threading
 import logging
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 from django.http import Http404
 from django.template.loader import get_template
 from django.utils import timezone
@@ -113,9 +114,51 @@ class Report(models.Model):
             return self.answer.uuid
         return None
 
-    def get_word(self):
-        return Word.objects.filter(purpose=self.purpose, oily_type=self.oily_type, sensitive_type=self.sensitive_type,
-                                   pigment_type=self.pigment_type, loose_type=self.loose_type).first()
+    def get_words(self):
+
+        words = Word.objects.filter(
+            # demension 1
+            Q(purpose=self.purpose, oily_type=None, sensitive_type=None, pigment_type=None, loose_type=None) |
+            Q(purpose='', oily_type=self.oily_type, sensitive_type=None, pigment_type=None, loose_type=None) |
+            Q(purpose='', oily_type=None, sensitive_type=self.sensitive_type, pigment_type=None, loose_type=None) |
+            Q(purpose='', oily_type=None, sensitive_type=None, pigment_type=self.pigment_type, loose_type=None) |
+            Q(purpose='', oily_type=None, sensitive_type=None, pigment_type=None, loose_type=self.loose_type) |
+            # demension 2
+            Q(purpose=self.purpose, oily_type=self.oily_type, sensitive_type=None, pigment_type=None, loose_type=None) |
+            Q(purpose=self.purpose, oily_type=None, sensitive_type=self.sensitive_type, pigment_type=None,
+              loose_type=None) |
+            Q(purpose=self.purpose, oily_type=None, sensitive_type=None, pigment_type=self.pigment_type,
+              loose_type=None) |
+            Q(purpose=self.purpose, oily_type=None, sensitive_type=None, pigment_type=None,
+              loose_type=self.loose_type) |
+            Q(purpose='', oily_type=self.oily_type, sensitive_type=self.sensitive_type, pigment_type=None,
+              loose_type=None) |
+            Q(purpose='', oily_type=self.oily_type, sensitive_type=None, pigment_type=self.pigment_type,
+              loose_type=None) |
+            Q(purpose='', oily_type=self.oily_type, sensitive_type=None, pigment_type=None,
+              loose_type=self.loose_type) |
+            Q(purpose='', oily_type=None, sensitive_type=self.sensitive_type, pigment_type=self.pigment_type,
+              loose_type=None) |
+            Q(purpose='', oily_type=None, sensitive_type=self.sensitive_type, pigment_type=None,
+              loose_type=self.loose_type) |
+            Q(purpose='', oily_type=None, sensitive_type=None, pigment_type=self.pigment_type,
+              loose_type=self.loose_type) |
+            # demension 3
+            Q(purpose='', oily_type=self.oily_type, sensitive_type=self.sensitive_type,
+              pigment_type=self.pigment_type, loose_type=self.loose_type) |
+            Q(purpose=self.purpose, oily_type=None, sensitive_type=self.sensitive_type,
+              pigment_type=self.pigment_type, loose_type=self.loose_type) |
+            Q(purpose=self.purpose, oily_type=self.oily_type, sensitive_type=None,
+              pigment_type=self.pigment_type, loose_type=self.loose_type) |
+            Q(purpose=self.purpose, oily_type=self.oily_type, sensitive_type=self.sensitive_type,
+              pigment_type=None, loose_type=self.loose_type) |
+            Q(purpose=self.purpose, oily_type=self.oily_type, sensitive_type=self.sensitive_type,
+              pigment_type=self.pigment_type, loose_type=None) |
+            # fully match
+            Q(purpose=self.purpose, oily_type=self.oily_type, sensitive_type=self.sensitive_type,
+              pigment_type=self.pigment_type, loose_type=self.loose_type)
+        )
+        return words
 
     def generate(self):
         if not self.answer:
@@ -123,21 +166,33 @@ class Report(models.Model):
         self.classify_skin_type()
         self.allergy = self.answer.other_question2
 
-        word = self.get_word()
-        if word:
-            self.summary = word.report
-            self.problem = word.problem
-            self.avoid_component = word.avoid_component
-            self.doctor_advice = word.doctor_advice
-            self.emergency_solution = word.emergency_solution
-            self.maintain_solution = word.maintain_solution
-            self.day_instruct = word.day_instruct
-            self.night_instruct = word.night_instruct
-            self.mask_instruct = word.mask_instruct
+        self.clear_word()
+        words = self.get_words()
+        for word in words:
+            self.summary += word.report + '\n'
+            self.problem += word.problem + '\n'
+            self.avoid_component += word.avoid_component + '\n'
+            self.doctor_advice += word.doctor_advice + '\n'
+            self.emergency_solution += word.emergency_solution + '\n'
+            self.maintain_solution += word.maintain_solution + '\n'
+            self.day_instruct += word.day_instruct + '\n'
+            self.night_instruct += word.night_instruct + '\n'
+            self.mask_instruct += word.mask_instruct + '\n'
 
         self._analysis_product(True)
 
         self.save()
+
+    def clear_word(self):
+        self.summary = ''
+        self.problem = ''
+        self.avoid_component = ''
+        self.doctor_advice = ''
+        self.emergency_solution = ''
+        self.maintain_solution = ''
+        self.day_instruct = ''
+        self.night_instruct = ''
+        self.mask_instruct = ''
 
     def _analysis_product(self, force_update=False):
         if self.answer:

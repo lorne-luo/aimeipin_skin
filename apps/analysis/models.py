@@ -93,3 +93,7 @@ class Word(PinYinFieldModelMixin, models.Model):
         verbose_name_plural = _('话术')
         verbose_name = _('话术')
         unique_together = (('purpose', 'oily_type', 'sensitive_type', 'pigment_type', 'loose_type'),)
+
+    def __str__(self):
+        return '%s-%s_%s_%s_%s' % (
+        self.purpose, self.oily_type, self.sensitive_type, self.pigment_type, self.loose_type)

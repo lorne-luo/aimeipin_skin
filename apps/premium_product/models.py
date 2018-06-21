@@ -1,20 +1,13 @@
 # coding=utf-8
 import logging
-import os
-from django.core.cache import cache
 from django.db import models
-from django.db.models.signals import post_delete
-from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
-from pypinyin import Style, pinyin
-from stdimage import StdImageField
+from pypinyin import Style
 from stdimage.utils import UploadToClassNameDir
-from taggit.managers import TaggableManager
 
 from config.constants import PRODUCT_CATEGORY_CHOICES, PURPOSE_CHOICES, SKIN_TYPE_CHOICES
-from core.auth_user.models import AuthUser
+from core.django.fields import PNGThumbnailStdImageField
 from core.django.models import PinYinFieldModelMixin, ResizeUploadedImageModelMixin
-from config.settings import PREMIUM_PRODUCT_PHOTO_FOLDER, MEDIA_ROOT
 from ..brand.models import Brand
 
 log = logging.getLogger(__name__)
@@ -26,10 +19,10 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
     name_en = models.CharField(_(u'name_en'), max_length=512, blank=True)
     name_cn = models.CharField(_(u'name_cn'), max_length=512, blank=True)
     pinyin = models.TextField(_('pinyin'), max_length=1024, blank=True)
-    pic = StdImageField(upload_to=UploadToClassNameDir(), blank=True, null=True, verbose_name=_('picture'),
-                        variations={
-                            'thumbnail': (150, 150, True)
-                        })
+    pic = PNGThumbnailStdImageField(upload_to=UploadToClassNameDir(), blank=True, null=True, verbose_name=_('picture'),
+                                    variations={
+                                        'thumbnail': (150, 150, True)
+                                    })
     description = models.TextField(_(u'description'), blank=True)
     alias = models.CharField(_(u'alias'), max_length=512, blank=True)
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)

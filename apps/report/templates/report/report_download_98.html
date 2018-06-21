@@ -3,13 +3,7 @@
 <html lang="en-us">
 <head>
     <title>Action28 调查报告</title>
-    <style>
-        {#        @font-face {#}
-        {#            font-family: STSong;#}
-        {#            src: url({% base64_static "fonts/STSong.TTF" %});#}
-        {#        }#}
-    </style>
-    {% inline_static 'css/report/report_pdf2.css' %}
+    {% inline_static 'css/report/report_pdf.css' %}
 </head>
 
 <body class="report-download">
@@ -90,14 +84,14 @@
         <h3>1. 您现在的护肤步骤</h3>
         <table class="habit">
             <tr>
-                <th style="width: 40mm">日间</th>
+                <th style="width: 100px">日间</th>
                 <td>
                     <ul>
-                        <li>洁面类选择: {{ object.answer.non_score_question2 }}</li>
-                        <li>化妆水选择: {{ object.answer.non_score_question3 }}</li>
-                        <li>精华类选择: {{ object.answer.non_score_question4 }}</li>
-                        <li>乳液面霜类: {{ object.answer.non_score_question5 }}</li>
-                        <li>防晒类选择: {{ object.answer.non_score_question6 }}</li>
+                        <li>- 洁面类选择: {{ object.answer.non_score_question2 }}</li>
+                        <li>- 化妆水选择: {{ object.answer.non_score_question3 }}</li>
+                        <li>- 精华类选择: {{ object.answer.non_score_question4 }}</li>
+                        <li>- 乳液面霜类: {{ object.answer.non_score_question5 }}</li>
+                        <li>- 防晒类选择: {{ object.answer.non_score_question6 }}</li>
                     </ul>
                 </td>
             </tr>
@@ -105,11 +99,11 @@
                 <th>夜间</th>
                 <td>
                     <ul>
-                        <li>卸妆类选择: {{ object.answer.non_score_question7 }}</li>
-                        <li>洁面类选择: {{ object.answer.non_score_question8 }}</li>
-                        <li>化妆水选择: {{ object.answer.non_score_question9 }}</li>
-                        <li>精华类选择: {{ object.answer.non_score_question10 }}</li>
-                        <li>乳液面霜类: {{ object.answer.non_score_question11 }}</li>
+                        <li>- 卸妆类选择: {{ object.answer.non_score_question7 }}</li>
+                        <li>- 洁面类选择: {{ object.answer.non_score_question8 }}</li>
+                        <li>- 化妆水选择: {{ object.answer.non_score_question9 }}</li>
+                        <li>- 精华类选择: {{ object.answer.non_score_question10 }}</li>
+                        <li>- 乳液面霜类: {{ object.answer.non_score_question11 }}</li>
                     </ul>
                 </td>
             </tr>

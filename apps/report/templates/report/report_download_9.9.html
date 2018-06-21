@@ -3,7 +3,7 @@
 <html lang="en-us">
 <head>
     <title>Action28 调查报告</title>
-    {% inline_static 'css/report/report_pdf2.css' %}
+    {% inline_static 'css/report/report_pdf.css' %}
 </head>
 
 <body class="report-download">
@@ -100,13 +100,13 @@
 
         <h3>过敏成分及症状</h3>
         <div class="table">
-            <p>{{ object.allergy|default:"无" }}</p>
+            <p>{{ object.allergy|break_line|safe }}</p>
         </div>
         <br/>
 
         <h2>4. 温馨提示</h2>
         <div class="table">
-            <p>{{ object.remark|default:"无" }}</p>
+            <p>{{ object.remark|break_line|safe }}</p>
         </div>
         <br/>
     </div>

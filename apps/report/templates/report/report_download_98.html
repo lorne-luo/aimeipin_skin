@@ -173,7 +173,7 @@
                     <h4 class="box-title">日间</h4>
                     {% for product in object.day_premiumproducts %}
                         <div class="product">
-                            <img class="product_pic" src="{{ product.product.pic.thumbnail|file_to_base64 }}"/>
+                            <img class="product_pic" src="{{ BASE_URL }}{{ product.product.pic.thumbnail.url }}.png"/>
                             <p>{{ product.product }}</p>
                         </div>
                     {% endfor %}
@@ -185,7 +185,7 @@
                     <h4 class="box-title">夜间</h4>
                     {% for product in object.night_premiumproducts %}
                         <div class="product">
-                            <img class="product_pic" src="{{ product.product.pic.thumbnail|file_to_base64 }}"/>
+                            <img class="product_pic" src="{{ BASE_URL }}{{ product.product.pic.thumbnail.url }}.png"/>
                             <p>{{ product.product }}</p>
                         </div>
                     {% endfor %}
@@ -197,7 +197,7 @@
                     <h4 class="box-title">面膜</h4>
                     {% for product in object.mask_premiumproducts %}
                         <div class="product">
-                            <img class="product_pic" src="{{ product.product.pic.thumbnail|file_to_base64 }}"/>
+                            <img class="product_pic" src="{{ BASE_URL }}{{ product.product.pic.thumbnail.url }}.png"/>
                             <p>{{ product.product }}</p>
                         </div>
                     {% endfor %}

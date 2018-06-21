@@ -8,6 +8,7 @@ from weasyprint import HTML, CSS
 
 from apps.premium_product.forms import PremiumProductSelectForm
 from apps.survey.forms import AnswerProductAnalysisFormSet
+from django.conf import settings
 from .forms import get_premiumproduct_formset
 from apps.survey.models import Answer
 from core.django.views import CommonContextMixin
@@ -239,8 +240,13 @@ class ReportDisplayView(ReportDetailView):
 class ReportDownloadView(ReportDetailView):
     model = Report
     form_class = forms.ReportDetailForm
-    template_name = 'report/report_download2_%s.html'
+    template_name = 'report/report_download_%s.html'
     http_method_names = ['get']
+
+    def get_context_data(self, **kwargs):
+        context = super(ReportDownloadView, self).get_context_data(**kwargs)
+        context.update({'BASE_URL': settings.BASE_URL})
+        return context
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -257,10 +263,10 @@ class ReportDownloadView(ReportDetailView):
         return response
 
 
-class ReportDownloadView2(ReportDetailView):
+class ReportDownloadView2(ReportDownloadView):
     model = Report
     form_class = forms.ReportDetailForm
-    template_name = 'report/report_download2_%s.html'
+    template_name = 'report/report_download_%s.html'
     http_method_names = ['get']
 
     def get(self, request, *args, **kwargs):

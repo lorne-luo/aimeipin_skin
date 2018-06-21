@@ -96,7 +96,7 @@ class Report(models.Model):
 
     def generate_pdf(self):
         context = {'object': self}
-        template_name = 'report/report_download2_%s.html' % self.level
+        template_name = 'report/report_download_%s.html' % self.level
         template = get_template(template_name)
         html = template.render(context)
 
@@ -107,6 +107,7 @@ class Report(models.Model):
         self.pdf = url
         self.save(update_fields=['pdf', 'pdf_created_at'])
         log.info('[PDF GENERATION] #%s Finished' % id)
+        return file_path
 
     @property
     def uuid(self):

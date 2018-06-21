@@ -28,7 +28,7 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
     pinyin = models.TextField(_('pinyin'), max_length=1024, blank=True)
     pic = StdImageField(upload_to=UploadToClassNameDir(), blank=True, null=True, verbose_name=_('picture'),
                         variations={
-                            'thumbnail': (64, 64, True)
+                            'thumbnail': (150, 150, True)
                         })
     description = models.TextField(_(u'description'), blank=True)
     alias = models.CharField(_(u'alias'), max_length=512, blank=True)

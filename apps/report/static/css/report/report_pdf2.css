@@ -90,3 +90,23 @@ th {
     margin-right: 10px;
     text-align: left;
 }
+
+div.product_section {
+    clear: both;
+    width: 100%;
+}
+
+div.product {
+    width: 235px;
+    height: 200px;
+    float: left;
+    text-align: center;
+}
+
+img.product_pic {
+    height: 120px;
+    width: 120px;
+}
+div.clearfix {
+    clear: both;
+}

@@ -16,6 +16,20 @@ def report_counter():
     return Report.objects.count()
 
 
+@register.filter(name='file_to_base64')
+def file_to_base64(file_instance):
+    """convert image field into base64
+    Usage::
+        <img src="data:image;base64,{{ object.image|file_to_base64 }}"/>
+    """
+    if file_instance and os.path.exists(file_instance.path):
+        file_instance = file_instance.file.file
+        encoded_string = base64.b64encode(file_instance.read())
+        encoded_string = encoded_string.decode("utf-8")
+        return 'data:image;base64,' + encoded_string
+    return ''
+
+
 @register.simple_tag
 def base64_static(path):
     """convert relative static url to base64
@@ -24,7 +38,7 @@ def base64_static(path):
     """
     file_path = staticfiles_storage.path(path)
 
-    data_type = 'data:image/png;base64,'
+    data_type = 'data:image;base64,'
 
     if path.lower().endswith('.ttf'):
         data_type = 'data:application/x-font-ttf;charset=utf-8;base64,'
@@ -66,3 +80,9 @@ def inline_static(parser, token):
         </style>
     """
     return InlineStaticNode.handle_token(parser, token)
+
+
+@register.filter
+def break_line(text):
+    text = text or ''
+    return text.replace('\r\n', '<br/>').replace('\n', '<br/>')

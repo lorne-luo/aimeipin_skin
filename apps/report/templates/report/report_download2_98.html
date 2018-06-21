@@ -4,10 +4,10 @@
 <head>
     <title>Action28 调查报告</title>
     <style>
-{#        @font-face {#}
-{#            font-family: STSong;#}
-{#            src: url({% base64_static "fonts/STSong.TTF" %});#}
-{#        }#}
+        {#        @font-face {#}
+        {#            font-family: STSong;#}
+        {#            src: url({% base64_static "fonts/STSong.TTF" %});#}
+        {#        }#}
     </style>
     {% inline_static 'css/report/report_pdf2.css' %}
 </head>
@@ -29,14 +29,14 @@
             <tr>
                 <th>目标</th>
                 <td>{{ object.purpose }}</td>
-                <th>价位</th>
-                <td>{{ object.level }}</td>
+                <th>城市</th>
+                <td>{{ object.answer.city }}</td>
             </tr>
             <tr>
                 <th>年龄</th>
                 <td>{{ object.answer.age }}</td>
-                <th>城市</th>
-                <td>{{ object.answer.city }}</td>
+                <th></th>
+                <td></td>
             </tr>
         </table>
         <br/>
@@ -130,14 +130,14 @@
 
         <h3>2. 我们认为您存在的问题</h3>
         <div class="table">
-            <p>{{ object.problem|default:"无" }}</p>
+            <p>{{ object.problem|break_line|safe }}</p>
         </div>
         <br/>
 
         <h2>二、护肤品的选择</h2>
         <h3>1. 过敏成分及症状</h3>
         <div class="table">
-            <p>{{ object.allergy|default:"无" }}</p>
+            <p>{{ object.allergy|break_line|safe }}</p>
         </div>
         <br/>
 
@@ -162,38 +162,55 @@
 
         <h3>4. 需要避免使用的皮肤护理成分</h3>
         <div class="table">
-            <p>{{ object.avoid_component|default:"无" }}</p>
+            <p>{{ object.avoid_component|break_line|safe }}</p>
         </div>
         <br/>
 
         <h3>5. 建议您更换的产品</h3>
         <div class="table">
             {% if object.day_premiumproducts.count %}
-                <h4 class="box-title">日间</h4>
-                {% for product in object.day_premiumproducts %}
-                    <p>{{ product.product }}</p>
-                {% endfor %}
+                <div class="product_section">
+                    <h4 class="box-title">日间</h4>
+                    {% for product in object.day_premiumproducts %}
+                        <div class="product">
+                            <img class="product_pic" src="{{ product.product.pic.thumbnail|file_to_base64 }}"/>
+                            <p>{{ product.product }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
             {% endif %}
 
             {% if object.night_premiumproducts.count %}
-                <h4 class="box-title">夜间</h4>
-                {% for product in object.night_premiumproducts %}
-                    <p>{{ product.product }}</p>
-                {% endfor %}
+                <div class="product_section">
+                    <h4 class="box-title">夜间</h4>
+                    {% for product in object.night_premiumproducts %}
+                        <div class="product">
+                            <img class="product_pic" src="{{ product.product.pic.thumbnail|file_to_base64 }}"/>
+                            <p>{{ product.product }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
             {% endif %}
 
             {% if object.mask_premiumproducts.count %}
-                <h4 class="box-title">面膜</h4>
-                {% for product in object.mask_premiumproducts %}
-                    <p>{{ product.product }}</p>
-                {% endfor %}
+                <div class="product_section">
+                    <h4 class="box-title">面膜</h4>
+                    {% for product in object.mask_premiumproducts %}
+                        <div class="product">
+                            <img class="product_pic" src="{{ product.product.pic.thumbnail|file_to_base64 }}"/>
+                            <p>{{ product.product }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
             {% endif %}
         </div>
         <br/>
 
+        <div class="clearfix"></div>
+
         <h2>三、听听皮肤科医生怎么说</h2>
         <div class="table">
-            <p>{{ object.doctor_advice|default:"无" }}</p>
+            <p>{{ object.doctor_advice|break_line|safe }}</p>
         </div>
         <br/>
 
@@ -224,14 +241,13 @@
         <p>根据您的肌肤状况给您如下建议:</p>
         <h4>应急方案</h4>
         <div class="table">
-            <p>{{ object.emergency_solution|default:"无" }}</p>
+            <p>{{ object.emergency_solution|break_line|safe }}</p>
         </div>
-        <br/>
 
         <h4>日常维稳方案</h4>
         <p>您可以按照以下方式进行护理：</p>
         <div class="table">
-            <p>{{ object.maintain_solution|default:"无" }}</p>
+            <p>{{ object.maintain_solution|break_line|safe }}</p>
         </div>
         <br/>
         <p>所有医美方案需在专业医生指导下进行。</p>

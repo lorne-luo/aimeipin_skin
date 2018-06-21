@@ -95,7 +95,7 @@ class Report(models.Model):
         # t.start()
 
     def generate_pdf(self):
-        context = {'object': self}
+        context = {'object': self, 'BASE_URL': settings.BASE_URL}
         template_name = 'report/report_download_%s.html' % self.level
         template = get_template(template_name)
         html = template.render(context)

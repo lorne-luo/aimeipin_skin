@@ -25,9 +25,9 @@ class AnswerUpdateForm(AnswerAddForm):
 class SurveyFillForm(forms.ModelForm):
     portrait = forms.ImageField(label=_("3. 无PS、无滤镜、清晰纯素颜照片一张"), required=False,
                            widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
-    portrait_part = forms.ImageField(label=_("cosmetics"), required=False,
+    portrait_part = forms.ImageField(label=_("4. 如需重点关注部位可在此上传无PS、无滤镜、清晰的纯素颜照片"), required=False,
                            widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
-    cosmetics = forms.ImageField(label=_("4. 如需重点关注部位可在此上传无PS、无滤镜、清晰的纯素颜照片"), required=False,
+    cosmetics = forms.ImageField(label=_("5. 现阶段使用护肤品合集"), required=False,
                            widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
 
     sex = forms.ChoiceField(choices=SEX_CHOICES, widget=forms.RadioSelect(), label='2. 您的性别')
@@ -323,7 +323,7 @@ class SurveyFillForm(forms.ModelForm):
                                              choices=(('有', 'A. 有'),
                                                       ('没有', 'B. 没有')))
 
-    optional_fields = ['other_question2', 'non_score_question15', 'portrait_part', 'portrait', 'cosmetics', 'uuid',
+    optional_fields = ['other_question2', 'non_score_question15', 'portrait_part', 'cosmetics', 'uuid',
                        'cosmetic_products1', 'cosmetic_products2', 'cosmetic_products3', 'cosmetic_products4',
                        'cosmetic_products5', 'cosmetic_products6', 'cosmetic_products7', 'cosmetic_products8', 'remark',
                        'is_changeable', 'purpose']

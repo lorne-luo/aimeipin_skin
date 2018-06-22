@@ -61,9 +61,6 @@ th {
     margin-left: 10px;
 }
 
-.skin, .cosmetic {
-}
-
 .habit th {
     vertical-align: top;
 }
@@ -115,4 +112,21 @@ img.product_pic {
 
 div.clearfix {
     clear: both;
+}
+
+.cosmetic td {
+    /*vertical-align: top;*/
+}
+
+.cosmetic td:first-child {
+    border-right: 1px solid #ddd;
+}
+
+table.cosmetic {
+    border-collapse: collapse;
+}
+
+.cosmetic tr {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
 }

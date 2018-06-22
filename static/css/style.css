@@ -213,15 +213,20 @@ aside.messagesetVue div.menu li {
 .brand_list_content .tab-content {
     line-height: 40px;
 }
+
 .brand_list_content .tab-content span {
     margin: 15px;
 }
 
-.dynamic-form-add .btn-success{
+.dynamic-form-add .btn-success {
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-#productanalysis_formset_table textarea{
+#productanalysis_formset_table textarea {
     margin: 5px 0;
+}
+
+.premium_product_list img {
+    height: 32px;
 }

@@ -19,19 +19,21 @@ $(document).ready(function () {
         }, 200);
     });
 
-    $('.onkeyDownSearch').keyup(function (e) {
+    $('.onkeyDownSearch').on('keyup touchend', function(e){
+        // console.log(e);
+        // console.log(e.keyCode);
         if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
             return;
         } else {
             var search = $(this).val();
-            console.log('search:' + search);
+            // console.log('search:' + search);
             brandSearch(search);
         }
         $(this).parent().next().addClass('active')
     });
 
     $('.hufupin input.span1').focus(function (event) {
-        console.log("span1 focus");
+        // console.log("span1 focus");
         if ($(this).attr('data-brand_id')) {
             $(this).next().addClass('active');
         }
@@ -46,9 +48,9 @@ $(document).ready(function () {
         } else {
             var search = $(this).val();
             var self = this;
-            console.log('search:' + search);
+            // console.log('search:' + search);
             var brand_id = $(this).attr('data-brand_id');
-            console.log('brand_id:' + brand_id);
+            // console.log('brand_id:' + brand_id);
 
             $.ajax({
                 url: "/api/product/product/search/",
@@ -113,6 +115,7 @@ function brandClick(tsel) {
     $(tsel).parent().next().attr('data-brand_id', brand_id);
     $(tsel).parent().removeClass('active');
     var search = '';
+    productInput.prop("disabled", false);
 
     $.ajax({
         url: "/api/product/product/search/",
@@ -128,7 +131,6 @@ function brandClick(tsel) {
             }
             $(tsel).parent().next().next().html(opt2);
             var productInput = $(tsel).parent().next();
-            productInput.prop("disabled", false);
             productInput.attr('placeholder', '输入名称检索');
             productInput.trigger('focus');
         },

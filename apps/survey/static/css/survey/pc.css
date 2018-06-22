@@ -381,8 +381,9 @@ ul.hufupin16 li {
     }
 
     ul.hufupin1, ul.hufupin11, ul.hufupin12, ul.hufupin13, ul.hufupin14, ul.hufupin15, ul.hufupin16, ul.hufupin2 {
-        left: 15px;
-        width: 80%;
+        left: 10px;
+        width: 90%;
+        height:260px;
     }
 
     #question .hufupin ul.pin {

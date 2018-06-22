@@ -4,13 +4,13 @@
     </li>
     <li class="hufupin">
         <div>
-            <span>
-                <input type="text" placeholder="请选择品牌" class="half onkeyDownSearch"/><i></i>
+            <span style="display:none;">
+                <input type="text" placeholder="请选择品牌" class="hide onkeyDownSearch"/><i></i>
             </span>
             <ul class="hufupin1" cate="12">
             </ul>
 
-            <input type="text" class="span1 half" placeholder="请先选择品牌" disabled>
+            <input type="text" class="span1 half" placeholder="输入任意产品名称搜索" data-category="{{ category }}">
             <ul class="hufupin2 pin">
             </ul>
         </div>
@@ -20,7 +20,6 @@
             <a class="add" onclick="add(this)">添加</a>
 
             <ul class="ulcontainer" id="{{ formset.prefix }}">
-
                 {% for form in formset %}
                     {% if form.id.value %}
                         <li class="{% cycle row1 row2 %} formset_row">

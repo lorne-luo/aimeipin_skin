@@ -19,22 +19,22 @@ $(document).ready(function () {
         }, 200);
     });
 
-    $('.onkeyDownSearch').on('keypress touchend', function(e){
+    $('.onkeyDownSearch').on('keypress touchend', function (e) {
         // console.log(e);
         // console.log(e.keyCode);
         if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
             return;
-        } else {
-            var search = $(this).val();
-            // console.log('search:' + search);
-            brandSearch(search);
         }
+
+        var search = $(this).val();
+        // console.log('search:' + search);
+        brandSearch(search);
         $(this).parent().next().addClass('active')
     });
 
     $('.hufupin input.span1').focus(function (event) {
         // console.log("span1 focus");
-        if ($(this).attr('data-brand_id')) {
+        if ($(this).val()) {
             $(this).next().addClass('active');
         }
     }).blur(function (event) {
@@ -42,35 +42,54 @@ $(document).ready(function () {
         setTimeout(function () {
             $(self).next().removeClass('active');
         }, 200);
-    }).on('keypress touchend', function(e){
+    }).on('keyup', function (e) {
         if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
             return;
-        } else {
-            var search = $(this).val();
-            var self = this;
-            // console.log('search:' + search);
-            var brand_id = $(this).attr('data-brand_id');
-            // console.log('brand_id:' + brand_id);
+        }
+        var self = this;
+        var category = $(this).data('category');
 
-            $.ajax({
-                url: "/api/product/product/search/",
-                type: "GET",
-                data: {'q': search, 'brand_id': brand_id},
-                dataType: "JSON",
-                success: function (data) {
-                    var opt2 = '';
-                    for (var i = 0; i < data.results.length; i++) {
+        var productsUl = $(this).next();
+
+        var search = $(this).val();
+        if (!search) {
+            productsUl.html('<li>请输入名称...</li>');
+            return;
+        }
+
+        var brand_id = $(this).attr('data-brand_id');
+
+        productsUl.html('<li>查询中...</li>');
+        $.ajax({
+            url: "/api/product/product/search/",
+            type: "GET",
+            data: {'q': search, 'brand_id': brand_id, 'category': category},
+            dataType: "JSON",
+            success: function (data) {
+
+                if (data.results.length === 0) {
+                    productsUl.html('<li>没有搜索到库内产品，请从下方手动输入产品名称.</li>');
+                    return;
+                }
+
+                var opt2 = '';
+                for (var i = 0; i < data.results.length; i++) {
+                    if (data.results.length > 50) {
+                        opt2 += '<li data-id="' + data.results[i].id + '" onclick="productClick(this)">' +
+                            '<span>' + data.results[i].text + '</span>' +
+                            '</li>';
+                    } else {
                         opt2 += '<li data-id="' + data.results[i].id + '" onclick="productClick(this)">' +
                             '<img src="' + data.results[i].image + '">' +
                             '<span>' + data.results[i].text + '</span>' +
                             '</li>';
                     }
-                    $(self).next().html(opt2)
-                },
-                error: function () {
                 }
-            });
-        }
+                productsUl.html(opt2);
+            },
+            error: function () {
+            }
+        });
         $(this).next().addClass('active');
     });
 
@@ -145,6 +164,7 @@ function productClick(li) {
     // console.log('product selected');
     $(li).parent().prev().val('');
     $(li).parent().removeClass('active');
+
     var name = $(li).text();
     var id = $(li).attr('data-id');
     var addButton = $(li).parent().parent().next().find('.formset-add');

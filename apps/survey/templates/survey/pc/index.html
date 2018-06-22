@@ -146,23 +146,23 @@
 
                 <!-- # 产品选择问题 65-72 -->
                 {% if form.purpose.value == '种草' %}
-                    {% include 'survey/includes/product_question.html' with label='65. 种草的卸妆类的护肤品名' formset=cosmetic_products1_formset number=65 %}
-                    {% include 'survey/includes/product_question.html' with label='66. 种草的洁面乳/洁面霜/洁面油类的护肤品名称' formset=cosmetic_products2_formset number=66 %}
-                    {% include 'survey/includes/product_question.html' with label='67. 种草用化妆水类护肤品名称' formset=cosmetic_products3_formset number=67 %}
-                    {% include 'survey/includes/product_question.html' with label='68. 种草用乳液／面霜类护肤品名称' formset=cosmetic_products4_formset number=68 %}
-                    {% include 'survey/includes/product_question.html' with label='69. 种草的精华类的护肤品名称' formset=cosmetic_products5_formset number=69 %}
-                    {% include 'survey/includes/product_question.html' with label='70. 种草的去角质类的护肤品名称' formset=cosmetic_products6_formset number=70 %}
-                    {% include 'survey/includes/product_question.html' with label='71. 种草的的面膜类的护肤品名称' formset=cosmetic_products7_formset number=71 %}
-                    {% include 'survey/includes/product_question.html' with label='72. 种草的防晒类的护肤品名称' formset=cosmetic_products8_formset number=72 %}
+                    {% include 'survey/includes/product_question.html' with label='65. 种草的卸妆类的护肤品名' formset=cosmetic_products1_formset number=65 category='卸妆' %}
+                    {% include 'survey/includes/product_question.html' with label='66. 种草的洁面乳/洁面霜/洁面油类的护肤品名称' formset=cosmetic_products2_formset number=66 category='洁面' %}
+                    {% include 'survey/includes/product_question.html' with label='67. 种草用化妆水类护肤品名称' formset=cosmetic_products3_formset number=67 category='化妆水' %}
+                    {% include 'survey/includes/product_question.html' with label='68. 种草用乳液／面霜类护肤品名称' formset=cosmetic_products4_formset number=68 category='乳液/面霜' %}
+                    {% include 'survey/includes/product_question.html' with label='69. 种草的精华类的护肤品名称' formset=cosmetic_products5_formset number=69 category='精华' %}
+                    {% include 'survey/includes/product_question.html' with label='70. 种草的去角质类的护肤品名称' formset=cosmetic_products6_formset number=70 category='去角质' %}
+                    {% include 'survey/includes/product_question.html' with label='71. 种草的的面膜类的护肤品名称' formset=cosmetic_products7_formset number=71 category='面膜' %}
+                    {% include 'survey/includes/product_question.html' with label='72. 种草的防晒类的护肤品名称' formset=cosmetic_products8_formset number=72 category='防晒' %}
                 {% else %}
-                    {% include 'survey/includes/product_question.html' with label='65. 目前正在使用的卸妆类的护肤品名' formset=cosmetic_products1_formset number=65 %}
-                    {% include 'survey/includes/product_question.html' with label='66. 目前正在使用的洁面乳/洁面霜/洁面油类的护肤品名称' formset=cosmetic_products2_formset number=66 %}
-                    {% include 'survey/includes/product_question.html' with label='67. 目前正在所使用化妆水类护肤品名称' formset=cosmetic_products3_formset number=67 %}
-                    {% include 'survey/includes/product_question.html' with label='68. 目前正在所使用乳液／面霜类护肤品名称' formset=cosmetic_products4_formset number=68 %}
-                    {% include 'survey/includes/product_question.html' with label='69. 目前正在使用的精华类的护肤品名称' formset=cosmetic_products5_formset number=69 %}
-                    {% include 'survey/includes/product_question.html' with label='70. 目前正在使用的去角质类的护肤品名称' formset=cosmetic_products6_formset number=70 %}
-                    {% include 'survey/includes/product_question.html' with label='71. 目前正在使用的的面膜类的护肤品名称' formset=cosmetic_products7_formset number=71 %}
-                    {% include 'survey/includes/product_question.html' with label='72. 目前正在使用的防晒类的护肤品名称' formset=cosmetic_products8_formset number=72 %}
+                    {% include 'survey/includes/product_question.html' with label='65. 目前正在使用的卸妆类的护肤品名' formset=cosmetic_products1_formset number=65 category='卸妆' %}
+                    {% include 'survey/includes/product_question.html' with label='66. 目前正在使用的洁面乳/洁面霜/洁面油类的护肤品名称' formset=cosmetic_products2_formset number=66 category='洁面' %}
+                    {% include 'survey/includes/product_question.html' with label='67. 目前正在所使用化妆水类护肤品名称' formset=cosmetic_products3_formset number=67 category='化妆水' %}
+                    {% include 'survey/includes/product_question.html' with label='68. 目前正在所使用乳液／面霜类护肤品名称' formset=cosmetic_products4_formset number=68 category='乳液/面霜' %}
+                    {% include 'survey/includes/product_question.html' with label='69. 目前正在使用的精华类的护肤品名称' formset=cosmetic_products5_formset number=69 category='精华' %}
+                    {% include 'survey/includes/product_question.html' with label='70. 目前正在使用的去角质类的护肤品名称' formset=cosmetic_products6_formset number=70 category='去角质' %}
+                    {% include 'survey/includes/product_question.html' with label='71. 目前正在使用的的面膜类的护肤品名称' formset=cosmetic_products7_formset number=71 category='面膜' %}
+                    {% include 'survey/includes/product_question.html' with label='72. 目前正在使用的防晒类的护肤品名称' formset=cosmetic_products8_formset number=72 category='防晒' %}
                 {% endif %}
 
                 <!-- # 73-74 其他问题 -->

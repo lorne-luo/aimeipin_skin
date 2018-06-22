@@ -19,7 +19,7 @@ $(document).ready(function () {
         }, 200);
     });
 
-    $('.onkeyDownSearch').on('keyup touchend', function(e){
+    $('.onkeyDownSearch').on('keypress touchend', function(e){
         // console.log(e);
         // console.log(e.keyCode);
         if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
@@ -42,7 +42,7 @@ $(document).ready(function () {
         setTimeout(function () {
             $(self).next().removeClass('active');
         }, 200);
-    }).keyup(function (e) {
+    }).on('keypress touchend', function(e){
         if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
             return;
         } else {
@@ -115,6 +115,7 @@ function brandClick(tsel) {
     $(tsel).parent().next().attr('data-brand_id', brand_id);
     $(tsel).parent().removeClass('active');
     var search = '';
+    var productInput = $(tsel).parent().next();
     productInput.prop("disabled", false);
 
     $.ajax({
@@ -130,7 +131,6 @@ function brandClick(tsel) {
                     '</li>';
             }
             $(tsel).parent().next().next().html(opt2);
-            var productInput = $(tsel).parent().next();
             productInput.attr('placeholder', '输入名称检索');
             productInput.trigger('focus');
         },

@@ -258,7 +258,7 @@ class ReportDownloadView(ReportDetailView):
         # return HttpResponse(html)
         pdf = HTML(string=html).write_pdf()
         response = HttpResponse(pdf, content_type='application/force-download')
-        response['Content-Disposition'] = 'attachment; filename=Action28_NO.%s.pdf' % self.object.answer.uuid
+        response['Content-Disposition'] = 'attachment; filename=%s' % self.object.get_pdf_filename()
         response['Content-Length'] = len(pdf)
         return response
 

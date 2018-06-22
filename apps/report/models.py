@@ -94,13 +94,16 @@ class Report(models.Model):
         # t.setDaemon(True)
         # t.start()
 
+    def get_pdf_filename(self):
+        return 'Action28_NO.%s_%s.pdf' % (self.uuid, self.id)
+
     def generate_pdf(self):
         context = {'object': self, 'BASE_URL': settings.BASE_URL}
         template_name = 'report/report_download_%s.html' % self.level
         template = get_template(template_name)
         html = template.render(context)
 
-        url = '%s/%s.pdf' % (settings.REPORT_PDF_FOLDER, self.uuid)
+        url = '%s/%s' % (settings.REPORT_PDF_FOLDER, self.get_pdf_filename())
         file_path = os.path.join(settings.MEDIA_ROOT, url)
         pdf = HTML(string=html).write_pdf(file_path)
         self.pdf_created_at = timezone.now()

@@ -185,8 +185,17 @@
 
 <script src="{% static 'js/frontend/index.js' %}"></script>
 
+<script src="{% static 'js/jquery.mask.min.js' %}"></script>
+
 <script src="{% static 'js/frontend/jquery.formset.extend.js' %}"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 {#<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>#}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#id_birth').mask("0000-00-00", {placeholder: "____-__-__"});
+    });
+</script>
+
 </body>
 </html>

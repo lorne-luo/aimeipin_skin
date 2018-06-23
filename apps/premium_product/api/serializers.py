@@ -10,7 +10,7 @@ class PremiumProductSerializer(BaseSerializer):
 
     class Meta:
         model = PremiumProduct
-        fields = ['id', 'edit_url', 'detail_url', 'name_en', 'name_cn', 'pic', 'brand_display', 'thumbnail']
+        fields = ['id', 'edit_url', 'detail_url', 'name_en', 'name_cn', 'pic', 'brand_display', 'thumbnail','alias']
         read_only_fields = ['id']
 
     def get_thumbnail(self, obj):

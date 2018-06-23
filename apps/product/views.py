@@ -35,12 +35,16 @@ class ProductAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
         context['table_fields'] = ['pic', 'link', 'brand', 'id']
 
         if self.request.POST:
-            context['productanalysis_formset'] = ProductAnalysisFormSet(self.request.POST, self.request.FILES,
-                                                                        prefix='productanalysis_formset',
-                                                                        instance=self.object)
+            context['productanalysis_formset'] = ProductAnalysisFormSet(
+                self.request.POST, self.request.FILES,
+                prefix='productanalysis_formset', instance=self.object,
+                queryset=self.object.productanalysis_set.order_by('oily_type', 'sensitive_type', 'pigment_type',
+                                                                  'loose_type'))
         else:
-            context['productanalysis_formset'] = ProductAnalysisFormSet(prefix='productanalysis_formset',
-                                                                        instance=self.object)
+            context['productanalysis_formset'] = ProductAnalysisFormSet(
+                prefix='productanalysis_formset', instance=self.object,
+                queryset=self.object.productanalysis_set.order_by('oily_type', 'sensitive_type', 'pigment_type',
+                                                                  'loose_type'))
 
         return context
 
@@ -109,7 +113,8 @@ class ProductImportView(FormView):
                 for table_name, table in component_data.items():
                     current_row = None
                     if len(table[0]) != 7 or table[0][0] != '产品':
-                        raise ValidationError('Excel文件格式不正确，需包含"产品, 产品成分, 成分是否安全,（1安全、2不安全）, 活性因子（1是、2不是）, 是否导致起痘（1会、2不会）, 成分简介, 成分在产品中的作用" 7列.')
+                        raise ValidationError(
+                            'Excel文件格式不正确，需包含"产品, 产品成分, 成分是否安全,（1安全、2不安全）, 活性因子（1是、2不是）, 是否导致起痘（1会、2不会）, 成分简介, 成分在产品中的作用" 7列.')
                     for row in table[1:]:
                         current_row = row
                         self.process_component(row)

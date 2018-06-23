@@ -17,7 +17,7 @@ class ReportSerializer(BaseSerializer):
         read_only_fields = ['id']
 
     def get_answer_display(self, obj):
-        return str(obj.answer)
+        return str(obj.answer) if obj.answer else ''
 
     def get_answer_url(self, obj):
         return reverse('survey:answer-detail', args=[obj.id])

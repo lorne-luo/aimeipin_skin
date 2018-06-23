@@ -37,11 +37,24 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
         verbose_name = _('PremiumProduct')
 
     def __str__(self):
-        if self.brand and self.name_cn and not (
-                    self.name_cn.startswith(self.brand.name_cn) or self.name_cn.startswith(self.brand.name_en)):
+        if self.brand and self.name_cn:
+            if (self.brand.name_cn and self.brand.name_cn in self.name_cn) or (self.brand.name_en and self.brand.name_en in self.name_cn):
+                return self.name_cn
+        if self.brand:
             return '%s %s' % (self.brand, self.name_cn)
-        else:
-            return self.name_cn
+        return self.name_cn
+
+    def match_brand(self):
+        if not self.name_cn:
+            return None
+        brand1 = None
+        brand2 = None
+        for b in Brand.objects.all():
+            if (b.name_cn and self.name_cn.startswith(b.name_cn)) or (b.name_en and self.name_cn.startswith(b.name_en)):
+                brand1 = b
+            if (b.name_cn and b.name_cn in self.name_cn) or (b.name_en and b.name_en in self.name_cn):
+                brand2 = b
+        return brand1 or brand2
 
     def __init__(self, *args, **kwargs):
         super(PremiumProduct, self).__init__(*args, **kwargs)
@@ -51,6 +64,9 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
             self._original_fields_value.update({field_name: current_value})
 
     def save(self, *args, **kwargs):
+        if not self.id and not self.brand:
+            self.brand = self.match_brand()
+
         self.resize_image('pic')  # resize images when first uploaded
         super(PremiumProduct, self).save(*args, **kwargs)
 

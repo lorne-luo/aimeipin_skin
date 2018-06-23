@@ -7,7 +7,7 @@
     html, body {
         width: 210mm;
         height: 297mm;
-        font-family: Hiragino Sans GB;
+        font-family: "WenQuanYi Micro Hei", 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', 'Hiragino Sans GB', Helvetica, Arial, sans-serif;
     }
 }
 
@@ -15,6 +15,7 @@ html {
     color: #4b4b4d;
     font-size: 4mm;
     line-height: 7mm;
+    font-family: "WenQuanYi Micro Hei", 'Hiragino Kaku Gothic Pro', 'WenQuanYi Zen Hei', '微軟正黑體', '蘋果儷中黑', 'Hiragino Sans GB', Helvetica, Arial, sans-serif;
 }
 
 body {

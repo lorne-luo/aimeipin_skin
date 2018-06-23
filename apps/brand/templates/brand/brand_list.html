@@ -1,56 +1,44 @@
 {% extends "adminlte/common_list.html" %}
 {% load static %}
 
-{% block common_list_buttons %}
-<div class="col-xs-5 col-sm-6">
-    {% if page_model_perms.add %}
-      <a class="btn btn-primary" id="create">
-        <i class="fa fa-plus"></i>新增
-      </a>
-    {% endif %}
-</div>
-{% endblock %}
-
-{% block tab_content %}
-        <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#a-c" data-toggle="tab">A-Z</a></li>
-                <li class=""><a href="#d-g" data-toggle="tab">D-G</a></li>
-                <li class=""><a href="#h-k" data-toggle="tab">H-K</a></li>
-                <li class=""><a href="#l-o" data-toggle="tab">L-O</a></li>
-                <li class=""><a href="#p-s" data-toggle="tab">P-S</a></li>
-                <li class=""><a href="#t-w" data-toggle="tab">T-W</a></li>
-                <li class=""><a href="#x-z" data-toggle="tab">X-Z</a></li>
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane active" id="a-c">
-                    {% include 'brand/includes/brand_tab.html' with start='A' end='C' %}
-                </div>
-                <div class="tab-pane" id="d-g">
-                    {% include 'brand/includes/brand_tab.html' with start='D' end='G' %}
-                </div>
-                <div class="tab-pane" id="h-k">
-                    {% include 'brand/includes/brand_tab.html' with start='H' end='K' %}
-                </div>
-                <div class="tab-pane" id="l-o">
-                    {% include 'brand/includes/brand_tab.html' with start='L' end='O' %}
-                </div>
-                <div class="tab-pane" id="p-s">
-                    {% include 'brand/includes/brand_tab.html' with start='P' end='S' %}
-                </div>
-                <div class="tab-pane" id="t-w">
-                    {% include 'brand/includes/brand_tab.html' with start='T' end='W' %}
-                </div>
-                <div class="tab-pane" id="x-z">
-                    {% include 'brand/includes/brand_tab.html' with start='X' end='Z' %}
-                </div>
-            </div>
-            <!-- /.tab-content -->
-        </div>
-{% endblock %}
-
-{% block common_list_pagination %}
+{% block table_row %}
+    <tbody v-for="item in items">
+    <tr>
+    <td class="text-center hidden-sm hidden-x">
+        ##[$index+1]
+        <input type="checkbox" class="minimal" name="checkboxRow" value="#[item.id]"/>
+    </td>
+    <td>{!! item.name_cn !!}</td>
+    <td>{!! item.name_en !!}</td>
+    <td>{!! item.alias !!}</td>
+    <td>
+        <a v-if="item.product_count" href="{% url 'product:product-list' %}?search={!! item.name_cn !!}"
+           class="btn btn-sm btn-info">
+            {!! item.product_count !!}</a>
+        <button v-else type="button" class="btn btn-sm btn-info">{!! item.product_count !!}</button>
+    </td>
+    <td>
+        <a v-if="item.premium_product_count"
+           href="{% url 'premium_product:premiumproduct-list' %}?search={!! item.name_cn !!}"
+           class="btn btn-sm btn-success">
+            {!! item.premium_product_count !!}</a>
+        <button v-else type="button" class="btn btn-sm btn-success">{!! item.premium_product_count !!}</button>
+    </td>
+    <td class="text-right hidden-sm hidden-xs">
+        <template v-if="update_url_tag">
+            <a data-toggle="tooltip" data-placement="bottom" data-original-title="Edit"
+               href="#[item.edit_url]" class="btn btn-warning btn-sm edit-btn" data-pk="#[item.id]">
+                <i class="fa fa-lg fa-pencil fa-inverse"></i>
+            </a>
+        </template>
+        <template v-if="delete_api_tag">
+            <a data-toggle="tooltip" data-placement="bottom" data-original-title="Delete"
+               data-pk="#[item.id]" v-on:click="removeOne" href="javascript:void(0);"
+               class="btn btn-danger btn-sm delete-btn">
+                <i class="fa fa-lg fa-trash-o fa-inverse"></i>
+            </a>
+        </template>
+    </td>
 {% endblock %}
 
 {% block common_list_footer_page_script %}

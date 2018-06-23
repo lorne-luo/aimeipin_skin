@@ -13,9 +13,8 @@ class BrandListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(BrandListView, self).get_context_data(**kwargs)
-        context.update({
-            'all_brand': Brand.objects.all()
-        })
+        context['table_titles'] = ['中文名称', '英文名称', u'别名', u'普通产品', u'优选产品''']
+        context['table_fields'] = ['name_cn', 'name_en', 'alias', 'product_count', 'premium_product_count', 'id']
         return context
 
 

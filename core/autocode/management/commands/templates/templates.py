@@ -3,7 +3,7 @@ LIST_TEMPLATES = '''
 {% load static %}
 
 {% block table_head %}
-  <th class="text-center hidden-sm hidden-xs" style="width:60px;">
+  <th class="text-center hidden-sm hidden-xs" style="width:65px;">
     <input type="checkbox" name="checkboxAllRow" class="checkboxAllRow" v-on:click="toggleAllBox"/>
   </th>
 <% table_head %>

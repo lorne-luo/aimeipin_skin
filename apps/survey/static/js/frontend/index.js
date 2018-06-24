@@ -42,10 +42,14 @@ $(document).ready(function () {
         setTimeout(function () {
             $(self).next().removeClass('active');
         }, 200);
-    }).on('keyup', function (e) {
+    }).on('keydown', function (e) {
         if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
-            return;
+            $(this).trigger('input');
         }
+    }).on('input', function (e) {
+        // if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
+        //     return;
+        // }
         var self = this;
         var category = $(this).data('category');
 

@@ -37,6 +37,7 @@
     <div class="row">
     <div class="col-xs-12 full-width">
         <form method="post" action="" enctype="multipart/form-data" novalidate class="form-horizontal" role="form" id="commonForm">
+            <input type="hidden" name="from_page" value="{{ from_page }}"/>
     <div class="box box-info">
         {% csrf_token %}
 

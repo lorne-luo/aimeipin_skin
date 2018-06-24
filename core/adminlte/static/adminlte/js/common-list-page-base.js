@@ -34,6 +34,13 @@ var CommonListPageVue = Vue.extend({
             $("#tableSearch").val(this.search_keyword);
         }
 
+        var page = this.getQueryStringValue("page");
+        page = parseInt(page);
+        if (page && page > 0) {
+            this.currentPage = page;
+            console.log(this.currentPage);
+        }
+
         if (this.create_url_tag) {
             $('a#create').prop('href', Urls[this.create_url_tag]());
         }

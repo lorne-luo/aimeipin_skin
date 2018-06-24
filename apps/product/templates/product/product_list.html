@@ -9,6 +9,7 @@
     <th>品牌</th>
     <th>名称</th>
     <th>别名</th>
+    <th>类别</th>
     <th></th>
 {% endblock %}
 
@@ -32,6 +33,7 @@
             !!}</a>
         </td>
         <td>{!! item.alias !!}</td>
+        <td>{!! item.category !!}</td>
         <td class="text-right hidden-sm hidden-xs">
             <template v-if="detail_url_tag">
                 <a data-toggle="tooltip" data-placement="bottom" data-original-title="View"

@@ -23,7 +23,7 @@ class ProductViewSet(CommonViewSet):
     permission_classes = [permissions.AllowAny]
     filter_fields = ['name_en', 'name_cn', 'brand__id', 'brand__name_cn', 'brand__name_en']
     search_fields = ['name_cn', 'brand__name_cn', 'alias']
-    pinyin_search_fields = ['name_en', 'pinyin', 'brand__name_en']  # search only input are all ascii chars
+    pinyin_search_fields = ['name_cn', 'name_en', 'pinyin', 'brand__name_en']  # search only input are all ascii chars
     filter_backends = (DjangoFilterBackend,
                        PinyinSearchFilter,
                        filters.OrderingFilter)
@@ -48,7 +48,8 @@ class ProductAutocompleteAPIView(HansSelect2ViewMixin, autocomplete.Select2Query
             qs = qs.filter(category=category)
 
         if include_non_asc(self.q):
-            qs = qs.filter(Q(name_cn__icontains=self.q) | Q(brand__name_cn__icontains=self.q))
+            qs = qs.filter(
+                Q(name_cn__icontains=self.q) | Q(brand__name_cn__icontains=self.q) | Q(alias__icontains=self.q))
         else:
             # all ascii, number and letter
             key = self.q.lower()

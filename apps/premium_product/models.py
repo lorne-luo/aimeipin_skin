@@ -28,8 +28,8 @@ class PremiumProduct(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, model
     created_at = models.DateTimeField(u"创建时间", auto_now_add=True)
 
     pinyin_fields_conf = [
-        ('name_cn', Style.NORMAL, True),
-        ('alias', Style.NORMAL, True),
+        ('name_cn', Style.NORMAL, False),
+        ('alias', Style.NORMAL, False),
     ]
 
     class Meta:

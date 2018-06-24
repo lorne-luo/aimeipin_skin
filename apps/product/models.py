@@ -44,7 +44,8 @@ class Product(ResizeUploadedImageModelMixin, PinYinFieldModelMixin, models.Model
 
     def __str__(self):
         if self.brand and self.name_cn:
-            if (self.brand.name_cn and self.brand.name_cn in self.name_cn) or (self.brand.name_en and self.brand.name_en in self.name_cn):
+            if (self.brand.name_cn and self.brand.name_cn.lower() in self.name_cn.lower()) or (
+                self.brand.name_en and self.brand.name_en.lower() in self.name_cn.lower()):
                 return self.name_cn
         if self.brand:
             return '%s %s' % (self.brand, self.name_cn)

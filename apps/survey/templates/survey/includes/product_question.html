@@ -10,13 +10,13 @@
             <ul class="hufupin1" cate="12">
             </ul>
 
-            <input type="text" class="span1 half" placeholder="输入任意产品名称搜索" data-category="{{ category }}">
+            <input type="text" class="span1 half" placeholder="请搜索产品名称" data-category="{{ category }}">
             <ul class="hufupin2 pin">
             </ul>
         </div>
         <div>
             {{ formset.management_form }}
-            <input type="text" placeholder="手动输入产品名称" class="handInp"/>
+            <input type="text" placeholder="搜索不到请手动输入产品名称" class="handInp"/>
             <a class="add" onclick="add(this)">添加</a>
 
             <ul class="ulcontainer" id="{{ formset.prefix }}">

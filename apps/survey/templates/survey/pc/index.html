@@ -197,5 +197,69 @@
     });
 </script>
 
+<script>
+    //Credit: http://diveintohtml5.org/storage.html, 'uuid', 'purpose',
+    var textFields = ['name', 'birth', 'height', 'weight', 'job', 'weixin_id', 'mobile', 'non_score_question15', 'other_question1', 'other_question2'];
+    var selectFields = ['sex', 'monthly_income', 'question1', 'question2', 'question3', 'question4', 'question5', 'question6', 'question7',
+        'question8', 'question9', 'question10', 'question11', 'question12', 'question13', 'question14', 'question15',
+        'question16', 'question17', 'question18', 'question19', 'question20', 'question21', 'question22', 'question23',
+        'question24', 'question25', 'question26', 'question27', 'question28', 'question29', 'question30', 'question31',
+        'question32', 'question33', 'question34', 'question35', 'question36', 'question37', 'question38', 'non_score_question1',
+        'non_score_question2', 'non_score_question3', 'non_score_question4', 'non_score_question5', 'non_score_question6',
+        'non_score_question7', 'non_score_question8', 'non_score_question9', 'non_score_question10', 'non_score_question11',
+        'non_score_question12', 'non_score_question13', 'non_score_question14'];
+
+    function supports_html5_storage() {
+        try {
+            return 'localStorage' in window && window['localStorage'] !== null;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function loadOld() {
+        console.log("Running loadOld");
+        $(textFields).each(function (index, field) {
+            if (localStorage["form." + field]) {
+                $("input#id_" + field).val(localStorage["form." + field]);
+                $("textarea#id_" + field).val(localStorage["form." + field]);
+            }
+        });
+        $(selectFields).each(function (index, field) {
+            if (localStorage["form." + field])
+                $("input[name=" + field + "]").val([localStorage["form." + field]]);
+        });
+
+        localStorage.clear();
+    }
+
+    function saveData() {
+        console.log("Running saveData");
+        $(textFields).each(function (index, field) {
+            localStorage["form." + field] = $("#id_" + field).val();
+{#            console.log(field + " = " + $("#id_" + field).val());#}
+        });
+        $(selectFields).each(function (index, field) {
+            localStorage["form." + field] = $("input[name='" + field + "']:checked").val();
+{#            console.log(field + " = " + $("input[name='" + field + "']:checked").val());#}
+        });
+    }
+
+    $(document).ready(function () {
+        console.log('init');
+        if (supports_html5_storage()) {
+            //load in old data
+            loadOld();
+            //start storing
+            window.setInterval(saveData, 5 * 1000);
+            // handle the form
+            $("#form").submit(function () {
+                //could do validation here as well
+                localStorage.clear();
+            });
+        }
+    });
+</script>
+
 </body>
 </html>

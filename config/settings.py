@@ -28,7 +28,6 @@ if os.path.exists(env_file):
 
 BASE_URL = env('BASE_URL', default='http://skin.aimeipin.cc')
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -157,6 +156,8 @@ MEDIA_ROOT = env('MEDIA_ROOT', default=os.path.join(BASE_DIR, 'media'))
 MEDIA_URL = '/media/'
 
 TEMP_ROOT = os.path.join(MEDIA_ROOT, 'temp')
+
+FILE_UPLOAD_PERMISSIONS = 0o644
 
 # Templates
 # List of callables that know how to import templates from various sources.
@@ -297,7 +298,6 @@ INVITE_CODE_EXPIRY = 60  # days
 
 WECHAT_APP_ID = env('WECHAT_APP_ID', default='wx0bda7c0cd5c05a36')
 WECHAT_APP_SECRET = env('WECHAT_APP_SECRET', default='')
-
 
 # CACHES
 # ------------------------------------------------------------------------------

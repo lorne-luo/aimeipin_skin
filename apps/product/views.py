@@ -35,16 +35,25 @@ class ProductAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
         context['table_fields'] = ['pic', 'link', 'brand', 'id']
 
         if self.request.POST:
-            context['productanalysis_formset'] = ProductAnalysisFormSet(
-                self.request.POST, self.request.FILES,
-                prefix='productanalysis_formset', instance=self.object,
-                queryset=self.object.productanalysis_set.order_by('oily_type', 'sensitive_type', 'pigment_type',
-                                                                  'loose_type'))
+            if self.object:
+                context['productanalysis_formset'] = ProductAnalysisFormSet(
+                    self.request.POST, self.request.FILES,
+                    prefix='productanalysis_formset', instance=self.object,
+                    queryset=self.object.productanalysis_set.order_by('oily_type', 'sensitive_type', 'pigment_type',
+                                                                      'loose_type'))
+            else:
+                context['productanalysis_formset'] = ProductAnalysisFormSet(
+                    self.request.POST, self.request.FILES,
+                    prefix='productanalysis_formset', instance=self.object)
         else:
-            context['productanalysis_formset'] = ProductAnalysisFormSet(
-                prefix='productanalysis_formset', instance=self.object,
-                queryset=self.object.productanalysis_set.order_by('oily_type', 'sensitive_type', 'pigment_type',
-                                                                  'loose_type'))
+            if self.object:
+                context['productanalysis_formset'] = ProductAnalysisFormSet(
+                    prefix='productanalysis_formset', instance=self.object,
+                    queryset=self.object.productanalysis_set.order_by('oily_type', 'sensitive_type', 'pigment_type',
+                                                                      'loose_type'))
+            else:
+                context['productanalysis_formset'] = ProductAnalysisFormSet(
+                    prefix='productanalysis_formset', instance=self.object)
 
         return context
 

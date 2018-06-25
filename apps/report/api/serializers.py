@@ -20,7 +20,7 @@ class ReportSerializer(BaseSerializer):
         return str(obj.answer) if obj.answer else ''
 
     def get_answer_url(self, obj):
-        return reverse('survey:answer-detail', args=[obj.id])
+        return reverse('survey:answer-detail', args=[obj.answer.id])
 
     def get_download_url(self, obj):
         return reverse('report:report-download', args=[obj.id])

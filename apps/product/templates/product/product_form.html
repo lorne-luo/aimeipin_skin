@@ -7,34 +7,52 @@
     </div>
 
     <div class="col-xs-8">
-    {% for field in form %}
-        {% if not field.name == "pic" %}
-            <div class="form-group {% if field.errors %}error{% endif %} {% if field.is_hidden %}hide{% endif %}">
-                <label for="id_{{ field.name }}" class="col-sm-2 col-xs-3 control-label">{{ field.label }}</label>
-                <div class="col-sm-6 col-xs-9">
-                    {{ field }}
-                </div>
-                {% if field.errors %}
-                    <div class="col-sm-4 col-xs-12">
-                        {{ field.errors }}
-                        <span class="help-block">{{ field.help_text }}</span>
+        {% for field in form %}
+            {% if not field.name == "pic" %}
+                <div class="form-group {% if field.errors %}error{% endif %} {% if field.is_hidden %}hide{% endif %}">
+                    <label for="id_{{ field.name }}" class="col-sm-2 col-xs-3 control-label">{{ field.label }}</label>
+                    <div class="col-sm-6 col-xs-9">
+                        {{ field }}
                     </div>
-                {% endif %}
-            </div>
-        {% endif %}
-    {% endfor %}
+                    {% if field.errors %}
+                        <div class="col-sm-4 col-xs-12">
+                            {{ field.errors }}
+                            <span class="help-block">{{ field.help_text }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
 {% endblock %}
 
 {% block inline_formset %}
     {% include 'product/includes/ingredient_inline_readonly.html' with object=object %}
-
     {% include 'product/includes/analysis_inline.html' with productanalysis_formset=productanalysis_formset %}
 {% endblock %}
 
 {% block header_page_script %}
     {{ block.super }}
     <script src="{% static 'js/jquery.formset.js' %}"></script>
+{% endblock %}
+
+
+{% block footer_base_script %}
+    <script type="text/javascript" src="{% static 'adminlte/js/common-form.js' %}"></script>
+    <script src="{% static 'js/jquery.formset.js' %}"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('#commonForm input').addClass('form-control');
+            $('#commonForm select').addClass('form-control');
+            $('#commonForm textarea').addClass('form-control');
+
+            $("select[class$='form-control']").not("#{{ productanalysis_formset.prefix }}_table select").chosen({
+                search_contains: true,
+                disable_search_threshold: 10
+            });
+        });
+    </script>
 {% endblock %}
 
 {% block footer_page_script %}

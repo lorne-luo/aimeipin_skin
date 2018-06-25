@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
 from django.views.generic.edit import ProcessFormView, FormView
@@ -45,15 +46,17 @@ class PremiumProductAddView(SuperuserRequiredMixin, CommonContextMixin, CreateVi
         return context
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
+        self.object = form.save()
         context = self.get_context_data()
 
         premiumproductfit_formset = context['premiumproductfit_formset']
-        premiumproductfit_formset.instance = form.instance
+        premiumproductfit_formset.instance = self.object
         if premiumproductfit_formset.is_valid():
             premiumproductfit_formset.save()
+        else:
+            messages.error(self.request, str(premiumproductfit_formset.errors))
 
-        return super(PremiumProductAddView, self).form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class PremiumProductUpdateView(PremiumProductAddView):

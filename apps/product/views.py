@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.db.models import Q
 from django.core.exceptions import ValidationError
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView, CreateView, UpdateView
 from braces.views import SuperuserRequiredMixin
 from django.views.generic.edit import ProcessFormView, FormView
@@ -58,17 +59,18 @@ class ProductAddView(SuperuserRequiredMixin, CommonContextMixin, CreateView):
         return context
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        context = self.get_context_data()
+        self.object = form.save()
 
-        productanalysis_formset = context['productanalysis_formset']
-        productanalysis_formset.instance = form.instance
+        productanalysis_formset = ProductAnalysisFormSet(self.request.POST, self.request.FILES,
+                                                         prefix='productanalysis_formset', instance=self.object)
+        productanalysis_formset.instance = self.object
+
         if productanalysis_formset.is_valid():
             productanalysis_formset.save()
         else:
             messages.error(self.request, str(productanalysis_formset.errors))
 
-        return super(ProductAddView, self).form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ProductUpdateView(ProductAddView):

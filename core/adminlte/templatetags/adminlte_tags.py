@@ -45,6 +45,11 @@ def render_field_label(obj, field_name):
     else:
         return u''
 
+@register.filter(name='get_field_value')
+def get_field_value(obj, a):
+    if hasattr(obj, a):
+        return get_attr(obj, a)
+    return None
 
 @register.filter(name='render_field_value')
 def render_field_value(obj, a):

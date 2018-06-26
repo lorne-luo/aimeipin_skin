@@ -1,0 +1,9 @@
+{% if field %}
+    <a href="{{ field.url }}" target="_blank">
+        <img id="thumbnail-{{ field_name }}" style="height:240px" src="{{ field.thumbnail.url }}"/>
+    </a>
+    <div>
+        <a style="margin-left: 30px" href="javascript:rotate_thumbnail({{ object.pk }},'left','{{ field_name }}');"><i class="fa fa-2x fa-undo"></i></a>
+        <a style="margin-left: 30px" href="javascript:rotate_thumbnail({{ object.pk }},'right','{{ field_name }}');"><i class="fa fa-2x fa-repeat"></i></a>
+    </div>
+{% endif %}

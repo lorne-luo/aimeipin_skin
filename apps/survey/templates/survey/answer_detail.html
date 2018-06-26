@@ -15,25 +15,57 @@
                     <tr>
                         <th>{{ object|render_field_label:field }}</th>
                     </tr>
-
-                    {% if field|startswith:"question" %}
-                        <tr>
+                    <tr>
+                        {% if field|startswith:"question" %}
                             <td>{{ form|selected_choice:field }}</td>
-                        </tr>
-                    {% else %}
-                        {% if field|startswith:"cosmetic_products" %}
-                            <tr>
-                                <td>{{ object|render_products:field|safe }}</td>
-                            </tr>
                         {% else %}
-                            <tr>
-                                <td>{{ object|render_field_value:field|safe }}</td>
-                            </tr>
+                            {% if field|startswith:"cosmetic_products" %}
+                                <td>{{ object|render_products:field|safe }}</td>
+                            {% else %}
+                                {% if field in 'cosmetics,portrait_part,portrait' %}
+                                    <td>
+                                        {#                                        {{ object|get_field_value:field }}#}
+                                        {% include 'survey/includes/rotatable_thumbnail.html' with object=object field=object|get_field_value:field field_name=field %}
+                                    </td>
+                                {% else %}
+                                    <td>{{ object|render_field_value:field|safe }}</td>
+                                {% endif %}
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
-
+                    </tr>
                 {% endif %}
             {% endfor %}
         </table>
     </div>
+{% endblock %}
+
+{% block footer_page_script %}
+    <script>
+        function rotate_thumbnail(pk, direction, field_name) {
+            var url = "/api/survey/answer/rotate/" + pk + "/";
+            console.log(direction);
+            console.log(field_name);
+            console.log(pk);
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {'direction': direction, 'field_name': field_name},
+                dataType: 'json',
+                cache: false,
+                success: function (response) {
+                    var img = $("#thumbnail-" + field_name);
+                    console.log(img);
+                    console.log(img.attr('src'));
+                    img.attr('src', img.attr('src') + '?' + Math.random());
+                    console.log(response)
+                },
+                error: function (response) {
+
+                }
+            });
+
+            return false;
+        }
+    </script>
 {% endblock %}

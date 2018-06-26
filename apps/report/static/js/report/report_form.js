@@ -15,29 +15,26 @@ jQuery(document).ready(function ($) {
     });
 
     $('.premiumproduct-skin_type').focus(function () {
-        premiumProductSearch(this);
-    }).blur(function () {
-        $(this).closest('table').next().addClass('hide');
+        // premiumProductSearch(this);
     }).on('change', function () {
         premiumProductSearch(this);
+        $(this).closest('table').find('.premiumproduct-name').focus();
         $(this).closest('table').next().removeClass('hide');
     });
 
     $('.premiumproduct-purpose').focus(function () {
-        premiumProductSearch(this);
-    }).blur(function () {
-        $(this).closest('table').next().addClass('hide');
+        // premiumProductSearch(this);
     }).on('change', function () {
         premiumProductSearch(this);
+        $(this).closest('table').find('.premiumproduct-name').focus();
         $(this).closest('table').next().removeClass('hide');
     });
 
     $('.premiumproduct-category').focus(function () {
-        premiumProductSearch(this);
-    }).blur(function () {
-        $(this).closest('table').next().addClass('hide');
+        // premiumProductSearch(this);
     }).on('change', function () {
         premiumProductSearch(this);
+        $(this).closest('table').find('.premiumproduct-name').focus();
         $(this).closest('table').next().removeClass('hide');
     });
 
@@ -50,6 +47,10 @@ function premiumProductSearch(event) {
     var category = $(event).closest('table').find('#id_premiumproduct_select-category').val();
     var ul = $(event).closest('table').next();
 
+    if (search === ul.data("search") && skin_type === ul.data("skin_type") && purpose === ul.data("purpose") && category === ul.data("category")) {
+        return;
+    }
+
     data = {};
     if (skin_type !== '------') {
         data['skin_type'] = skin_type;
@@ -61,8 +62,8 @@ function premiumProductSearch(event) {
         data['category'] = category;
     }
 
-    console.log(JSON.stringify(data));
-
+    // console.log(JSON.stringify(data));
+    ul.removeClass('hide');
     $.ajax({
         url: "/api/premium_product/premium_product/search/",
         type: "GET",
@@ -84,6 +85,10 @@ function premiumProductSearch(event) {
 
             }
             ul.html(productOptions);
+            ul.data("search", search);
+            ul.data("skin_type", skin_type);
+            ul.data("purpose", purpose);
+            ul.data("category", category);
         },
         error: function () {
             productOptions = '';
@@ -94,10 +99,10 @@ function premiumProductSearch(event) {
 function productClick(event) {
     var name = $(event).text();
     var id = $(event).attr('data-id');
-    console.log(name);
-    console.log(id);
-
+    // console.log(name);
+    // console.log(id);
     var addButton = $(event).closest("div.formset-div").find('.formset-add');
-    console.log(addButton);
+    // console.log(addButton);
     addButton.trigger("click", [id, name]);
+    $(event).closest('ul').addClass('hide');
 }

@@ -84,7 +84,7 @@ class Answer(ResizeUploadedImageModelMixin, QRCodeModel, models.Model):
     ip = models.GenericIPAddressField(_(u'IP'), null=True, blank=True)
 
     # replica of customer basic info
-    name = models.CharField(_(u'1. 您的姓名'), max_length=255, null=True, blank=True, help_text='提示：请填写您下单时登记的姓名')
+    name = models.CharField(_(u'1. 您的姓名'), max_length=255, null=True, blank=True, help_text='提示：修改姓名请联系客服')
     sex = models.CharField(_(u'2. 您的性别'), choices=SEX_CHOICES, max_length=30, null=True, blank=True, help_text='')
     portrait = StdImageField(_('3. 无PS、无滤镜、清晰纯素颜照片一张'), upload_to=UploadToClassNameDir(), blank=True, null=True,
                              variations={

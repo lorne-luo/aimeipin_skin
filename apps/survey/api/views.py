@@ -20,7 +20,7 @@ class AnswerViewSet(CommonViewSet):
     queryset = Answer.objects.all()
     serializer_class = serializers.AnswerSerializer
     filter_fields = ['name', 'uuid', 'customer_id']
-    search_fields = ['name', 'uuid', 'customer__openid']
+    search_fields = ['name', 'uuid', 'customer__openid', 'mobile']
 
 
 class InviteCodeViewSet(CommonViewSet):

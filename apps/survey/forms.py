@@ -24,11 +24,11 @@ class AnswerUpdateForm(AnswerAddForm):
 
 class SurveyFillForm(forms.ModelForm):
     portrait = forms.ImageField(label=_("3. 无PS、无滤镜、清晰纯素颜照片一张"), required=False,
-                           widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
+                                widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
     portrait_part = forms.ImageField(label=_("4. 如需重点关注部位可在此上传无PS、无滤镜、清晰的纯素颜照片"), required=False,
-                           widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
+                                     widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
     cosmetics = forms.ImageField(label=_("5. 现阶段使用护肤品合集"), required=False,
-                           widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
+                                 widget=ThumbnailImageInput({'width': '280px', 'size': 'thumbnail'}))
 
     sex = forms.ChoiceField(choices=SEX_CHOICES, widget=forms.RadioSelect(), label='2. 您的性别')
     monthly_income = forms.ChoiceField(choices=INCOME_CHOICES, widget=forms.RadioSelect(), label='9. 月收入水平')
@@ -335,6 +335,7 @@ class SurveyFillForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(SurveyFillForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs['readonly'] = True
         for field_name in self.fields:
             field = self.fields[field_name]
             if field_name not in self.optional_fields:

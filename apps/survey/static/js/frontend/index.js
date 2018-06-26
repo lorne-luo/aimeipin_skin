@@ -16,7 +16,7 @@ $(document).ready(function () {
         // console.log('input.blur');
         setTimeout(function () {
             $(self).parent().next().removeClass('active');
-        }, 200);
+        }, 400);
     });
 
     $('.onkeyDownSearch').on('keypress touchend', function (e) {
@@ -41,7 +41,7 @@ $(document).ready(function () {
         var self = this;
         setTimeout(function () {
             $(self).next().removeClass('active');
-        }, 200);
+        }, 400);
     }).on('keydown', function (e) {
         if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
             $(this).trigger('input');

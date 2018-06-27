@@ -49,6 +49,31 @@ class AnswerDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
     form_class = forms.AnswerDetailForm
     template_name = 'survey/answer_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(AnswerDetailView, self).get_context_data(**kwargs)
+        fields = ['name', 'sex', 'portrait', 'portrait_part', 'cosmetics', 'birth', 'height', 'weight', 'job',
+                  'monthly_income', 'weixin_id', 'mobile', 'question1', 'question2', 'question3', 'question4',
+                  'question5', 'question6', 'question7', 'question8', 'question9', 'question10', 'question11',
+                  'question12', 'question13', 'question14', 'question15', 'question16', 'question17', 'question18',
+                  'question19', 'question20', 'question21', 'question22', 'question23', 'question24', 'question25',
+                  'question26', 'question27', 'question28', 'question29', 'question30', 'question31', 'question32',
+                  'question33', 'question34', 'question35', 'question36', 'question37', 'question38',
+                  'non_score_question1', 'non_score_question2', 'non_score_question3', 'non_score_question4',
+                  'non_score_question5', 'non_score_question6', 'non_score_question7', 'non_score_question8',
+                  'non_score_question9', 'non_score_question10', 'non_score_question11', 'non_score_question12',
+                  'non_score_question13', 'non_score_question14', 'non_score_question15', 'cosmetic_products1',
+                  'cosmetic_products2', 'cosmetic_products3', 'cosmetic_products4', 'cosmetic_products5',
+                  'cosmetic_products6', 'cosmetic_products7', 'cosmetic_products8', 'other_question1',
+                  'other_question2']
+        cosmetics_title = {'cosmetic_products1': '51. 日间-洁面', 'cosmetic_products2': '52. 日间-化妆水', 'cosmetic_products3': '53. 日间-精华',
+                           'cosmetic_products4': '54. 日间-乳液或面霜', 'cosmetic_products5': '55.日间-防晒', 'cosmetic_products6': '56. 夜间-卸妆',
+                           'cosmetic_products7': '57. 夜间-洁面', 'cosmetic_products8': '58. 夜间-化妆水'}
+        context.update({
+            'fields': fields,
+            'cosmetics_title': cosmetics_title
+        })
+        return context
+
 
 class SurveyFillView(CommonContextMixin, UpdateView):
     model = Answer

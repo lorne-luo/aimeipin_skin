@@ -8,15 +8,17 @@ from ..models import Answer
 register = template.Library()
 
 
+@register.filter
+def hash(h, key):
+    return h[key]
+
 @register.filter(name='render_products')
 def render_products(obj, field_name):
     items = []
     if hasattr(obj, field_name) or '.' in field_name:
         items = get_attr(obj, field_name)
-        if hasattr(items, 'through'):
-            items = items.all()
-        else:
-            return ''
+        if not len(items):
+            return '无'
 
     return '\n'.join(['<p>%s</p>' % item for item in items])
 

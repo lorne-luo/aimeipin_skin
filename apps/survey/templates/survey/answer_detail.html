@@ -10,10 +10,14 @@
         <p>创建日期: {{ object.created_at|default:"" }}</p>
 
         <table class="table">
-            {% for field in form.fields %}
+            {% for field in fields %}
                 {% if field != 'id' %}
                     <tr>
-                        <th>{{ object|render_field_label:field }}</th>
+                        {% if field|startswith:"cosmetic_products" %}
+                            <th>{{ cosmetics_title|hash:field }}</th>
+                        {% else %}
+                            <th>{{ object|render_field_label:field }}</th>
+                        {% endif %}
                     </tr>
                     <tr>
                         {% if field|startswith:"question" %}

@@ -360,7 +360,7 @@ class AnswerProduct(models.Model):
 
     def save(self, *args, **kwargs):
         if self.product:
-            self.name = str(self.product)
+            self.name = ''
         return super(AnswerProduct, self).save(*args, **kwargs)
 
     def update_analysis(self, force_update=False):

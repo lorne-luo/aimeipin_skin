@@ -75,53 +75,6 @@ class ReportUpdateView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
             return self.template_name % self.object.level
         return 'report/report_form_9.9.html'
 
-    def get_productanalysis_initial(self):
-        initial = []
-        if not self.object.answer:
-            return initial
-
-        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
-                     'name': cosmetic.name,
-                     'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.answerproduct_set.filter(category='卸妆')]
-
-        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
-                     'name': cosmetic.name,
-                     'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.answerproduct_set.filter(category='洁面')]
-
-        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
-                     'name': cosmetic.name,
-                     'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.answerproduct_set.filter(category='化妆')]
-
-        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
-                     'name': cosmetic.name,
-                     'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.answerproduct_set.filter(category='面霜')]
-
-        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
-                     'name': cosmetic.name,
-                     'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.answerproduct_set.filter(category='精华')]
-
-        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
-                     'name': cosmetic.name,
-                     'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.answerproduct_set.filter(category='去角质')]
-
-        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
-                     'name': cosmetic.name,
-                     'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.answerproduct_set.filter(category='面膜')]
-
-        initial += [{'id': cosmetic.id, 'product': cosmetic.product_id,
-                     'name': cosmetic.name,
-                     'analysis': cosmetic.analysis}
-                    for cosmetic in self.object.answer.answerproduct_set.filter(category='防晒')]
-
-        return initial
-
     def get_context_data(self, **kwargs):
         context = super(ReportUpdateView, self).get_context_data(**kwargs)
         PremiumProductFormSet = get_premiumproduct_formset(

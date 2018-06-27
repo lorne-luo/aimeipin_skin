@@ -246,18 +246,18 @@
     }
 
     $(document).ready(function () {
-        console.log('init');
-        if (supports_html5_storage()) {
-            //load in old data
-            loadOld();
-            //start storing
-            window.setInterval(saveData, 5 * 1000);
-            // handle the form
-            $("#form").submit(function () {
-                //could do validation here as well
-                localStorage.clear();
-            });
-        }
+{#        console.log('init');#}
+{#        if (supports_html5_storage()) {#}
+{#            //load in old data#}
+{#            loadOld();#}
+{#            //start storing#}
+{#            window.setInterval(saveData, 10 * 1000);#}
+{#            // handle the form#}
+{#            $("#form").submit(function () {#}
+{#                //could do validation here as well#}
+{#                localStorage.clear();#}
+{#            });#}
+{#        }#}
     });
 </script>
 

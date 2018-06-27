@@ -78,7 +78,7 @@ class AnswerDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
 class SurveyFillView(CommonContextMixin, UpdateView):
     model = Answer
     form_class = forms.SurveyFillForm
-    template_name = 'survey/pc/index.html'
+    template_name = 'survey/answer/index.html'
     code = None  # InviteCode
     uuid = None  # InviteCode
     purpose = None
@@ -263,7 +263,7 @@ class SurveyFillView(CommonContextMixin, UpdateView):
 
 
 class AnswerScoreView(TemplateView):
-    template_name = 'survey/pc/score.html'
+    template_name = 'survey/answer/score.html'
 
     def get_object(self):
         uuid = self.kwargs.get('uuid') or self.request.GET.get('code')

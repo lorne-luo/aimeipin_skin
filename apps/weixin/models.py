@@ -201,7 +201,7 @@ class WxUser(UserProfileMixin, models.Model):
     is_subscribe = models.BooleanField(default=False, blank=False, null=False)  # 用户是否关注公众账号
     nickname = models.CharField(max_length=32, blank=True)
     openid = models.CharField(max_length=64, blank=True)
-    sex = models.CharField(max_length=5, blank=True)
+    sex = models.CharField(max_length=5, blank=True) # 1男 2女 3未知
     province = models.CharField(max_length=32, blank=True)
     city = models.CharField(max_length=32, blank=True)
     country = models.CharField(max_length=32, blank=True)

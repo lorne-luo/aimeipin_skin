@@ -27,8 +27,12 @@
             <span v-if="item.is_subscribe">是</span>
             <span v-else>否</span>
         </td>
-        <td><a href="/survey/answer/list/?search={!! item.openid !!}">[查看问卷]</a></td>
-        <td><a href="/report/report/list/?search={!! item.openid !!}">[查看报告]</a></td>
+        <td>
+            <a v-if="item.answer_count" href="/survey/answer/list/?search={!! item.openid !!}"><label class="btn btn-sm label-success">{!! item.answer_count !!}</label></a>
+        </td>
+        <td>
+            <a v-if="item.report_count" href="/report/report/list/?search={!! item.openid !!}"><label class="btn btn-sm label-success">{!! item.report_count !!}</label></a>
+        </td>
         <td class="text-right hidden-sm hidden-xs">
             <template v-if="detail_url_tag">
                 <a data-toggle="tooltip" data-placement="bottom" data-original-title="View"

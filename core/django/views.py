@@ -46,7 +46,8 @@ class CommonContextMixin(object):
         }
 
         common_dict = {
-            'from_page': self.request.GET.get('from_page'),
+            'from_page': self.request.GET.get('from_page', ''),
+            'search': self.request.GET.get('search', ''),
             'default_dashboard_title': default_dashboard_title,
             'page_title': page_title.title(),
             'page_model': getattr(self, 'model', ''),
@@ -60,18 +61,21 @@ class CommonContextMixin(object):
         return context
 
     def get_success_url(self):
-        from_page = self.request.POST.get('from_page')
+        from_page = self.request.POST.get('from_page', '')
+        search = self.request.POST.get('search', '')
+        search_query = '&search=%s' % search if search else ''
+
         if '_continue' in self.request.POST and self.object:
             url_tag = '%s:%s-update' % (self.app_name, self.model_name)
             url = reverse(url_tag, args=[self.object.id])
-            if from_page:
-                return url + '?from_page=%s' % from_page
+            page_query = 'from_page=%s' % from_page if from_page else ''
+
+            return '%s?%s%s' % (url, page_query, search_query)
         else:
             url_tag = '%s:%s-list' % (self.app_name, self.model_name)
             url = reverse(url_tag)
-            if from_page:
-                return url + '?page=%s' % from_page
-        return url
+            page_query = 'page=%s' % from_page if from_page else ''
+            return '%s?%s%s' % (url, page_query, search_query)
 
 
 class CommonPageViewMixin(object):

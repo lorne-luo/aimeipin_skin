@@ -22,8 +22,8 @@ var CommonListPageVue = Vue.extend({
             currentPage: 1,
             totalPage: 1,
             perPage: 10,
-            search_keyword: undefined,
-            ordering: undefined,
+            search_keyword: '',
+            ordering: '',
             count: 0
         }
     },

@@ -383,6 +383,7 @@ class InviteCodeDetailForm(forms.ModelForm):
 
 
 class AnswerProductInlineForm(forms.ModelForm):
+    # answer fill view
     class Meta:
         model = AnswerProduct
         fields = ['id', 'product', 'name']
@@ -412,6 +413,7 @@ AnswerProductFormSet = inlineformset_factory(Answer, AnswerProduct, form=AnswerP
 
 
 class AnswerProductAnalysisInlineForm(forms.ModelForm):
+    # report edit view
     product = forms.ModelChoiceField(label=u'商品', queryset=Product.objects.all(), required=False,
                                      widget=FormsetModelSelect2(url='api:product-autocomplete',
                                                                 forward=['category'],

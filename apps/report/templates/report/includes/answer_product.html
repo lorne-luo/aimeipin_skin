@@ -25,6 +25,7 @@
     {% endfor %}
     </tbody>
 </table>
+
 <table  id="{{ formset.prefix }}_template" style="display: none">
     {% for form in formset %}
         {% if not form.id.value %}
@@ -44,7 +45,7 @@
 
 <script type="text/javascript">
     $('#{{ formset.prefix }}_table .formset_row').formset({
-        formTemplate: '#{{ formset.prefix }}_template tr',
+        formTemplate: '#{{ formset.prefix }}_template .formset_row',
         addText: '增加一项',
         prefix: '{{ formset.prefix }}',
         addCssClass: 'btn btn-success',

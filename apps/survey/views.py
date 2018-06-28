@@ -65,11 +65,15 @@ class AnswerDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
                   'cosmetic_products2', 'cosmetic_products3', 'cosmetic_products4', 'cosmetic_products5',
                   'cosmetic_products6', 'cosmetic_products7', 'cosmetic_products8', 'other_question1',
                   'other_question2']
-        cosmetics_title = {'cosmetic_products1': '51. 日间-洁面', 'cosmetic_products2': '52. 日间-化妆水',
-                           'cosmetic_products3': '53. 日间-精华',
-                           'cosmetic_products4': '54. 日间-乳液或面霜', 'cosmetic_products5': '55.日间-防晒',
-                           'cosmetic_products6': '56. 夜间-卸妆',
-                           'cosmetic_products7': '57. 夜间-洁面', 'cosmetic_products8': '58. 夜间-化妆水'}
+        cosmetics_title = {'cosmetic_products1': '65. 卸妆类的护肤品名',
+                           'cosmetic_products2': '66. 洁面乳/洁面霜/洁面油类的护肤品名称',
+                           'cosmetic_products3': '67. 化妆水类护肤品名称',
+                           'cosmetic_products4': '68. 乳液／面霜类护肤品名称',
+                           'cosmetic_products5': '69. 精华类的护肤品名称',
+                           'cosmetic_products6': '70. 去角质类的护肤品名称',
+                           'cosmetic_products7': '71. 面膜类的护肤品名称',
+                           'cosmetic_products8': '72. 防晒类的护肤品名称'}
+
         context.update({
             'fields': fields,
             'cosmetics_title': cosmetics_title

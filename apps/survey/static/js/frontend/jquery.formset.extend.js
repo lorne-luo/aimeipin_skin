@@ -10,9 +10,9 @@
  * See: http://www.opensource.org/licenses/bsd-license.php
  */
 ;(function($) {
-    $.fn.formset = function(opts)
+    $.fn.formset3 = function(opts)
     {
-        var options = $.extend({}, $.fn.formset.defaults, opts),
+        var options = $.extend({}, $.fn.formset3.defaults, opts),
             flatExtraClasses = options.extraClasses.join(' '),
             totalForms = $('#id_' + options.prefix + '-TOTAL_FORMS'),
             maxForms = $('#id_' + options.prefix + '-MAX_NUM_FORMS'),
@@ -224,7 +224,7 @@
     };
 
     /* Setup plugin defaults */
-    $.fn.formset.defaults = {
+    $.fn.formset3.defaults = {
         prefix: 'form',                  // The form prefix for your django formset
         formTemplate: null,              // The jQuery selection cloned to generate new form instances
         addText: 'add another',          // Text for the add link

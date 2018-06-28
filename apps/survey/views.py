@@ -65,8 +65,10 @@ class AnswerDetailView(SuperuserRequiredMixin, CommonContextMixin, UpdateView):
                   'cosmetic_products2', 'cosmetic_products3', 'cosmetic_products4', 'cosmetic_products5',
                   'cosmetic_products6', 'cosmetic_products7', 'cosmetic_products8', 'other_question1',
                   'other_question2']
-        cosmetics_title = {'cosmetic_products1': '51. 日间-洁面', 'cosmetic_products2': '52. 日间-化妆水', 'cosmetic_products3': '53. 日间-精华',
-                           'cosmetic_products4': '54. 日间-乳液或面霜', 'cosmetic_products5': '55.日间-防晒', 'cosmetic_products6': '56. 夜间-卸妆',
+        cosmetics_title = {'cosmetic_products1': '51. 日间-洁面', 'cosmetic_products2': '52. 日间-化妆水',
+                           'cosmetic_products3': '53. 日间-精华',
+                           'cosmetic_products4': '54. 日间-乳液或面霜', 'cosmetic_products5': '55.日间-防晒',
+                           'cosmetic_products6': '56. 夜间-卸妆',
                            'cosmetic_products7': '57. 夜间-洁面', 'cosmetic_products8': '58. 夜间-化妆水'}
         context.update({
             'fields': fields,
@@ -171,24 +173,42 @@ class SurveyFillView(CommonContextMixin, UpdateView):
                 cosmetic_products7_formset = AnswerProductFormSet(prefix='cosmetic_products7_formset')
                 cosmetic_products8_formset = AnswerProductFormSet(prefix='cosmetic_products8_formset')
 
-            context.update({
-                'cosmetic_products1_formset': cosmetic_products1_formset,
-                'cosmetic_products2_formset': cosmetic_products2_formset,
-                'cosmetic_products3_formset': cosmetic_products3_formset,
-                'cosmetic_products4_formset': cosmetic_products4_formset,
-                'cosmetic_products5_formset': cosmetic_products5_formset,
-                'cosmetic_products6_formset': cosmetic_products6_formset,
-                'cosmetic_products7_formset': cosmetic_products7_formset,
-                'cosmetic_products8_formset': cosmetic_products8_formset,
-            })
 
-            if self.object and self.object.id and self.object.purpose:
-                self.purpose = self.object.purpose
-            elif self.code and self.code.purpose:
-                self.purpose = self.code.purpose
-            context.update({
-                'purpose': self.purpose
-            })
+        else:
+            cosmetic_products1_formset = AnswerProductFormSet(self.request.POST, self.request.FILES,
+                                                              prefix='cosmetic_products1_formset', instance=self.object)
+            cosmetic_products2_formset = AnswerProductFormSet(self.request.POST, self.request.FILES,
+                                                              prefix='cosmetic_products2_formset', instance=self.object)
+            cosmetic_products3_formset = AnswerProductFormSet(self.request.POST, self.request.FILES,
+                                                              prefix='cosmetic_products3_formset', instance=self.object)
+            cosmetic_products4_formset = AnswerProductFormSet(self.request.POST, self.request.FILES,
+                                                              prefix='cosmetic_products4_formset', instance=self.object)
+            cosmetic_products5_formset = AnswerProductFormSet(self.request.POST, self.request.FILES,
+                                                              prefix='cosmetic_products5_formset', instance=self.object)
+            cosmetic_products6_formset = AnswerProductFormSet(self.request.POST, self.request.FILES,
+                                                              prefix='cosmetic_products6_formset', instance=self.object)
+            cosmetic_products7_formset = AnswerProductFormSet(self.request.POST, self.request.FILES,
+                                                              prefix='cosmetic_products7_formset', instance=self.object)
+            cosmetic_products8_formset = AnswerProductFormSet(self.request.POST, self.request.FILES,
+                                                              prefix='cosmetic_products8_formset', instance=self.object)
+
+        context.update({
+            'cosmetic_products1_formset': cosmetic_products1_formset,
+            'cosmetic_products2_formset': cosmetic_products2_formset,
+            'cosmetic_products3_formset': cosmetic_products3_formset,
+            'cosmetic_products4_formset': cosmetic_products4_formset,
+            'cosmetic_products5_formset': cosmetic_products5_formset,
+            'cosmetic_products6_formset': cosmetic_products6_formset,
+            'cosmetic_products7_formset': cosmetic_products7_formset,
+            'cosmetic_products8_formset': cosmetic_products8_formset,
+        })
+        if self.object and self.object.id and self.object.purpose:
+            self.purpose = self.object.purpose
+        elif self.code and self.code.purpose:
+            self.purpose = self.code.purpose
+        context.update({
+            'purpose': self.purpose
+        })
         return context
 
     def process_formsets(self):

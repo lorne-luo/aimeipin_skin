@@ -1,6 +1,6 @@
-<ul id="{{ number }}">
+<ul>
     <li>
-        <p>{{ label }}</p>
+        <label for="{{ number }}"><b>{{ label }}</b></label>
     </li>
     <li class="hufupin">
         <div>
@@ -10,7 +10,7 @@
             <ul class="hufupin1" cate="12">
             </ul>
 
-            <input type="text" class="span1 half" placeholder="请搜索产品名称" data-category="{{ category }}">
+            <input id="{{ number }}" type="text" class="span1 half" placeholder="请搜索产品名称" data-category="{{ category }}" data-number="{{ number }}">
             <ul class="hufupin2 pin">
             </ul>
         </div>

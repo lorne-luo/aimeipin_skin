@@ -217,6 +217,7 @@ span.required {
     display: none;
     min-width: 364px;
     top: 30px;
+    text-overflow: ellipsis;
 }
 
 #question .hufupin ul.pin.active {
@@ -234,8 +235,6 @@ span.required {
     position: relative;
     left: 5px;
     top: -10px;
-    width: 228px;
-    text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }

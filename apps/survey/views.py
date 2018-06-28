@@ -145,11 +145,11 @@ class SurveyFillView(CommonContextMixin, UpdateView):
                 cosmetic_products3_formset = AnswerProductFormSet(prefix='cosmetic_products3_formset',
                                                                   instance=self.object,
                                                                   queryset=self.object.answerproduct_set.filter(
-                                                                      category='化妆'))
+                                                                      category='化妆水'))
                 cosmetic_products4_formset = AnswerProductFormSet(prefix='cosmetic_products4_formset',
                                                                   instance=self.object,
                                                                   queryset=self.object.answerproduct_set.filter(
-                                                                      category='面霜'))
+                                                                      category='乳液/面霜'))
                 cosmetic_products5_formset = AnswerProductFormSet(prefix='cosmetic_products5_formset',
                                                                   instance=self.object,
                                                                   queryset=self.object.answerproduct_set.filter(

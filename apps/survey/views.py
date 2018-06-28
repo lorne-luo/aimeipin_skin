@@ -23,9 +23,9 @@ class AnswerListView(SuperuserRequiredMixin, CommonContextMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(AnswerListView, self).get_context_data(**kwargs)
-        context['table_titles'] = ['目标', '姓名', u'性别', u'年龄', u'城市', u'微信号', u'手机', '可否修改', '问卷链接', '最后修改', '查看报告', '']
+        context['table_titles'] = ['目标', '姓名', u'性别', u'年龄', u'城市', u'微信号', u'手机', '可否修改', '问卷链接', '创建时间', '查看报告', '']
         context['table_fields'] = ['name', 'purpose', 'sex', 'age', 'city', 'weixin_id', 'mobile',
-                                   'is_changeable_display', 'survey_url', 'modified_at', 'uuid', 'id']
+                                   'is_changeable_display', 'survey_url', 'created_at', 'uuid', 'id']
         return context
 
 

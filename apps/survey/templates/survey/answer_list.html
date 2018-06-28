@@ -37,7 +37,7 @@
                     onclick="copyClipboard(this)">复制链接
             </button>
         </td>
-        <td>{!! item.modified_at !!}</td>
+        <td>{!! item.created_at !!}</td>
         <td>
             <a v-if="item.report_count" href="/report/report/list/?search={!! item.uuid !!}"><label class="btn btn-sm label-success">{!! item.report_count !!}</label></a>
             <a v-else href="#"><label class="btn btn-sm label-danger">{!! item.report_count !!}</label></a>

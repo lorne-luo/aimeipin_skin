@@ -18,7 +18,7 @@ class AnswerSerializer(BaseSerializer):
         fields = ['id', 'edit_url', 'detail_url'] + \
                  ['city', 'name', 'sex', 'portrait', 'portrait_part', 'cosmetics', 'birth', 'height', 'weight', 'job',
                   'monthly_income', 'weixin_id', 'mobile', 'is_changeable', 'status', 'get_status_display',
-                  'survey_url', 'report_add_url', 'age', 'qrcode_url', 'purpose', 'level', 'uuid', 'modified_at',
+                  'survey_url', 'report_add_url', 'age', 'qrcode_url', 'purpose', 'level', 'uuid', 'created_at',
                   'report_count']
         read_only_fields = ['id']
 

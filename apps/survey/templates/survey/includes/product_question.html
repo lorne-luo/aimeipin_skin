@@ -23,7 +23,13 @@
                 {% for form in formset %}
                     {% if form.id.value %}
                         <li class="{% cycle row1 row2 %} formset_row">
-                            <span>{{ form.name.value }}</span>
+                            <span>
+                                {% if form.instance.product %}
+                                    {{ form.instance.product }}
+                                {% else %}
+                                    {{ form.name.value }}
+                                {% endif %}
+                            </span>
                             {{ form.id }}
                             {{ form.product }}
                             {{ form.name }}

@@ -71,7 +71,7 @@ def member_login(request):
             # not have the permission to see the page in ?next
             if old_user == user or not next_page:
                 # Redirect chefs to meals page
-                next_page = reverse('dashboard:home')
+                next_page = reverse('survey:answer-list')
 
             return HttpResponseRedirect(next_page)
         else:

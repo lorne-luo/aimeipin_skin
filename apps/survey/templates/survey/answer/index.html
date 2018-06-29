@@ -251,19 +251,21 @@
         // masked input for birth date
         $('#id_birth').mask("0000-00-00", {placeholder: "____-__-__"});
 
+        {% if not request.user.is_superuser %}
 {#        console.log('init');#}
-        if (supports_html5_storage()) {
-            //load in old data
-            loadOld();
-            //start storing
-            window.setInterval(saveData, 15 * 1000);
-            // handle the form
-            $("#form").submit(function () {
-                //could do validation here as well
-                console.log(localStorage.clear());
-                localStorage.clear();
-            });
-        }
+            if (supports_html5_storage()) {
+                //load in old data
+                loadOld();
+                //start storing
+                window.setInterval(saveData, 15 * 1000);
+                // handle the form
+                $("#form").submit(function () {
+                    //could do validation here as well
+                    console.log(localStorage.clear());
+                    localStorage.clear();
+                });
+            }
+        {% endif %}
     });
 </script>
 

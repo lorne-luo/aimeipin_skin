@@ -1,5 +1,5 @@
 {% extends "adminlte/common_form.html" %}
-{% load static adminlte_tags %}
+{% load static adminlte_tags my_static %}
 
 {% block header_base_script %}
     {{ form.media }}
@@ -238,7 +238,7 @@
 {% block header_page_script %}
     {{ block.super }}
     <script type="text/javascript" src="{% static "js/jquery.formset.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/report/jquery.formset.extend.js" %}?v=2"></script>
+    <script type="text/javascript" src="{% version_static "js/report/jquery.formset.extend.js" %}"></script>
 {% endblock %}
 
 {% block footer_page_script %}

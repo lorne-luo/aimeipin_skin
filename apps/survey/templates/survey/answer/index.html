@@ -1,4 +1,4 @@
-{% load static %}
+{% load static my_static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,17 +15,14 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'adminlte/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+    <script>window.jQuery || document.write('<script src="{% static "plugins/jQuery/jquery-3.2.1.min.js" %}"><\/script>')</script>
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'css/survey/pc.css' %}" rel="stylesheet">
-    <link href="{% static 'adminlte/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% version_static 'css/survey/pc.css' %}" rel="stylesheet">
 
-    <link href="{% static 'plugins/sweetalert/1.1.3/sweetalert.min.css' %}" rel="stylesheet" type="text/css">
-
-    <script type="text/javascript" src="{% static 'plugins/sweetalert/1.1.3/sweetalert.min.js' %}"></script>
 
     <!-- Placed at the end of the document so the pages load faster -->
-    <script>window.jQuery || document.write('<script src="{% static "plugins/jQuery/jquery-3.2.1.min.js" %}"><\/script>')</script>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 {#    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">#}
@@ -195,8 +192,8 @@
 <script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/jquery.mask.min.js' %}"></script>
 
-<script src="{% static 'js/frontend/index.js' %}?v=2"></script>
-<script src="{% static 'js/frontend/jquery.formset.extend.js' %}?v=2"></script>
+<script src="{% version_static 'js/frontend/index.js' %}"></script>
+<script src="{% version_static 'js/frontend/jquery.formset.extend.js' %}"></script>
 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 {#<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>#}

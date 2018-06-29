@@ -1,11 +1,11 @@
 import os
 import base64
 from django import template
+from django.conf import settings
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.templatetags.static import StaticNode
 from django.contrib.staticfiles import finders
 
-from config import settings
 from ..models import Report
 
 register = template.Library()

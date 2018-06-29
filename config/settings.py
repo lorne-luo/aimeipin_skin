@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import environ
-import datetime
+import time
 from django.utils.translation import ugettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -28,6 +28,7 @@ if os.path.exists(env_file):
 
 BASE_URL = env('BASE_URL', default='http://skin.aimeipin.cc')
 
+VERSION = env('AIEMIPIN_VERSION', default=str(int(time.time())))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 

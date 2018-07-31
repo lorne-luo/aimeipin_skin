@@ -84,11 +84,11 @@ $(document).ready(function () {
                     var opt2 = '';
                     for (var i = 0; i < data.results.length; i++) {
                         if (data.results.length > 50) {
-                            opt2 += '<li data-id="' + data.results[i].id + '" onclick="productClick(self)">' +
+                            opt2 += '<li data-id="' + data.results[i].id + '" onclick="productClick(this)">' +
                                 '<span>' + data.results[i].text + '</span>' +
                                 '</li>';
                         } else {
-                            opt2 += '<li data-id="' + data.results[i].id + '" onclick="productClick(self)">' +
+                            opt2 += '<li data-id="' + data.results[i].id + '" onclick="productClick(this)">' +
                                 '<img src="' + data.results[i].image + '">' +
                                 '<span>' + data.results[i].text + '</span>' +
                                 '</li>';

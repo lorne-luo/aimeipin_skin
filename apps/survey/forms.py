@@ -55,10 +55,10 @@ class SurveyFillForm(forms.ModelForm):
                                            (30, 'C. 在春夏秋会'),
                                            (40, 'D. 四季都是如此'),))
     question5 = forms.ChoiceField(widget=forms.RadioSelect(), label='16. 在使用粉底液. BB霜或者隔离霜，但不涂粉饼或散粉的情况下，2~3小时后，你的妆容会？',
-                                  choices=((10, 'A. 花妆泛油'),
-                                           (20, 'B. 微微泛油'),
-                                           (30, 'C. 保持良好妆容'),
-                                           (40, 'D. 卡粉起屑'),
+                                  choices=((10, 'A. 卡粉起屑'),
+                                           (20, 'B. 保持良好妆容'),
+                                           (30, 'C. 微微泛油'),
+                                           (40, 'D. 花妆泛油'),
                                            (25, 'E. 我不用粉底')))
     question6 = forms.ChoiceField(widget=forms.RadioSelect(), label='17. 你的脸部哪些部位有毛孔粗大问题？ ',
                                   choices=((10, 'A. 几乎没有'),
@@ -197,10 +197,10 @@ class SurveyFillForm(forms.ModelForm):
                                             (30, 'C. 有一点，不太明显'),
                                             (40, 'D. 是的，很明显'),))
     question30 = forms.ChoiceField(widget=forms.RadioSelect(), label='41. 你头发的自然色是？',
-                                   choices=((10, 'A. 特黑'),
-                                            (20, 'B. 黑'),
-                                            (30, 'C. 偏棕色'),
-                                            (40, 'D. 偏黄色'),))
+                                   choices=((10, 'A. 偏黄色'),
+                                            (20, 'B. 偏棕色'),
+                                            (30, 'C. 黑'),
+                                            (40, 'D. 特黑'),))
     question31 = forms.ChoiceField(widget=forms.RadioSelect(), label='42. 你的脸上有皱纹吗？',
                                    choices=((10, 'A. 没有，即使笑、皱眉抬眉也都没有'),
                                             (20, 'B. 只有当我笑、皱眉或抬眉时才出现'),
@@ -239,10 +239,10 @@ class SurveyFillForm(forms.ModelForm):
                                             (30, 'C. 空气轻度污染'),
                                             (40, 'D. 空气污染严重'),))
     question38 = forms.ChoiceField(widget=forms.RadioSelect(), label='49. 你的母亲面部皮肤年龄看上去多大？',
-                                   choices=((10, 'A. 比实际年龄小'),
-                                            (20, 'B. 与实际年龄相符'),
-                                            (30, 'C. 比实际年龄大'),
-                                            (40, 'D. 我不记得了'),))
+                                   choices=((10, 'A. 我不记得了'),
+                                            (20, 'B. 比实际年龄小'),
+                                            (30, 'C. 与实际年龄相符'),
+                                            (40, 'D. 比实际年龄大'),))
 
     # 不计分选择题
     non_score_question1 = forms.ChoiceField(widget=forms.RadioSelect(), label='50. 排便是否正常?',

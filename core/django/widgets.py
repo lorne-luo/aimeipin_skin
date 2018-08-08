@@ -43,10 +43,10 @@ class ThumbnailImageInput(forms.ClearableFileInput):
         return context
 
     def get_download_filename(self, value):
-        if isinstance(value, ImageFieldFile) and value.path:
-            return os.path.basename(value.path)
-        elif isinstance(value, InMemoryUploadedFile):
+        if isinstance(value, InMemoryUploadedFile):
             return ''
+        elif value and value.path:
+            return os.path.basename(value.path)
         return ''
 
 

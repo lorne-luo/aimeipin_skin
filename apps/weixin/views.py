@@ -1,6 +1,7 @@
 # coding=utf-8
 import json
 import logging
+import unicodedata
 
 from braces.views import SuperuserRequiredMixin
 from django.contrib.auth import login
@@ -77,7 +78,9 @@ def wx_auth(request):
         wx_user = WxUser.objects.filter(openid=openid).first() or WxUser()
         # update user info
         wx_user.openid = openid
-        wx_user.nickname = userinfo.nickname
+        nickname = userinfo.nickname
+        nickname = ''.join(c for c in unicodedata.normalize('NFC', nickname) if c <= '\uFFFF')  # remove emoji
+        wx_user.nickname = nickname
         wx_user.headimg_url = userinfo.headimgurl
         wx_user.sex = userinfo.sex
         wx_user.province = userinfo.province

@@ -3,6 +3,7 @@ import os
 from django import forms
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models.fields.files import ImageFieldFile
+from stdimage.models import StdImageFieldFile
 
 
 class ThumbnailImageInput(forms.ClearableFileInput):
@@ -43,11 +44,10 @@ class ThumbnailImageInput(forms.ClearableFileInput):
         return context
 
     def get_download_filename(self, value):
-        if isinstance(value, InMemoryUploadedFile):
-            return ''
-        elif value and value.path:
+        if hasattr(value,'path') and value.path:
             return os.path.basename(value.path)
-        return ''
+
+        return 'test.jpg'
 
 
 class IDThumbnailImageInput(ThumbnailImageInput):

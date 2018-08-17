@@ -44,8 +44,11 @@ class ThumbnailImageInput(forms.ClearableFileInput):
         return context
 
     def get_download_filename(self, value):
-        if hasattr(value,'path') and value.path:
-            return os.path.basename(value.path)
+        try:
+            if hasattr(value,'path') and value.path:
+                return os.path.basename(value.path)
+        except:
+            pass
 
         return 'test.jpg'
 
